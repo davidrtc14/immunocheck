@@ -1,0 +1,86 @@
+# Roadmap
+
+## Fase 0 — Fundação
+
+- [x] Repositório local e remoto criados.
+- [x] Branch `develop` criada.
+- [x] Brief, arquitetura, decisões, protocolo e política de privacidade consolidados.
+- [x] `.gitignore`, `.env.example`, pacote Python e teste mínimo criados.
+- [x] Python 3.12 acessível no ambiente de desenvolvimento.
+- [ ] Docker Desktop e Compose acessíveis.
+- [ ] Ollama e Tesseract acessíveis.
+- [x] Ambiente virtual criado e teste mínimo aprovado.
+- [ ] Estratégia de branches confirmada no remoto.
+
+**Aceite:** documentação coerente, nenhum segredo versionado, `pytest` aprovado e
+ferramentas essenciais detectadas.
+
+## Fase 1 — Corte vertical de texto
+
+- [ ] Definir contratos internos da pipeline.
+- [ ] Catalogar 5–10 documentos oficiais piloto.
+- [ ] Extrair, limpar e segmentar o corpus piloto.
+- [ ] Implementar dense retrieval e BM25.
+- [ ] Integrar Qwen3-8B local.
+- [ ] Gerar resposta estruturada com citações válidas.
+- [ ] Implementar abstenção e guardrails médicos.
+- [ ] Testar ponta a ponta inicialmente por linha de comando.
+
+**Aceite:** uma alegação textual percorre toda a pipeline e produz resposta
+rastreável ou abstenção, com testes automatizados.
+
+## Fase 2 — Retrieval e ingestão completos
+
+- [ ] PostgreSQL + pgvector e migrations.
+- [ ] Catálogo e controle de versões do corpus.
+- [ ] Chunking estrutural e metadados de proveniência.
+- [ ] Dense + BM25 + RRF.
+- [ ] Dataset de relevância query–chunk.
+- [ ] Experimento de reranking.
+- [ ] Métricas de retrieval reproduzíveis.
+
+**Aceite:** melhor configuração escolhida exclusivamente a partir do conjunto de
+desenvolvimento, com relatório de métricas e latência.
+
+## Fase 3 — Telegram
+
+- [ ] Adaptador por long polling.
+- [ ] Feedback de processamento em até 2 segundos.
+- [ ] Formatação acessível de veredito e fontes.
+- [ ] Tratamento de erros e indisponibilidade local.
+- [ ] Confirmação de ausência de persistência e logs de conteúdo.
+
+**Aceite:** fluxo de texto funciona no Telegram sem armazenar interações.
+
+## Fase 4 — Imagem e link
+
+- [ ] OCR local com pré-processamento e limiar de qualidade.
+- [ ] Rejeição transparente de OCR insuficiente.
+- [ ] Downloader seguro e proteção contra SSRF.
+- [ ] Extração de HTML e PDF textual.
+- [ ] Limites de tamanho, timeout e redirecionamento testados.
+
+**Aceite:** exemplos válidos de imagem e link percorrem a mesma pipeline de texto;
+entradas inseguras ou ilegíveis são recusadas.
+
+## Fase 5 — Corpus e dataset definitivos
+
+- [ ] 80–150 documentos catalogados e versionados.
+- [ ] Cobertura temática revisada.
+- [ ] 160 alegações como meta; mínimo de 100 documentado.
+- [ ] Segundo anotador em pelo menos 30%.
+- [ ] Teste congelado antes do ajuste final.
+
+**Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
+
+## Fase 6 — Avaliação e entrega
+
+- [ ] Experimentos de retrieval.
+- [ ] Experimentos fim a fim.
+- [ ] Métricas de qualidade, segurança e desempenho.
+- [ ] Bootstrap e análise qualitativa de erros.
+- [ ] Revisão LGPD/ética e consulta institucional quando aplicável.
+- [ ] Documentação de reprodução e roteiro de demonstração.
+
+**Aceite:** resultados reproduzíveis, limitações explícitas e versão estável em
+`main` pronta para apresentação.

@@ -1,0 +1,47 @@
+# Credenciais e configuração local
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE e sistema operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Dados, corpus e artefatos locais
+corpus/raw/
+data/private/
+data/interim/
+models/
+outputs/
+artifacts/
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# Experimentos locais
+runs/
+mlruns/
+notebooks/.ipynb_checkpoints/
+
+# Temporários
+tmp/
+temp/
+*.tmp
