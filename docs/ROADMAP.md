@@ -8,9 +8,9 @@
 - [x] `.gitignore`, `.env.example`, pacote Python e teste mínimo criados.
 - [x] Python 3.12 acessível no ambiente de desenvolvimento.
 - [ ] Docker Desktop e Compose acessíveis.
-- [ ] Ollama e Tesseract acessíveis.
+- [x] Ollama e Tesseract detectados no computador.
 - [x] Ambiente virtual criado e teste mínimo aprovado.
-- [ ] Estratégia de branches confirmada no remoto.
+- [x] Estratégia de branches confirmada no remoto.
 
 **Aceite:** documentação coerente, nenhum segredo versionado, `pytest` aprovado e
 ferramentas essenciais detectadas.
@@ -19,9 +19,10 @@ ferramentas essenciais detectadas.
 
 - [x] Definir contratos internos da pipeline.
 - [x] Implementar orquestrador mínimo com abstenção segura e fontes programáticas.
-- [ ] Catalogar 5–10 documentos oficiais piloto.
-- [ ] Extrair, limpar e segmentar o corpus piloto.
-- [ ] Implementar dense retrieval e BM25.
+- [x] Catalogar 5–10 documentos oficiais piloto.
+- [x] Extrair, limpar e segmentar o corpus piloto.
+- [x] Implementar e validar o baseline BM25.
+- [ ] Implementar dense retrieval.
 - [ ] Integrar Qwen3-8B local.
 - [ ] Gerar resposta estruturada com citações válidas.
 - [ ] Implementar abstenção e guardrails médicos.
