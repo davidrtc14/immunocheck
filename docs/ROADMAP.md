@@ -17,7 +17,8 @@ ferramentas essenciais detectadas.
 
 ## Fase 1 — Corte vertical de texto
 
-- [ ] Definir contratos internos da pipeline.
+- [x] Definir contratos internos da pipeline.
+- [x] Implementar orquestrador mínimo com abstenção segura e fontes programáticas.
 - [ ] Catalogar 5–10 documentos oficiais piloto.
 - [ ] Extrair, limpar e segmentar o corpus piloto.
 - [ ] Implementar dense retrieval e BM25.
