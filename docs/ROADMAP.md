@@ -22,14 +22,16 @@ ferramentas essenciais detectadas.
 - [x] Catalogar 5–10 documentos oficiais piloto.
 - [x] Extrair, limpar e segmentar o corpus piloto.
 - [x] Implementar e validar o baseline BM25.
-- [ ] Implementar dense retrieval.
-- [ ] Integrar Qwen3-8B local.
-- [ ] Gerar resposta estruturada com citações válidas.
-- [ ] Implementar abstenção e guardrails médicos.
-- [ ] Testar ponta a ponta inicialmente por linha de comando.
+- [x] Integrar Qwen3-8B local.
+- [x] Gerar resposta estruturada com citações válidas.
+- [x] Implementar abstenção e guardrails médicos.
+- [x] Testar ponta a ponta inicialmente por linha de comando.
 
 **Aceite:** uma alegação textual percorre toda a pipeline e produz resposta
 rastreável ou abstenção, com testes automatizados.
+
+O dense retrieval permanece na Fase 2, onde será comparado ao baseline BM25 antes
+da adoção do desenho híbrido.
 
 ## Fase 2 — Retrieval e ingestão completos
 

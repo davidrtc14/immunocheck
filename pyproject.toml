@@ -16,6 +16,9 @@ dependencies = [
   "rank-bm25>=0.2.2,<0.3",
 ]
 
+[project.scripts]
+immunocheck = "immunocheck.cli:main"
+
 [project.optional-dependencies]
 dev = [
   "pytest>=8",

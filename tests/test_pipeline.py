@@ -62,13 +62,17 @@ class StubGenerator:
 class StubVerifier:
     report: VerificationReport
     drafts: list[DraftVerdict] = field(default_factory=list)
+    evidence_batches: list[tuple[Evidence, ...]] = field(default_factory=list)
 
     def verify(
         self,
+        claim: ExtractedClaim,
         draft: DraftVerdict,
         evidence: Sequence[Evidence],
     ) -> VerificationReport:
+        del claim
         self.drafts.append(draft)
+        self.evidence_batches.append(tuple(evidence))
         return self.report
 
 
@@ -78,6 +82,7 @@ def build_pipeline(
     evidence: Sequence[Evidence] = (EVIDENCE,),
     source_ids: tuple[str, ...] = ("chunk-1",),
     supported: bool = True,
+    verdict: Verdict = Verdict.SUPPORTED,
 ) -> tuple[FactCheckPipeline, StubRetriever]:
     retriever = StubRetriever(evidence)
     pipeline = FactCheckPipeline(
@@ -86,7 +91,7 @@ def build_pipeline(
         retriever=retriever,
         generator=StubGenerator(
             DraftVerdict(
-                verdict=Verdict.SUPPORTED,
+                verdict=verdict,
                 explanation="A alegação é sustentada pela fonte oficial.",
                 source_ids=source_ids,
             )
@@ -107,6 +112,23 @@ def test_returns_grounded_result_with_programmatic_source() -> None:
     assert result.sources[0].chunk_id == "chunk-1"
 
 
+def test_verifier_receives_only_evidence_cited_by_generator() -> None:
+    other = Evidence(
+        chunk_id="chunk-2",
+        text="Outro trecho recuperado.",
+        source_name="Anvisa",
+        document_title="Outro documento",
+        url="https://example.gov.br/outro",
+    )
+    pipeline, _ = build_pipeline(evidence=(EVIDENCE, other))
+    verifier = pipeline.verifier
+    assert isinstance(verifier, StubVerifier)
+
+    pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
+
+    assert verifier.evidence_batches == [(EVIDENCE,)]
+
+
 def test_abstains_before_retrieval_when_claim_is_missing() -> None:
     pipeline, retriever = build_pipeline(claim=None)
 
@@ -118,6 +140,15 @@ def test_abstains_before_retrieval_when_claim_is_missing() -> None:
 
 def test_abstains_when_retrieval_returns_no_evidence() -> None:
     pipeline, _ = build_pipeline(evidence=())
+
+    result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
+
+    assert result.verdict is Verdict.INSUFFICIENT_EVIDENCE
+    assert result.sources == ()
+
+
+def test_respects_insufficient_verdict_from_generator() -> None:
+    pipeline, _ = build_pipeline(verdict=Verdict.INSUFFICIENT_EVIDENCE, source_ids=())
 
     result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
 

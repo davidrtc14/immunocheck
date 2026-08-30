@@ -31,6 +31,7 @@ class VerdictGenerator(Protocol):
 class FaithfulnessVerifier(Protocol):
     def verify(
         self,
+        claim: ExtractedClaim,
         draft: DraftVerdict,
         evidence: Sequence[Evidence],
     ) -> VerificationReport: ...

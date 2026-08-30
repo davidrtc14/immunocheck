@@ -33,8 +33,26 @@ trabalhos futuros.
 
 ## Estado
 
-O projeto está na Fase 0: fundação, documentação, validação do ambiente e
-definição dos critérios de aceite. Consulte `docs/ROADMAP.md`.
+O corte vertical textual da Fase 1 está funcional: uma alegação percorre extração,
+BM25 sobre o corpus piloto, Qwen3-8B local, validação estruturada, auditoria de
+fidelidade e apresentação de fontes. A próxima fase implementará recuperação densa
+e avaliação de retrieval. Consulte `docs/ROADMAP.md`.
+
+## Executar o protótipo textual
+
+Pré-requisitos locais: Python 3.12, Ollama ativo e o modelo gratuito `qwen3:8b`.
+Os arquivos do corpus são gerados localmente e não são versionados.
+
+```powershell
+python scripts/download_pilot_corpus.py
+python scripts/build_pilot_corpus.py
+ollama pull qwen3:8b
+python -m immunocheck.cli "A alegação sobre vacinação que será verificada"
+```
+
+O primeiro uso após carregar o computador é mais lento porque o modelo precisa ser
+levado à memória. Nenhuma entrada é persistida pelo protótipo nem enviada a uma LLM
+externa.
 
 ## Documentação
 
@@ -44,6 +62,7 @@ definição dos critérios de aceite. Consulte `docs/ROADMAP.md`.
 - `docs/RESEARCH_PROTOCOL.md` — corpus, dataset e avaliação.
 - `docs/PRIVACY_AND_ETHICS.md` — LGPD, ética e direitos humanos.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
+- `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 
 ## Licença
 

@@ -31,6 +31,9 @@ Validação de schema, citações, fidelidade e linguagem médica
 Resposta acessível + fontes verificáveis ou abstenção
 ```
 
+O corte vertical da Fase 1 usa somente BM25 como baseline. Dense retrieval e RRF
+entram na Fase 2 e só serão adotados no caminho final após avaliação reproduzível.
+
 ## Pipeline de ingestão
 
 ```text

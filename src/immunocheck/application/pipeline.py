@@ -10,7 +10,7 @@ from immunocheck.application.ports import (
     VerdictGenerator,
 )
 from immunocheck.domain.input_policy import InputLimits, validate_submission
-from immunocheck.domain.models import ContentSubmission, FactCheckResult, SourceReference
+from immunocheck.domain.models import ContentSubmission, FactCheckResult, SourceReference, Verdict
 
 
 @dataclass(slots=True)
@@ -40,26 +40,28 @@ class FactCheckPipeline:
             )
 
         draft = self.generator.generate(claim, evidence)
+        if draft.verdict is Verdict.INSUFFICIENT_EVIDENCE:
+            return FactCheckResult.insufficient(draft.explanation, claim=claim.text)
+
         evidence_by_id = {item.chunk_id: item for item in evidence}
-        if not draft.source_ids or any(
-            source_id not in evidence_by_id for source_id in draft.source_ids
+        cited_source_ids = tuple(dict.fromkeys(draft.source_ids))
+        if not cited_source_ids or any(
+            source_id not in evidence_by_id for source_id in cited_source_ids
         ):
             return FactCheckResult.insufficient(
                 "A resposta gerada não apresentou fontes válidas e verificáveis.",
                 claim=claim.text,
             )
 
-        verification = self.verifier.verify(draft, evidence)
+        cited_evidence = tuple(evidence_by_id[source_id] for source_id in cited_source_ids)
+        verification = self.verifier.verify(claim, draft, cited_evidence)
         if not verification.all_supported:
             return FactCheckResult.insufficient(
                 "A explicação gerada não foi integralmente sustentada pelas fontes.",
                 claim=claim.text,
             )
 
-        sources = tuple(
-            SourceReference.from_evidence(evidence_by_id[source_id])
-            for source_id in dict.fromkeys(draft.source_ids)
-        )
+        sources = tuple(SourceReference.from_evidence(item) for item in cited_evidence)
         return FactCheckResult(
             verdict=draft.verdict,
             explanation=draft.explanation,
