@@ -38,7 +38,7 @@ da adoção do desenho híbrido.
 - [ ] PostgreSQL + pgvector e migrations.
 - [ ] Catálogo e controle de versões do corpus.
 - [ ] Chunking estrutural e metadados de proveniência.
-- [ ] Dense + BM25 + RRF.
+- [x] Dense + BM25 + RRF.
 - [ ] Dataset de relevância query–chunk.
 - [ ] Experimento de reranking.
 - [ ] Métricas de retrieval reproduzíveis.

@@ -9,6 +9,8 @@ os textos de licença distribuídos por seus autores.
 | Beautiful Soup 4 | Extração de conteúdo HTML | MIT |
 | pypdf | Extração de texto de PDF | BSD-3-Clause |
 | rank-bm25 | Baseline e recuperação lexical BM25 | Apache-2.0 |
+| Sentence Transformers | Inferência local de embeddings | Apache-2.0 |
+| BGE-M3 | Modelo de embeddings multilíngue local | MIT |
 | Ollama (servidor/CLI) | Inferência local | MIT |
 | Qwen3-8B | LLM local | Apache-2.0 |
 | pytest | Testes automatizados | MIT |
