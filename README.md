@@ -35,8 +35,9 @@ trabalhos futuros.
 
 O corte vertical textual da Fase 1 está funcional. Na Fase 2, o índice BGE-M3 local
 e a fusão BM25+dense por RRF já foram implementados. A infraestrutura de avaliação
-também está pronta; o conjunto piloto aguarda anotação humana antes da comparação
-dos métodos. Consulte `docs/ROADMAP.md`.
+também está pronta; 12 consultas piloto foram revisadas e a primeira comparação dos
+métodos foi executada. O reranker melhorou a qualidade no piloto, mas permanece
+condicionado à validação da latência fim a fim. Consulte `docs/ROADMAP.md`.
 
 ## Executar o protótipo textual
 

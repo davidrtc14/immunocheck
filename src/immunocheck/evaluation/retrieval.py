@@ -9,6 +9,10 @@ from enum import StrEnum
 from pathlib import Path
 
 RETRIEVAL_JUDGMENT_SCHEMA_VERSION = 1
+RETRIEVAL_RANKING_DEPTH = 10
+RRF_INPUT_DEPTH = 60
+RRF_RANK_CONSTANT = 60
+ANNOTATION_CANDIDATE_DEPTH = 20
 
 
 class RetrievalEvaluationError(RuntimeError):

@@ -11,6 +11,9 @@ from pathlib import Path
 
 from immunocheck.domain.models import Evidence
 from immunocheck.evaluation.retrieval import (
+    RETRIEVAL_RANKING_DEPTH,
+    RRF_INPUT_DEPTH,
+    RRF_RANK_CONSTANT,
     RetrievalEvaluationError,
     RetrievalJudgment,
     evaluate_rankings,
@@ -28,8 +31,6 @@ MANIFEST_PATH = PROJECT_ROOT / "corpus" / "processed" / "dense_bge_m3.json"
 JUDGMENTS_PATH = PROJECT_ROOT / "evaluation" / "retrieval" / "pilot_judgments.jsonl"
 RUNS_DIR = PROJECT_ROOT / "runs"
 MODEL_CACHE = PROJECT_ROOT / "models"
-RANKING_DEPTH = 10
-FUSION_INPUT_DEPTH = 60
 
 
 def main() -> None:
@@ -54,17 +55,17 @@ def main() -> None:
 
     embedder.encode((judgments[0].query,))
     systems: dict[str, Callable[[str], Sequence[Evidence]]] = {
-        "bm25": lambda query: bm25_index.search(query, top_k=RANKING_DEPTH),
+        "bm25": lambda query: bm25_index.search(query, top_k=RETRIEVAL_RANKING_DEPTH),
         "dense_bge_m3": lambda query: dense_index.search(
-            embedder.encode((query,)), top_k=RANKING_DEPTH
+            embedder.encode((query,)), top_k=RETRIEVAL_RANKING_DEPTH
         ),
         "hybrid_rrf": lambda query: reciprocal_rank_fusion(
             (
-                bm25_index.search(query, top_k=FUSION_INPUT_DEPTH),
-                dense_index.search(embedder.encode((query,)), top_k=FUSION_INPUT_DEPTH),
+                bm25_index.search(query, top_k=RRF_INPUT_DEPTH),
+                dense_index.search(embedder.encode((query,)), top_k=RRF_INPUT_DEPTH),
             ),
-            top_k=RANKING_DEPTH,
-            rank_constant=60,
+            top_k=RETRIEVAL_RANKING_DEPTH,
+            rank_constant=RRF_RANK_CONSTANT,
         ),
     }
 
@@ -80,8 +81,9 @@ def main() -> None:
         "chunk_count": manifest.chunk_count,
         "embedding_model": manifest.model_name,
         "embedding_revision": manifest.model_revision,
-        "ranking_depth": RANKING_DEPTH,
-        "fusion_input_depth": FUSION_INPUT_DEPTH,
+        "ranking_depth": RETRIEVAL_RANKING_DEPTH,
+        "fusion_input_depth": RRF_INPUT_DEPTH,
+        "rrf_rank_constant": RRF_RANK_CONSTANT,
         "systems": results,
     }
     RUNS_DIR.mkdir(parents=True, exist_ok=True)

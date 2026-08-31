@@ -39,9 +39,9 @@ da adoção do desenho híbrido.
 - [ ] Catálogo e controle de versões do corpus.
 - [ ] Chunking estrutural e metadados de proveniência.
 - [x] Dense + BM25 + RRF.
-- [ ] Dataset de relevância query–chunk.
-- [ ] Experimento de reranking.
-- [ ] Métricas de retrieval reproduzíveis.
+- [x] Dataset piloto de relevância query–chunk.
+- [x] Experimento piloto de reranking.
+- [x] Métricas de retrieval reproduzíveis.
 
 **Aceite:** melhor configuração escolhida exclusivamente a partir do conjunto de
 desenvolvimento, com relatório de métricas e latência.

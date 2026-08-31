@@ -3,7 +3,12 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from immunocheck.evaluation.retrieval import load_retrieval_judgments
+from immunocheck.evaluation.retrieval import (
+    ANNOTATION_CANDIDATE_DEPTH,
+    RRF_INPUT_DEPTH,
+    RRF_RANK_CONSTANT,
+    load_retrieval_judgments,
+)
 from immunocheck.retrieval.bm25 import BM25Index
 from immunocheck.retrieval.dense import (
     DenseIndex,
@@ -20,7 +25,6 @@ MANIFEST_PATH = PROJECT_ROOT / "corpus" / "processed" / "dense_bge_m3.json"
 JUDGMENTS_PATH = PROJECT_ROOT / "evaluation" / "retrieval" / "pilot_judgments.jsonl"
 OUTPUT_PATH = PROJECT_ROOT / "artifacts" / "retrieval_annotation_candidates.csv"
 MODEL_CACHE = PROJECT_ROOT / "models"
-CANDIDATE_DEPTH = 20
 
 
 def main() -> None:
@@ -82,22 +86,30 @@ def _write_query_candidates(
     dense_index: DenseIndex,
     embedder: SentenceTransformerEmbedder,
 ) -> None:
-    bm25 = bm25_index.search(query, top_k=CANDIDATE_DEPTH)
-    dense = dense_index.search(embedder.encode((query,)), top_k=CANDIDATE_DEPTH)
+    bm25 = bm25_index.search(query, top_k=RRF_INPUT_DEPTH)
+    dense = dense_index.search(embedder.encode((query,)), top_k=RRF_INPUT_DEPTH)
     hybrid = reciprocal_rank_fusion(
         (bm25, dense),
-        top_k=CANDIDATE_DEPTH,
-        rank_constant=60,
+        top_k=ANNOTATION_CANDIDATE_DEPTH,
+        rank_constant=RRF_RANK_CONSTANT,
     )
     rankings = (bm25, dense, hybrid)
     rank_maps = tuple(
         {item.chunk_id: rank for rank, item in enumerate(ranking, start=1)} for ranking in rankings
     )
-    candidates = {item.chunk_id: item for ranking in rankings for item in ranking}
+    candidates = {
+        item.chunk_id: item
+        for ranking in (
+            bm25[:ANNOTATION_CANDIDATE_DEPTH],
+            dense[:ANNOTATION_CANDIDATE_DEPTH],
+            hybrid,
+        )
+        for item in ranking
+    }
     ordered = sorted(
         candidates.values(),
         key=lambda item: (
-            min(rank_map.get(item.chunk_id, CANDIDATE_DEPTH + 1) for rank_map in rank_maps),
+            min(rank_map.get(item.chunk_id, RRF_INPUT_DEPTH + 1) for rank_map in rank_maps),
             item.chunk_id,
         ),
     )
