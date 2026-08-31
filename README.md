@@ -33,10 +33,10 @@ trabalhos futuros.
 
 ## Estado
 
-O corte vertical textual da Fase 1 está funcional: uma alegação percorre extração,
-BM25 sobre o corpus piloto, Qwen3-8B local, validação estruturada, auditoria de
-fidelidade e apresentação de fontes. A próxima fase implementará recuperação densa
-e avaliação de retrieval. Consulte `docs/ROADMAP.md`.
+O corte vertical textual da Fase 1 está funcional. Na Fase 2, o índice BGE-M3 local
+e a fusão BM25+dense por RRF já foram implementados. A infraestrutura de avaliação
+também está pronta; o conjunto piloto aguarda anotação humana antes da comparação
+dos métodos. Consulte `docs/ROADMAP.md`.
 
 ## Executar o protótipo textual
 
@@ -63,6 +63,8 @@ externa.
 - `docs/PRIVACY_AND_ETHICS.md` — LGPD, ética e direitos humanos.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
+- `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.
+- `evaluation/retrieval/README.md` — protocolo operacional da anotação piloto.
 
 ## Licença
 
