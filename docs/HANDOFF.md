@@ -1,6 +1,6 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 30/08/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 31/08/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
 ## Objetivo imutável
@@ -61,16 +61,17 @@ ollama pull qwen3:8b
 `corpus/raw/`, `corpus/processed/`, modelos e `.venv/` são deliberadamente ignorados
 pelo Git. Não versionar nem registrar conteúdo de usuários.
 
-## Próximo objetivo autorizado
+## Estado da Fase 2
 
-Iniciar a Fase 2 de retrieval e ingestão:
+Concluído:
 
-1. implementar embeddings locais BGE-M3;
-2. comparar dense-only e BM25 usando consultas curadas;
-3. implementar RRF, sem assumir que será melhor;
-4. introduzir PostgreSQL + pgvector e migrations somente quando o desenho de índices
-   e proveniência estiver definido;
-5. produzir métricas reproduzíveis de relevância e latência.
+- BGE-M3 dense, BM25 e RRF;
+- avaliação piloto revisada de retrieval e reranker;
+- métricas reproduzíveis de relevância e latência;
+- manifesto determinístico, proveniência e atualização incremental manual do corpus.
+
+Próxima unidade: PostgreSQL + pgvector, migrations e repositórios baseados no modelo
+documentado em `docs/CORPUS_VERSIONING.md`.
 
 Não iniciar Telegram, OCR, links enviados por usuários, WhatsApp ou vídeo antes de
 concluir essa fase, salvo nova decisão explícita do usuário.

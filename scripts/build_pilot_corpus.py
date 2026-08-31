@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import hashlib
-import json
-from dataclasses import asdict
 from pathlib import Path
 
 from immunocheck.ingestion.catalog import CatalogEntry, load_catalog
-from immunocheck.ingestion.chunker import chunk_document
+from immunocheck.ingestion.corpus_versioning import (
+    CorpusVersioningError,
+    build_corpus_snapshot,
+    load_download_receipts,
+    publish_corpus_snapshot,
+)
 from immunocheck.ingestion.html_extractor import HtmlExtractionError, extract_html
 from immunocheck.ingestion.models import ExtractedDocument
 from immunocheck.ingestion.pdf_extractor import PdfExtractionError, extract_pdf
@@ -18,65 +21,43 @@ PROCESSED_DIR = PROJECT_ROOT / "corpus" / "processed"
 
 
 def main() -> None:
-    entries = {entry.metadata.document_id: entry for entry in load_catalog(CATALOG_PATH)}
-    receipts = json.loads((RAW_DIR / "downloads.json").read_text(encoding="utf-8"))
-    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-
-    report: list[dict[str, object]] = []
-    chunks = []
-    for receipt in receipts:
-        document_id = receipt["document_id"]
-        entry = entries[document_id]
-        path = RAW_DIR / receipt["relative_path"]
-        print(f"Processando {document_id}...")
-        try:
-            _verify_download(path, receipt)
-            document = _extract(path, entry)
-            document_chunks = chunk_document(document)
-            if not document_chunks:
-                raise ValueError("A segmentação não produziu trechos.")
-        except (HtmlExtractionError, PdfExtractionError, OSError, ValueError) as exc:
-            report.append(
-                {
-                    "document_id": document_id,
-                    "status": "failed",
-                    "error": f"{type(exc).__name__}: {exc}",
-                }
-            )
-            print(f"  FALHA: {type(exc).__name__}: {exc}")
-            continue
-
-        chunks.extend(document_chunks)
-        character_count = sum(len(page.text) for page in document.pages)
-        report.append(
-            {
-                "document_id": document_id,
-                "status": "validated",
-                "pages": len(document.pages),
-                "characters": character_count,
-                "chunks": len(document_chunks),
-                "warnings": list(document.extraction_warnings),
-            }
+    try:
+        snapshot = build_corpus_snapshot(
+            load_catalog(CATALOG_PATH),
+            load_download_receipts(RAW_DIR / "downloads.json"),
+            RAW_DIR,
+            _extract,
+            previous_manifest_path=PROCESSED_DIR / "manifest.json",
+            previous_chunks_path=PROCESSED_DIR / "chunks.jsonl",
         )
+        publish_corpus_snapshot(
+            snapshot,
+            chunks_path=PROCESSED_DIR / "chunks.jsonl",
+            report_path=PROCESSED_DIR / "validation_report.json",
+            manifest_path=PROCESSED_DIR / "manifest.json",
+        )
+    except (CorpusVersioningError, HtmlExtractionError, PdfExtractionError) as exc:
+        print(f"FALHA: {type(exc).__name__}: {exc}")
+        raise SystemExit(1) from exc
+
+    for item in snapshot.report:
         print(
-            f"  {len(document.pages)} página(s) | {character_count} caracteres | "
-            f"{len(document_chunks)} trecho(s)"
+            f"{item['document_id']}: {item['action']} | {item['pages']} página(s) | "
+            f"{item['chunks']} trecho(s)"
         )
-
-    with (PROCESSED_DIR / "chunks.jsonl").open("w", encoding="utf-8") as output:
-        for chunk in chunks:
-            output.write(json.dumps(asdict(chunk), ensure_ascii=False) + "\n")
-    (PROCESSED_DIR / "validation_report.json").write_text(
-        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
-    failures = [item for item in report if item["status"] == "failed"]
     print(
-        f"Corpus processado: {len(report) - len(failures)} documento(s), {len(chunks)} trecho(s)."
+        f"Corpus {snapshot.manifest['corpus_version']}: "
+        f"{snapshot.manifest['document_count']} documento(s), "
+        f"{snapshot.manifest['chunk_count']} trecho(s)."
     )
-    if failures:
-        raise SystemExit(1)
+    print(
+        "Mudanças: "
+        f"{len(snapshot.changes.added)} novo(s), "
+        f"{len(snapshot.changes.reprocessed)} reprocessado(s), "
+        f"{len(snapshot.changes.metadata_updated)} metadado(s) atualizado(s), "
+        f"{len(snapshot.changes.reused)} reutilizado(s), "
+        f"{len(snapshot.changes.removed)} removido(s)."
+    )
 
 
 def _extract(path: Path, entry: CatalogEntry) -> ExtractedDocument:
@@ -87,6 +68,7 @@ def _extract(path: Path, entry: CatalogEntry) -> ExtractedDocument:
 
 
 def _verify_download(path: Path, receipt: dict[str, object]) -> None:
+    """Compatibilidade com os testes do primeiro corte vertical."""
     content = path.read_bytes()
     expected_size = receipt["size_bytes"]
     expected_hash = receipt["sha256"]

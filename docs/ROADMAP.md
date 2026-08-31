@@ -36,8 +36,8 @@ da adoção do desenho híbrido.
 ## Fase 2 — Retrieval e ingestão completos
 
 - [ ] PostgreSQL + pgvector e migrations.
-- [ ] Catálogo e controle de versões do corpus.
-- [ ] Chunking estrutural e metadados de proveniência.
+- [x] Catálogo e controle de versões do corpus.
+- [x] Chunking estrutural e metadados de proveniência.
 - [x] Dense + BM25 + RRF.
 - [x] Dataset piloto de relevância query–chunk.
 - [x] Experimento piloto de reranking.

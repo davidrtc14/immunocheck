@@ -117,5 +117,5 @@ pipeline completa com Qwen e confirmar a meta de P95 de até 45 segundos.
 
 ## Próxima ação
 
-Concluir o modelo de persistência, proveniência e atualização incremental antes da
-migração para PostgreSQL + pgvector.
+Implementar migrations e repositórios PostgreSQL + pgvector a partir do manifesto de
+corpus já definido, mantendo a construção local como referência de integridade.

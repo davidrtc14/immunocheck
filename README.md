@@ -37,7 +37,8 @@ O corte vertical textual da Fase 1 está funcional. Na Fase 2, o índice BGE-M3 
 e a fusão BM25+dense por RRF já foram implementados. A infraestrutura de avaliação
 também está pronta; 12 consultas piloto foram revisadas e a primeira comparação dos
 métodos foi executada. O reranker melhorou a qualidade no piloto, mas permanece
-condicionado à validação da latência fim a fim. Consulte `docs/ROADMAP.md`.
+condicionado à validação da latência fim a fim. O corpus agora possui manifesto,
+proveniência e atualização incremental manual. Consulte `docs/ROADMAP.md`.
 
 ## Executar o protótipo textual
 
@@ -65,6 +66,7 @@ externa.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.
+- `docs/CORPUS_VERSIONING.md` — manifesto, proveniência e atualização incremental.
 - `evaluation/retrieval/README.md` — protocolo operacional da anotação piloto.
 
 ## Licença
