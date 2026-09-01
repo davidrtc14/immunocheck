@@ -7,7 +7,7 @@
 - [x] Brief, arquitetura, decisões, protocolo e política de privacidade consolidados.
 - [x] `.gitignore`, `.env.example`, pacote Python e teste mínimo criados.
 - [x] Python 3.12 acessível no ambiente de desenvolvimento.
-- [ ] Docker Desktop e Compose acessíveis.
+- [x] Docker Desktop e Compose acessíveis.
 - [x] Ollama e Tesseract detectados no computador.
 - [x] Ambiente virtual criado e teste mínimo aprovado.
 - [x] Estratégia de branches confirmada no remoto.
@@ -35,7 +35,7 @@ da adoção do desenho híbrido.
 
 ## Fase 2 — Retrieval e ingestão completos
 
-- [ ] PostgreSQL + pgvector e migrations.
+- [x] PostgreSQL + pgvector e migrations.
 - [x] Catálogo e controle de versões do corpus.
 - [x] Chunking estrutural e metadados de proveniência.
 - [x] Dense + BM25 + RRF.

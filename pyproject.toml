@@ -13,6 +13,7 @@ authors = [{ name = "David RTC" }]
 dependencies = [
   "beautifulsoup4>=4.14,<5",
   "pypdf>=6,<7",
+  "psycopg[binary]>=3.3,<4",
   "rank-bm25>=0.2.2,<0.3",
   "sentence-transformers>=6,<7",
 ]

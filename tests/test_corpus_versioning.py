@@ -11,6 +11,7 @@ from immunocheck.ingestion.catalog import CatalogEntry
 from immunocheck.ingestion.corpus_versioning import (
     CorpusVersioningError,
     build_corpus_snapshot,
+    load_published_corpus,
     publish_corpus_snapshot,
 )
 from immunocheck.ingestion.downloader import DownloadReceipt
@@ -211,6 +212,26 @@ def test_tampered_manifest_identity_is_rejected(tmp_path: Path) -> None:
             previous_manifest_path=manifest_path,
             previous_chunks_path=chunks_path,
         )
+
+
+def test_published_corpus_round_trip(tmp_path: Path) -> None:
+    raw_dir = tmp_path / "raw"
+    processed_dir = tmp_path / "processed"
+    raw_dir.mkdir()
+    entry = _entry("doc-a")
+    receipt = _receipt(raw_dir, "doc-a", b"content")
+    snapshot = build_corpus_snapshot((entry,), (receipt,), raw_dir, RecordingExtractor())
+    chunks_path, manifest_path = _publish(snapshot, processed_dir)
+
+    loaded = load_published_corpus(
+        manifest_path=manifest_path,
+        chunks_path=chunks_path,
+        report_path=processed_dir / "validation_report.json",
+    )
+
+    assert loaded.manifest["corpus_version"] == snapshot.manifest["corpus_version"]
+    assert loaded.chunks == snapshot.chunks
+    assert loaded.changes.added == ("doc-a",)
 
 
 def test_validated_document_without_receipt_is_rejected(tmp_path: Path) -> None:

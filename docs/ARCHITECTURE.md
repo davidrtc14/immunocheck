@@ -71,3 +71,8 @@ O caminho online é stateless entre requisições. Estado efêmero necessário d
 uma única análise vive apenas em memória ou em arquivos temporários eliminados ao
 final. PostgreSQL armazena o corpus e dados de experimentos offline, nunca conteúdo
 de usuários reais.
+
+Cada carga no PostgreSQL mantém a versão integral do manifesto. Documentos, chunks e
+embeddings usam chaves compostas com `corpus_version`; somente um snapshot pode ficar
+ativo. O pgvector começa com busca exata por cosseno para preservar recall e a
+reprodutibilidade no tamanho de corpus previsto.

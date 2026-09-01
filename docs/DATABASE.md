@@ -1,0 +1,96 @@
+# PostgreSQL e pgvector
+
+## Papel no sistema
+
+O PostgreSQL persiste somente o corpus documental, sua proveniência e embeddings
+gerados localmente. Mensagens, imagens, URLs enviadas, respostas e identificadores de
+usuários não possuem tabelas no schema.
+
+A configuração de referência usa PostgreSQL 17 e pgvector 0.8.6 na imagem oficial
+`pgvector/pgvector:0.8.6-pg17-bookworm`. PostgreSQL, pgvector e Psycopg são open
+source e não exigem serviço pago ou conta externa.
+
+## Schema
+
+- `corpus_versions`: manifesto integral, hashes, estado e versão ativa;
+- `corpus_documents`: metadados e proveniência por documento e versão;
+- `corpus_chunks`: texto, páginas, hashes, metadados de citação e `tsvector` em
+  português;
+- `chunk_embeddings`: vetor BGE-M3 de 1.024 dimensões, modelo e revisão exatos;
+- `immunocheck_schema_migrations`: histórico e checksum das migrations aplicadas.
+
+Chaves estrangeiras sempre incluem `corpus_version`, impedindo que chunks ou vetores
+de snapshots diferentes sejam misturados. Apenas uma versão pode estar `ACTIVE`.
+
+## Estratégia de busca
+
+O pgvector usa distância de cosseno (`<=>`) e busca exata. HNSW e IVFFlat não entram
+nesta fase: o corpus projetado tem apenas 3 mil a 10 mil chunks e índices aproximados
+trocam recall por velocidade, o que adicionaria outra variável ao experimento. Essa
+decisão deve ser reavaliada com medição, não por preferência.
+
+O `tsvector`/GIN é infraestrutura lexical auxiliar, não substitui o BM25 do experimento
+principal. A comparação já definida continua usando o mesmo tokenizer e os mesmos
+rankings para evitar mudança metodológica silenciosa.
+
+## Inicialização local
+
+Pré-requisito: Docker Desktop com Docker Compose v2 acessível no `PATH`.
+
+```powershell
+Copy-Item .env.example .env
+docker compose up -d postgres
+$env:DATABASE_URL = "postgresql://immunocheck:immunocheck-local-only@localhost:5432/immunocheck"
+.\.venv\Scripts\python.exe scripts\migrate_database.py
+```
+
+O serviço publica a porta somente em `127.0.0.1`. A senha padrão é exclusivamente
+local e deve ser trocada se o banco deixar a máquina de desenvolvimento.
+
+## Publicação de uma versão
+
+Na primeira migração do corpus legado, os chunks e o índice denso precisam ser
+reconstruídos porque o JSONL passa a conter a nova proveniência:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\build_pilot_corpus.py
+.\.venv\Scripts\python.exe scripts\build_dense_index.py
+.\.venv\Scripts\python.exe scripts\import_corpus_database.py
+.\.venv\Scripts\python.exe scripts\import_dense_embeddings.py
+.\.venv\Scripts\python.exe scripts\import_corpus_database.py --activate
+```
+
+A importação do corpus e a troca da versão ativa ocorrem em uma transação. Repetir a
+importação da mesma versão é idempotente; uma versão igual com contagens ou hash
+divergentes é rejeitada. A ativação também é recusada enquanto não existir um conjunto
+completo de embeddings para todos os chunks da versão.
+
+## Migrations
+
+Arquivos em `database/migrations/` são aplicados em ordem contígua. O SHA-256 de cada
+arquivo é registrado; editar uma migration já aplicada interrompe o processo. Novas
+mudanças devem criar `0002_...sql`, `0003_...sql` e assim por diante.
+
+O teste de integração só executa quando uma base exclusiva é fornecida:
+
+```powershell
+$env:IMMUNOCHECK_TEST_DATABASE_URL = $env:DATABASE_URL
+.\.venv\Scripts\python.exe -m pytest tests\test_postgres_integration.py -q
+```
+
+Não aponte esse teste para uma base que contenha dados alheios ao projeto.
+
+## Validação local de referência
+
+Executada em 31/08/2026 no hardware do projeto:
+
+- PostgreSQL 17.11 e pgvector 0.8.6 em Docker Desktop;
+- migration `0001` aplicada e validada pelo teste de integração;
+- versão `sha256:09c6e41299a9450ce9340009e116a68b9f771df9e899540aae17bb209b6b7222`
+  ativada;
+- 7 documentos, 1.914 chunks e 1.914 embeddings de 1.024 dimensões;
+- top 10 de uma consulta de fumaça idêntico entre o índice NumPy local e o pgvector;
+- 22,47 ms para a consulta exata no PostgreSQL já aquecido.
+
+A latência é uma única medição funcional e não substitui o benchmark de pelo menos
+30 execuções previsto no protocolo de pesquisa.

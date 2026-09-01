@@ -282,6 +282,30 @@ def publish_corpus_snapshot(
     )
 
 
+def load_published_corpus(
+    *,
+    manifest_path: Path,
+    chunks_path: Path,
+    report_path: Path | None = None,
+) -> CorpusSnapshot:
+    manifest, chunks = _load_previous_snapshot(manifest_path, chunks_path)
+    if manifest is None:
+        raise CorpusVersioningError("O manifesto publicado está ausente.")
+    report: tuple[dict[str, object], ...] = ()
+    if report_path is not None and report_path.exists():
+        try:
+            raw_report = json.loads(report_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise CorpusVersioningError("O relatório publicado está inválido.") from exc
+        if not isinstance(raw_report, list) or not all(
+            isinstance(item, dict) for item in raw_report
+        ):
+            raise CorpusVersioningError("O relatório publicado está inválido.")
+        report = tuple(raw_report)
+    changes = _parse_manifest_changes(manifest.get("changes"))
+    return CorpusSnapshot(manifest=manifest, chunks=chunks, report=report, changes=changes)
+
+
 def _load_previous_snapshot(
     manifest_path: Path | None,
     chunks_path: Path | None,
@@ -510,6 +534,18 @@ def _manifest_warnings(record: Mapping[str, object], document_id: str) -> tuple[
     if not isinstance(warnings, list) or not all(isinstance(item, str) for item in warnings):
         raise CorpusVersioningError(f"Avisos inválidos no manifesto de {document_id}.")
     return tuple(warnings)
+
+
+def _parse_manifest_changes(value: object) -> CorpusChanges:
+    if not isinstance(value, dict):
+        raise CorpusVersioningError("O resumo de mudanças do manifesto está inválido.")
+    parsed: dict[str, tuple[str, ...]] = {}
+    for field in ("added", "reprocessed", "metadata_updated", "reused", "removed"):
+        items = value.get(field)
+        if not isinstance(items, list) or not all(isinstance(item, str) for item in items):
+            raise CorpusVersioningError("O resumo de mudanças do manifesto está inválido.")
+        parsed[field] = tuple(items)
+    return CorpusChanges(**parsed)
 
 
 def _required_text(item: Mapping[str, object], field: str, index: int) -> str:

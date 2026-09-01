@@ -38,7 +38,9 @@ e a fusão BM25+dense por RRF já foram implementados. A infraestrutura de avali
 também está pronta; 12 consultas piloto foram revisadas e a primeira comparação dos
 métodos foi executada. O reranker melhorou a qualidade no piloto, mas permanece
 condicionado à validação da latência fim a fim. O corpus agora possui manifesto,
-proveniência e atualização incremental manual. Consulte `docs/ROADMAP.md`.
+proveniência e atualização incremental manual. A persistência PostgreSQL+pgvector,
+suas migrations, importação e busca exata foram validadas no Docker local. Consulte
+`docs/ROADMAP.md`.
 
 ## Executar o protótipo textual
 
@@ -67,6 +69,7 @@ externa.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.
 - `docs/CORPUS_VERSIONING.md` — manifesto, proveniência e atualização incremental.
+- `docs/DATABASE.md` — PostgreSQL, pgvector, migrations e publicação do corpus.
 - `evaluation/retrieval/README.md` — protocolo operacional da anotação piloto.
 
 ## Licença

@@ -69,9 +69,12 @@ Concluído:
 - avaliação piloto revisada de retrieval e reranker;
 - métricas reproduzíveis de relevância e latência;
 - manifesto determinístico, proveniência e atualização incremental manual do corpus.
+- PostgreSQL 17.11 e pgvector 0.8.6 validados no Docker Desktop, com 7 documentos,
+  1.914 chunks e 1.914 embeddings na versão ativa do corpus;
+- ranking top 10 idêntico entre índice NumPy e pgvector em consulta de fumaça.
 
-Próxima unidade: PostgreSQL + pgvector, migrations e repositórios baseados no modelo
-documentado em `docs/CORPUS_VERSIONING.md`.
+Próxima fase: implementar o adaptador Telegram por long polling, começando pelo fluxo
+de texto sem persistir mensagens ou identificadores.
 
 Não iniciar Telegram, OCR, links enviados por usuários, WhatsApp ou vídeo antes de
 concluir essa fase, salvo nova decisão explícita do usuário.

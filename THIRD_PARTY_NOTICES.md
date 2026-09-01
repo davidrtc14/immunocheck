@@ -12,6 +12,9 @@ os textos de licença distribuídos por seus autores.
 | Sentence Transformers | Inferência local de embeddings | Apache-2.0 |
 | BGE-M3 | Modelo de embeddings multilíngue local | MIT |
 | BGE reranker v2-m3 | Reranking multilíngue local | Apache-2.0 |
+| PostgreSQL | Banco relacional local | PostgreSQL License |
+| pgvector | Vetores e busca por similaridade no PostgreSQL | PostgreSQL License |
+| Psycopg 3 | Driver PostgreSQL para Python | LGPL-3.0-only |
 | Ollama (servidor/CLI) | Inferência local | MIT |
 | Qwen3-8B | LLM local | Apache-2.0 |
 | pytest | Testes automatizados | MIT |

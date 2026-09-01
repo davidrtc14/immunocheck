@@ -115,7 +115,14 @@ O ganho é relevante para um sistema de saúde, mas a latência aumentou em cerc
 como candidato para a avaliação ampliada, sem ativá-lo como padrão até medir a
 pipeline completa com Qwen e confirmar a meta de P95 de até 45 segundos.
 
-## Próxima ação
+## Fechamento da Fase 2
 
-Implementar migrations e repositórios PostgreSQL + pgvector a partir do manifesto de
-corpus já definido, mantendo a construção local como referência de integridade.
+PostgreSQL 17.11 e pgvector 0.8.6 foram validados no Docker local em 31/08/2026. A
+versão do corpus contém 7 documentos, 1.914 chunks e 1.914 embeddings BGE-M3. Uma
+consulta de fumaça produziu top 10 idêntico no índice NumPy e na busca exata do
+pgvector; a consulta SQL aquecida levou 22,47 ms, valor funcional ainda insuficiente
+para caracterizar um benchmark.
+
+A configuração padrão segue híbrida BM25 + BGE-M3 + RRF. O reranker continua
+disponível como candidato, mas desativado por padrão devido ao custo mediano de cerca
+de 11 segundos observado no piloto. A próxima fase é o adaptador Telegram.
