@@ -14,6 +14,7 @@ class InvalidCatalogError(ValueError):
 @dataclass(frozen=True, slots=True)
 class CatalogEntry:
     metadata: DocumentMetadata
+    primary_theme: str
     access_date: str
     license_status: str
     status: str
@@ -29,6 +30,7 @@ REQUIRED_COLUMNS = {
     "access_date",
     "url",
     "format",
+    "primary_theme",
     "license_status",
     "status",
     "notes",
@@ -36,6 +38,17 @@ REQUIRED_COLUMNS = {
 
 ALLOWED_FORMATS = {"pdf", "html"}
 ALLOWED_STATUSES = {"candidate", "downloaded", "validated", "rejected"}
+ALLOWED_PRIMARY_THEMES = {
+    "normas_e_calendarios",
+    "composicao_e_fabricacao",
+    "eficacia_e_imunogenicidade",
+    "seguranca_e_farmacovigilancia",
+    "contraindicacoes_e_populacoes_especiais",
+    "vacinas_especificas",
+    "epidemiologia_das_doencas",
+    "alegacoes_causais_recorrentes",
+    "comunicacao_equidade_e_etica",
+}
 
 
 def load_catalog(path: Path) -> tuple[CatalogEntry, ...]:
@@ -53,7 +66,15 @@ def load_catalog(path: Path) -> tuple[CatalogEntry, ...]:
 
 
 def _parse_row(row: dict[str, str]) -> CatalogEntry:
-    required_values = ("document_id", "title", "source", "document_type", "url", "format")
+    required_values = (
+        "document_id",
+        "title",
+        "source",
+        "document_type",
+        "url",
+        "format",
+        "primary_theme",
+    )
     empty = [field for field in required_values if not row[field].strip()]
     if empty:
         raise InvalidCatalogError(f"Campos obrigatórios vazios: {', '.join(empty)}")
@@ -61,6 +82,10 @@ def _parse_row(row: dict[str, str]) -> CatalogEntry:
         raise InvalidCatalogError(f"Formato não aceito no catálogo: {row['format']}")
     if row["status"] not in ALLOWED_STATUSES:
         raise InvalidCatalogError(f"Estado não aceito no catálogo: {row['status']}")
+    if row["primary_theme"] not in ALLOWED_PRIMARY_THEMES:
+        raise InvalidCatalogError(
+            f"Tema primário não aceito no catálogo: {row['primary_theme']}"
+        )
 
     return CatalogEntry(
         metadata=DocumentMetadata(
@@ -72,6 +97,7 @@ def _parse_row(row: dict[str, str]) -> CatalogEntry:
             url=row["url"],
             format=row["format"],
         ),
+        primary_theme=row["primary_theme"],
         access_date=row["access_date"],
         license_status=row["license_status"],
         status=row["status"],

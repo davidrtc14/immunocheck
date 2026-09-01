@@ -29,6 +29,7 @@ def _entry(document_id: str, *, title: str = "Documento") -> CatalogEntry:
             url=f"https://example.gov.br/{document_id}.pdf",
             format="pdf",
         ),
+        primary_theme="seguranca_e_farmacovigilancia",
         access_date="2026-08-31",
         license_status="uso institucional a verificar",
         status="validated",
@@ -108,6 +109,8 @@ def test_snapshot_records_provenance_and_has_deterministic_version(tmp_path: Pat
     document = first.manifest["documents"][0]
     assert document["final_url"] == receipt.final_url
     assert document["license_status"] == entry.license_status
+    assert document["primary_theme"] == entry.primary_theme
+    assert first.chunks[0]["primary_theme"] == entry.primary_theme
 
 
 def test_unchanged_document_is_reused_and_metadata_is_refreshed(tmp_path: Path) -> None:

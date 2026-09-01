@@ -1,0 +1,15 @@
+document_id,technical_result,license_result,proposed_decision,human_review,notes
+ms_crie_2023,download_failed,explicit_cc_by_nc_sa_4_0,keep_candidate,pending,TLS do espelho oficial não pôde ser validado; não desabilitar verificação TLS
+ms_rede_frio_2025,passed,explicit_cc_by_nc_sa_4_0,approve,pending,223 páginas; 442752 caracteres; título autoria e conteúdo conferidos
+anvisa_influenza_componentes_2026,passed,cc_by_nd_3_0,approve,pending,2779 caracteres úteis; fonte regulatória; controle antileakage obrigatório
+anvisa_vacinas_nao_experimentais_2026,passed,cc_by_nd_3_0,approve,pending,2005 caracteres úteis; fonte regulatória; controle antileakage obrigatório
+anvisa_pfizer_5_11_ppam_2021,passed,public_access_local_research,approve,pending,57 páginas; 131385 caracteres; não redistribuir arquivo ou chunks
+anvisa_pfizer_6m_4a_ppam_2022,passed,public_access_local_research,approve,pending,20 páginas; 51013 caracteres; não redistribuir arquivo ou chunks
+who_como_vacinas_funcionam,passed,website_extracts_for_research,approve,pending,6683 caracteres úteis; atribuir OMS e URL
+who_fabrico_seguranca_qualidade,passed,website_extracts_for_research,approve,pending,5769 caracteres úteis; atribuir OMS e URL
+who_vaccine_safety_qa_2025,passed,website_extracts_for_research,approve,pending,11532 caracteres úteis; atribuir OMS e URL
+who_thimerosal_autism_review_2025,passed,all_rights_reserved_restrictive,reject,not_required,PDF proíbe revisão resumo reprodução e adaptação sem permissão
+opas_faq_vacinacao,passed,all_rights_reserved,hold,pending,28382 caracteres; confirmar permissão específica antes de indexar
+opas_mitos_hpv,passed,all_rights_reserved,hold,pending,3310 caracteres; confirmar permissão específica antes de indexar
+opas_autismo,passed,all_rights_reserved,hold,pending,8333 caracteres; confirmar permissão específica antes de indexar
+ms_vacinas_autismo_faq,passed,cc_by_nd_3_0,approve,pending,384 caracteres úteis; controle antileakage obrigatório

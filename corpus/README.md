@@ -18,11 +18,14 @@ automaticamente aprovação para o corpus definitivo.
 Os trechos processados também são reproduzíveis, mas ficam fora do Git com os
 arquivos brutos.
 
-Para reproduzir o piloto:
+Para reproduzir o corpus e auditar sua cobertura:
 
-1. execute `python scripts/download_pilot_corpus.py`;
+1. execute `python scripts/download_corpus.py` para baixar candidatos sem apagar
+   recibos anteriores (use `--document-id ID` para um lote explícito);
 2. execute `python scripts/build_pilot_corpus.py`;
-3. consulte `corpus/processed/validation_report.json`.
+3. consulte `corpus/processed/validation_report.json`;
+4. execute `python scripts/audit_corpus_coverage.py` para comparar os documentos
+   validados com as metas temáticas.
 
 Uma indisponibilidade de fonte é registrada sem interromper o download das
 demais. O coletor desta pasta opera somente sobre o catálogo fixo e seus domínios
@@ -39,3 +42,15 @@ por usuários, que exigem controles adicionais contra SSRF.
 
 Esses números validam o corte vertical; não substituem as métricas de relevância
 que serão calculadas com consultas e julgamentos anotados na fase experimental.
+
+## Primeiro lote da Fase 5 em 01/09/2026
+
+O lote 001 adicionou 14 candidatos ao catálogo. Treze foram baixados e tiveram a
+extração técnica conferida; um manual permaneceu candidato por falhas de TLS/HTTP
+nos portais oficiais. Um PDF da OMS foi rejeitado porque a própria obra proíbe
+revisão, resumo e reprodução sem permissão. Três páginas da OPAS permanecem fora
+do índice enquanto sua condição específica de uso estiver incerta.
+
+Os nove documentos restantes aguardam uma única aprovação humana em lote no arquivo
+`corpus/reviews/batch_001.csv`. Materiais de checagem de fatos podem apoiar o corpus,
+mas nenhuma alegação do teste final pode ser derivada deles.

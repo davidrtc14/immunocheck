@@ -2,9 +2,11 @@ import pytest
 
 from immunocheck.ingestion.downloader import (
     DownloadError,
+    DownloadReceipt,
     _read_limited,
     _validate_content,
     _validate_url,
+    merge_receipts,
 )
 
 
@@ -41,6 +43,29 @@ def test_limited_reader_rejects_oversized_content() -> None:
 
     with pytest.raises(DownloadError, match="excede"):
         _read_limited(response, max_bytes=5)
+
+
+def _receipt(document_id: str, sha256: str) -> DownloadReceipt:
+    return DownloadReceipt(
+        document_id=document_id,
+        relative_path=f"{document_id}.pdf",
+        sha256=sha256,
+        size_bytes=1,
+        content_type="application/pdf",
+        source_url=f"https://www.gov.br/{document_id}.pdf",
+        final_url=f"https://www.gov.br/{document_id}.pdf",
+        downloaded_at="2026-09-01T00:00:00+00:00",
+    )
+
+
+def test_merge_receipts_preserves_old_and_replaces_redownloaded() -> None:
+    merged = merge_receipts(
+        (_receipt("doc-b", "old-b"), _receipt("doc-a", "old-a")),
+        (_receipt("doc-b", "new-b"), _receipt("doc-c", "new-c")),
+    )
+
+    assert [receipt.document_id for receipt in merged] == ["doc-a", "doc-b", "doc-c"]
+    assert {receipt.document_id: receipt.sha256 for receipt in merged}["doc-b"] == "new-b"
 
 
 @pytest.mark.parametrize(

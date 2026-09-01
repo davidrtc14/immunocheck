@@ -18,7 +18,7 @@ class DownloadError(RuntimeError):
 
 
 SAFE_DOCUMENT_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,99}$")
-DEFAULT_ALLOWED_DOMAINS = ("gov.br", "paho.org")
+DEFAULT_ALLOWED_DOMAINS = ("gov.br", "paho.org", "who.int")
 
 
 class ReadableResponse(Protocol):
@@ -68,7 +68,9 @@ def download_catalog_entry(
     except DownloadError:
         raise
     except Exception as exc:
-        raise DownloadError(f"Falha ao baixar {entry.metadata.document_id}.") from exc
+        raise DownloadError(
+            f"Falha ao baixar {entry.metadata.document_id}: {type(exc).__name__}: {exc}"
+        ) from exc
 
     extension = ".pdf" if entry.metadata.format == "pdf" else ".html"
     destination_dir.mkdir(parents=True, exist_ok=True)
@@ -95,6 +97,19 @@ def write_receipts(receipts: tuple[DownloadReceipt, ...], path: Path) -> None:
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+
+
+def merge_receipts(
+    existing: tuple[DownloadReceipt, ...],
+    downloaded: tuple[DownloadReceipt, ...],
+) -> tuple[DownloadReceipt, ...]:
+    """Preserva recibos anteriores e substitui apenas documentos baixados novamente."""
+    merged = {receipt.document_id: receipt for receipt in existing}
+    if len(merged) != len(existing):
+        raise DownloadError("Há recibos existentes duplicados.")
+    for receipt in downloaded:
+        merged[receipt.document_id] = receipt
+    return tuple(merged[document_id] for document_id in sorted(merged))
 
 
 def _read_limited(response: ReadableResponse, *, max_bytes: int) -> bytes:

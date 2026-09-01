@@ -64,3 +64,17 @@ por leitura das fontes, nunca pela resposta atual do ImmunoCheck.
 
 Consequentemente, a Fase 5 está em andamento e nenhum item de aceite foi declarado
 concluído.
+
+## Execução do lote documental 001
+
+Em 01/09/2026 foram catalogadas 14 novas fontes oficiais. O coletor incremental
+preservou os recibos existentes e obteve 13 fontes. Nove passaram pela revisão
+técnica de extração e condição de uso e aguardam aprovação humana conjunta; três
+páginas da OPAS ficaram retidas por incerteza de licença; um PDF da OMS foi
+rejeitado por restrição expressa; e o manual CRIE permaneceu candidato após falhas
+seguras de HTTP/TLS. A trilha completa está em `corpus/reviews/batch_001.csv`.
+
+O campo obrigatório `primary_theme` agora é propagado ao manifesto e aos chunks.
+O relatório `corpus/coverage_report.md` é gerado pelo script de auditoria e torna as
+lacunas temáticas mensuráveis. A aprovação do lote não congela o dataset nem permite
+derivar itens de teste das páginas de checagem de fatos.

@@ -14,8 +14,9 @@ from immunocheck.ingestion.chunker import chunk_document
 from immunocheck.ingestion.downloader import DownloadReceipt
 from immunocheck.ingestion.models import ExtractedDocument, TextChunk
 
-CORPUS_MANIFEST_SCHEMA_VERSION = 1
-CHUNK_SCHEMA_VERSION = 1
+CORPUS_MANIFEST_SCHEMA_VERSION = 2
+SUPPORTED_CORPUS_MANIFEST_SCHEMA_VERSIONS = {1, CORPUS_MANIFEST_SCHEMA_VERSION}
+CHUNK_SCHEMA_VERSION = 2
 CHUNKER_VERSION = "1"
 EXTRACTOR_VERSION = "1"
 SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
@@ -318,7 +319,7 @@ def _load_previous_snapshot(
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if not isinstance(manifest, dict):
             raise TypeError
-        if manifest.get("schema_version") != CORPUS_MANIFEST_SCHEMA_VERSION:
+        if manifest.get("schema_version") not in SUPPORTED_CORPUS_MANIFEST_SCHEMA_VERSIONS:
             raise CorpusVersioningError("Versão de schema do manifesto não suportada.")
         chunks_bytes = chunks_path.read_bytes()
         if manifest.get("chunks_sha256") != _sha256(chunks_bytes):
@@ -363,6 +364,7 @@ def _serialize_chunk(
         "chunk_sha256": _sha256(chunk.text.encode("utf-8")),
         "document_sha256": receipt.sha256,
         "document_type": entry.metadata.document_type,
+        "primary_theme": entry.primary_theme,
         "format": entry.metadata.format,
         "access_date": entry.access_date,
         "downloaded_at": receipt.downloaded_at,
@@ -386,6 +388,7 @@ def _refresh_chunk_provenance(
             "schema_version": CHUNK_SCHEMA_VERSION,
             "document_sha256": receipt.sha256,
             "document_type": entry.metadata.document_type,
+            "primary_theme": entry.primary_theme,
             "format": entry.metadata.format,
             "access_date": entry.access_date,
             "downloaded_at": receipt.downloaded_at,
@@ -420,6 +423,7 @@ def _document_record(
         "title": entry.metadata.title,
         "source": entry.metadata.source,
         "document_type": entry.metadata.document_type,
+        "primary_theme": entry.primary_theme,
         "publication_date": entry.metadata.publication_date,
         "access_date": entry.access_date,
         "url": entry.metadata.url,
@@ -479,6 +483,7 @@ def _document_build_key(
 def _metadata_sha256(entry: CatalogEntry, receipt: DownloadReceipt) -> str:
     payload = {
         "metadata": asdict(entry.metadata),
+        "primary_theme": entry.primary_theme,
         "access_date": entry.access_date,
         "license_status": entry.license_status,
         "source_url": receipt.source_url,
