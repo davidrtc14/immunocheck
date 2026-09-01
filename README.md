@@ -56,7 +56,7 @@ Os arquivos do corpus são gerados localmente e não são versionados.
 ```powershell
 python scripts/download_pilot_corpus.py
 python scripts/build_pilot_corpus.py
-python scripts/build_dense_index.py
+python scripts/build_dense_index.py --offline
 ollama pull qwen3:8b
 python -m immunocheck.cli "A alegação sobre vacinação que será verificada"
 ```
@@ -64,6 +64,11 @@ python -m immunocheck.cli "A alegação sobre vacinação que será verificada"
 O primeiro uso após carregar o computador é mais lento porque o modelo precisa ser
 levado à memória. Nenhuma entrada é persistida pelo protótipo nem enviada a uma LLM
 externa.
+
+Após a primeira geração, o índice denso reutiliza embeddings cujo `chunk_id` — e,
+portanto, o hash do texto — não mudou. Use `--full-rebuild` somente quando precisar
+recalcular todos os vetores; `--offline` impede qualquer consulta ao repositório do
+modelo e exige que os pesos já estejam no cache local.
 
 ## Executar pelo Telegram
 

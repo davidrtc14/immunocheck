@@ -88,8 +88,8 @@ serão avaliados formalmente na Fase 6.
 
 **Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
 o validador auditável do dataset fim a fim foram criados. O primeiro lote elevou o
-catálogo para 22 documentos: 7 validados, 12 baixados aguardando decisão humana, 2
-candidatos bloqueados por download/licença e 1 rejeitado por restrição de uso. Nenhum
+catálogo para 22 documentos: 16 validados, 3 baixados retidos por licença, 2
+candidatos bloqueados por download e 1 rejeitado por restrição de uso. Nenhum
 item acima foi marcado como concluído: ainda faltam ampliar e validar o corpus, anotar
 as alegações, executar a segunda revisão e congelar o teste.
 

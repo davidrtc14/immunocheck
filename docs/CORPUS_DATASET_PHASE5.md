@@ -69,7 +69,7 @@ concluído.
 
 Em 01/09/2026 foram catalogadas 14 novas fontes oficiais. O coletor incremental
 preservou os recibos existentes e obteve 13 fontes. Nove passaram pela revisão
-técnica de extração e condição de uso e aguardam aprovação humana conjunta; três
+técnica de extração e condição de uso e foram aprovadas conjuntamente pelo autor; três
 páginas da OPAS ficaram retidas por incerteza de licença; um PDF da OMS foi
 rejeitado por restrição expressa; e o manual CRIE permaneceu candidato após falhas
 seguras de HTTP/TLS. A trilha completa está em `corpus/reviews/batch_001.csv`.
@@ -78,3 +78,16 @@ O campo obrigatório `primary_theme` agora é propagado ao manifesto e aos chunk
 O relatório `corpus/coverage_report.md` é gerado pelo script de auditoria e torna as
 lacunas temáticas mensuráveis. A aprovação do lote não congela o dataset nem permite
 derivar itens de teste das páginas de checagem de fatos.
+
+A publicação resultante possui 16 documentos e 2.675 chunks na versão
+`sha256:9aaa8323aefc9186e22dce3c79cb8ad73b0bda4fe3426c8c101221048dfd7510`.
+O índice BGE-M3 reutilizou 1.914 embeddings com IDs textualmente estáveis e gerou
+761 novos em 381,27 segundos, sempre em CPU e modo offline. Consultas diagnósticas
+colocaram em primeiro lugar a fonte esperada para componentes, autismo, alegação de
+vacinas experimentais e conservação por temperatura. Esses testes são fumaça e não
+substituem o conjunto de avaliação congelado.
+
+Depois da validação do artefato local, os 2.675 embeddings foram importados e a nova
+versão foi ativada no PostgreSQL. O ranking denso top 10 do pgvector coincidiu
+exatamente com o índice NumPy local na consulta de fumaça sobre chumbo na vacina
+contra gripe.

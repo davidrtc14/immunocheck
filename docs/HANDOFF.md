@@ -17,9 +17,9 @@ uso acadêmico. LGPD, ética em IA e direitos humanos fazem parte do desenho.
 - V1 recebe texto, imagem predominantemente textual e link; vídeo é trabalho futuro.
 - Produção não persiste mensagens, imagens, URLs, respostas ou IDs de usuários.
 - Qwen3-8B local como LLM principal; nenhuma LLM externa recebe conteúdo de usuário.
-- BGE-M3 + BM25 + RRF é a hipótese para a Fase 2; reranker só entra se o experimento
+- BGE-M3 + BM25 + RRF é o retrieval adotado; reranker só entra se o experimento
   provar ganho útil.
-- PostgreSQL + pgvector será introduzido na Fase 2.
+- PostgreSQL + pgvector persiste apenas corpus e embeddings; interações não têm tabelas.
 - Quatro vereditos: `SUPPORTED`, `REFUTED`, `MISLEADING` e `INSUFFICIENT_EVIDENCE`.
 - Não oferecer diagnóstico, dosagem ou recomendação médica individual.
 
@@ -55,6 +55,7 @@ Se os artefatos locais não existirem, execute primeiro:
 ```powershell
 .\.venv\Scripts\python.exe scripts\download_pilot_corpus.py
 .\.venv\Scripts\python.exe scripts\build_pilot_corpus.py
+.\.venv\Scripts\python.exe scripts\build_dense_index.py --offline
 ollama pull qwen3:8b
 ```
 
@@ -94,6 +95,22 @@ referência estão em `docs/MULTIMODAL_PHASE4.md`.
 
 Próxima fase: ampliar e revisar o corpus e o dataset definitivos sem usar interações reais
 do Telegram como dados de pesquisa.
+
+## Estado da Fase 5
+
+O lote documental 001 foi aprovado em 01/09/2026. O catálogo possui 22 entradas e o
+snapshot local publicado possui 16 documentos, 2.675 chunks e versão
+`sha256:9aaa8323aefc9186e22dce3c79cb8ad73b0bda4fe3426c8c101221048dfd7510`.
+O índice BGE-M3 incremental reutilizou 1.914 vetores e calculou 761 em modo offline.
+Consultas de fumaça recuperaram no topo as fontes esperadas para componentes, autismo,
+vacinas experimentais e rede de frio; duas alegações atômicas também foram refutadas
+corretamente pela pipeline completa.
+
+O snapshot e os 2.675 embeddings foram importados no PostgreSQL e a nova versão foi
+ativada somente após a verificação de completude. O ranking denso top 10 do pgvector
+foi idêntico ao índice NumPy local na consulta de fumaça sobre chumbo na vacina contra
+gripe. A Fase 5 continua aberta: faltam 64 documentos para o mínimo temático, o dataset
+de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
 

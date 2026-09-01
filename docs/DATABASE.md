@@ -54,7 +54,7 @@ reconstruídos porque o JSONL passa a conter a nova proveniência:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\build_pilot_corpus.py
-.\.venv\Scripts\python.exe scripts\build_dense_index.py
+.\.venv\Scripts\python.exe scripts\build_dense_index.py --offline
 .\.venv\Scripts\python.exe scripts\import_corpus_database.py
 .\.venv\Scripts\python.exe scripts\import_dense_embeddings.py
 .\.venv\Scripts\python.exe scripts\import_corpus_database.py --activate
@@ -64,6 +64,11 @@ A importação do corpus e a troca da versão ativa ocorrem em uma transação. 
 importação da mesma versão é idempotente; uma versão igual com contagens ou hash
 divergentes é rejeitada. A ativação também é recusada enquanto não existir um conjunto
 completo de embeddings para todos os chunks da versão.
+
+O construtor denso é incremental: vetores anteriores só são reutilizados quando o
+modelo e a revisão coincidem e o `chunk_id` permanece igual. Como o ID contém o hash
+do texto, qualquer alteração textual força novo embedding. `--full-rebuild` oferece a
+reconstrução integral de controle.
 
 ## Migrations
 
@@ -94,3 +99,12 @@ Executada em 31/08/2026 no hardware do projeto:
 
 A latência é uma única medição funcional e não substitui o benchmark de pelo menos
 30 execuções previsto no protocolo de pesquisa.
+
+## Atualização do lote 001 da Fase 5
+
+Em 01/09/2026, a versão
+`sha256:9aaa8323aefc9186e22dce3c79cb8ad73b0bda4fe3426c8c101221048dfd7510`
+foi importada e ativada com 16 documentos, 2.675 chunks e 2.675 embeddings. O ranking
+denso top 10 de uma consulta sobre chumbo na vacina contra gripe foi idêntico entre o
+índice NumPy local e o pgvector. Essa é uma verificação funcional única; as medições
+distribucionais continuam reservadas para a Fase 6.

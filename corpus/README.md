@@ -51,6 +51,8 @@ nos portais oficiais. Um PDF da OMS foi rejeitado porque a própria obra proíbe
 revisão, resumo e reprodução sem permissão. Três páginas da OPAS permanecem fora
 do índice enquanto sua condição específica de uso estiver incerta.
 
-Os nove documentos restantes aguardam uma única aprovação humana em lote no arquivo
-`corpus/reviews/batch_001.csv`. Materiais de checagem de fatos podem apoiar o corpus,
-mas nenhuma alegação do teste final pode ser derivada deles.
+Os nove documentos recomendados foram aprovados conjuntamente pelo autor do projeto
+e publicados no corpus local: a versão passou a ter 16 documentos e 2.675 chunks.
+A trilha de decisão está em `corpus/reviews/batch_001.csv`. Materiais de checagem de
+fatos podem apoiar o corpus, mas nenhuma alegação do teste final pode ser derivada
+deles.

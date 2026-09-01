@@ -24,4 +24,9 @@ def connect_database(database_url: str | None = None) -> Any:
         raise DatabaseConfigurationError(
             "Psycopg não está instalado. Reinstale o projeto com suas dependências."
         ) from exc
-    return psycopg.connect(database_url or database_url_from_env(), autocommit=True)
+    try:
+        return psycopg.connect(database_url or database_url_from_env(), autocommit=True)
+    except psycopg.Error as exc:
+        raise DatabaseConfigurationError(
+            "Não foi possível conectar ao PostgreSQL local. Verifique se o serviço está ativo."
+        ) from exc

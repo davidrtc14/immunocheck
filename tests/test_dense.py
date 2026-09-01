@@ -14,6 +14,7 @@ from immunocheck.retrieval.dense import (
     DenseIndexError,
     DenseRetriever,
     load_dense_index,
+    load_reusable_dense_vectors,
     save_dense_index,
 )
 
@@ -90,6 +91,14 @@ def test_dense_artifact_round_trip_and_corpus_hash_validation(tmp_path: Path) ->
 
     assert loaded.chunk_ids == ("hpv", "influenza", "covid")
     assert manifest.dimension == 3
+
+    reusable, reusable_manifest = load_reusable_dense_vectors(
+        vectors_path=vectors_path,
+        manifest_path=manifest_path,
+    )
+    assert set(reusable) == {"hpv", "influenza", "covid"}
+    assert reusable_manifest.corpus_sha256 == manifest.corpus_sha256
+    assert np.array_equal(reusable["hpv"], np.asarray([1.0, 0.0, 0.0]))
 
     corpus.write_text('{"chunk_id":"changed"}\n', encoding="utf-8")
     with pytest.raises(DenseIndexError, match="corpus mudou"):

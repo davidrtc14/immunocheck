@@ -229,6 +229,52 @@ def load_dense_index(
     expected_model_name: str = BGE_M3_MODEL,
     expected_model_revision: str = BGE_M3_REVISION,
 ) -> tuple[DenseIndex, DenseIndexManifest]:
+    vectors, chunk_ids, manifest = _load_dense_artifact(
+        vectors_path=vectors_path,
+        manifest_path=manifest_path,
+        expected_model_name=expected_model_name,
+        expected_model_revision=expected_model_revision,
+    )
+    if manifest.corpus_sha256 != _sha256_file(corpus_path):
+        raise DenseIndexError("O corpus mudou depois da geração do índice denso.")
+
+    evidence_by_id = {item.chunk_id: item for item in evidence}
+    if len(evidence_by_id) != len(evidence):
+        raise DenseIndexError("As evidências contêm chunk_id duplicado.")
+    try:
+        ordered_evidence = tuple(evidence_by_id[chunk_id] for chunk_id in chunk_ids)
+    except KeyError as exc:
+        raise DenseIndexError("O índice referencia um trecho ausente do corpus.") from exc
+    return DenseIndex(ordered_evidence, vectors), manifest
+
+
+def load_reusable_dense_vectors(
+    *,
+    vectors_path: Path,
+    manifest_path: Path,
+    expected_model_name: str = BGE_M3_MODEL,
+    expected_model_revision: str = BGE_M3_REVISION,
+) -> tuple[dict[str, NDArray[np.float32]], DenseIndexManifest]:
+    """Carrega vetores reutilizáveis; o chunk_id contém o hash do texto do trecho."""
+    vectors, chunk_ids, manifest = _load_dense_artifact(
+        vectors_path=vectors_path,
+        manifest_path=manifest_path,
+        expected_model_name=expected_model_name,
+        expected_model_revision=expected_model_revision,
+    )
+    return (
+        {chunk_id: vectors[index].copy() for index, chunk_id in enumerate(chunk_ids)},
+        manifest,
+    )
+
+
+def _load_dense_artifact(
+    *,
+    vectors_path: Path,
+    manifest_path: Path,
+    expected_model_name: str,
+    expected_model_revision: str,
+) -> tuple[NDArray[np.float32], tuple[str, ...], DenseIndexManifest]:
     try:
         manifest_data = json.loads(manifest_path.read_text(encoding="utf-8"))
         manifest = DenseIndexManifest(**manifest_data)
@@ -247,20 +293,12 @@ def load_dense_index(
         raise DenseIndexError("O índice foi gerado com outro modelo ou revisão.")
     if not manifest.normalized:
         raise DenseIndexError("O índice denso precisa conter vetores normalizados.")
-    if manifest.corpus_sha256 != _sha256_file(corpus_path):
-        raise DenseIndexError("O corpus mudou depois da geração do índice denso.")
     _validate_matrix(vectors, expected_rows=len(chunk_ids))
     if manifest.chunk_count != len(chunk_ids) or manifest.dimension != vectors.shape[1]:
         raise DenseIndexError("Manifesto e vetores do índice denso divergem.")
-
-    evidence_by_id = {item.chunk_id: item for item in evidence}
-    if len(evidence_by_id) != len(evidence):
-        raise DenseIndexError("As evidências contêm chunk_id duplicado.")
-    try:
-        ordered_evidence = tuple(evidence_by_id[chunk_id] for chunk_id in chunk_ids)
-    except KeyError as exc:
-        raise DenseIndexError("O índice referencia um trecho ausente do corpus.") from exc
-    return DenseIndex(ordered_evidence, vectors), manifest
+    if len(chunk_ids) != len(set(chunk_ids)):
+        raise DenseIndexError("O artefato denso contém chunk_id duplicado.")
+    return vectors, chunk_ids, manifest
 
 
 def _validate_matrix(array: NDArray[np.float32], *, expected_rows: int) -> None:
