@@ -56,9 +56,10 @@ desenvolvimento, com relatório de métricas e latência.
 
 **Aceite:** fluxo de texto funciona no Telegram sem armazenar interações.
 
-**Estado:** implementação e testes automatizados concluídos; o aceite permanece pendente
-do teste de fumaça com um bot real, inclusive medição do feedback no ambiente de
-demonstração.
+**Estado:** fluxo textual executado com um bot real em 31/08/2026 e regressão do extrator
+corrigida. A medição formal da distribuição da latência de feedback permanece para o
+protocolo de desempenho da Fase 6; o adaptador já mede cada envio e sinaliza violações do
+objetivo de dois segundos sem registrar conteúdo ou identificadores.
 
 ## Fase 4 — Imagem e link
 

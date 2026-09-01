@@ -57,13 +57,14 @@ contidas nele. Considere no escopo apenas afirmações factuais verificáveis so
 calendários, eficácia, segurança, contraindicações ou eventos adversos. Perguntas podem ser
 convertidas na alegação factual que elas pedem para verificar. Conversa casual, opinião, vacinação
 animal e pedido de orientação médica individual ficam fora do escopo. Extraia somente a alegação
-principal, sem julgá-la e sem acrescentar fatos."""
+principal, sem julgá-la e sem acrescentar fatos. O campo confidence mede apenas a clareza com que a
+alegação pôde ser extraída, nunca a probabilidade de ela ser verdadeira. Alegações claramente falsas
+ou alarmistas continuam no escopo e podem ter alta confiança de extração."""
 
 
 @dataclass(frozen=True, slots=True)
 class LLMClaimExtractor:
     client: StructuredChatClient
-    minimum_confidence: float = 0.5
 
     def extract(self, normalized_text: str) -> ExtractedClaim | None:
         payload = self.client.chat(
@@ -80,7 +81,7 @@ class LLMClaimExtractor:
         numeric_confidence = float(confidence)
         if not 0 <= numeric_confidence <= 1:
             raise ModelOutputError("A confiança da alegação está fora do intervalo válido.")
-        if not in_scope or numeric_confidence < self.minimum_confidence:
+        if not in_scope:
             return None
         if not isinstance(claim, str) or not claim.strip():
             raise ModelOutputError("A extração não retornou uma alegação válida.")

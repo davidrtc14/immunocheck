@@ -80,8 +80,10 @@ ajuda e privacidade, a formatação de respostas e o tratamento sanitizado de fa
 implementados. Os testes automatizados confirmam que conteúdo e identificadores não são
 persistidos nem incluídos nos logs de erro.
 
-Pendente para o aceite: criar/configurar um bot real e executar o roteiro de fumaça de
-`docs/TELEGRAM.md`. Não registrar o token ou mensagens reais como evidência.
+O fluxo textual foi executado com um bot real em 31/08/2026. Um falso negativo do extrator
+foi corrigido removendo o uso de autoconfiança não calibrada como barreira anterior ao
+retrieval. A medição formal de latência em múltiplas execuções permanece para a Fase 6.
+Não registrar o token ou mensagens reais como evidência.
 
 Não iniciar Telegram, OCR, links enviados por usuários, WhatsApp ou vídeo antes de
 concluir essa fase, salvo nova decisão explícita do usuário.

@@ -66,3 +66,12 @@ O aceite operacional exige ainda um teste de fumaça com um bot real:
 
 Não usar mensagens reais de participantes como dataset. Qualquer estudo com pessoas depende
 de orientação e aprovação institucional aplicável.
+
+### Execução de referência
+
+Em 31/08/2026, o fluxo textual foi executado com um bot real e entregou feedback e
+resposta final. O ensaio revelou que a autoconfiança não calibrada do extrator podia
+confundir falsidade da alegação com dificuldade de extração. O limiar foi removido, um
+teste de regressão foi adicionado e a mesma alegação curta passou a percorrer retrieval,
+geração, fidelidade e formatação com fontes programáticas. O conteúdo usado no ensaio não
+é persistido no repositório nem tratado como dado de pesquisa.

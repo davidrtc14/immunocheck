@@ -75,6 +75,16 @@ def test_claim_extractor_abstains_outside_scope() -> None:
     assert LLMClaimExtractor(client).extract("Qual é a previsão do tempo?") is None
 
 
+def test_claim_extractor_does_not_treat_low_truth_confidence_as_out_of_scope() -> None:
+    client = ScriptedClient(
+        [{"in_scope": True, "claim": "Vacinas causam a morte de bebês.", "confidence": 0.1}]
+    )
+
+    claim = LLMClaimExtractor(client).extract("vacina mata bebês")
+
+    assert claim == ExtractedClaim("Vacinas causam a morte de bebês.", 0.1)
+
+
 def test_verdict_generator_builds_typed_draft() -> None:
     client = ScriptedClient(
         [
