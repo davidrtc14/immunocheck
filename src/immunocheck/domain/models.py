@@ -32,6 +32,7 @@ class ContentSubmission:
 class ExtractedClaim:
     text: str
     confidence: float
+    multiple_claims_detected: bool = False
 
     def __post_init__(self) -> None:
         if not self.text.strip():
@@ -96,11 +97,21 @@ class FactCheckResult:
     correct_fact: str | None = None
     omitted_or_distorted: str | None = None
     sources: tuple[SourceReference, ...] = field(default_factory=tuple)
+    multiple_claims_detected: bool = False
 
     @classmethod
-    def insufficient(cls, explanation: str, claim: str | None = None) -> FactCheckResult:
+    def insufficient(
+        cls,
+        explanation: str,
+        claim: str | None = None,
+        *,
+        sources: tuple[SourceReference, ...] = (),
+        multiple_claims_detected: bool = False,
+    ) -> FactCheckResult:
         return cls(
             verdict=Verdict.INSUFFICIENT_EVIDENCE,
             explanation=explanation,
             claim=claim,
+            sources=sources,
+            multiple_claims_detected=multiple_claims_detected,
         )

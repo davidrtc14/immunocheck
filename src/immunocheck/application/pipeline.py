@@ -37,31 +37,57 @@ class FactCheckPipeline:
             return FactCheckResult.insufficient(
                 "As fontes disponíveis não fornecem evidência suficiente para concluir.",
                 claim=claim.text,
+                multiple_claims_detected=claim.multiple_claims_detected,
             )
 
         draft = self.generator.generate(claim, evidence)
-        if draft.verdict is Verdict.INSUFFICIENT_EVIDENCE:
-            return FactCheckResult.insufficient(draft.explanation, claim=claim.text)
-
         evidence_by_id = {item.chunk_id: item for item in evidence}
         cited_source_ids = tuple(dict.fromkeys(draft.source_ids))
-        if not cited_source_ids or any(
-            source_id not in evidence_by_id for source_id in cited_source_ids
-        ):
+        if any(source_id not in evidence_by_id for source_id in cited_source_ids):
             return FactCheckResult.insufficient(
                 "A resposta gerada não apresentou fontes válidas e verificáveis.",
                 claim=claim.text,
+                multiple_claims_detected=claim.multiple_claims_detected,
             )
 
         cited_evidence = tuple(evidence_by_id[source_id] for source_id in cited_source_ids)
+        sources = tuple(SourceReference.from_evidence(item) for item in cited_evidence)
+        if draft.verdict is Verdict.INSUFFICIENT_EVIDENCE:
+            if not cited_evidence:
+                return FactCheckResult.insufficient(
+                    draft.explanation,
+                    claim=claim.text,
+                    multiple_claims_detected=claim.multiple_claims_detected,
+                )
+            verification = self.verifier.verify(claim, draft, cited_evidence)
+            explanation = (
+                draft.explanation
+                if verification.all_supported
+                else "As fontes recuperadas não permitem avaliar com segurança todas as partes da alegação."
+            )
+            return FactCheckResult.insufficient(
+                explanation,
+                claim=claim.text,
+                sources=sources,
+                multiple_claims_detected=claim.multiple_claims_detected,
+            )
+
+        if not cited_evidence:
+            return FactCheckResult.insufficient(
+                "A resposta gerada não apresentou fontes válidas e verificáveis.",
+                claim=claim.text,
+                multiple_claims_detected=claim.multiple_claims_detected,
+            )
+
         verification = self.verifier.verify(claim, draft, cited_evidence)
         if not verification.all_supported:
             return FactCheckResult.insufficient(
-                "A explicação gerada não foi integralmente sustentada pelas fontes.",
+                "As fontes recuperadas não permitem avaliar com segurança todas as partes da alegação.",
                 claim=claim.text,
+                sources=sources,
+                multiple_claims_detected=claim.multiple_claims_detected,
             )
 
-        sources = tuple(SourceReference.from_evidence(item) for item in cited_evidence)
         return FactCheckResult(
             verdict=draft.verdict,
             explanation=draft.explanation,
@@ -69,4 +95,5 @@ class FactCheckPipeline:
             correct_fact=draft.correct_fact,
             omitted_or_distorted=draft.omitted_or_distorted,
             sources=sources,
+            multiple_claims_detected=claim.multiple_claims_detected,
         )

@@ -156,6 +156,18 @@ def test_respects_insufficient_verdict_from_generator() -> None:
     assert result.sources == ()
 
 
+def test_insufficient_verdict_preserves_valid_partial_sources() -> None:
+    pipeline, _ = build_pipeline(
+        verdict=Verdict.INSUFFICIENT_EVIDENCE,
+        source_ids=("chunk-1",),
+    )
+
+    result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
+
+    assert result.verdict is Verdict.INSUFFICIENT_EVIDENCE
+    assert result.sources[0].chunk_id == "chunk-1"
+
+
 def test_abstains_when_generator_references_unknown_source() -> None:
     pipeline, _ = build_pipeline(source_ids=("invented-chunk",))
 
@@ -171,4 +183,13 @@ def test_abstains_when_faithfulness_check_fails() -> None:
     result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
 
     assert result.verdict is Verdict.INSUFFICIENT_EVIDENCE
-    assert "não foi integralmente sustentada" in result.explanation
+    assert "todas as partes" in result.explanation
+    assert result.sources[0].chunk_id == "chunk-1"
+
+
+def test_propagates_multiple_claims_notice_to_result() -> None:
+    pipeline, _ = build_pipeline(claim=ExtractedClaim("A vacina é eficaz.", 0.9, True))
+
+    result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="Várias alegações"))
+
+    assert result.multiple_claims_detected is True

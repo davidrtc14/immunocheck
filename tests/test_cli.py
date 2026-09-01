@@ -26,3 +26,24 @@ def test_formats_programmatic_citations_and_fixed_disclaimer() -> None:
     assert "p. 10" in output
     assert "https://www.gov.br/saude/calendario.pdf" in output
     assert MEDICAL_DISCLAIMER in output
+
+
+def test_formats_scope_notice_and_non_conclusive_sources() -> None:
+    result = FactCheckResult.insufficient(
+        "As fontes cobrem somente parte da alegação.",
+        claim="Alegação principal.",
+        sources=(
+            SourceReference(
+                chunk_id="chunk-1",
+                source_name="Ministério da Saúde",
+                document_title="Manual de vacinação",
+                url="https://example.gov.br/manual",
+            ),
+        ),
+        multiple_claims_detected=True,
+    )
+
+    output = format_result(result, elapsed_seconds=2.0)
+
+    assert "ESCOPO: O conteúdo contém múltiplas alegações" in output
+    assert "FONTES CONSULTADAS (não conclusivas):" in output

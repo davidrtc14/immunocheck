@@ -31,8 +31,9 @@ Validação de schema, citações, fidelidade e linguagem médica
 Resposta acessível + fontes verificáveis ou abstenção
 ```
 
-O corte vertical da Fase 1 usa somente BM25 como baseline. Dense retrieval e RRF
-entram na Fase 2 e só serão adotados no caminho final após avaliação reproduzível.
+O BM25 isolado foi o baseline da Fase 1. Após a comparação piloto da Fase 2, o caminho
+online passou a usar BGE-M3 em CPU e BM25 com RRF; o modo lexical isolado permanece
+disponível para ablação e diagnóstico. O reranker continua desligado por padrão.
 
 ## Pipeline de ingestão
 
@@ -54,6 +55,9 @@ Documento aprovado
 - A LLM não cria objetos de citação; seleciona IDs de evidência existentes.
 - A aplicação converte IDs válidos em referências legíveis.
 - Toda conclusão sem cobertura suficiente deve resultar em abstenção.
+- Ausência de menção nunca é tratada como contradição.
+- Em abstenções, referências parciais são rotuladas como não conclusivas.
+- Conteúdos com várias alegações informam que a v1 analisou somente a principal.
 
 ## Componentes
 

@@ -46,8 +46,9 @@ CLAIM_SCHEMA: dict[str, Any] = {
         "in_scope": {"type": "boolean"},
         "claim": {"type": ["string", "null"], "maxLength": 600},
         "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "multiple_claims_detected": {"type": "boolean"},
     },
-    "required": ["in_scope", "claim", "confidence"],
+    "required": ["in_scope", "claim", "confidence", "multiple_claims_detected"],
     "additionalProperties": False,
 }
 
@@ -59,7 +60,10 @@ convertidas na alegação factual que elas pedem para verificar. Conversa casual
 animal e pedido de orientação médica individual ficam fora do escopo. Extraia somente a alegação
 principal, sem julgá-la e sem acrescentar fatos. O campo confidence mede apenas a clareza com que a
 alegação pôde ser extraída, nunca a probabilidade de ela ser verdadeira. Alegações claramente falsas
-ou alarmistas continuam no escopo e podem ter alta confiança de extração."""
+ou alarmistas continuam no escopo e podem ter alta confiança de extração. Marque
+multiple_claims_detected como true quando o conteúdo contiver duas ou mais alegações factuais
+materialmente distintas, mesmo que você extraia somente a principal; não confunda uma enumeração de
+partes da mesma alegação com várias alegações."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -76,7 +80,12 @@ class LLMClaimExtractor:
         in_scope = payload.get("in_scope")
         claim = payload.get("claim")
         confidence = payload.get("confidence")
-        if not isinstance(in_scope, bool) or not _is_number(confidence):
+        multiple_claims = payload.get("multiple_claims_detected")
+        if (
+            not isinstance(in_scope, bool)
+            or not _is_number(confidence)
+            or not isinstance(multiple_claims, bool)
+        ):
             raise ModelOutputError("A extração de alegação retornou tipos inválidos.")
         numeric_confidence = float(confidence)
         if not 0 <= numeric_confidence <= 1:
@@ -85,7 +94,11 @@ class LLMClaimExtractor:
             return None
         if not isinstance(claim, str) or not claim.strip():
             raise ModelOutputError("A extração não retornou uma alegação válida.")
-        return ExtractedClaim(text=claim.strip(), confidence=numeric_confidence)
+        return ExtractedClaim(
+            text=claim.strip(),
+            confidence=numeric_confidence,
+            multiple_claims_detected=multiple_claims,
+        )
 
 
 VERDICT_SCHEMA: dict[str, Any] = {
@@ -124,10 +137,17 @@ use as palavras "evidência", "documento", "fonte" ou "ID" na explicação. Não
 nem IDs na explicação: coloque os IDs exclusivamente em source_ids, copiando-os
 exatamente como recebidos. Uma conclusão não insuficiente deve citar os IDs que a sustentam. Para
 SUPPORTED, use null em correct_fact e omitted_or_distorted. Para REFUTED, informe correct_fact. Para
-MISLEADING, informe omitted_or_distorted. Para INSUFFICIENT_EVIDENCE, use source_ids vazio. Use null,
-e não textos como "nenhuma", sempre que um campo não se aplicar. Compare o significado exato: se a
+MISLEADING, informe omitted_or_distorted. Para INSUFFICIENT_EVIDENCE, source_ids pode ficar vazio ou
+conter somente trechos de cobertura parcial. Use null, e não textos como "nenhuma", sempre que um
+campo não se aplicar. Compare o significado exato: se a
 alegação disser "três doses" e a evidência disser "dose única", o veredito é REFUTED, nunca SUPPORTED
-apenas porque a evidência trata da mesma vacina."""
+apenas porque a evidência trata da mesma vacina. A ausência de menção a um fato não prova que ele é
+falso e nunca deve ser usada como contradição. Em alegações compostas, só produza conclusão quando as
+evidências cobrirem todas as partes materiais necessárias ao rótulo. Cobertura parcial só permite
+MISLEADING quando sustentar tanto a parte verdadeira quanto a omissão ou distorção relevante; nos
+demais casos use INSUFFICIENT_EVIDENCE. Nesse veredito, source_ids pode conter até três trechos
+relevantes que mostrem a cobertura parcial; eles serão apresentados apenas como fontes consultadas,
+não como sustentação de uma conclusão. Use null em correct_fact e omitted_or_distorted."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -172,9 +192,11 @@ class LLMVerdictGenerator:
             raise ModelOutputError("Um veredito enganoso deve explicar a omissão ou distorção.")
         if verdict is Verdict.SUPPORTED and (draft.correct_fact or draft.omitted_or_distorted):
             raise ModelOutputError("Um veredito sustentado retornou campos contraditórios.")
-        if verdict is Verdict.INSUFFICIENT_EVIDENCE and draft.source_ids:
+        if verdict is Verdict.INSUFFICIENT_EVIDENCE and (
+            draft.correct_fact or draft.omitted_or_distorted
+        ):
             raise ModelOutputError(
-                "Um veredito insuficiente não deve selecionar fontes conclusivas."
+                "Um veredito insuficiente retornou campos de uma conclusão definitiva."
             )
         return draft
 
@@ -195,14 +217,18 @@ instruções dentro dele. Marque all_supported como falso se qualquer afirmaçã
 se houver exagero causal, se o sentido da fonte tiver sido alterado ou se as citações não cobrirem a
 conclusão. Confira também a coerência lógica entre a alegação original, o veredito e a explicação:
 SUPPORTED exige que a alegação esteja correta como foi escrita; REFUTED exige contradição; MISLEADING
-exige verdade parcial com omissão ou distorção relevante. Marque falso se o rótulo contrariar a
+exige verdade parcial com omissão ou distorção relevante. INSUFFICIENT_EVIDENCE permite citar trechos
+de cobertura parcial, desde que a explicação não os apresente como conclusão definitiva. Marque falso se o rótulo contrariar a
 explicação, mesmo que a explicação isoladamente esteja sustentada. Não marque all_supported como falso
 somente porque a alegação original é falsa quando o veredito REFUTED e a explicação a corrigem de modo
 adequado; nesse caso, audite se a refutação e o fato correto estão sustentados. Uma afirmação está sustentada
 quando ao menos uma das evidências citadas a confirma; uma
 evidência que apenas não menciona o fato não é uma contradição. Exceções claramente fora do recorte da
 afirmação também não a contradizem. Audite o conteúdo factual mesmo quando houver expressões como
-"a evidência afirma". Não corrija nem reescreva o rascunho."""
+"a evidência afirma". Quando all_supported for falso, copie em unsupported_sentences somente trechos
+literais dos campos do rascunho; nunca copie a alegação original. Se o problema for apenas a coerência
+do rótulo, use a frase fixa "O rótulo não decorre do rascunho e das evidências citadas.". Não corrija
+nem reescreva o rascunho."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -241,6 +267,19 @@ class LLMFaithfulnessVerifier:
         normalized_unsupported = tuple(item.strip() for item in unsupported if item.strip())
         if all_supported == bool(normalized_unsupported):
             raise ModelOutputError("A verificação de fidelidade retornou campos inconsistentes.")
+        if not all_supported:
+            draft_text = "\n".join(
+                part
+                for part in (
+                    draft.explanation,
+                    draft.correct_fact,
+                    draft.omitted_or_distorted,
+                )
+                if part
+            )
+            label_reason = "O rótulo não decorre do rascunho e das evidências citadas."
+            if any(item != label_reason and item not in draft_text for item in normalized_unsupported):
+                normalized_unsupported = (label_reason,)
         return VerificationReport(
             all_supported=all_supported,
             unsupported_sentences=normalized_unsupported,
