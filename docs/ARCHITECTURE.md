@@ -81,3 +81,9 @@ O adaptador Telegram usa long polling e conserva o offset somente em memória. T
 `chat_id` existem apenas durante o atendimento da atualização; não há repositório,
 tabela ou arquivo para interações. Respostas são enviadas em texto simples, com links
 programáticos e previews desativados.
+
+Na Fase 4, fotos e documentos de imagem são validados com Pillow, pré-processados com
+OpenCV e reconhecidos pelo Tesseract via memória. Links usam um cliente HTTPS próprio que
+fixa a conexão ao IP público previamente validado e repete essa validação após cada
+redirecionamento. HTML e PDF textual são extraídos em memória e convergem para o mesmo
+normalizador e a mesma pipeline do texto.

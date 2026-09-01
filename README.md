@@ -42,9 +42,9 @@ proveniência e atualização incremental manual. A persistência PostgreSQL+pgv
 suas migrations, importação e busca exata foram validadas no Docker local. Consulte
 `docs/ROADMAP.md`.
 
-O adaptador Telegram da Fase 3 está implementado e coberto por testes automatizados.
-O aceite da fase permanece condicionado ao teste de fumaça com um bot real e token
-mantido fora do repositório.
+O adaptador Telegram foi testado com um bot real. Texto, imagem textual e link HTTPS
+convergem para a mesma pipeline; OCR, download com proteção contra SSRF e extração de
+HTML/PDF foram validados na Fase 4. Consulte `docs/ROADMAP.md`.
 
 ## Executar o protótipo textual
 
@@ -89,6 +89,7 @@ entregue ao bot.
 - `docs/CORPUS_VERSIONING.md` — manifesto, proveniência e atualização incremental.
 - `docs/DATABASE.md` — PostgreSQL, pgvector, migrations e publicação do corpus.
 - `docs/TELEGRAM.md` — execução, privacidade e validação do adaptador Telegram.
+- `docs/MULTIMODAL_PHASE4.md` — OCR, links seguros, limites e evidências da Fase 4.
 - `evaluation/retrieval/README.md` — protocolo operacional da anotação piloto.
 
 ## Licença

@@ -16,6 +16,11 @@ Telegram, vereditos ou histórico. Arquivos temporários são eliminados ao fina
 requisição. Logs contêm apenas eventos técnicos agregados, códigos de erro e tempos,
 sem conteúdo ou IDs.
 
+O caminho de imagem e link da v1 não cria arquivos temporários: download, validação,
+pré-processamento, OCR e extração ocorrem em memória. A URL ainda é necessariamente
+revelada ao servidor acessado, e imagens já transitaram pelo Telegram antes de chegarem ao
+processamento local; essas fronteiras devem constar no aviso ao usuário.
+
 O aviso de privacidade deverá informar:
 
 - finalidade exclusiva de checagem de alegações sobre vacinação;

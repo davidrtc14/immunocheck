@@ -9,10 +9,12 @@ from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
+from immunocheck.application.content_normalizer import ContentExtractionError
 from immunocheck.application.text_components import ModelOutputError
-from immunocheck.bootstrap import build_text_pipeline
-from immunocheck.domain.input_policy import InvalidSubmissionError
+from immunocheck.bootstrap import build_multimodal_pipeline
+from immunocheck.domain.input_policy import InputLimits, InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult
+from immunocheck.infrastructure.ocr import inspect_image
 from immunocheck.infrastructure.ollama import OllamaError
 from immunocheck.infrastructure.telegram_api import (
     TelegramAPIError,
@@ -23,7 +25,7 @@ from immunocheck.presentation import format_result
 from immunocheck.retrieval.pilot_corpus import CorpusLoadError
 
 LOGGER = logging.getLogger("immunocheck.telegram")
-PROCESSING_MESSAGE = "Recebi sua alegação. A análise local foi iniciada e pode levar alguns minutos."
+PROCESSING_MESSAGE = "Recebi o conteúdo. A análise local foi iniciada e pode levar alguns minutos."
 UNAVAILABLE_MESSAGE = (
     "Não foi possível concluir a análise agora porque um componente local está indisponível. "
     "Tente novamente em alguns minutos."
@@ -32,21 +34,21 @@ UNEXPECTED_ERROR_MESSAGE = (
     "Não foi possível concluir a análise devido a uma falha interna. Nenhum conteúdo foi armazenado."
 )
 UNSUPPORTED_INPUT_MESSAGE = (
-    "Nesta etapa do protótipo, envie uma alegação em texto. Imagens e links serão habilitados "
-    "na próxima fase."
+    "Envie uma alegação em texto, uma imagem textual em PNG/JPEG/WebP ou uma URL HTTPS. "
+    "Vídeo, áudio e outros arquivos não são aceitos na v1."
 )
 BUSY_MESSAGE = (
     "O protótipo já possui várias análises na fila. Aguarde a conclusão e tente novamente."
 )
 START_MESSAGE = """ImmunoCheck — verificação acadêmica de alegações sobre vacinação humana.
 
-Envie uma alegação em texto. O sistema compara o conteúdo com fontes documentais e apresenta um veredito rastreável. Ele não oferece orientação médica individual.
+Envie uma alegação em texto, imagem predominantemente textual ou URL HTTPS pública. O sistema compara o conteúdo com fontes documentais e apresenta um veredito rastreável. Ele não oferece orientação médica individual.
 
 O ImmunoCheck não mantém memória entre mensagens nem grava localmente o conteúdo ou seu identificador. A mensagem transita pelo Telegram e está sujeita às políticas da plataforma.
 
 Comandos: /ajuda e /privacidade."""
 HELP_MESSAGE = """Como usar:
-1. Envie uma alegação factual sobre vacinação humana, com até 4.096 caracteres.
+1. Envie uma alegação factual sobre vacinação humana em texto, imagem textual ou link HTTPS.
 2. Aguarde a análise local.
 3. Confira o veredito, a explicação e as fontes apresentadas.
 
@@ -59,7 +61,7 @@ PRIVACY_MESSAGE = """Privacidade:
 - não envie dados médicos pessoais desnecessários."""
 
 
-class TextPipeline(Protocol):
+class FactCheckRunner(Protocol):
     def run(self, submission: ContentSubmission) -> FactCheckResult: ...
 
 
@@ -72,16 +74,18 @@ class HandlingResult:
 @dataclass(frozen=True, slots=True)
 class PendingAnalysis:
     chat_id: int
-    text: str
+    submission: ContentSubmission
     started_at: float
     feedback_seconds: float
+    telegram_file_id: str | None = None
 
 
 @dataclass(slots=True)
 class TelegramUpdateHandler:
     client: TelegramClient
-    pipeline: TextPipeline
+    pipeline: FactCheckRunner
     clock: Callable[[], float] = time.perf_counter
+    input_limits: InputLimits = field(default_factory=InputLimits)
 
     def handle(self, update: dict[str, Any]) -> HandlingResult:
         pending = self.prepare(update)
@@ -106,27 +110,41 @@ class TelegramUpdateHandler:
         if not isinstance(chat, dict) or not isinstance(chat.get("id"), int):
             return None
         chat_id = chat["id"]
+        submission: ContentSubmission
+        telegram_file_id: str | None = None
         text = message.get("text")
-        if not isinstance(text, str):
-            self.client.send_message(chat_id, UNSUPPORTED_INPUT_MESSAGE)
-            return None
-        normalized_text = text.strip()
-        if not normalized_text:
-            return None
-
-        command = _command_name(normalized_text)
-        if command == "/start":
-            self.client.send_message(chat_id, START_MESSAGE)
-            return None
-        if command in {"/help", "/ajuda"}:
-            self.client.send_message(chat_id, HELP_MESSAGE)
-            return None
-        if command == "/privacidade":
-            self.client.send_message(chat_id, PRIVACY_MESSAGE)
-            return None
-        if command is not None:
-            self.client.send_message(chat_id, "Comando não reconhecido. Use /ajuda.")
-            return None
+        if isinstance(text, str):
+            normalized_text = text.strip()
+            if not normalized_text:
+                return None
+            command = _command_name(normalized_text)
+            if command == "/start":
+                self.client.send_message(chat_id, START_MESSAGE)
+                return None
+            if command in {"/help", "/ajuda"}:
+                self.client.send_message(chat_id, HELP_MESSAGE)
+                return None
+            if command == "/privacidade":
+                self.client.send_message(chat_id, PRIVACY_MESSAGE)
+                return None
+            if command is not None:
+                self.client.send_message(chat_id, "Comando não reconhecido. Use /ajuda.")
+                return None
+            submission = (
+                ContentSubmission(kind=ContentKind.LINK, url=normalized_text)
+                if _looks_like_standalone_url(normalized_text)
+                else ContentSubmission(kind=ContentKind.TEXT, text=normalized_text)
+            )
+        else:
+            try:
+                image_descriptor = _telegram_image_descriptor(message, self.input_limits)
+            except InvalidSubmissionError as exc:
+                self.client.send_message(chat_id, f"Não foi possível analisar o conteúdo: {exc}")
+                return None
+            if image_descriptor is None:
+                self.client.send_message(chat_id, UNSUPPORTED_INPUT_MESSAGE)
+                return None
+            submission, telegram_file_id = image_descriptor
         if not accept_analysis:
             self.client.send_message(chat_id, BUSY_MESSAGE)
             return None
@@ -136,19 +154,46 @@ class TelegramUpdateHandler:
         feedback_seconds = self.clock() - started_at
         return PendingAnalysis(
             chat_id=chat_id,
-            text=normalized_text,
+            submission=submission,
             started_at=started_at,
             feedback_seconds=feedback_seconds,
+            telegram_file_id=telegram_file_id,
         )
 
     def process(self, pending: PendingAnalysis) -> None:
         try:
-            result = self.pipeline.run(
-                ContentSubmission(kind=ContentKind.TEXT, text=pending.text)
-            )
+            submission = pending.submission
+            if pending.telegram_file_id is not None:
+                data = self.client.download_file(
+                    pending.telegram_file_id,
+                    maximum_bytes=self.input_limits.max_image_bytes,
+                )
+                info = inspect_image(
+                    data,
+                    declared_media_type=submission.media_type,
+                    maximum_pixels=self.input_limits.max_image_pixels,
+                )
+                if (
+                    submission.width is not None
+                    and submission.height is not None
+                    and (submission.width, submission.height) != (info.width, info.height)
+                ):
+                    raise ContentExtractionError(
+                        "As dimensões informadas pelo Telegram são inconsistentes."
+                    )
+                submission = ContentSubmission(
+                    kind=ContentKind.IMAGE,
+                    data=data,
+                    media_type=info.media_type,
+                    width=info.width,
+                    height=info.height,
+                )
+            result = self.pipeline.run(submission)
             response = format_result(result, elapsed_seconds=self.clock() - pending.started_at)
-        except InvalidSubmissionError as exc:
-            response = f"Entrada inválida: {exc}"
+        except (InvalidSubmissionError, ContentExtractionError) as exc:
+            response = f"Não foi possível analisar o conteúdo: {exc}"
+        except TelegramAPIError:
+            response = "Não foi possível baixar a imagem do Telegram. Tente enviá-la novamente."
         except (CorpusLoadError, OllamaError, ModelOutputError):
             response = UNAVAILABLE_MESSAGE
             LOGGER.error("Análise indisponível; categoria de falha conhecida.")
@@ -230,7 +275,7 @@ def main() -> int:
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     try:
         client = TelegramBotAPI(token=token, request_timeout_seconds=2.0)
-        pipeline = build_text_pipeline()
+        pipeline = build_multimodal_pipeline()
     except (ValueError, CorpusLoadError) as exc:
         print(f"Configuração inválida: {exc}", file=sys.stderr)
         return 2
@@ -252,6 +297,65 @@ def _command_name(text: str) -> str | None:
     if not first_token.startswith("/"):
         return None
     return first_token.split("@", maxsplit=1)[0].lower()
+
+
+def _looks_like_standalone_url(text: str) -> bool:
+    return " " not in text and text.lower().startswith(("http://", "https://"))
+
+
+def _telegram_image_descriptor(
+    message: dict[str, Any],
+    limits: InputLimits,
+) -> tuple[ContentSubmission, str] | None:
+    photos = message.get("photo")
+    if isinstance(photos, list) and photos:
+        photo = photos[-1]
+        if not isinstance(photo, dict):
+            return None
+        file_id = photo.get("file_id")
+        width = photo.get("width")
+        height = photo.get("height")
+        file_size = photo.get("file_size")
+        if not isinstance(file_id, str) or not isinstance(width, int) or not isinstance(height, int):
+            return None
+        _validate_telegram_image_metadata(width, height, file_size, limits)
+        return (
+            ContentSubmission(
+                kind=ContentKind.IMAGE,
+                media_type="image/jpeg",
+                width=width,
+                height=height,
+            ),
+            file_id,
+        )
+
+    document = message.get("document")
+    if not isinstance(document, dict):
+        return None
+    media_type = document.get("mime_type")
+    file_id = document.get("file_id")
+    file_size = document.get("file_size")
+    if media_type not in limits.allowed_image_types or not isinstance(file_id, str):
+        return None
+    _validate_telegram_image_metadata(None, None, file_size, limits)
+    return ContentSubmission(kind=ContentKind.IMAGE, media_type=media_type), file_id
+
+
+def _validate_telegram_image_metadata(
+    width: int | None,
+    height: int | None,
+    file_size: object,
+    limits: InputLimits,
+) -> None:
+    if file_size is not None and (not isinstance(file_size, int) or file_size < 0):
+        raise InvalidSubmissionError("O Telegram informou tamanho de imagem inválido.")
+    if isinstance(file_size, int) and file_size > limits.max_image_bytes:
+        raise InvalidSubmissionError("A imagem excede o limite de 10 MB.")
+    if width is not None and height is not None:
+        if width <= 0 or height <= 0:
+            raise InvalidSubmissionError("As dimensões da imagem são inválidas.")
+        if width * height > limits.max_image_pixels:
+            raise InvalidSubmissionError("A imagem excede o limite de 12 megapixels.")
 
 
 def _send_text(client: TelegramClient, chat_id: int, text: str) -> None:

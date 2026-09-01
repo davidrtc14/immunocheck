@@ -85,8 +85,15 @@ foi corrigido removendo o uso de autoconfiança não calibrada como barreira ant
 retrieval. A medição formal de latência em múltiplas execuções permanece para a Fase 6.
 Não registrar o token ou mensagens reais como evidência.
 
-Não iniciar Telegram, OCR, links enviados por usuários, WhatsApp ou vídeo antes de
-concluir essa fase, salvo nova decisão explícita do usuário.
+## Estado da Fase 4
+
+Concluídos OCR local com Pillow, OpenCV e Tesseract; qualidade e rejeição transparente;
+download HTTPS com IP fixado e proteção contra SSRF; extração em memória de HTML, texto e
+PDF; integração de imagem e link ao Telegram e à mesma pipeline. Os testes e ensaios de
+referência estão em `docs/MULTIMODAL_PHASE4.md`.
+
+Próxima fase: ampliar e revisar o corpus e o dataset definitivos sem usar interações reais
+do Telegram como dados de pesquisa.
 
 ## Instruções para a próxima sessão
 

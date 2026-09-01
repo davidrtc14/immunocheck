@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass, field
+from io import BytesIO
 
-from immunocheck.domain.models import ContentSubmission, FactCheckResult, Verdict
+from PIL import Image
+
+from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult, Verdict
 from immunocheck.telegram import (
     BUSY_MESSAGE,
     PRIVACY_MESSAGE,
@@ -20,6 +23,8 @@ from immunocheck.telegram import (
 class StubClient:
     messages: list[tuple[int, str]] = field(default_factory=list)
     events: list[str] = field(default_factory=list)
+    file_content: bytes = b""
+    downloads: list[tuple[str, int]] = field(default_factory=list)
 
     def get_updates(self, *, offset: int | None, timeout_seconds: int) -> tuple[dict, ...]:
         del offset, timeout_seconds
@@ -28,6 +33,10 @@ class StubClient:
     def send_message(self, chat_id: int, text: str) -> None:
         self.events.append("send")
         self.messages.append((chat_id, text))
+
+    def download_file(self, file_id: str, *, maximum_bytes: int) -> bytes:
+        self.downloads.append((file_id, maximum_bytes))
+        return self.file_content
 
 
 @dataclass
@@ -60,6 +69,12 @@ class Clock:
 
 def update_with_text(text: str) -> dict:
     return {"update_id": 1, "message": {"chat": {"id": 123}, "text": text}}
+
+
+def png_bytes() -> bytes:
+    buffer = BytesIO()
+    Image.new("RGB", (100, 50), "white").save(buffer, format="PNG")
+    return buffer.getvalue()
 
 
 def test_sends_processing_feedback_before_running_pipeline() -> None:
@@ -104,6 +119,49 @@ def test_non_text_input_is_rejected_transparently() -> None:
     assert client.messages == [(123, UNSUPPORTED_INPUT_MESSAGE)]
     assert outcome.accepted_for_analysis is False
     assert pipeline.submissions == []
+
+
+def test_standalone_https_url_is_routed_as_link() -> None:
+    client = StubClient()
+    pipeline = StubPipeline(events=client.events)
+    handler = TelegramUpdateHandler(
+        client=client,
+        pipeline=pipeline,
+        clock=Clock([10.0, 10.1, 11.0]),
+    )
+
+    handler.handle(update_with_text("https://example.org/noticia"))
+
+    assert pipeline.submissions[0].kind is ContentKind.LINK
+    assert pipeline.submissions[0].url == "https://example.org/noticia"
+
+
+def test_image_is_downloaded_in_memory_and_routed_with_verified_metadata() -> None:
+    client = StubClient(file_content=png_bytes())
+    pipeline = StubPipeline(events=client.events)
+    handler = TelegramUpdateHandler(
+        client=client,
+        pipeline=pipeline,
+        clock=Clock([10.0, 10.1, 11.0]),
+    )
+    update = {
+        "message": {
+            "chat": {"id": 123},
+            "document": {
+                "file_id": "image-id",
+                "file_size": len(client.file_content),
+                "mime_type": "image/png",
+            },
+        }
+    }
+
+    handler.handle(update)
+
+    submission = pipeline.submissions[0]
+    assert client.downloads == [("image-id", 10 * 1024 * 1024)]
+    assert submission.kind is ContentKind.IMAGE
+    assert submission.data == client.file_content
+    assert (submission.width, submission.height) == (100, 50)
 
 
 def test_full_in_memory_queue_rejects_new_analysis_without_running_pipeline() -> None:

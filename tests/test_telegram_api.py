@@ -11,7 +11,9 @@ from immunocheck.infrastructure.telegram_api import TelegramAPIError, TelegramBo
 
 class FakeResponse:
     def __init__(self, payload: object) -> None:
-        self.raw = json.dumps(payload).encode("utf-8")
+        self.raw = payload if isinstance(payload, bytes) else json.dumps(payload).encode("utf-8")
+        self.headers: dict[str, str] = {}
+        self.position = 0
 
     def __enter__(self) -> Self:
         return self
@@ -20,7 +22,12 @@ class FakeResponse:
         return None
 
     def read(self, amount: int) -> bytes:
-        return self.raw[:amount]
+        chunk = self.raw[self.position : self.position + amount]
+        self.position += len(chunk)
+        return chunk
+
+    def getheader(self, name: str) -> str | None:
+        return self.headers.get(name)
 
 
 class FakeOpener:
@@ -73,6 +80,36 @@ def test_api_error_does_not_expose_remote_description() -> None:
         client.send_message(456, "teste")
 
     assert "conteúdo sensível" not in str(captured.value)
+
+
+def test_download_file_validates_metadata_and_reads_only_to_limit() -> None:
+    opener = FakeOpener(
+        [
+            {
+                "ok": True,
+                "result": {"file_size": 6, "file_path": "photos/teste.png"},
+            },
+            b"imagem",
+        ]
+    )
+    client = TelegramBotAPI(token="123:token-seguro", _opener=opener)  # type: ignore[arg-type]
+
+    content = client.download_file("file-id", maximum_bytes=10)
+
+    assert content == b"imagem"
+    download_request, _ = opener.requests[1]
+    assert download_request.full_url.endswith("/photos/teste.png")
+
+
+@pytest.mark.parametrize("file_path", ["../token", "/absoluto", "pasta\\arquivo"])
+def test_download_file_rejects_unsafe_remote_path(file_path: str) -> None:
+    opener = FakeOpener(
+        [{"ok": True, "result": {"file_size": 1, "file_path": file_path}}]
+    )
+    client = TelegramBotAPI(token="123:token-seguro", _opener=opener)  # type: ignore[arg-type]
+
+    with pytest.raises(TelegramAPIError, match="caminho"):
+        client.download_file("file-id", maximum_bytes=10)
 
 
 @pytest.mark.parametrize("token", ["", "token com espaço", "token/com/barra"])

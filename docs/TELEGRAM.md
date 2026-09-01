@@ -2,13 +2,13 @@
 
 ## Escopo
 
-O adaptador da Fase 3 recebe mensagens por long polling e encaminha somente texto à
-pipeline local. Não há webhook, servidor público ou dependência Python adicional. A
-integração usa diretamente a Telegram Bot API, que é gratuita para bots.
+O adaptador recebe mensagens por long polling e encaminha texto, imagem textual ou link
+HTTPS à pipeline local. Não há webhook ou servidor público. A integração usa diretamente
+a Telegram Bot API, que é gratuita para bots.
 
-O processo mantém apenas em memória o texto e o `chat_id` necessários para responder à
-requisição atual. Não há escrita de mensagens, identificadores ou respostas em arquivo ou
-banco. O offset de long polling também vive apenas em memória.
+O processo mantém apenas em memória o conteúdo e o `chat_id` necessários para responder à
+requisição atual. Não há escrita de mensagens, imagens, URLs, identificadores ou respostas
+em arquivo ou banco. O offset de long polling também vive apenas em memória.
 
 ## Configuração segura
 
@@ -30,7 +30,9 @@ commits, capturas de tela ou relatórios.
 - `/ajuda` ou `/help`: explica o formato de uso;
 - `/privacidade`: informa o tratamento local e o papel do Telegram;
 - texto comum: envia confirmação e inicia a pipeline;
-- imagem, arquivo ou outro tipo: informa que a modalidade será habilitada na Fase 4;
+- URL HTTPS isolada: download seguro e extração de HTML, texto ou PDF textual;
+- foto ou documento PNG/JPEG/WebP: download limitado e OCR local;
+- áudio, vídeo ou outro arquivo: rejeição transparente;
 - comando desconhecido: remete à ajuda.
 
 A confirmação de processamento é a primeira operação externa feita para uma alegação. O
@@ -52,8 +54,8 @@ logs.
 ## Validação
 
 Os testes automatizados cobrem long polling, offset em memória, limite de mensagem,
-confirmação anterior à pipeline, comandos, entrada não textual, sanitização de falhas e
-ausência do conteúdo em logs de erro.
+confirmação anterior à pipeline, comandos, imagem, link, sanitização de falhas e ausência
+do conteúdo em logs de erro.
 
 O aceite operacional exige ainda um teste de fumaça com um bot real:
 
@@ -61,8 +63,9 @@ O aceite operacional exige ainda um teste de fumaça com um bot real:
 2. enviar uma alegação textual de teste sem dados pessoais;
 3. confirmar o feedback inicial em até dois segundos no ambiente de demonstração;
 4. conferir veredito, explicação, aviso médico e links das fontes;
-5. simular Ollama indisponível e conferir a resposta segura;
-6. encerrar o processo e verificar que nenhum conteúdo ou identificador foi gravado.
+5. repetir com uma imagem textual e uma URL HTTPS pública de teste;
+6. simular Ollama indisponível e conferir a resposta segura;
+7. encerrar o processo e verificar que nenhum conteúdo ou identificador foi gravado.
 
 Não usar mensagens reais de participantes como dataset. Qualquer estudo com pessoas depende
 de orientação e aprovação institucional aplicável.

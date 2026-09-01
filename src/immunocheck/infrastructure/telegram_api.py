@@ -4,7 +4,7 @@ import json
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 from urllib.request import OpenerDirector, Request, build_opener
 
 
@@ -17,11 +17,14 @@ class TelegramClient(Protocol):
 
     def send_message(self, chat_id: int, text: str) -> None: ...
 
+    def download_file(self, file_id: str, *, maximum_bytes: int) -> bytes: ...
+
 
 @dataclass(slots=True)
 class TelegramBotAPI:
     token: str
     request_timeout_seconds: float = 10.0
+    file_timeout_seconds: float = 10.0
     max_response_bytes: int = 1_000_000
     _opener: OpenerDirector = field(default_factory=build_opener, repr=False)
 
@@ -31,7 +34,11 @@ class TelegramBotAPI:
             raise ValueError("TELEGRAM_BOT_TOKEN está ausente ou é inválido.")
         if "/" in self.token or len(self.token) > 256:
             raise ValueError("TELEGRAM_BOT_TOKEN possui formato inválido.")
-        if self.request_timeout_seconds <= 0 or self.max_response_bytes <= 0:
+        if (
+            self.request_timeout_seconds <= 0
+            or self.file_timeout_seconds <= 0
+            or self.max_response_bytes <= 0
+        ):
             raise ValueError("Timeout e limite de resposta devem ser positivos.")
 
     def get_updates(
@@ -70,6 +77,52 @@ class TelegramBotAPI:
             timeout_seconds=self.request_timeout_seconds,
         )
 
+    def download_file(self, file_id: str, *, maximum_bytes: int) -> bytes:
+        if not file_id or any(character.isspace() for character in file_id):
+            raise TelegramAPIError("O identificador do arquivo do Telegram é inválido.")
+        if maximum_bytes <= 0:
+            raise ValueError("O limite do arquivo deve ser positivo.")
+        result = self._call(
+            "getFile",
+            {"file_id": file_id},
+            timeout_seconds=self.request_timeout_seconds,
+        )
+        if not isinstance(result, dict):
+            raise TelegramAPIError("O Telegram retornou metadados de arquivo inválidos.")
+        file_size = result.get("file_size")
+        if file_size is not None and (not isinstance(file_size, int) or file_size < 0):
+            raise TelegramAPIError("O Telegram retornou tamanho de arquivo inválido.")
+        if isinstance(file_size, int) and file_size > maximum_bytes:
+            raise TelegramAPIError("O arquivo excede o limite permitido.")
+        file_path = result.get("file_path")
+        if not isinstance(file_path, str) or not _is_safe_file_path(file_path):
+            raise TelegramAPIError("O Telegram retornou caminho de arquivo inválido.")
+
+        request = Request(
+            f"https://api.telegram.org/file/bot{self.token}/{quote(file_path, safe='/')}",
+            headers={"Accept-Encoding": "identity"},
+            method="GET",
+        )
+        try:
+            with self._opener.open(request, timeout=self.file_timeout_seconds) as response:
+                declared_size = response.getheader("Content-Length")
+                if declared_size is not None:
+                    try:
+                        numeric_size = int(declared_size)
+                        if numeric_size < 0:
+                            raise ValueError
+                        if numeric_size > maximum_bytes:
+                            raise TelegramAPIError("O arquivo excede o limite permitido.")
+                    except ValueError as exc:
+                        raise TelegramAPIError(
+                            "O Telegram retornou tamanho de arquivo inválido."
+                        ) from exc
+                return _read_limited(response, maximum_bytes)
+        except TelegramAPIError:
+            raise
+        except (HTTPError, URLError, TimeoutError, OSError) as exc:
+            raise TelegramAPIError("Não foi possível baixar o arquivo do Telegram.") from exc
+
     def _call(
         self,
         method: str,
@@ -99,3 +152,25 @@ class TelegramBotAPI:
         if "result" not in envelope:
             raise TelegramAPIError("A Telegram Bot API retornou uma resposta incompleta.")
         return envelope["result"]
+
+
+def _is_safe_file_path(file_path: str) -> bool:
+    if not file_path or file_path.startswith(("/", "\\")) or "\\" in file_path:
+        return False
+    return all(part not in {"", ".", ".."} for part in file_path.split("/"))
+
+
+def _read_limited(response: Any, maximum_bytes: int) -> bytes:
+    chunks: list[bytes] = []
+    total = 0
+    while True:
+        chunk = response.read(min(64 * 1024, maximum_bytes - total + 1))
+        if not chunk:
+            break
+        total += len(chunk)
+        if total > maximum_bytes:
+            raise TelegramAPIError("O arquivo excede o limite permitido.")
+        chunks.append(chunk)
+    if not chunks:
+        raise TelegramAPIError("O arquivo recebido está vazio.")
+    return b"".join(chunks)

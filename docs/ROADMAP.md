@@ -63,14 +63,18 @@ objetivo de dois segundos sem registrar conteúdo ou identificadores.
 
 ## Fase 4 — Imagem e link
 
-- [ ] OCR local com pré-processamento e limiar de qualidade.
-- [ ] Rejeição transparente de OCR insuficiente.
-- [ ] Downloader seguro e proteção contra SSRF.
-- [ ] Extração de HTML e PDF textual.
-- [ ] Limites de tamanho, timeout e redirecionamento testados.
+- [x] OCR local com pré-processamento e limiar de qualidade.
+- [x] Rejeição transparente de OCR insuficiente.
+- [x] Downloader seguro e proteção contra SSRF.
+- [x] Extração de HTML e PDF textual.
+- [x] Limites de tamanho, timeout e redirecionamento testados.
 
 **Aceite:** exemplos válidos de imagem e link percorrem a mesma pipeline de texto;
 entradas inseguras ou ilegíveis são recusadas.
+
+**Estado:** aceite técnico executado em 31/08/2026 com imagem sintética, HTML público,
+PDF textual em memória e testes de rejeição. Limiares de OCR e distribuições de latência
+serão avaliados formalmente na Fase 6.
 
 ## Fase 5 — Corpus e dataset definitivos
 

@@ -7,6 +7,8 @@ os textos de licença distribuídos por seus autores.
 |---|---|---|
 | Python | Linguagem e runtime | PSF License |
 | Beautiful Soup 4 | Extração de conteúdo HTML | MIT |
+| OpenCV (pacote headless) | Pré-processamento local de imagens para OCR | Apache-2.0 |
+| Pillow | Validação segura de formato e dimensões de imagens | MIT-CMU |
 | pypdf | Extração de texto de PDF | BSD-3-Clause |
 | rank-bm25 | Baseline e recuperação lexical BM25 | Apache-2.0 |
 | Sentence Transformers | Inferência local de embeddings | Apache-2.0 |
@@ -17,6 +19,7 @@ os textos de licença distribuídos por seus autores.
 | Psycopg 3 | Driver PostgreSQL para Python | LGPL-3.0-only |
 | Ollama (servidor/CLI) | Inferência local | MIT |
 | Qwen3-8B | LLM local | Apache-2.0 |
+| Tesseract OCR | Reconhecimento óptico local de caracteres | Apache-2.0 |
 | pytest | Testes automatizados | MIT |
 | Ruff | Lint e formatação | MIT |
 
