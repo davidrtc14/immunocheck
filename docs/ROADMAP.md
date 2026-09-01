@@ -86,6 +86,11 @@ serão avaliados formalmente na Fase 6.
 
 **Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
 
+**Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
+o validador auditável do dataset fim a fim foram criados. Nenhum item acima foi marcado
+como concluído: ainda faltam selecionar e validar os documentos, anotar as alegações,
+executar a segunda revisão e congelar o teste.
+
 ## Fase 6 — Avaliação e entrega
 
 - [ ] Experimentos de retrieval.

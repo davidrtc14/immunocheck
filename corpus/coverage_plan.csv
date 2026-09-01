@@ -1,0 +1,10 @@
+primary_theme,target_min,target_max,priority,rationale
+normas_e_calendarios,8,12,medium,Recomendações vigentes por idade e esquema
+composicao_e_fabricacao,8,14,high,Ingredientes adjuvantes conservantes resíduos e plataformas
+eficacia_e_imunogenicidade,8,14,high,Efeito por vacina população desfecho e período
+seguranca_e_farmacovigilancia,10,16,high,Eventos adversos causalidade monitoramento e sinais
+contraindicacoes_e_populacoes_especiais,8,14,high,Gestação imunossupressão alergias e comorbidades
+vacinas_especificas,16,28,high,HPV sarampo influenza covid-19 hepatites e outras do PNI
+epidemiologia_das_doencas,8,14,medium,Incidência surtos complicações e impacto da vacinação
+alegacoes_causais_recorrentes,8,16,high,Autismo infertilidade óbitos DNA sobrecarga e composição
+comunicacao_equidade_e_etica,6,12,medium,Acesso hesitação transparência conflitos e direitos

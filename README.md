@@ -44,7 +44,9 @@ suas migrations, importação e busca exata foram validadas no Docker local. Con
 
 O adaptador Telegram foi testado com um bot real. Texto, imagem textual e link HTTPS
 convergem para a mesma pipeline; OCR, download com proteção contra SSRF e extração de
-HTML/PDF foram validados na Fase 4. Consulte `docs/ROADMAP.md`.
+HTML/PDF foram validados na Fase 4. O caminho real usa BM25 + BGE-M3 + RRF e informa
+quando analisa somente a alegação principal ou quando as fontes exibidas são parciais.
+A Fase 5 de corpus e dataset definitivos está em andamento. Consulte `docs/ROADMAP.md`.
 
 ## Executar o protótipo textual
 
@@ -54,6 +56,7 @@ Os arquivos do corpus são gerados localmente e não são versionados.
 ```powershell
 python scripts/download_pilot_corpus.py
 python scripts/build_pilot_corpus.py
+python scripts/build_dense_index.py
 ollama pull qwen3:8b
 python -m immunocheck.cli "A alegação sobre vacinação que será verificada"
 ```
@@ -90,7 +93,9 @@ entregue ao bot.
 - `docs/DATABASE.md` — PostgreSQL, pgvector, migrations e publicação do corpus.
 - `docs/TELEGRAM.md` — execução, privacidade e validação do adaptador Telegram.
 - `docs/MULTIMODAL_PHASE4.md` — OCR, links seguros, limites e evidências da Fase 4.
+- `docs/CORPUS_DATASET_PHASE5.md` — cobertura, anotação e critérios operacionais da Fase 5.
 - `evaluation/retrieval/README.md` — protocolo operacional da anotação piloto.
+- `evaluation/end_to_end/README.md` — schema e revisão do dataset fim a fim.
 
 ## Licença
 

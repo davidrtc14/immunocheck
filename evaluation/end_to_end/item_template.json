@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "item_id": "e2e-0001",
+  "claim": "Alegação atômica reescrita, sem dados pessoais.",
+  "label": "INSUFFICIENT_EVIDENCE",
+  "topic": "tema_controlado",
+  "split": "development",
+  "status": "draft",
+  "atomic": true,
+  "evidence_chunk_ids": [],
+  "rationale": null,
+  "origin_type": "public_content_rewritten",
+  "origin_reference": null,
+  "reviewer": null,
+  "reviewed_at": null,
+  "second_reviewer": null,
+  "second_label": null,
+  "second_reviewed_at": null,
+  "adjudicator": null,
+  "adjudicated_at": null,
+  "notes": null
+}
