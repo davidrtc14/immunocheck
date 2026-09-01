@@ -48,13 +48,17 @@ desenvolvimento, com relatório de métricas e latência.
 
 ## Fase 3 — Telegram
 
-- [ ] Adaptador por long polling.
-- [ ] Feedback de processamento em até 2 segundos.
-- [ ] Formatação acessível de veredito e fontes.
-- [ ] Tratamento de erros e indisponibilidade local.
-- [ ] Confirmação de ausência de persistência e logs de conteúdo.
+- [x] Adaptador por long polling.
+- [x] Feedback de processamento anterior à pipeline, com objetivo de até 2 segundos.
+- [x] Formatação acessível de veredito e fontes.
+- [x] Tratamento de erros e indisponibilidade local.
+- [x] Confirmação automatizada de ausência de persistência e logs de conteúdo.
 
 **Aceite:** fluxo de texto funciona no Telegram sem armazenar interações.
+
+**Estado:** implementação e testes automatizados concluídos; o aceite permanece pendente
+do teste de fumaça com um bot real, inclusive medição do feedback no ambiente de
+demonstração.
 
 ## Fase 4 — Imagem e link
 

@@ -76,3 +76,8 @@ Cada carga no PostgreSQL mantém a versão integral do manifesto. Documentos, ch
 embeddings usam chaves compostas com `corpus_version`; somente um snapshot pode ficar
 ativo. O pgvector começa com busca exata por cosseno para preservar recall e a
 reprodutibilidade no tamanho de corpus previsto.
+
+O adaptador Telegram usa long polling e conserva o offset somente em memória. Texto e
+`chat_id` existem apenas durante o atendimento da atualização; não há repositório,
+tabela ou arquivo para interações. Respostas são enviadas em texto simples, com links
+programáticos e previews desativados.

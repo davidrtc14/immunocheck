@@ -1,0 +1,146 @@
+from __future__ import annotations
+
+import logging
+from dataclasses import dataclass, field
+
+from immunocheck.domain.models import ContentSubmission, FactCheckResult, Verdict
+from immunocheck.telegram import (
+    BUSY_MESSAGE,
+    PRIVACY_MESSAGE,
+    PROCESSING_MESSAGE,
+    START_MESSAGE,
+    UNEXPECTED_ERROR_MESSAGE,
+    UNSUPPORTED_INPUT_MESSAGE,
+    TelegramUpdateHandler,
+    _split_message,
+)
+
+
+@dataclass
+class StubClient:
+    messages: list[tuple[int, str]] = field(default_factory=list)
+    events: list[str] = field(default_factory=list)
+
+    def get_updates(self, *, offset: int | None, timeout_seconds: int) -> tuple[dict, ...]:
+        del offset, timeout_seconds
+        return ()
+
+    def send_message(self, chat_id: int, text: str) -> None:
+        self.events.append("send")
+        self.messages.append((chat_id, text))
+
+
+@dataclass
+class StubPipeline:
+    events: list[str]
+    submissions: list[ContentSubmission] = field(default_factory=list)
+
+    def run(self, submission: ContentSubmission) -> FactCheckResult:
+        self.events.append("pipeline")
+        self.submissions.append(submission)
+        return FactCheckResult(
+            verdict=Verdict.INSUFFICIENT_EVIDENCE,
+            explanation="Não há informação suficiente.",
+            claim=submission.text,
+        )
+
+
+class FailingPipeline:
+    def run(self, submission: ContentSubmission) -> FactCheckResult:
+        raise RuntimeError(f"falha ao processar conteúdo secreto: {submission.text}")
+
+
+class Clock:
+    def __init__(self, values: list[float]) -> None:
+        self.values = iter(values)
+
+    def __call__(self) -> float:
+        return next(self.values)
+
+
+def update_with_text(text: str) -> dict:
+    return {"update_id": 1, "message": {"chat": {"id": 123}, "text": text}}
+
+
+def test_sends_processing_feedback_before_running_pipeline() -> None:
+    client = StubClient()
+    pipeline = StubPipeline(events=client.events)
+    handler = TelegramUpdateHandler(
+        client=client,
+        pipeline=pipeline,
+        clock=Clock([10.0, 11.5, 13.0]),
+    )
+
+    outcome = handler.handle(update_with_text("Vacinas alteram o DNA?"))
+
+    assert client.events[:2] == ["send", "pipeline"]
+    assert client.messages[0] == (123, PROCESSING_MESSAGE)
+    assert "VEREDITO: EVIDÊNCIA INSUFICIENTE" in client.messages[1][1]
+    assert outcome.accepted_for_analysis is True
+    assert outcome.feedback_seconds == 1.5
+    assert pipeline.submissions[0].text == "Vacinas alteram o DNA?"
+
+
+def test_commands_are_handled_without_calling_pipeline() -> None:
+    client = StubClient()
+    pipeline = StubPipeline(events=client.events)
+    handler = TelegramUpdateHandler(client=client, pipeline=pipeline)
+
+    handler.handle(update_with_text("/start@ImmunoCheckBot"))
+    handler.handle(update_with_text("/privacidade"))
+
+    assert client.messages == [(123, START_MESSAGE), (123, PRIVACY_MESSAGE)]
+    assert pipeline.submissions == []
+
+
+def test_non_text_input_is_rejected_transparently() -> None:
+    client = StubClient()
+    pipeline = StubPipeline(events=client.events)
+    handler = TelegramUpdateHandler(client=client, pipeline=pipeline)
+    update = {"message": {"chat": {"id": 123}, "photo": [{"file_id": "abc"}]}}
+
+    outcome = handler.handle(update)
+
+    assert client.messages == [(123, UNSUPPORTED_INPUT_MESSAGE)]
+    assert outcome.accepted_for_analysis is False
+    assert pipeline.submissions == []
+
+
+def test_full_in_memory_queue_rejects_new_analysis_without_running_pipeline() -> None:
+    client = StubClient()
+    pipeline = StubPipeline(events=client.events)
+    handler = TelegramUpdateHandler(client=client, pipeline=pipeline)
+
+    pending = handler.prepare(
+        update_with_text("Uma alegação adicional"),
+        accept_analysis=False,
+    )
+
+    assert pending is None
+    assert client.messages == [(123, BUSY_MESSAGE)]
+    assert pipeline.submissions == []
+
+
+def test_unexpected_failure_does_not_expose_content_in_response_or_logs(caplog) -> None:
+    client = StubClient()
+    handler = TelegramUpdateHandler(
+        client=client,
+        pipeline=FailingPipeline(),
+        clock=Clock([10.0, 10.1]),
+    )
+
+    with caplog.at_level(logging.ERROR):
+        handler.handle(update_with_text("meu dado médico ultrassecreto"))
+
+    assert client.messages[-1] == (123, UNEXPECTED_ERROR_MESSAGE)
+    assert "ultrassecreto" not in caplog.text
+
+
+def test_splits_long_messages_without_exceeding_telegram_limit() -> None:
+    message = "a" * 4_000 + "\n" + "b" * 4_000 + "\n" + "c" * 1_000
+
+    parts = _split_message(message)
+
+    assert len(parts) == 3
+    assert all(0 < len(part) <= 4_096 for part in parts)
+    assert "".join(parts) == message.replace("\n", "")

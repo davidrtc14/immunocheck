@@ -1,5 +1,5 @@
-from immunocheck.cli import MEDICAL_DISCLAIMER, format_result
 from immunocheck.domain.models import FactCheckResult, SourceReference, Verdict
+from immunocheck.presentation import MEDICAL_DISCLAIMER, format_result
 
 
 def test_formats_programmatic_citations_and_fixed_disclaimer() -> None:

@@ -42,6 +42,10 @@ proveniência e atualização incremental manual. A persistência PostgreSQL+pgv
 suas migrations, importação e busca exata foram validadas no Docker local. Consulte
 `docs/ROADMAP.md`.
 
+O adaptador Telegram da Fase 3 está implementado e coberto por testes automatizados.
+O aceite da fase permanece condicionado ao teste de fumaça com um bot real e token
+mantido fora do repositório.
+
 ## Executar o protótipo textual
 
 Pré-requisitos locais: Python 3.12, Ollama ativo e o modelo gratuito `qwen3:8b`.
@@ -58,6 +62,20 @@ O primeiro uso após carregar o computador é mais lento porque o modelo precisa
 levado à memória. Nenhuma entrada é persistida pelo protótipo nem enviada a uma LLM
 externa.
 
+## Executar pelo Telegram
+
+Depois de criar um bot com o BotFather, defina o token apenas na sessão local e inicie
+o long polling:
+
+```powershell
+$env:TELEGRAM_BOT_TOKEN = Read-Host "Token do bot" -MaskInput
+python -m immunocheck.telegram
+```
+
+Consulte `docs/TELEGRAM.md` antes do teste operacional. O conteúdo é processado
+localmente pelo ImmunoCheck, mas a mensagem também é tratada pelo Telegram para ser
+entregue ao bot.
+
 ## Documentação
 
 - `docs/PROJECT_BRIEF.md` — escopo e requisitos fixos.
@@ -70,6 +88,7 @@ externa.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.
 - `docs/CORPUS_VERSIONING.md` — manifesto, proveniência e atualização incremental.
 - `docs/DATABASE.md` — PostgreSQL, pgvector, migrations e publicação do corpus.
+- `docs/TELEGRAM.md` — execução, privacidade e validação do adaptador Telegram.
 - `evaluation/retrieval/README.md` — protocolo operacional da anotação piloto.
 
 ## Licença

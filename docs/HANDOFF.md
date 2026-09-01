@@ -73,8 +73,15 @@ Concluído:
   1.914 chunks e 1.914 embeddings na versão ativa do corpus;
 - ranking top 10 idêntico entre índice NumPy e pgvector em consulta de fumaça.
 
-Próxima fase: implementar o adaptador Telegram por long polling, começando pelo fluxo
-de texto sem persistir mensagens ou identificadores.
+## Estado da Fase 3
+
+O adaptador Telegram por long polling, o feedback anterior à pipeline, os comandos de
+ajuda e privacidade, a formatação de respostas e o tratamento sanitizado de falhas estão
+implementados. Os testes automatizados confirmam que conteúdo e identificadores não são
+persistidos nem incluídos nos logs de erro.
+
+Pendente para o aceite: criar/configurar um bot real e executar o roteiro de fumaça de
+`docs/TELEGRAM.md`. Não registrar o token ou mensagens reais como evidência.
 
 Não iniciar Telegram, OCR, links enviados por usuários, WhatsApp ou vídeo antes de
 concluir essa fase, salvo nova decisão explícita do usuário.
@@ -85,5 +92,5 @@ concluir essa fase, salvo nova decisão explícita do usuário.
    `docs/ARCHITECTURE_DECISIONS.md`, `docs/ROADMAP.md` e este arquivo.
 2. Trabalhe na branch `develop` e preserve alterações existentes.
 3. Antes de qualquer mudança de arquitetura, atualize a ADR correspondente.
-4. Não faça commit, push ou merge sem pedido explícito do usuário.
+4. Siga a política de commit, push e merge vigente em `AGENTS.md`.
 5. Ao concluir uma unidade, execute testes, Ruff e os critérios de aceite aplicáveis.

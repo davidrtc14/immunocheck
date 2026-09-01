@@ -8,21 +8,10 @@ from pathlib import Path
 from immunocheck.application.text_components import ModelOutputError
 from immunocheck.bootstrap import DEFAULT_CORPUS_PATH, build_text_pipeline
 from immunocheck.domain.input_policy import InvalidSubmissionError
-from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult, Verdict
+from immunocheck.domain.models import ContentKind, ContentSubmission
 from immunocheck.infrastructure.ollama import OllamaError
+from immunocheck.presentation import format_result
 from immunocheck.retrieval.pilot_corpus import CorpusLoadError
-
-VERDICT_LABELS = {
-    Verdict.SUPPORTED: "SUSTENTADA",
-    Verdict.REFUTED: "REFUTADA",
-    Verdict.MISLEADING: "ENGANOSA",
-    Verdict.INSUFFICIENT_EVIDENCE: "EVIDÊNCIA INSUFICIENTE",
-}
-
-MEDICAL_DISCLAIMER = (
-    "Esta análise compara uma alegação com fontes documentais e não substitui "
-    "orientação de um profissional de saúde."
-)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -50,37 +39,6 @@ def main(argv: list[str] | None = None) -> int:
 
     print(format_result(result, elapsed_seconds=time.perf_counter() - started_at))
     return 0
-
-
-def format_result(result: FactCheckResult, *, elapsed_seconds: float) -> str:
-    lines = [
-        f"VEREDITO: {VERDICT_LABELS[result.verdict]}",
-        f"ALEGAÇÃO ANALISADA: {result.claim or 'não identificada'}",
-        f"EXPLICAÇÃO: {result.explanation}",
-    ]
-    if result.correct_fact:
-        lines.append(f"FATO CORRETO: {result.correct_fact}")
-    if result.omitted_or_distorted:
-        lines.append(f"OMISSÃO OU DISTORÇÃO: {result.omitted_or_distorted}")
-    if result.sources:
-        lines.append("FONTES:")
-        for position, source in enumerate(result.sources, start=1):
-            details = [source.source_name, source.document_title]
-            if source.publication_date:
-                details.append(source.publication_date)
-            if source.page:
-                details.append(f"p. {source.page}")
-            lines.append(f"  [{position}] {' — '.join(details)}")
-            lines.append(f"      {source.url}")
-    else:
-        lines.append("FONTES: nenhuma fonte suficiente para sustentar uma conclusão.")
-    lines.extend(
-        (
-            f"AVISO: {MEDICAL_DISCLAIMER}",
-            f"TEMPO TOTAL: {elapsed_seconds:.2f} s",
-        )
-    )
-    return "\n".join(lines)
 
 
 def _build_parser() -> argparse.ArgumentParser:

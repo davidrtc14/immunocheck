@@ -20,6 +20,7 @@ dependencies = [
 
 [project.scripts]
 immunocheck = "immunocheck.cli:main"
+immunocheck-telegram = "immunocheck.telegram:main"
 
 [project.optional-dependencies]
 dev = [

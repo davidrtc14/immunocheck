@@ -1,0 +1,291 @@
+from __future__ import annotations
+
+import logging
+import os
+import sys
+import time
+from collections.abc import Callable
+from concurrent.futures import Future, ThreadPoolExecutor
+from dataclasses import dataclass, field
+from typing import Any, Protocol
+
+from immunocheck.application.text_components import ModelOutputError
+from immunocheck.bootstrap import build_text_pipeline
+from immunocheck.domain.input_policy import InvalidSubmissionError
+from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult
+from immunocheck.infrastructure.ollama import OllamaError
+from immunocheck.infrastructure.telegram_api import (
+    TelegramAPIError,
+    TelegramBotAPI,
+    TelegramClient,
+)
+from immunocheck.presentation import format_result
+from immunocheck.retrieval.pilot_corpus import CorpusLoadError
+
+LOGGER = logging.getLogger("immunocheck.telegram")
+PROCESSING_MESSAGE = "Recebi sua alegação. A análise local foi iniciada e pode levar alguns minutos."
+UNAVAILABLE_MESSAGE = (
+    "Não foi possível concluir a análise agora porque um componente local está indisponível. "
+    "Tente novamente em alguns minutos."
+)
+UNEXPECTED_ERROR_MESSAGE = (
+    "Não foi possível concluir a análise devido a uma falha interna. Nenhum conteúdo foi armazenado."
+)
+UNSUPPORTED_INPUT_MESSAGE = (
+    "Nesta etapa do protótipo, envie uma alegação em texto. Imagens e links serão habilitados "
+    "na próxima fase."
+)
+BUSY_MESSAGE = (
+    "O protótipo já possui várias análises na fila. Aguarde a conclusão e tente novamente."
+)
+START_MESSAGE = """ImmunoCheck — verificação acadêmica de alegações sobre vacinação humana.
+
+Envie uma alegação em texto. O sistema compara o conteúdo com fontes documentais e apresenta um veredito rastreável. Ele não oferece orientação médica individual.
+
+O ImmunoCheck não mantém memória entre mensagens nem grava localmente o conteúdo ou seu identificador. A mensagem transita pelo Telegram e está sujeita às políticas da plataforma.
+
+Comandos: /ajuda e /privacidade."""
+HELP_MESSAGE = """Como usar:
+1. Envie uma alegação factual sobre vacinação humana, com até 4.096 caracteres.
+2. Aguarde a análise local.
+3. Confira o veredito, a explicação e as fontes apresentadas.
+
+Uma mensagem deve conter uma alegação principal. Não envie dados médicos pessoais."""
+PRIVACY_MESSAGE = """Privacidade:
+- o ImmunoCheck processa a mensagem localmente e não a grava;
+- não há histórico ou memória conversacional;
+- conteúdo e identificadores não entram nos logs;
+- o Telegram processa e pode conservar mensagens conforme suas próprias políticas;
+- não envie dados médicos pessoais desnecessários."""
+
+
+class TextPipeline(Protocol):
+    def run(self, submission: ContentSubmission) -> FactCheckResult: ...
+
+
+@dataclass(frozen=True, slots=True)
+class HandlingResult:
+    accepted_for_analysis: bool
+    feedback_seconds: float | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class PendingAnalysis:
+    chat_id: int
+    text: str
+    started_at: float
+    feedback_seconds: float
+
+
+@dataclass(slots=True)
+class TelegramUpdateHandler:
+    client: TelegramClient
+    pipeline: TextPipeline
+    clock: Callable[[], float] = time.perf_counter
+
+    def handle(self, update: dict[str, Any]) -> HandlingResult:
+        pending = self.prepare(update)
+        if pending is None:
+            return HandlingResult(accepted_for_analysis=False)
+        self.process(pending)
+        return HandlingResult(
+            accepted_for_analysis=True,
+            feedback_seconds=pending.feedback_seconds,
+        )
+
+    def prepare(
+        self,
+        update: dict[str, Any],
+        *,
+        accept_analysis: bool = True,
+    ) -> PendingAnalysis | None:
+        message = update.get("message")
+        if not isinstance(message, dict):
+            return None
+        chat = message.get("chat")
+        if not isinstance(chat, dict) or not isinstance(chat.get("id"), int):
+            return None
+        chat_id = chat["id"]
+        text = message.get("text")
+        if not isinstance(text, str):
+            self.client.send_message(chat_id, UNSUPPORTED_INPUT_MESSAGE)
+            return None
+        normalized_text = text.strip()
+        if not normalized_text:
+            return None
+
+        command = _command_name(normalized_text)
+        if command == "/start":
+            self.client.send_message(chat_id, START_MESSAGE)
+            return None
+        if command in {"/help", "/ajuda"}:
+            self.client.send_message(chat_id, HELP_MESSAGE)
+            return None
+        if command == "/privacidade":
+            self.client.send_message(chat_id, PRIVACY_MESSAGE)
+            return None
+        if command is not None:
+            self.client.send_message(chat_id, "Comando não reconhecido. Use /ajuda.")
+            return None
+        if not accept_analysis:
+            self.client.send_message(chat_id, BUSY_MESSAGE)
+            return None
+
+        started_at = self.clock()
+        self.client.send_message(chat_id, PROCESSING_MESSAGE)
+        feedback_seconds = self.clock() - started_at
+        return PendingAnalysis(
+            chat_id=chat_id,
+            text=normalized_text,
+            started_at=started_at,
+            feedback_seconds=feedback_seconds,
+        )
+
+    def process(self, pending: PendingAnalysis) -> None:
+        try:
+            result = self.pipeline.run(
+                ContentSubmission(kind=ContentKind.TEXT, text=pending.text)
+            )
+            response = format_result(result, elapsed_seconds=self.clock() - pending.started_at)
+        except InvalidSubmissionError as exc:
+            response = f"Entrada inválida: {exc}"
+        except (CorpusLoadError, OllamaError, ModelOutputError):
+            response = UNAVAILABLE_MESSAGE
+            LOGGER.error("Análise indisponível; categoria de falha conhecida.")
+        # A fronteira pública precisa responder de modo seguro até para falhas imprevistas.
+        except Exception:  # noqa: BLE001
+            response = UNEXPECTED_ERROR_MESSAGE
+            LOGGER.error("Falha interna inesperada durante a análise.")
+        _send_text(self.client, pending.chat_id, response)
+
+
+@dataclass(slots=True)
+class TelegramLongPoller:
+    client: TelegramClient
+    handler: TelegramUpdateHandler
+    polling_timeout_seconds: int = 30
+    maximum_backoff_seconds: float = 30.0
+    maximum_pending_analyses: int = 4
+    sleep: Callable[[float], None] = time.sleep
+    _offset: int | None = field(default=None, init=False, repr=False)
+
+    def __post_init__(self) -> None:
+        if not 1 <= self.polling_timeout_seconds <= 50:
+            raise ValueError("O timeout do long polling deve estar entre 1 e 50 segundos.")
+        if self.maximum_backoff_seconds <= 0 or self.maximum_pending_analyses <= 0:
+            raise ValueError("Backoff e limite da fila devem ser positivos.")
+
+    def run_forever(self) -> None:
+        backoff_seconds = 1.0
+        pending_futures: set[Future[None]] = set()
+        executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="immunocheck-analysis")
+        try:
+            while True:
+                try:
+                    updates = self.client.get_updates(
+                        offset=self._offset,
+                        timeout_seconds=self.polling_timeout_seconds,
+                    )
+                    backoff_seconds = 1.0
+                except TelegramAPIError:
+                    LOGGER.warning("Telegram temporariamente indisponível; nova tentativa agendada.")
+                    self.sleep(backoff_seconds)
+                    backoff_seconds = min(backoff_seconds * 2, self.maximum_backoff_seconds)
+                    continue
+
+                pending_futures = {future for future in pending_futures if not future.done()}
+                for update in updates:
+                    update_id = update.get("update_id")
+                    if isinstance(update_id, int):
+                        self._offset = update_id + 1
+                    capacity_available = len(pending_futures) < self.maximum_pending_analyses
+                    try:
+                        pending = self.handler.prepare(
+                            update,
+                            accept_analysis=capacity_available,
+                        )
+                    except TelegramAPIError:
+                        LOGGER.warning("Não foi possível enviar uma resposta ao Telegram.")
+                        continue
+                    if pending is None:
+                        continue
+                    if pending.feedback_seconds > 2.0:
+                        LOGGER.warning(
+                            "Feedback de processamento excedeu o objetivo de 2 segundos."
+                        )
+                    future = executor.submit(self._process_safely, pending)
+                    pending_futures.add(future)
+        finally:
+            executor.shutdown(wait=False, cancel_futures=True)
+
+    def _process_safely(self, pending: PendingAnalysis) -> None:
+        try:
+            self.handler.process(pending)
+        except TelegramAPIError:
+            LOGGER.warning("Não foi possível enviar uma resposta ao Telegram.")
+
+
+def main() -> int:
+    _configure_logging(os.getenv("LOG_LEVEL", "INFO"))
+    token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+    try:
+        client = TelegramBotAPI(token=token, request_timeout_seconds=2.0)
+        pipeline = build_text_pipeline()
+    except (ValueError, CorpusLoadError) as exc:
+        print(f"Configuração inválida: {exc}", file=sys.stderr)
+        return 2
+
+    LOGGER.info("Bot iniciado por long polling, sem persistência de interações.")
+    poller = TelegramLongPoller(
+        client=client,
+        handler=TelegramUpdateHandler(client=client, pipeline=pipeline),
+    )
+    try:
+        poller.run_forever()
+    except KeyboardInterrupt:
+        LOGGER.info("Bot encerrado pelo operador.")
+    return 0
+
+
+def _command_name(text: str) -> str | None:
+    first_token = text.split(maxsplit=1)[0]
+    if not first_token.startswith("/"):
+        return None
+    return first_token.split("@", maxsplit=1)[0].lower()
+
+
+def _send_text(client: TelegramClient, chat_id: int, text: str) -> None:
+    for part in _split_message(text):
+        client.send_message(chat_id, part)
+
+
+def _split_message(text: str, max_chars: int = 4_096) -> tuple[str, ...]:
+    if max_chars <= 0:
+        raise ValueError("O limite de mensagem deve ser positivo.")
+    if len(text) <= max_chars:
+        return (text,)
+    parts: list[str] = []
+    remaining = text
+    while remaining:
+        if len(remaining) <= max_chars:
+            parts.append(remaining)
+            break
+        split_at = remaining.rfind("\n", 0, max_chars + 1)
+        if split_at <= 0:
+            split_at = max_chars
+        part = remaining[:split_at].rstrip()
+        if not part:
+            part = remaining[:max_chars]
+            split_at = max_chars
+        parts.append(part)
+        remaining = remaining[split_at:].lstrip("\n")
+    return tuple(parts)
+
+
+def _configure_logging(level_name: str) -> None:
+    level = getattr(logging, level_name.upper(), logging.INFO)
+    logging.basicConfig(level=level, format="%(asctime)s %(levelname)s %(message)s")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
