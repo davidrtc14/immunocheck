@@ -114,6 +114,21 @@ de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
 
+Atualização de 06/09/2026: o lote 002 está preparado para revisão conjunta em
+`corpus/reviews/batch_002.md`. Foram catalogadas 19 novas fontes e retomado o
+CRIE, totalizando 20 candidatos no lote e 41 entradas no catálogo. Cinco PDFs
+foram propostos para inclusão, 14 documentos ficaram retidos e um download
+foi recusado por não retornar PDF. A rotina offline de auditoria confere bytes,
+extração e sinais de licença, sem conceder aprovação humana.
+
+O corpus ativo continua com 16 documentos e 2.675 chunks na versão acima. O
+próximo passo é registrar a revisão humana dos cinco propostos e, somente após
+aprovação e conferência dos hashes, publicar snapshot e embeddings incrementais
+offline e validar a importação no PostgreSQL. Não tratar os 41 catalogados como
+41 fontes utilizáveis. Os sete documentos legados com licença `to_verify` ainda
+precisam de auditoria antes de fechar a Fase 5. Testes: 166 aprovados, um opcional
+de PostgreSQL ignorado por falta de configuração; Ruff sem apontamentos.
+
 1. Leia integralmente `AGENTS.md`, `docs/PROJECT_BRIEF.md`,
    `docs/ARCHITECTURE_DECISIONS.md`, `docs/ROADMAP.md` e este arquivo.
 2. Trabalhe na branch `develop` e preserve alterações existentes.

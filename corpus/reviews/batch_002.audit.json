@@ -1,0 +1,498 @@
+{
+  "batch": "002",
+  "scope": "technical_only_not_human_approval",
+  "documents": [
+    {
+      "document_id": "ms_crie_2023",
+      "title": "Manual dos Centros de Referência para Imunobiológicos Especiais - 6ª edição",
+      "source_url": "https://dive.saude.sc.gov.br/index.php/component/phocadownload/category/177-a-dive/181-gedim?Itemid=101&download=1055:5-edicao-do-manual-dos-centros-de-referencia-para-imunobiologicos-especiais-crie",
+      "final_url": "https://dive.saude.sc.gov.br/phocadownload/00-a-dive/gedim/publicacoes/crie/manual-centros-referencia-imunobiologicos-especiais-6-edicao-2023.pdf",
+      "downloaded_at": "2026-09-06T21:38:17.081531+00:00",
+      "raw_sha256": "809d6c4a52e25a13f1692cfe7aa834eed680207665667f0506cbc6ad8a6f99a4",
+      "size_bytes": 1529760,
+      "text_sha256": "081ea205037ac0ded2820100aef0a9dabb9f70c62673d7f4638de3f31f3aabff",
+      "pages": 178,
+      "characters": 399767,
+      "chunks": 471,
+      "empty_pages": [
+        5,
+        17,
+        21,
+        27,
+        29,
+        39,
+        49
+      ],
+      "warnings": [
+        "Páginas sem texto extraído: 5, 17, 21, 27, 29, 39, 49"
+      ],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_bcg",
+      "title": "Vacina BCG",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/b/bcg",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/b/bcg",
+      "downloaded_at": "2026-09-06T21:37:23.652018+00:00",
+      "raw_sha256": "23da537b1e64baa6960df940a486f3489ca96e5009767cef93e07bf33f6adc2b",
+      "size_bytes": 132021,
+      "text_sha256": "a1ecec4aa59ac779663b85b1021db08da5c0a8a3387c6097c308212ef1942227",
+      "pages": 1,
+      "characters": 1867,
+      "chunks": 2,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_hepatite_b",
+      "title": "Hepatite B",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/h/hepatites-virais/hepatite-b",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/h/hepatites-virais/hepatite-b",
+      "downloaded_at": "2026-09-06T21:37:24.267638+00:00",
+      "raw_sha256": "3f7a2eabc66a3d374306936226bf39d461b64b5696bcd791f4bffa1aaf540bae",
+      "size_bytes": 155502,
+      "text_sha256": "ed279319b32f9a31c9ec87a729370916fd9f5b67263c99e6360c7a6d880f1e70",
+      "pages": 1,
+      "characters": 8389,
+      "chunks": 9,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_hepatite_a",
+      "title": "Hepatite A",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/h/hepatites-virais/hepatite-a",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/h/hepatites-virais/hepatite-a",
+      "downloaded_at": "2026-09-06T21:37:24.884651+00:00",
+      "raw_sha256": "062c0debb30912e4538c7ec907969031ee34a9f343ecb7d8f8bbefea67c5473b",
+      "size_bytes": 157049,
+      "text_sha256": "ab4371f2687586636edfe630450b0eb72bbc0552a966c47f4e28a5842db3ba74",
+      "pages": 1,
+      "characters": 8659,
+      "chunks": 9,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_poliomielite",
+      "title": "Poliomielite",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/p/poliomielite",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/p/poliomielite",
+      "downloaded_at": "2026-09-06T21:37:25.558869+00:00",
+      "raw_sha256": "ee630a1a8426659d617af2b3e500af27b5ef3a30ff5b4d8ec487bd11add53146",
+      "size_bytes": 151890,
+      "text_sha256": "bbab032ec6b451511655080eab3c12806096a1d67c597b63852168ca8b74913f",
+      "pages": 1,
+      "characters": 5739,
+      "chunks": 6,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_rotavirus",
+      "title": "Rotavírus",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/r/rotavirus",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/r/rotavirus",
+      "downloaded_at": "2026-09-06T21:37:26.146592+00:00",
+      "raw_sha256": "a6a01d71f0c4c4c3446a050617cbb9a24b893de9e2f37144f1145bb9d74257ac",
+      "size_bytes": 150038,
+      "text_sha256": "23301d39960dc45382b830ee1cbef7a6e036650c5cea594778c07a217e9bb105",
+      "pages": 1,
+      "characters": 5679,
+      "chunks": 6,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_febre_amarela",
+      "title": "Febre amarela",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/f/febre-amarela",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/f/febre-amarela",
+      "downloaded_at": "2026-09-06T21:37:26.662168+00:00",
+      "raw_sha256": "1cd95a2e196cc75095756cbf7cbf761272495b3c5bf8c019faba602980523619",
+      "size_bytes": 154846,
+      "text_sha256": "076e3808001c72149a2a06327ef62327cdc6a5197755ea4b9e7a9ab6f25636ee",
+      "pages": 1,
+      "characters": 7049,
+      "chunks": 7,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_triplice_viral",
+      "title": "Tríplice viral",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/t/triplice-viral",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/t/triplice-viral",
+      "downloaded_at": "2026-09-06T21:37:27.129594+00:00",
+      "raw_sha256": "7cb12c746785083610aecd47b22266eacf93a03a27c8c886ea74585e21977be7",
+      "size_bytes": 137871,
+      "text_sha256": "b5a03127f81ba99cc962409abf7b383eede9f57cfc57bc3875b9f323b767c1a5",
+      "pages": 1,
+      "characters": 3389,
+      "chunks": 4,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_varicela",
+      "title": "Catapora (Varicela)",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/c/catapora-varicela",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/c/catapora-varicela",
+      "downloaded_at": "2026-09-06T21:37:27.599564+00:00",
+      "raw_sha256": "b1c1e65f0c4497346d4504967f74fab74503036071d7fad758eaa1e7e456c1be",
+      "size_bytes": 153313,
+      "text_sha256": "5f803f60be38be688d9e7d233fefa201206b83c7011250f13ff4faabaea4b807",
+      "pages": 1,
+      "characters": 9963,
+      "chunks": 10,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_dtp",
+      "title": "Vacina DTP",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/d/dtp",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/d/dtp",
+      "downloaded_at": "2026-09-06T21:37:28.068100+00:00",
+      "raw_sha256": "cc16374b684e6f92a6b1da950d82c8dbd673aa7b81d47fdf47636a6d3fdb57f6",
+      "size_bytes": 146559,
+      "text_sha256": "c21882f702e16b642b4ca2271acc7aeb19f67f878ce42656e42345a95ed794e0",
+      "pages": 1,
+      "characters": 6905,
+      "chunks": 7,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_dtpa",
+      "title": "Vacina dTpa",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/d/dtpa",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/d/dtpa",
+      "downloaded_at": "2026-09-06T21:37:28.536822+00:00",
+      "raw_sha256": "35fd6d5e2ae9bc8be846af5c8c3068b76ba3abb2d5350e00452b72265557a157",
+      "size_bytes": 145390,
+      "text_sha256": "51ba1df972163709354d94a459571b94a1c0618e6f3d2ba9b158b0722b1f623d",
+      "pages": 1,
+      "characters": 7487,
+      "chunks": 8,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_meningite",
+      "title": "Meningite",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/m/meningite",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/m/meningite",
+      "downloaded_at": "2026-09-06T21:37:29.001910+00:00",
+      "raw_sha256": "ff729741d3f1453cbf7807d24ca029f8bd39b09b6e5910c37d3bf04ee9cc190c",
+      "size_bytes": 149239,
+      "text_sha256": "cb2105004e997025476e20eb49f11c4047bc7e9ec4edc2c651388e3bb54d207c",
+      "pages": 1,
+      "characters": 6424,
+      "chunks": 7,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_coqueluche",
+      "title": "Coqueluche",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/c/coqueluche",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/c/coqueluche",
+      "downloaded_at": "2026-09-06T21:37:29.461675+00:00",
+      "raw_sha256": "51c65a40e261074e54341c3f50f604a148fab1d5a634e85b97919cf2d97520e0",
+      "size_bytes": 148157,
+      "text_sha256": "d4becb2bb4bb29dd6bf4221288c93c56ca2b5774ce1ffb5c1dbf9d39da64875b",
+      "pages": 1,
+      "characters": 6534,
+      "chunks": 7,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_saude_migracao",
+      "title": "Vigilância em Saúde e Migração",
+      "source_url": "https://www.gov.br/saude/pt-br/composicao/svsa/vigilancia-em-saude-e-migracao",
+      "final_url": "https://www.gov.br/saude/pt-br/composicao/svsa/vigilancia-em-saude-e-migracao",
+      "downloaded_at": "2026-09-06T21:37:30.049062+00:00",
+      "raw_sha256": "dfe614a3a7965d7804bf2fc3f044a0250e4c55d35a3969117a7491f5b55d524d",
+      "size_bytes": 160587,
+      "text_sha256": "c3dacd0586a142d654fe145b879b74122c75c5ca335c91d70aa8f577c74e8547",
+      "pages": 1,
+      "characters": 8213,
+      "chunks": 9,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "todos os direitos reservados",
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nd/3.0/deed.pt_BR"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_microplanejamento_2025",
+      "title": "Manual de Microplanejamento para as atividades de vacinação de alta qualidade - 2ª edição",
+      "source_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/manual-de-microplanejamento.pdf/view",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/guias-e-manuais/2025/manual-de-microplanejamento-para-atividades-de-vacinacao-municipios-e-ubs.pdf",
+      "downloaded_at": "2026-09-06T21:37:33.635271+00:00",
+      "raw_sha256": "bbd130e168703466b496ea3153c5a7cba38dfc55bcc1e2598d7eb29bdfac188c",
+      "size_bytes": 4946069,
+      "text_sha256": "9ee587ac6ccefe760400630cf31ba2c33f93534f50bd6f17d243196d091139ff",
+      "pages": 75,
+      "characters": 122307,
+      "chunks": 144,
+      "empty_pages": [
+        13,
+        15,
+        37,
+        39,
+        57,
+        65
+      ],
+      "warnings": [
+        "Páginas sem texto extraído: 13, 15, 37, 39, 57, 65"
+      ],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_calendario_gestante_2026",
+      "title": "Calendário Técnico Nacional de Vacinação 2026 - Gestante",
+      "source_url": "https://www.gov.br/saude/pt-br/composicao/svsa/pni/calendario-tecnico/calendario-tecnico-nacional-de-vacinacao-gestante",
+      "final_url": "https://www.gov.br/saude/pt-br/composicao/svsa/pni/calendario-tecnico/calendario-tecnico-nacional-de-vacinacao-gestante",
+      "downloaded_at": "2026-09-06T21:37:34.634602+00:00",
+      "raw_sha256": "7d4454243bbe66e0e19e6ce608aa589a5aa5527b2fa138c8d8e47272a3515157",
+      "size_bytes": 907271,
+      "text_sha256": "e4ba9373b612a8b5b57bdd62a14d0f578d6026078bc014068836b7f8cd30b4b1",
+      "pages": 4,
+      "characters": 12257,
+      "chunks": 14,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_fronteiras_2026",
+      "title": "Estratégia de vacinação nas fronteiras - agenda 2025 e 2026",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/guias-e-manuais/2026/estrategia-de-vacinacao-nas-fronteiras-agenda-2025-e-2026.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/guias-e-manuais/2026/estrategia-de-vacinacao-nas-fronteiras-agenda-2025-e-2026.pdf/@@download/file",
+      "downloaded_at": "2026-09-06T21:41:46.835046+00:00",
+      "raw_sha256": "fa6baa591de1675c1e4187f507b87589e240c28a6405a698edb9f30128ed58e2",
+      "size_bytes": 3957718,
+      "text_sha256": "e398b00a6ef8fba9ee7e45be55bb8273e397647a8b40f1852ac6bd8092209093",
+      "pages": 43,
+      "characters": 66084,
+      "chunks": 83,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 11,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_influenza_2026",
+      "title": "Estratégia de vacinação contra a influenza nas regiões Nordeste Centro-Oeste Sul e Sudeste - 2026",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/guias-e-manuais/2026/estrategia-de-vacinacao-contra-a-influenza-nas-regioes-nordeste-centro-oeste-sul-e-sudeste-2026.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/guias-e-manuais/2026/estrategia-de-vacinacao-contra-a-influenza-nas-regioes-nordeste-centro-oeste-sul-e-sudeste-2026.pdf/@@download/file",
+      "downloaded_at": "2026-09-06T21:41:47.983959+00:00",
+      "raw_sha256": "9da725b847881a110d88eca6f46a12887031897ea31c95af9cc507190dde197c",
+      "size_bytes": 1189122,
+      "text_sha256": "7b607fdadd00d9b9e94933df54c71cfbb0d18100193ef70a5f87d3b9b2f9db8e",
+      "pages": 41,
+      "characters": 66769,
+      "chunks": 81,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_vsr_gestantes_2026",
+      "title": "Estratégia de vacinação contra o vírus sincicial respiratório em gestantes - 2026",
+      "source_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/estrategia-de-vacinacao-contra-o-virus-sincicial-respiratorio-em-gestantes.pdf",
+      "final_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/estrategia-de-vacinacao-contra-o-virus-sincicial-respiratorio-em-gestantes.pdf",
+      "downloaded_at": "2026-09-06T21:41:50.209789+00:00",
+      "raw_sha256": "427eba36592ef56520b563ae73f9f3c0c4f95914db3ba2a160e70c5d7946921f",
+      "size_bytes": 2971711,
+      "text_sha256": "97c815143f223e970916514490509687ca301feb46f3895a4d470f61d871e095",
+      "pages": 40,
+      "characters": 66919,
+      "chunks": 78,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 9,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    }
+  ],
+  "failures": [
+    {
+      "document_id": "ms_dengue_2024",
+      "error": "Sem recibo de download; consultar o histórico de coleta."
+    }
+  ],
+  "exact_text_duplicates_within_batch": [],
+  "raw_duplicates_against_validated_catalog": []
+}

@@ -93,6 +93,11 @@ candidatos bloqueados por download e 1 rejeitado por restrição de uso. Nenhum
 item acima foi marcado como concluído: ainda faltam ampliar e validar o corpus, anotar
 as alegações, executar a segunda revisão e congelar o teste.
 
+Em 06/09/2026, o lote 002 elevou o catálogo a 41 entradas, sem alterar os 16
+documentos ativos. Foram propostos cinco PDFs para revisão humana; outros 14
+materiais ficaram retidos e um candidato não retornou PDF. O parecer completo
+está em `corpus/reviews/batch_002.md`. Preparação não equivale a publicação.
+
 ## Fase 6 — Avaliação e entrega
 
 - [ ] Experimentos de retrieval.

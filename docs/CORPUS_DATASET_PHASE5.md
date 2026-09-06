@@ -91,3 +91,22 @@ Depois da validação do artefato local, os 2.675 embeddings foram importados e 
 versão foi ativada no PostgreSQL. O ranking denso top 10 do pgvector coincidiu
 exatamente com o índice NumPy local na consulta de fumaça sobre chumbo na vacina
 contra gripe.
+
+## Preparação do lote documental 002
+
+Em 06/09/2026 foram examinados 20 candidatos: 19 novos e a retomada do CRIE,
+agora obtido no espelho oficial DIVE/SC. O catálogo possui 41 entradas: 16
+validadas, 22 baixadas aguardando decisão, duas candidatas e uma rejeitada.
+
+O lote tem 19 downloads com integridade conferida. Cinco PDFs com licença
+CC BY-NC-SA 4.0 explícita foram propostos para inclusão; 13 HTMLs ficaram
+retidos por avisos conflitantes de licença e um calendário por problemas de
+estrutura/edição e licença pendente. O informe de dengue retornou HTML de acesso
+restrito em vez de PDF e permanece candidato. Nenhuma aprovação humana foi inferida.
+
+O parecer conjunto, os cuidados e os pontos de leitura estão em
+`corpus/reviews/batch_002.md`; as decisões pendentes em `batch_002.csv`; hashes
+e métricas em `batch_002.audit.json`. A rotina `scripts/audit_corpus_batch.py`
+é offline e não promove fontes nem publica índices. O corpus ativo permanece
+com 16 documentos e 2.675 chunks. Auditoria de licença dos sete documentos
+legados marcados `to_verify` também deve anteceder o fechamento desta fase.
