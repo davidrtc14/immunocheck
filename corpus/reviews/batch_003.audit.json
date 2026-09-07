@@ -1,0 +1,266 @@
+{
+  "batch": "003",
+  "scope": "technical_only_not_human_approval",
+  "documents": [
+    {
+      "document_id": "ms_multivacinacao_2026",
+      "title": "Multivacinação 2026 - estratégia para atualização da caderneta de menores de 15 anos",
+      "source_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/estrategia-para-atualizacao-da-cadernetas-de-vacinacao-das-criancas-e-dos-adolescentes-menores-de-15-anos-2013-multivacinacao-2026.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/estrategia-para-atualizacao-da-cadernetas-de-vacinacao-das-criancas-e-dos-adolescentes-menores-de-15-anos-2013-multivacinacao-2026.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:17.619958+00:00",
+      "raw_sha256": "3f1edcd8a0481374f77ad46e6966b81e45a23b8187c9c1abfadef085b1b302df",
+      "size_bytes": 935928,
+      "text_sha256": "bd75023beab9e23a9921f38483c5f61d02a2cab6b0afc43a53f4bbccb8fa6715",
+      "pages": 47,
+      "characters": 80649,
+      "chunks": 96,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 53,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_escolas_2025",
+      "title": "Estratégia de vacinação nas escolas 2025",
+      "source_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/estrategia-de-vacinacao-nas-escolas-2025.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/estrategia-de-vacinacao-nas-escolas-2025.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:20.966917+00:00",
+      "raw_sha256": "9afcf8cb3dd03ea04c94bf1c19e9b11c7db94d0e08dd0f0f980d8e4b9c52d885",
+      "size_bytes": 4550864,
+      "text_sha256": "dd917062c7d24e963bede089077513c342db0bb07dbf9bfd428933c7b8d133f5",
+      "pages": 30,
+      "characters": 54354,
+      "chunks": 66,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_operacao_gota_2026",
+      "title": "Estratégia de vacinação Operação Gota 2026",
+      "source_url": "https://www.gov.br/saude/pt-br/composicao/svsa/pni/operacao-gota/publicacoes/estrategia-de-vacinacao-operacao-gota-2026",
+      "final_url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/estrategia-de-vacinacao-operacao-gota-2026.pdf",
+      "downloaded_at": "2026-09-07T22:18:22.809979+00:00",
+      "raw_sha256": "0fb7758acbbb872f6b3912bc340a388770cb4b924e50cb4472925df585e0e1a7",
+      "size_bytes": 2305344,
+      "text_sha256": "f3b69aba59dc5de5bbebd6765cd83974c1920a7b4ed76b97abbaa21102f9a6e7",
+      "pages": 54,
+      "characters": 86018,
+      "chunks": 105,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_polio_vip_2024",
+      "title": "Retirada da VOPb e adoção do esquema exclusivo com VIP",
+      "source_url": "https://www.gov.br/saude/pt-br/vacinacao/informes/retirada-da-vacina-poliomielite-1-e-3-atenuada-e-adocao-do-esquema-exclusivo-com-vacina-poliomielite-1-2-e-3-inativada.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/vacinacao/informes/retirada-da-vacina-poliomielite-1-e-3-atenuada-e-adocao-do-esquema-exclusivo-com-vacina-poliomielite-1-2-e-3-inativada.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:25.027729+00:00",
+      "raw_sha256": "8c3880981d31cd6b49d0c225aeac86f68fd3ff4b750a61bc2e631f2685aa6a41",
+      "size_bytes": 3317555,
+      "text_sha256": "6b5c56dd7bf038e9e9dc9f4b7468de86af8dd1d4d6fbfb6d6159684e4cf606a1",
+      "pages": 22,
+      "characters": 33853,
+      "chunks": 43,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_pfa_2025",
+      "title": "Informe Poliomielite e Paralisias Flácidas Agudas",
+      "source_url": "https://www.gov.br/saude/pt-br/vacinacao/informes/informe-poliomielite-pfa.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/vacinacao/informes/informe-poliomielite-pfa.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:26.421234+00:00",
+      "raw_sha256": "ca05e4dce7752a0c37f752c650a47234b00d3718f5e6bd4c1fc448fc18cde434",
+      "size_bytes": 1958052,
+      "text_sha256": "3f9e17aac5fc8b4c56fa379a1c0166a71ca6362bdc9e9c7061ed3491f54933a6",
+      "pages": 12,
+      "characters": 21744,
+      "chunks": 25,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "reprodução parcial ou total"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_mpox_seguranca_2025",
+      "title": "Monitoramento da segurança da vacina Mpox - SE 6 de 2023 à SE 1 de 2025",
+      "source_url": "https://www.gov.br/saude/pt-br/vacinacao/esavi/monitoramento-dos-eventos/2025/informe-monitoramento-da-seguranca-da-vacina-mpox-se-6-de-2023-a-se-1-de-2025.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/vacinacao/esavi/monitoramento-dos-eventos/2025/informe-monitoramento-da-seguranca-da-vacina-mpox-se-6-de-2023-a-se-1-de-2025.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:27.444079+00:00",
+      "raw_sha256": "b2900681ea521c104fc2e8dd070a10f4d11f6f3a6231af7bcee31968f763f207",
+      "size_bytes": 1331991,
+      "text_sha256": "2e06d624c4e423f46b79d51cc8749a4e9a12065dddec82eeff15c1331f06fa36",
+      "pages": 8,
+      "characters": 16894,
+      "chunks": 19,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "reprodução parcial ou total"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_seguranca_calendario_2024",
+      "title": "Monitoramento da segurança das vacinas do calendário nacional - Brasil 2024",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/epidemiologicos/edicoes/2025/boletim-epidemiologico-volume-56-no-9-18-de-jul.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/epidemiologicos/edicoes/2025/boletim-epidemiologico-volume-56-no-9-18-de-jul.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:28.163521+00:00",
+      "raw_sha256": "7ef07b88ccdf8e10be6aa18f34b63286b0756605488f068162fb28e0c026a320",
+      "size_bytes": 763137,
+      "text_sha256": "920a8adfd226df1d665a68509f659ea285cc943b56e26086863a7f032a1562dc",
+      "pages": 16,
+      "characters": 43665,
+      "chunks": 48,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "reprodução parcial ou total"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_dengue_seguranca_2025",
+      "title": "Segurança da vacina contra dengue após um ano de implementação no Brasil 2024-2025",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/epidemiologicos/edicoes/2025/boletim-epidemiologico-volume-56-no-18.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/epidemiologicos/edicoes/2025/boletim-epidemiologico-volume-56-no-18.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:28.878554+00:00",
+      "raw_sha256": "76b37ab85e7aeefb8cef6fd60a69876bc368ebd39c3d0da436eeeb932625717f",
+      "size_bytes": 775275,
+      "text_sha256": "fccc57a307b96c16e5cdccfb43d3fcd747cbc96a7a6a0577173cd604d4f7735f",
+      "pages": 18,
+      "characters": 56188,
+      "chunks": 60,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "reprodução parcial ou total"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_covid_vacinacao_2024_2ed",
+      "title": "Estratégia de vacinação contra a Covid-19 - 2024 - 2ª edição",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/c/covid-19/publicacoes-tecnicas/guias-e-planos/estrategia-de-vacinacao-contra-a-covid-19-2024-2a-edicao/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/c/covid-19/publicacoes-tecnicas/guias-e-planos/estrategia-de-vacinacao-contra-a-covid-19-2024-2a-edicao/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:31.332471+00:00",
+      "raw_sha256": "827f35ed575d32059305f6eb5a48092dfd00883c8aa9d13023a5408211765c4e",
+      "size_bytes": 3818245,
+      "text_sha256": "760b69c181cd080ab29090e39474e131200440dea6809d5ad6fce8c527cd9b13",
+      "pages": 48,
+      "characters": 86050,
+      "chunks": 99,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_respiratorios_2025",
+      "title": "Cenário epidemiológico da covid-19 da influenza e de outros vírus respiratórios no Brasil em 2025",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/epidemiologicos/edicoes/2026/boletim-epidemiologico-volume-57-no-4.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/boletins/epidemiologicos/edicoes/2026/boletim-epidemiologico-volume-57-no-4.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:33.344434+00:00",
+      "raw_sha256": "ba3be18f53088d0432ede0dfc13cb7c6a2a73213b9a0f088b091aaa9c996f5a5",
+      "size_bytes": 2939501,
+      "text_sha256": "e78e7822c8e4df2027ac0d35fcc6384d5a6d02ac0fed414dd1a464c3770281e0",
+      "pages": 44,
+      "characters": 112596,
+      "chunks": 125,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 28,
+      "license_signals_not_permission": [
+        "reprodução parcial ou total"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_meningite_2025",
+      "title": "Informe epidemiológico de meningite - 2010 ao primeiro semestre de 2025",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/m/meningite/situacao-epidemiologica/boletim-epidemiologico/informe-meningite-2a-edicao.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/m/meningite/situacao-epidemiologica/boletim-epidemiologico/informe-meningite-2a-edicao.pdf/@@download/file",
+      "downloaded_at": "2026-09-07T22:18:34.489297+00:00",
+      "raw_sha256": "2d9b2cc1f0cc2d41a7fb4ad3654af950e05254e50430009a2fe9042381ebc24b",
+      "size_bytes": 1507730,
+      "text_sha256": "80446c702366b7e6cd131bce6f51199c9fb71165bbe04b5dfc0e30b420aaa015",
+      "pages": 10,
+      "characters": 29391,
+      "chunks": 34,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "reprodução parcial ou total"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    }
+  ],
+  "failures": [
+    {
+      "document_id": "ms_febre_amarela_esavi_2025",
+      "error": "Sem recibo de download; consultar o histórico de coleta."
+    }
+  ],
+  "exact_text_duplicates_within_batch": [],
+  "raw_duplicates_against_validated_catalog": []
+}

@@ -117,3 +117,18 @@ foi ativada com 21 documentos, 3.532 chunks e 3.532 embeddings. Foram reutilizad
 documento no top 10 híbrido, e o ranking denso top 10 do pgvector coincidiu com o
 NumPy no caso VSR. Auditoria de licença dos sete documentos legados marcados
 `to_verify` também deve anteceder o fechamento desta fase.
+
+## Preparação do lote documental 003
+
+Em 07/09/2026 foram catalogados 12 candidatos oficiais do Ministério da Saúde.
+Onze PDFs foram obtidos e passaram por auditoria técnica, de permissão de uso e
+amostragem visual: 309 páginas e 720 chunks potenciais. Cinco declaram CC
+BY-NC-SA 4.0 e seis permitem expressamente reprodução com atribuição e sem
+finalidade comercial. A nota técnica de febre amarela retornou HTTP 404 e ficou
+retida.
+
+Os 11 PDFs estão apenas em `downloaded`, com proposta de aprovação conjunta em
+`corpus/reviews/batch_003.md`. Até decisão expressa do autor, o corpus ativo
+permanece em 21 documentos e 3.532 chunks. Se aprovados, eles ampliam normas,
+comunicação/equidade, vacinas específicas, segurança e epidemiologia, mas não
+substituem o futuro lote de evidência causal revisada por pares.

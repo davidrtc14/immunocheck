@@ -98,6 +98,12 @@ ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão 
 publicada e validada no PostgreSQL. O parecer completo está em
 `corpus/reviews/batch_002.md`.
 
+Em 07/09/2026, o lote 003 foi preparado para decisão conjunta: 11 PDFs oficiais
+auditados, totalizando 309 páginas e 720 chunks potenciais, e uma nota técnica
+retida por HTTP 404. Os 11 permanecem `downloaded`; nenhum foi promovido nem
+incluído nos números do corpus ativo. O parecer está em
+`corpus/reviews/batch_003.md`.
+
 ## Fase 6 — Avaliação e entrega
 
 - [ ] Experimentos de retrieval.

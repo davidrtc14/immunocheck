@@ -116,13 +116,14 @@ teste.
 ## Instruções para a próxima sessão
 
 Atualização de 07/09/2026: o lote 002 está aprovado, publicado e validado; sua trilha
-está em `corpus/reviews/batch_002.md`. Não tratar as 41 entradas catalogadas como 41
-fontes utilizáveis: somente 21 estão validadas. O próximo passo é preparar o lote 003
-guiado pelas maiores lacunas temáticas, sem promover materiais retidos. Os sete
-documentos legados com licença `to_verify` ainda precisam de auditoria antes de fechar
-a Fase 5. Também continuam pendentes o dataset definitivo, a segunda anotação e o
-congelamento do teste. Validação do marco: 166 testes aprovados, um teste PostgreSQL
-opcional ignorado por ausência de base exclusiva, e Ruff sem apontamentos.
+está em `corpus/reviews/batch_002.md`. O lote 003 foi preparado, mas ainda aguarda
+aprovação conjunta do autor: 11 PDFs estão `downloaded` e uma nota técnica ficou
+retida por HTTP 404. O catálogo possui 53 entradas, porém somente 21 são fontes
+validadas e o índice ativo continua com 3.532 chunks. Não promover o lote 003 por
+inferência; consultar `corpus/reviews/batch_003.md` e registrar aprovação vinculada
+aos hashes. Os sete documentos legados com licença `to_verify` ainda precisam de
+auditoria antes de fechar a Fase 5. Também continuam pendentes o dataset definitivo,
+a segunda anotação e o congelamento do teste.
 
 1. Leia integralmente `AGENTS.md`, `docs/PROJECT_BRIEF.md`,
    `docs/ARCHITECTURE_DECISIONS.md`, `docs/ROADMAP.md` e este arquivo.
