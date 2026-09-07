@@ -87,16 +87,16 @@ serão avaliados formalmente na Fase 6.
 **Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
 
 **Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
-o validador auditável do dataset fim a fim foram criados. O primeiro lote elevou o
-catálogo para 22 documentos: 16 validados, 3 baixados retidos por licença, 2
-candidatos bloqueados por download e 1 rejeitado por restrição de uso. Nenhum
-item acima foi marcado como concluído: ainda faltam ampliar e validar o corpus, anotar
-as alegações, executar a segunda revisão e congelar o teste.
+o validador auditável do dataset fim a fim foram criados. Após dois lotes, o catálogo
+possui 41 entradas e o corpus ativo possui 21 documentos, 3.532 chunks e 3.532
+embeddings. Ainda faltam 59 documentos para o mínimo temático, anotar pelo menos
+100 alegações, executar a segunda revisão e congelar o teste; por isso nenhum item
+de aceite da fase foi marcado como concluído.
 
-Em 06/09/2026, o lote 002 elevou o catálogo a 41 entradas, sem alterar os 16
-documentos ativos. Foram propostos cinco PDFs para revisão humana; outros 14
-materiais ficaram retidos e um candidato não retornou PDF. O parecer completo
-está em `corpus/reviews/batch_002.md`. Preparação não equivale a publicação.
+Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
+ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi
+publicada e validada no PostgreSQL. O parecer completo está em
+`corpus/reviews/batch_002.md`.
 
 ## Fase 6 — Avaliação e entrega
 

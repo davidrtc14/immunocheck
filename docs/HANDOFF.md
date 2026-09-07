@@ -1,6 +1,6 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 31/08/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 07/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
 ## Objetivo imutável
@@ -98,36 +98,31 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-O lote documental 001 foi aprovado em 01/09/2026. O catálogo possui 22 entradas e o
-snapshot local publicado possui 16 documentos, 2.675 chunks e versão
-`sha256:9aaa8323aefc9186e22dce3c79cb8ad73b0bda4fe3426c8c101221048dfd7510`.
-O índice BGE-M3 incremental reutilizou 1.914 vetores e calculou 761 em modo offline.
-Consultas de fumaça recuperaram no topo as fontes esperadas para componentes, autismo,
-vacinas experimentais e rede de frio; duas alegações atômicas também foram refutadas
-corretamente pela pipeline completa.
+Os lotes documentais 001 e 002 foram aprovados. O catálogo possui 41 entradas e o
+snapshot local publicado possui 21 documentos, 3.532 chunks e versão
+`sha256:5e21bdfbe417e471ce7ac1c34d0d239c79fb619a751228cd3616b9772da09f31`.
+Na segunda publicação incremental, o BGE-M3 reutilizou 2.675 vetores e calculou 857
+em modo offline. As cinco consultas temáticas recuperaram o respectivo documento
+novo no top 10 híbrido.
 
-O snapshot e os 2.675 embeddings foram importados no PostgreSQL e a nova versão foi
+O snapshot e os 3.532 embeddings foram importados no PostgreSQL, e a nova versão foi
 ativada somente após a verificação de completude. O ranking denso top 10 do pgvector
-foi idêntico ao índice NumPy local na consulta de fumaça sobre chumbo na vacina contra
-gripe. A Fase 5 continua aberta: faltam 64 documentos para o mínimo temático, o dataset
-de pelo menos 100 alegações, segunda anotação e congelamento do teste.
+foi idêntico ao índice NumPy na consulta sobre VSR. A pipeline completa sustentou a
+proteção de bebês pela vacinação materna contra VSR, com citações do guia novo e do
+calendário de 2026. A Fase 5 continua aberta: faltam 59 documentos para o mínimo
+temático, o dataset de pelo menos 100 alegações, segunda anotação e congelamento do
+teste.
 
 ## Instruções para a próxima sessão
 
-Atualização de 06/09/2026: o lote 002 está preparado para revisão conjunta em
-`corpus/reviews/batch_002.md`. Foram catalogadas 19 novas fontes e retomado o
-CRIE, totalizando 20 candidatos no lote e 41 entradas no catálogo. Cinco PDFs
-foram propostos para inclusão, 14 documentos ficaram retidos e um download
-foi recusado por não retornar PDF. A rotina offline de auditoria confere bytes,
-extração e sinais de licença, sem conceder aprovação humana.
-
-O corpus ativo continua com 16 documentos e 2.675 chunks na versão acima. O
-próximo passo é registrar a revisão humana dos cinco propostos e, somente após
-aprovação e conferência dos hashes, publicar snapshot e embeddings incrementais
-offline e validar a importação no PostgreSQL. Não tratar os 41 catalogados como
-41 fontes utilizáveis. Os sete documentos legados com licença `to_verify` ainda
-precisam de auditoria antes de fechar a Fase 5. Testes: 166 aprovados, um opcional
-de PostgreSQL ignorado por falta de configuração; Ruff sem apontamentos.
+Atualização de 07/09/2026: o lote 002 está aprovado, publicado e validado; sua trilha
+está em `corpus/reviews/batch_002.md`. Não tratar as 41 entradas catalogadas como 41
+fontes utilizáveis: somente 21 estão validadas. O próximo passo é preparar o lote 003
+guiado pelas maiores lacunas temáticas, sem promover materiais retidos. Os sete
+documentos legados com licença `to_verify` ainda precisam de auditoria antes de fechar
+a Fase 5. Também continuam pendentes o dataset definitivo, a segunda anotação e o
+congelamento do teste. Validação do marco: 166 testes aprovados, um teste PostgreSQL
+opcional ignorado por ausência de base exclusiva, e Ruff sem apontamentos.
 
 1. Leia integralmente `AGENTS.md`, `docs/PROJECT_BRIEF.md`,
    `docs/ARCHITECTURE_DECISIONS.md`, `docs/ROADMAP.md` e este arquivo.

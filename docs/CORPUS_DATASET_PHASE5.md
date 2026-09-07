@@ -92,21 +92,28 @@ versão foi ativada no PostgreSQL. O ranking denso top 10 do pgvector coincidiu
 exatamente com o índice NumPy local na consulta de fumaça sobre chumbo na vacina
 contra gripe.
 
-## Preparação do lote documental 002
+## Execução do lote documental 002
 
 Em 06/09/2026 foram examinados 20 candidatos: 19 novos e a retomada do CRIE,
-agora obtido no espelho oficial DIVE/SC. O catálogo possui 41 entradas: 16
-validadas, 22 baixadas aguardando decisão, duas candidatas e uma rejeitada.
+agora obtido no espelho oficial DIVE/SC. Cinco PDFs foram aprovados pelo autor
+após a auditoria e promovidos para `validated`; 14 materiais ficaram retidos e
+um download foi recusado por não retornar PDF. O catálogo possui 41 entradas:
+21 validadas, 17 baixadas aguardando decisão, duas candidatas e uma rejeitada.
 
-O lote tem 19 downloads com integridade conferida. Cinco PDFs com licença
-CC BY-NC-SA 4.0 explícita foram propostos para inclusão; 13 HTMLs ficaram
+Os cinco aprovados possuem licença CC BY-NC-SA 4.0 explícita. Treze HTMLs ficaram
 retidos por avisos conflitantes de licença e um calendário por problemas de
 estrutura/edição e licença pendente. O informe de dengue retornou HTML de acesso
-restrito em vez de PDF e permanece candidato. Nenhuma aprovação humana foi inferida.
+restrito em vez de PDF e permanece candidato.
 
 O parecer conjunto, os cuidados e os pontos de leitura estão em
-`corpus/reviews/batch_002.md`; as decisões pendentes em `batch_002.csv`; hashes
+`corpus/reviews/batch_002.md`; decisões e responsável em `batch_002.csv`; hashes
 e métricas em `batch_002.audit.json`. A rotina `scripts/audit_corpus_batch.py`
-é offline e não promove fontes nem publica índices. O corpus ativo permanece
-com 16 documentos e 2.675 chunks. Auditoria de licença dos sete documentos
-legados marcados `to_verify` também deve anteceder o fechamento desta fase.
+é offline e não promove fontes nem publica índices.
+
+Em 07/09/2026, a versão
+`sha256:5e21bdfbe417e471ce7ac1c34d0d239c79fb619a751228cd3616b9772da09f31`
+foi ativada com 21 documentos, 3.532 chunks e 3.532 embeddings. Foram reutilizados
+2.675 vetores e gerados 857 novos. Consultas diagnósticas recuperaram cada novo
+documento no top 10 híbrido, e o ranking denso top 10 do pgvector coincidiu com o
+NumPy no caso VSR. Auditoria de licença dos sete documentos legados marcados
+`to_verify` também deve anteceder o fechamento desta fase.

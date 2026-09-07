@@ -108,3 +108,12 @@ foi importada e ativada com 16 documentos, 2.675 chunks e 2.675 embeddings. O ra
 denso top 10 de uma consulta sobre chumbo na vacina contra gripe foi idêntico entre o
 índice NumPy local e o pgvector. Essa é uma verificação funcional única; as medições
 distribucionais continuam reservadas para a Fase 6.
+
+## Atualização do lote 002 da Fase 5
+
+Em 07/09/2026, a versão
+`sha256:5e21bdfbe417e471ce7ac1c34d0d239c79fb619a751228cd3616b9772da09f31`
+foi importada e ativada com 21 documentos, 3.532 chunks e 3.532 embeddings. A
+versão anterior permaneceu `ARCHIVED`. O ranking denso top 10 de uma consulta
+sobre vacinação materna contra VSR foi idêntico no índice NumPy e no pgvector.
+Essa comparação é um teste funcional; não substitui o benchmark da Fase 6.

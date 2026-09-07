@@ -1,21 +1,21 @@
 # Lote documental 002 - parecer para revisão conjunta
 
-Preparado em 06/09/2026. **Nenhum documento deste lote foi aprovado por uma pessoa
-ou incluído no índice nesta etapa.** A revisão humana permanece pendente em
-`batch_002.csv`.
+Preparado e aprovado pelo autor em 06/09/2026; publicado e validado em
+07/09/2026. A aprovação abrange somente os cinco PDFs identificados abaixo e os
+bytes registrados pelos respectivos SHA-256 em `batch_002.csv`. Os outros 15
+itens do lote permanecem fora do índice.
 
 ## Resultado executivo
 
 - 20 candidatos examinados: 19 novas entradas e a retomada do CRIE do lote 001.
 - 19 downloads íntegros e extraíveis; uma coleta rejeitada por não retornar PDF.
-- **Cinco documentos propostos para inclusão**, todos com CC BY-NC-SA 4.0 explícita.
+- **Cinco documentos aprovados e incluídos**, todos com CC BY-NC-SA 4.0 explícita.
 - 13 páginas HTML retidas por avisos de uso conflitantes.
 - Um calendário retido por problemas de estrutura e edição, além de licença pendente.
-- Catálogo total: 41 entradas. Corpus ativo preservado: 16 documentos e 2.675 chunks.
-- Se os cinco propostos forem aprovados e publicados, serão 21 documentos ativos;
-  essa projeção não equivale a publicação nem a fechamento da Fase 5.
+- Catálogo total: 41 entradas. Corpus ativo: 21 documentos e 3.532 chunks.
+- A publicação do lote não equivale ao fechamento da Fase 5.
 
-## Documentos propostos
+## Documentos aprovados
 
 Todos são publicações do Ministério da Saúde. A licença consta da página física 3
 de cada PDF: atribuição obrigatória, uso não comercial e compartilhamento sob a
@@ -108,7 +108,7 @@ conferida em cópia local; o documento continua candidato e fora do índice.
 Páginas de situação epidemiológica mutáveis e dashboards localizados na pesquisa
 não foram adicionados como substitutos de boletins datados.
 
-## Reprodução e próximo passo
+## Reprodução e publicação
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\audit_corpus_batch.py --batch 002
@@ -121,19 +121,28 @@ sucesso. O comando não baixa, não promove estados e não publica índices.
 Textos integrais são gravados somente no diretório local ignorado
 `corpus/raw/reviews/batch_002/`; o relatório público não contém esses textos.
 
-A regra metodológica em `docs/CORPUS_DATASET_PHASE5.md` exige revisão humana antes
-de `validated`. A decisão solicitada é sobre os **cinco documentos da tabela de
-propostos**, mantendo os outros 15 fora do índice. Após conferência, registrar
-responsável, data e eventuais ressalvas no CSV, vinculados aos hashes desta auditoria.
-Uma aprovação em lote não substitui a conferência do conteúdo nem vale para futuros
-bytes diferentes na mesma URL.
+A revisão humana foi registrada em `batch_002.csv` antes da promoção para
+`validated`, vinculada aos hashes da auditoria. Uma aprovação em lote não vale para
+bytes futuros diferentes na mesma URL.
 
-Só então construir o snapshot, gerar embeddings incrementais offline, testar
-retrieval e publicar no PostgreSQL. Não avançar à Fase 6: ainda faltam cobertura,
-dataset, segunda anotação e teste congelado. Também permanece pendente a auditoria
-de licença dos sete documentos legados cujo catálogo ainda indica `to_verify`.
+A publicação gerou a versão
+`sha256:5e21bdfbe417e471ce7ac1c34d0d239c79fb619a751228cd3616b9772da09f31`,
+com 21 documentos e 3.532 chunks. O índice incremental reutilizou os 2.675 vetores
+anteriores e gerou 857 novos localmente, em CPU e sem rede. No PostgreSQL, os
+3.532 trechos de evidência possuem embeddings correspondentes e a
+versão anterior ficou arquivada.
 
-Validação de software nesta etapa: **166 testes aprovados, um teste opcional de
-PostgreSQL ignorado por ausência de configuração, Ruff sem apontamentos**.
-Não foram reexecutados LLM, Telegram ou importações, pois o corpus ativo e a
-pipeline de atendimento não mudaram.
+As cinco consultas temáticas recuperaram o respectivo documento novo no top 10 do
+RRF; CRIE e Fronteiras ficaram no primeiro resultado. O top 10 denso do pgvector
+coincidiu com o NumPy em uma consulta sobre VSR. No teste completo, uma alegação
+sobre proteção de bebês pela vacinação materna contra VSR recebeu veredito
+`SUPPORTED`, com citações do novo guia e do calendário de 2026, em 55,18 s.
+
+Validação de software após a publicação: **166 testes aprovados**, um teste de
+integração PostgreSQL opcional ignorado por não haver base de teste exclusiva, e
+Ruff sem apontamentos. A base do projeto foi validada por consultas não destrutivas;
+o teste de integração não foi apontado para ela.
+
+Não avançar à Fase 6: ainda faltam 59 documentos para o mínimo temático, dataset,
+segunda anotação e teste congelado. Também permanece pendente a auditoria de licença
+dos sete documentos legados cujo catálogo ainda indica `to_verify`.
