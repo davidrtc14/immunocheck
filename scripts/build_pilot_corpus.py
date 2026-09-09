@@ -13,6 +13,7 @@ from immunocheck.ingestion.corpus_versioning import (
 from immunocheck.ingestion.html_extractor import HtmlExtractionError, extract_html
 from immunocheck.ingestion.models import ExtractedDocument
 from immunocheck.ingestion.pdf_extractor import PdfExtractionError, extract_pdf
+from immunocheck.ingestion.xml_extractor import XmlExtractionError, extract_xml
 
 PROJECT_ROOT = Path(__file__).parents[1]
 CATALOG_PATH = PROJECT_ROOT / "corpus" / "catalog.csv"
@@ -36,7 +37,12 @@ def main() -> None:
             report_path=PROCESSED_DIR / "validation_report.json",
             manifest_path=PROCESSED_DIR / "manifest.json",
         )
-    except (CorpusVersioningError, HtmlExtractionError, PdfExtractionError) as exc:
+    except (
+        CorpusVersioningError,
+        HtmlExtractionError,
+        PdfExtractionError,
+        XmlExtractionError,
+    ) as exc:
         print(f"FALHA: {type(exc).__name__}: {exc}")
         raise SystemExit(1) from exc
 
@@ -63,6 +69,9 @@ def main() -> None:
 def _extract(path: Path, entry: CatalogEntry) -> ExtractedDocument:
     if entry.metadata.format == "pdf":
         return extract_pdf(path, entry.metadata)
+    if entry.metadata.format == "xml":
+        xml = path.read_text(encoding="utf-8-sig", errors="strict")
+        return extract_xml(xml, entry.metadata)
     html = path.read_text(encoding="utf-8-sig", errors="replace")
     return extract_html(html, entry.metadata)
 

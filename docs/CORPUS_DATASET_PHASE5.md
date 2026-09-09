@@ -139,3 +139,16 @@ dengue. A lacuna para o mínimo temático caiu a 48 documentos. O lote amplia no
 comunicação/equidade, vacinas específicas, segurança e epidemiologia, mas não
 substitui o futuro lote de evidência causal revisada por pares. O parecer e as
 limitações estão em `corpus/reviews/batch_003.md`.
+
+## Preparação do lote documental 004
+
+Em 09/09/2026 foram examinados 12 candidatos para as lacunas de eficácia,
+alegações causais, populações especiais e vacinas específicas. Dez documentos
+foram coletados e auditados; duas páginas do CDC recusaram a coleta automatizada.
+O parecer propõe oito aprovações, que somariam 1.061 chunks potenciais, e quatro
+retenções por falta de licença aberta ou de bytes auditáveis.
+
+O lote permanece **aguardando aprovação humana conjunta**. Nenhum candidato do
+lote 004 foi promovido, indexado ou importado no PostgreSQL, e o corpus ativo
+continua com 32 documentos e 4.252 chunks. O relatório técnico e os guardrails
+por fonte estão em `corpus/reviews/batch_004.md`.

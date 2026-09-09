@@ -1,6 +1,7 @@
 import pytest
 
 from immunocheck.ingestion.downloader import (
+    DEFAULT_ALLOWED_DOMAINS,
     DownloadError,
     DownloadReceipt,
     _read_limited,
@@ -23,6 +24,19 @@ class FakeResponse:
 
 def test_url_policy_accepts_official_subdomain() -> None:
     _validate_url("https://www.gov.br/saude/manual.pdf", ("gov.br",))
+
+
+@pytest.mark.parametrize(
+    "url",
+    (
+        "https://www.bmj.com/content/article.full.pdf",
+        "https://stacks.cdc.gov/view/report.pdf",
+        "https://www.ncbi.nlm.nih.gov/books/report/",
+        "https://link.springer.com/content/pdf/article.pdf",
+    ),
+)
+def test_default_url_policy_accepts_audited_scientific_repositories(url: str) -> None:
+    _validate_url(url, DEFAULT_ALLOWED_DOMAINS)
 
 
 @pytest.mark.parametrize(
@@ -75,6 +89,9 @@ def test_merge_receipts_preserves_old_and_replaces_redownloaded() -> None:
         ("pdf", "application/octet-stream", b"%PDF-1.4 document"),
         ("html", "text/html", b"<!doctype html><title>Documento</title>"),
         ("html", "application/xhtml+xml", b"<html></html>"),
+        ("xml", "application/xml", b"<?xml version='1.0'?><article></article>"),
+        ("xml", "text/xml", b"<article></article>"),
+        ("xml", "application/xml", b"<!DOCTYPE article><article></article>"),
     ),
 )
 def test_content_policy_accepts_matching_documents(
@@ -93,6 +110,8 @@ def test_content_policy_accepts_matching_documents(
         ("html", "application/pdf", b"%PDF-1.7 document"),
         ("html", "application/json", b"{}"),
         ("pdf", "application/pdf", b""),
+        ("xml", "application/pdf", b"%PDF-1.7 document"),
+        ("xml", "application/xml", b"not xml"),
     ),
 )
 def test_content_policy_rejects_mismatches(

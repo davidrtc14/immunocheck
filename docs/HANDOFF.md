@@ -98,7 +98,7 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001, 002 e 003 foram aprovados. O catálogo possui 53 entradas
+Os lotes documentais 001, 002 e 003 foram aprovados. O catálogo possui 65 entradas
 e o snapshot local publicado possui 32 documentos, 4.252 chunks e versão
 `sha256:8e605597e2cc3d55a09cffbb7dde6396d5df34452b22179dee0fa65585959364`.
 Na terceira publicação incremental, o BGE-M3 reutilizou 3.532 vetores e calculou
@@ -112,13 +112,18 @@ completa sustentou a finalidade de acesso da Operação Gota com citações do g
 novo. A Fase 5 continua aberta: faltam 48 documentos para o mínimo temático, o
 dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
+O lote 004 está tecnicamente auditado, mas aguarda aprovação humana conjunta.
+Foram propostas oito aprovações e quatro retenções; nenhuma dessas fontes foi
+promovida ou indexada. O parecer está em `corpus/reviews/batch_004.md`.
+
 ## Instruções para a próxima sessão
 
 Atualização de 09/09/2026: o lote 003 está aprovado, publicado e validado; sua trilha
-está em `corpus/reviews/batch_003.md`. Não tratar as 53 entradas catalogadas como 53
+está em `corpus/reviews/batch_003.md`. O lote 004 está apenas preparado e precisa de
+aprovação expressa antes de qualquer promoção. Não tratar as 65 entradas catalogadas como 65
 fontes utilizáveis: 32 estão validadas. O próximo lote deve priorizar eficácia e
 imunogenicidade, alegações causais recorrentes, contraindicações/populações especiais
-e vacinas específicas. A auditoria dos sete documentos legados com licença
+e vacinas específicas depois da decisão sobre o lote 004. A auditoria dos sete documentos legados com licença
 `to_verify` também deve anteceder o fechamento da Fase 5. Continuam pendentes o
 dataset definitivo, a segunda anotação e o congelamento do teste. Validação do marco:
 166 testes aprovados, um teste PostgreSQL opcional ignorado por ausência de base

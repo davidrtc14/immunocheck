@@ -18,7 +18,22 @@ class DownloadError(RuntimeError):
 
 
 SAFE_DOCUMENT_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,99}$")
-DEFAULT_ALLOWED_DOMAINS = ("gov.br", "paho.org", "who.int")
+DEFAULT_ALLOWED_DOMAINS = (
+    "ahrq.gov",
+    "bmj.com",
+    "cdc.gov",
+    "ebi.ac.uk",
+    "europepmc.org",
+    "gov.br",
+    "mdpi.com",
+    "mdpi-res.com",
+    "nih.gov",
+    "paho.org",
+    "springer.com",
+    "springernature.com",
+    "thelancet.com",
+    "who.int",
+)
 
 
 class ReadableResponse(Protocol):
@@ -72,7 +87,7 @@ def download_catalog_entry(
             f"Falha ao baixar {entry.metadata.document_id}: {type(exc).__name__}: {exc}"
         ) from exc
 
-    extension = ".pdf" if entry.metadata.format == "pdf" else ".html"
+    extension = {"pdf": ".pdf", "html": ".html", "xml": ".xml"}[entry.metadata.format]
     destination_dir.mkdir(parents=True, exist_ok=True)
     destination = destination_dir / f"{entry.metadata.document_id}{extension}"
     temporary = destination.with_suffix(destination.suffix + ".tmp")
@@ -142,6 +157,15 @@ def _validate_content(expected_format: str, content_type: str, content: bytes) -
             raise DownloadError("O conteúdo recebido é PDF, mas o catálogo declara HTML.")
         if content_type not in {"text/html", "application/xhtml+xml"}:
             raise DownloadError(f"Tipo de conteúdo incompatível com HTML: {content_type}")
+        return
+
+    if expected_format == "xml":
+        if content.startswith(b"%PDF-"):
+            raise DownloadError("O conteúdo recebido é PDF, mas o catálogo declara XML.")
+        if content_type not in {"application/xml", "text/xml"}:
+            raise DownloadError(f"Tipo de conteúdo incompatível com XML: {content_type}")
+        if not content.lstrip().startswith((b"<?xml", b"<!DOCTYPE article", b"<article")):
+            raise DownloadError("O conteúdo recebido não possui estrutura XML reconhecível.")
         return
 
     raise DownloadError(f"Formato de conteúdo não suportado: {expected_format}")

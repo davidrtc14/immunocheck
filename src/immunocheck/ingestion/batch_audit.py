@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -11,6 +12,7 @@ from immunocheck.ingestion.downloader import SAFE_DOCUMENT_ID, DownloadReceipt
 from immunocheck.ingestion.html_extractor import extract_html
 from immunocheck.ingestion.models import ExtractedDocument
 from immunocheck.ingestion.pdf_extractor import extract_pdf
+from immunocheck.ingestion.xml_extractor import extract_xml
 
 
 def audit_download(
@@ -35,7 +37,7 @@ def audit_download(
         document = extract_pdf(path, entry.metadata)
         license_text = "\n".join(page.text for page in document.pages)
         license_links: list[str] = []
-    else:
+    elif entry.metadata.format == "html":
         html = content.decode("utf-8-sig", errors="replace")
         document = extract_html(html, entry.metadata)
         soup = BeautifulSoup(html, "html.parser")
@@ -46,6 +48,20 @@ def audit_download(
                 str(link["href"])
                 for link in soup.find_all("a", href=True)
                 if "creativecommons.org/licenses/" in str(link["href"])
+            }
+        )
+    else:
+        xml = content.decode("utf-8-sig", errors="strict")
+        document = extract_xml(xml, entry.metadata)
+        root = ET.fromstring(xml)
+        license_text = " ".join(root.itertext())
+        license_links = sorted(
+            {
+                value
+                for element in root.iter()
+                for attribute, value in element.attrib.items()
+                if attribute.rsplit("}", 1)[-1] == "href"
+                and "creativecommons.org/licenses/" in value
             }
         )
 

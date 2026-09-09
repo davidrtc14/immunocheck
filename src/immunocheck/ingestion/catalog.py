@@ -36,7 +36,7 @@ REQUIRED_COLUMNS = {
     "notes",
 }
 
-ALLOWED_FORMATS = {"pdf", "html"}
+ALLOWED_FORMATS = {"pdf", "html", "xml"}
 ALLOWED_STATUSES = {"candidate", "downloaded", "validated", "rejected"}
 ALLOWED_PRIMARY_THEMES = {
     "normas_e_calendarios",

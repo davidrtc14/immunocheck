@@ -12,7 +12,7 @@ def test_project_catalog_is_valid_and_has_unique_ids() -> None:
 
     assert len(entries) >= 8
     assert len({entry.metadata.document_id for entry in entries}) == len(entries)
-    assert {entry.metadata.format for entry in entries} == {"pdf", "html"}
+    assert {entry.metadata.format for entry in entries} == {"pdf", "html", "xml"}
     assert all(entry.primary_theme for entry in entries)
 
 

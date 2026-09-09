@@ -112,6 +112,51 @@ def test_audit_pdf_preserves_empty_page_warnings(sample, tmp_path, monkeypatch):
     assert report["control_characters"] == 1
 
 
+def test_audit_extracts_jats_xml_and_namespaced_license_link(tmp_path: Path) -> None:
+    content = b"""<?xml version="1.0" encoding="UTF-8"?>
+    <article xmlns:xlink="http://www.w3.org/1999/xlink">
+      <front><article-meta><title-group><article-title>Revisao sintetica</article-title>
+      </title-group><permissions><license xlink:href="https://creativecommons.org/licenses/by/4.0/">
+      <license-p>Creative Commons Attribution.</license-p></license></permissions>
+      <abstract><p>Texto suficientemente longo para uma auditoria de extracao.</p></abstract>
+      </article-meta></front>
+    </article>"""
+    (tmp_path / "synthetic.xml").write_bytes(content)
+    metadata = DocumentMetadata(
+        "synthetic-xml",
+        "Documento XML sintético",
+        "Teste",
+        "systematic_review",
+        None,
+        "https://example.org/synthetic.xml",
+        "xml",
+    )
+    entry = CatalogEntry(
+        metadata,
+        "eficacia_e_imunogenicidade",
+        "2026-09-09",
+        "CC-BY-4.0",
+        "downloaded",
+        "Apenas teste",
+    )
+    receipt = DownloadReceipt(
+        metadata.document_id,
+        "synthetic.xml",
+        hashlib.sha256(content).hexdigest(),
+        len(content),
+        "application/xml",
+        metadata.url,
+        metadata.url,
+        "2026-09-09T18:00:00-03:00",
+    )
+
+    report, document = audit_download(entry, receipt, tmp_path)
+
+    assert "Revisao sintetica" in document.pages[0].text
+    assert report["license_links"] == ["https://creativecommons.org/licenses/by/4.0/"]
+    assert "creative commons" in report["license_signals_not_permission"]
+
+
 def test_batch_script_reports_missing_receipt_without_publishing(sample, tmp_path, monkeypatch):
     entry, receipt = sample
     corpus = tmp_path / "corpus"

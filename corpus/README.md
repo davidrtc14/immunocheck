@@ -56,3 +56,16 @@ e publicados no corpus local: a versão passou a ter 16 documentos e 2.675 chunk
 A trilha de decisão está em `corpus/reviews/batch_001.csv`. Materiais de checagem de
 fatos podem apoiar o corpus, mas nenhuma alegação do teste final pode ser derivada
 deles.
+
+## Quarto lote da Fase 5 em 09/09/2026
+
+O lote 004 acrescentou 12 candidatos ao catálogo. Dez foram coletados e auditados;
+duas páginas do CDC recusaram o download automatizado. O parecer recomenda oito
+aprovações e quatro retenções, mas **nenhum documento do lote integra ainda o corpus
+ativo**. A decisão conjunta, as condições de uso e os cuidados metodológicos estão
+em `reviews/batch_004.md`.
+
+Para artigos científicos com acesso aberto, a ingestão agora aceita XML JATS do
+serviço oficial Europe PMC, além de PDF e HTML. O XML é convertido em blocos de
+título, parágrafo e célula de tabela; arquivos brutos e textos extraídos continuam
+fora do Git.
