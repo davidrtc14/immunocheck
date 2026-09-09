@@ -1,24 +1,23 @@
 # Lote documental 003 - parecer para revisão conjunta
 
-Preparado em 07/09/2026 e **ainda não aprovado pelo autor**. Este parecer propõe
-uma decisão conjunta sobre 11 PDFs íntegros; a nota técnica de febre amarela
-permanece fora da proposta porque a URL oficial retornou HTTP 404. Nenhum item foi
-promovido para `validated` e o índice ativo não foi alterado.
+Preparado em 07/09/2026, aprovado pelo autor e publicado em 09/09/2026. A
+aprovação abrange somente os 11 PDFs íntegros e os bytes registrados pelos
+respectivos SHA-256 em `batch_003.csv`; a nota técnica de febre amarela permaneceu
+retida porque a URL oficial retornou HTTP 404.
 
 ## Resultado executivo
 
 - 12 candidatos oficiais do Ministério da Saúde foram examinados.
 - 11 PDFs foram obtidos e auditados: 309 páginas físicas, 621.402 caracteres e
   720 chunks potenciais.
-- **Os 11 PDFs são propostos para aprovação conjunta**, com ressalvas explícitas
+- **Os 11 PDFs foram aprovados e incluídos**, com ressalvas explícitas
   sobre tempo, causalidade, tabelas e uma inconsistência editorial em mpox.
 - Cinco documentos declaram CC BY-NC-SA 4.0; seis trazem permissão textual de
   reprodução parcial ou total, com atribuição e sem finalidade comercial.
 - Uma nota técnica ficou retida por falha de coleta e licença não verificada.
-- Catálogo após a preparação: 53 entradas. Corpus ativo permanece em 21 documentos
-  e 3.532 chunks; aprovação humana ainda é necessária antes de publicar outro índice.
+- Catálogo total: 53 entradas. Corpus ativo: 32 documentos e 4.252 chunks.
 
-## Documentos propostos para aprovação
+## Documentos aprovados
 
 | Documento | Tema primário | Páginas / chunks potenciais | Utilidade e cuidado principal |
 |---|---|---:|---|
@@ -34,9 +33,9 @@ promovido para `validated` e o índice ativo não foi alterado.
 | Cenário dos vírus respiratórios em 2025 | Epidemiologia das doenças | 44 / 125 | Incidência, hospitalizações e mortalidade publicadas em 2026; não atribuir tendências à vacina sem desenho causal. |
 | Informe de meningites, 2010 ao 1º semestre de 2025 | Epidemiologia das doenças | 10 / 34 | Série histórica por etiologia e faixa etária; gráficos não substituem interpretação do texto e das notas. |
 
-Se os 11 forem aprovados, o corpus passará a 32 documentos e terá estimados
-4.252 chunks antes da reconstrução. O déficit para o mínimo temático de 80 cairá
-de 59 para 48 documentos. Esses números medem volume e cobertura, não acurácia.
+Os 11 documentos acrescentaram 720 chunks ao corpus, que passou a 32 documentos
+e 4.252 chunks. O déficit para o mínimo temático de 80 caiu de 59 para 48
+documentos. Esses números medem volume e cobertura, não acurácia.
 
 ## O que foi conferido
 
@@ -48,7 +47,7 @@ conteúdo de cada documento foram também inspecionadas visualmente, incluindo
 tabelas, gráficos e diagramas.
 
 O relatório [batch_003.audit.json](batch_003.audit.json) registra métricas e hashes;
-[batch_003.csv](batch_003.csv) registra a proposta e reservará a decisão humana.
+[batch_003.csv](batch_003.csv) registra a decisão, o responsável e a data.
 Para uma revisão dirigida, os PDFs e textos completos permanecem apenas no ambiente
 local ignorado pelo Git:
 
@@ -75,7 +74,7 @@ reprodução parcial ou total com citação da fonte e vedação a venda ou fina
 comercial. A segunda redação é uma permissão específica do Ministério, não foi
 renomeada como licença Creative Commons.
 
-O uso proposto é local, acadêmico e sem orçamento. PDFs, textos e chunks continuam
+O uso é local, acadêmico e sem orçamento. PDFs, textos e chunks continuam
 fora do Git; a licença MIT do código não relicencia o corpus. Uma eventual
 redistribuição pública dos documentos exigirá nova análise do escopo das permissões.
 
@@ -83,7 +82,7 @@ redistribuição pública dos documentos exigirá nova análise do escopo das pe
 
 - O PDF de mpox tem capa e conteúdo coerentes com o informe de abril de 2025, mas
   o rodapé final diz `Informe: Distribuição de imunobiológicos` e traz copyright
-  2024. A divergência editorial fica preservada; o documento é proposto com aviso,
+  2024. A divergência editorial fica preservada; o documento foi aprovado com aviso,
   não como se o rodapé tivesse sido corrigido.
 - Multivacinação e o boletim de vírus respiratórios contêm 53 e 28 caracteres de
   controle, respectivamente, associados a marcadores. Não houve caractere de
@@ -112,7 +111,7 @@ confirmar integridade, conteúdo nem permissão de uso; ela continua `candidate`
 decisão proposta é `hold`. A existência de uma página em mecanismos de busca não
 substitui a coleta reproduzível do PDF.
 
-## Reprodução e efeito da aprovação
+## Reprodução e publicação
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\audit_corpus_batch.py --batch 003
@@ -121,7 +120,33 @@ substitui a coleta reproduzível do PDF.
 
 O primeiro comando retorna código 1 enquanto a nota de febre amarela estiver sem
 recibo; isso é uma falha de fonte registrada. Ele não baixa, promove ou publica
-documentos. Aprovação conjunta dos 11 PDFs deverá registrar autor, data e hashes em
-`batch_003.csv`, promover apenas esses IDs e só então reconstruir e validar os
-índices local e PostgreSQL. A aprovação não vale para bytes futuros diferentes na
-mesma URL.
+documentos. A aprovação conjunta foi registrada antes da promoção e não vale para
+bytes futuros diferentes na mesma URL.
+
+A publicação gerou a versão
+`sha256:8e605597e2cc3d55a09cffbb7dde6396d5df34452b22179dee0fa65585959364`,
+com 32 documentos e 4.252 chunks. O índice incremental reutilizou 3.532 vetores e
+gerou 720 novos localmente, em CPU e modo offline, em 356,41 segundos. O PostgreSQL
+foi atualizado somente depois de receber os 4.252 embeddings; a versão anterior
+permaneceu arquivada.
+
+Consultas diagnósticas distintas recuperaram cada um dos 11 documentos novos no
+top 10 híbrido: dez em primeiro lugar e PFA em segundo. O top 10 denso do pgvector
+coincidiu com o NumPy em uma consulta sobre segurança da dengue. No piloto de 12
+consultas já anotadas, o RRF preservou Recall@10 de 0,917; Recall@5, MRR e nDCG@10
+ficaram em 0,583, 0,389 e 0,510. A queda dessas métricas de posição em relação ao
+corpus piloto é apenas diagnóstica: os novos chunks ainda não receberam julgamentos
+de relevância e podem constituir evidência pertinente não rotulada.
+
+Na pipeline completa, a alegação de que a Operação Gota amplia o acesso à vacinação
+em áreas de difícil acesso geográfico recebeu `SUPPORTED`, com três citações do novo
+guia, em 15,47 segundos. Duas formulações sobre a substituição VOPb→VIP produziram
+abstenção, apesar de recuperar a página correta: a fonte de 2024 anuncia a mudança
+em tempo futuro, mas as alegações a descreviam como fato consumado. O comportamento
+conservador evita inferir implementação posterior; o futuro dataset deverá incluir
+casos temporais desse tipo.
+
+Validação de software após a publicação: **166 testes aprovados**, um teste de
+integração PostgreSQL opcional ignorado por não haver base de teste exclusiva, e
+Ruff sem apontamentos. A Fase 5 continua aberta: faltam 48 documentos para o mínimo
+temático, o dataset definitivo, a segunda anotação e o congelamento do teste.

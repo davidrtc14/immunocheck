@@ -57,7 +57,7 @@ por leitura das fontes, nunca pela resposta atual do ImmunoCheck.
 ## Critérios que ainda impedem o fechamento
 
 - O catálogo ainda não possui 80 documentos validados.
-- A cobertura temática ainda não foi auditada no corpus ampliado.
+- A cobertura temática foi auditada, mas nenhum mínimo por tema foi fechado.
 - O dataset definitivo ainda não foi anotado.
 - O segundo anotador e eventual adjudicador ainda precisam ser formalizados.
 - O split de teste ainda não foi criado nem congelado.
@@ -118,7 +118,7 @@ documento no top 10 híbrido, e o ranking denso top 10 do pgvector coincidiu com
 NumPy no caso VSR. Auditoria de licença dos sete documentos legados marcados
 `to_verify` também deve anteceder o fechamento desta fase.
 
-## Preparação do lote documental 003
+## Execução do lote documental 003
 
 Em 07/09/2026 foram catalogados 12 candidatos oficiais do Ministério da Saúde.
 Onze PDFs foram obtidos e passaram por auditoria técnica, de permissão de uso e
@@ -127,8 +127,15 @@ BY-NC-SA 4.0 e seis permitem expressamente reprodução com atribuição e sem
 finalidade comercial. A nota técnica de febre amarela retornou HTTP 404 e ficou
 retida.
 
-Os 11 PDFs estão apenas em `downloaded`, com proposta de aprovação conjunta em
-`corpus/reviews/batch_003.md`. Até decisão expressa do autor, o corpus ativo
-permanece em 21 documentos e 3.532 chunks. Se aprovados, eles ampliam normas,
+Em 09/09/2026, os 11 PDFs foram aprovados conjuntamente pelo autor e promovidos
+para `validated`. A versão
+`sha256:8e605597e2cc3d55a09cffbb7dde6396d5df34452b22179dee0fa65585959364`
+foi ativada com 32 documentos, 4.252 chunks e 4.252 embeddings. O BGE-M3
+reutilizou 3.532 vetores e gerou 720 em CPU, offline, em 356,41 segundos.
+
+Consultas dirigidas recuperaram os 11 documentos novos no top 10 híbrido, e o
+ranking denso top 10 do pgvector coincidiu com o NumPy no caso de segurança da
+dengue. A lacuna para o mínimo temático caiu a 48 documentos. O lote amplia normas,
 comunicação/equidade, vacinas específicas, segurança e epidemiologia, mas não
-substituem o futuro lote de evidência causal revisada por pares.
+substitui o futuro lote de evidência causal revisada por pares. O parecer e as
+limitações estão em `corpus/reviews/batch_003.md`.
