@@ -76,6 +76,11 @@ Arquivos em `database/migrations/` são aplicados em ordem contígua. O SHA-256 
 arquivo é registrado; editar uma migration já aplicada interrompe o processo. Novas
 mudanças devem criar `0002_...sql`, `0003_...sql` e assim por diante.
 
+A migration `0002_allow_jats_xml.sql` amplia somente o formato documental aceito
+por `corpus_documents`, permitindo `xml` além de `pdf` e `html`. Isso viabiliza
+artigos integrais em JATS obtidos de repositórios científicos autorizados, sem
+alterar as tabelas de interações — que continuam inexistentes.
+
 O teste de integração só executa quando uma base exclusiva é fornecida:
 
 ```powershell
@@ -126,3 +131,12 @@ foi importada e ativada com 32 documentos, 4.252 chunks e 4.252 embeddings. A
 versão anterior permaneceu `ARCHIVED`. O ranking denso top 10 de uma consulta sobre
 segurança da vacina contra dengue foi idêntico entre o índice NumPy local e o
 pgvector. Essa comparação é um teste funcional; não substitui o benchmark da Fase 6.
+
+## Atualização do lote 004 da Fase 5
+
+Em 10/09/2026, a migration `0002_allow_jats_xml.sql` foi aplicada e a versão
+`sha256:2a2ed2ce976165327677dd7f238d31407a93cdb3428f9e449bc25a7a955e92cc`
+foi importada e ativada com 40 documentos, 5.313 chunks e 5.313 embeddings. A
+versão anterior permaneceu `ARCHIVED`. A versão ativa contém 9 documentos HTML,
+27 PDF e 4 XML. O ranking denso top 10 de uma consulta sobre tiomersal e autismo
+foi idêntico entre o índice NumPy local e o pgvector.

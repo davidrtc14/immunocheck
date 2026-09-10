@@ -40,3 +40,28 @@ def test_batch_001_decisions_match_catalog_statuses() -> None:
             assert status == "rejected"
         if review["proposed_decision"] == "hold":
             assert status != "validated"
+
+
+def test_batch_004_human_decisions_match_catalog_statuses() -> None:
+    root = Path(__file__).parents[1]
+    entries = {
+        entry.metadata.document_id: entry
+        for entry in load_catalog(root / "corpus" / "catalog.csv")
+    }
+    with (root / "corpus" / "reviews" / "batch_004.csv").open(
+        encoding="utf-8", newline=""
+    ) as review_file:
+        reviews = tuple(csv.DictReader(review_file))
+
+    assert sum(review["human_review"] == "approved" for review in reviews) == 8
+    assert sum(review["human_review"] == "held" for review in reviews) == 4
+    for review in reviews:
+        status = entries[review["document_id"]].status
+        assert review["human_reviewer"] == "project_author"
+        assert review["reviewed_at"] == "2026-09-09"
+        if review["human_review"] == "approved":
+            assert review["proposed_decision"] == "approve"
+            assert status == "validated"
+        if review["human_review"] == "held":
+            assert review["proposed_decision"] == "hold"
+            assert status != "validated"

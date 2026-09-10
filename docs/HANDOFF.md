@@ -1,6 +1,6 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 09/09/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 10/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
 ## Objetivo imutável
@@ -98,36 +98,32 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001, 002 e 003 foram aprovados. O catálogo possui 65 entradas
-e o snapshot local publicado possui 32 documentos, 4.252 chunks e versão
-`sha256:8e605597e2cc3d55a09cffbb7dde6396d5df34452b22179dee0fa65585959364`.
-Na terceira publicação incremental, o BGE-M3 reutilizou 3.532 vetores e calculou
-720 em CPU e modo offline.
+Os lotes documentais 001 a 004 foram aprovados. O catálogo possui 65 entradas e o
+snapshot local publicado possui 40 documentos, 5.313 chunks e versão
+`sha256:2a2ed2ce976165327677dd7f238d31407a93cdb3428f9e449bc25a7a955e92cc`.
+Na quarta publicação incremental, o BGE-M3 reutilizou 4.252 vetores e calculou
+1.061 em CPU e modo offline, em 508,95 segundos.
 
-O snapshot e os 4.252 embeddings foram importados no PostgreSQL, e a nova versão
+O snapshot e os 5.313 embeddings foram importados no PostgreSQL, e a nova versão
 foi ativada somente após a verificação de completude. Consultas dirigidas
-recuperaram todos os 11 documentos novos no top 10 híbrido. O ranking denso top 10
-do pgvector foi idêntico ao NumPy no caso de segurança da dengue. A pipeline
-completa sustentou a finalidade de acesso da Operação Gota com citações do guia
-novo. A Fase 5 continua aberta: faltam 48 documentos para o mínimo temático, o
+recuperaram todos os oito documentos novos no top 10 híbrido. O ranking denso top 10
+do pgvector foi idêntico ao NumPy no caso de tiomersal e autismo. A pipeline
+completa refutou essa alegação sintética com a revisão final da OMS. A Fase 5
+continua aberta: faltam 40 documentos para o mínimo temático, o
 dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
-
-O lote 004 está tecnicamente auditado, mas aguarda aprovação humana conjunta.
-Foram propostas oito aprovações e quatro retenções; nenhuma dessas fontes foi
-promovida ou indexada. O parecer está em `corpus/reviews/batch_004.md`.
 
 ## Instruções para a próxima sessão
 
-Atualização de 09/09/2026: o lote 003 está aprovado, publicado e validado; sua trilha
-está em `corpus/reviews/batch_003.md`. O lote 004 está apenas preparado e precisa de
-aprovação expressa antes de qualquer promoção. Não tratar as 65 entradas catalogadas como 65
-fontes utilizáveis: 32 estão validadas. O próximo lote deve priorizar eficácia e
-imunogenicidade, alegações causais recorrentes, contraindicações/populações especiais
-e vacinas específicas depois da decisão sobre o lote 004. A auditoria dos sete documentos legados com licença
+Atualização de 10/09/2026: o lote 004 está aprovado, publicado e validado; sua trilha
+está em `corpus/reviews/batch_004.md`. Não tratar as 65 entradas catalogadas como 65
+fontes utilizáveis: 40 estão validadas. O próximo lote deve priorizar normas,
+composição, eficácia, populações especiais, vacinas específicas e epidemiologia.
+A auditoria dos sete documentos legados com licença
 `to_verify` também deve anteceder o fechamento da Fase 5. Continuam pendentes o
-dataset definitivo, a segunda anotação e o congelamento do teste. Validação do marco:
-166 testes aprovados, um teste PostgreSQL opcional ignorado por ausência de base
-exclusiva, e Ruff sem apontamentos.
+dataset definitivo, a segunda anotação e o congelamento do teste. A migration `0002`
+permite documentos XML JATS no PostgreSQL; não editar migrations já aplicadas.
+Validação do marco: 181 testes aprovados — 180 na suíte geral e um em base
+PostgreSQL exclusiva e descartável —, e Ruff sem apontamentos.
 
 1. Leia integralmente `AGENTS.md`, `docs/PROJECT_BRIEF.md`,
    `docs/ARCHITECTURE_DECISIONS.md`, `docs/ROADMAP.md` e este arquivo.

@@ -40,8 +40,9 @@ def test_project_migrations_are_contiguous_and_enable_exact_pgvector() -> None:
     root = Path(__file__).parents[1]
     migrations = load_migrations(root / "database" / "migrations")
     sql = migrations[0].sql.lower()
+    xml_sql = migrations[1].sql.lower()
 
-    assert [item.version for item in migrations] == ["0001"]
+    assert [item.version for item in migrations] == ["0001", "0002"]
     assert "create extension if not exists vector" in sql
     assert "vector(1024)" in sql
     assert "to_tsvector('pg_catalog.portuguese'" in sql
@@ -49,6 +50,7 @@ def test_project_migrations_are_contiguous_and_enable_exact_pgvector() -> None:
     assert "ivfflat" not in sql
     assert "telegram" not in sql
     assert "user_message" not in sql
+    assert "check (format in ('pdf', 'html', 'xml'))" in xml_sql
 
 
 def test_migration_runner_is_idempotent_and_detects_drift() -> None:

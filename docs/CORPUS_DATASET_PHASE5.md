@@ -140,15 +140,20 @@ comunicação/equidade, vacinas específicas, segurança e epidemiologia, mas n�
 substitui o futuro lote de evidência causal revisada por pares. O parecer e as
 limitações estão em `corpus/reviews/batch_003.md`.
 
-## Preparação do lote documental 004
+## Execução do lote documental 004
 
 Em 09/09/2026 foram examinados 12 candidatos para as lacunas de eficácia,
 alegações causais, populações especiais e vacinas específicas. Dez documentos
 foram coletados e auditados; duas páginas do CDC recusaram a coleta automatizada.
-O parecer propõe oito aprovações, que somariam 1.061 chunks potenciais, e quatro
-retenções por falta de licença aberta ou de bytes auditáveis.
+O parecer propôs oito aprovações, somando 1.061 chunks, e quatro retenções por falta
+de licença aberta ou de bytes auditáveis. O autor aprovou conjuntamente essas
+decisões em 09/09/2026.
 
-O lote permanece **aguardando aprovação humana conjunta**. Nenhum candidato do
-lote 004 foi promovido, indexado ou importado no PostgreSQL, e o corpus ativo
-continua com 32 documentos e 4.252 chunks. O relatório técnico e os guardrails
-por fonte estão em `corpus/reviews/batch_004.md`.
+Em 10/09/2026, a versão
+`sha256:2a2ed2ce976165327677dd7f238d31407a93cdb3428f9e449bc25a7a955e92cc`
+foi ativada com 40 documentos, 5.313 chunks e 5.313 embeddings. O BGE-M3 reutilizou
+4.252 vetores e gerou 1.061 em CPU, offline, em 508,95 segundos. A publicação exigiu
+a migration `0002`, que permite XML JATS no catálogo persistido sem alterar a
+política de dados. Consultas dirigidas recuperaram as oito fontes no top 10 e o
+pgvector coincidiu com o NumPy na consulta sobre tiomersal e autismo. O relatório
+técnico e os guardrails por fonte estão em `corpus/reviews/batch_004.md`.

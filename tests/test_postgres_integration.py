@@ -26,5 +26,15 @@ def test_migrations_apply_to_real_pgvector_database() -> None:
             WHERE attrelid = 'chunk_embeddings'::regclass AND attname = 'embedding'
             """
         ).fetchone()
+        format_constraint = connection.execute(
+            """
+            SELECT pg_get_constraintdef(oid)
+            FROM pg_constraint
+            WHERE conrelid = 'corpus_documents'::regclass
+              AND conname = 'corpus_documents_format_check'
+            """
+        ).fetchone()
     assert extension is not None
     assert dimension == (1024,)
+    assert format_constraint is not None
+    assert "'xml'::text" in format_constraint[0]

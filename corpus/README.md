@@ -60,10 +60,10 @@ deles.
 ## Quarto lote da Fase 5 em 09/09/2026
 
 O lote 004 acrescentou 12 candidatos ao catálogo. Dez foram coletados e auditados;
-duas páginas do CDC recusaram o download automatizado. O parecer recomenda oito
-aprovações e quatro retenções, mas **nenhum documento do lote integra ainda o corpus
-ativo**. A decisão conjunta, as condições de uso e os cuidados metodológicos estão
-em `reviews/batch_004.md`.
+duas páginas do CDC recusaram o download automatizado. O autor aprovou oito
+documentos e manteve quatro retidos. A versão publicada passou a 40 documentos e
+5.313 chunks; a decisão, as condições de uso e os cuidados metodológicos estão em
+`reviews/batch_004.md`.
 
 Para artigos científicos com acesso aberto, a ingestão agora aceita XML JATS do
 serviço oficial Europe PMC, além de PDF e HTML. O XML é convertido em blocos de

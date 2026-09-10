@@ -87,10 +87,10 @@ serão avaliados formalmente na Fase 6.
 **Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
 
 **Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
-o validador auditável do dataset fim a fim foram criados. Após três lotes, o catálogo
-possui 65 entradas e o corpus ativo possui 32 documentos, 4.252 chunks e 4.252
-embeddings. Ainda faltam 48 documentos validados para o mínimo temático, anotar pelo menos
-100 alegações, executar a segunda revisão e congelar o teste; por isso nenhum item
+o validador auditável do dataset fim a fim foram criados. Após quatro lotes, o catálogo
+possui 65 entradas e o corpus ativo possui 40 documentos, 5.313 chunks e 5.313
+embeddings. Ainda faltam 40 documentos validados para o mínimo temático, anotar pelo
+menos 100 alegações, executar a segunda revisão e congelar o teste; por isso nenhum item
 de aceite da fase foi marcado como concluído.
 
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
@@ -104,9 +104,10 @@ PostgreSQL após a importação completa dos embeddings. Consultas dirigidas
 recuperaram os 11 documentos no top 10 híbrido e o pgvector coincidiu com o NumPy
 na verificação densa. O parecer está em `corpus/reviews/batch_003.md`.
 
-Em 09/09/2026, o lote 004 foi preparado para revisão conjunta: oito documentos
-foram propostos para aprovação e quatro para retenção. Nenhum deles integra ainda
-o corpus ativo; publicação e indexação dependem da aprovação expressa do autor.
+Em 09/09/2026, oito documentos do lote 004 foram aprovados conjuntamente e quatro
+foram mantidos retidos. Em 10/09/2026, a versão com 40 documentos foi ativada no
+PostgreSQL após a importação de 5.313 embeddings. As oito fontes novas apareceram
+no top 10 de consultas dirigidas; o parecer está em `corpus/reviews/batch_004.md`.
 
 ## Fase 6 — Avaliação e entrega
 
