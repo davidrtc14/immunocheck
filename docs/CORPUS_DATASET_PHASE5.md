@@ -157,3 +157,19 @@ a migration `0002`, que permite XML JATS no catálogo persistido sem alterar a
 política de dados. Consultas dirigidas recuperaram as oito fontes no top 10 e o
 pgvector coincidiu com o NumPy na consulta sobre tiomersal e autismo. O relatório
 técnico e os guardrails por fonte estão em `corpus/reviews/batch_004.md`.
+
+## Preparação do lote documental 005
+
+Em 10/09/2026 foram examinados 12 candidatos voltados a composição, eficácia,
+populações especiais e vacinas específicas. Nove artigos XML JATS e um relatório
+integral em PDF foram coletados e auditados: 147 páginas/unidades documentais,
+721.446 caracteres e 766 chunks potenciais, sem duplicatas exatas. Duas páginas
+regulatórias da FDA ficaram retidas porque o coletor não conseguiu validar a cadeia
+TLS; a verificação de certificado não foi desativada.
+
+O parecer propõe aprovar os dez documentos coletados, todos com licença aberta
+explícita. As ressalvas incluem distinção entre imunogenicidade e efetividade clínica,
+heterogeneidade, risco de viés, recortes populacionais, conflitos declarados e caráter
+modelado de parte do relatório pneumocócico. A decisão humana ainda está pendente;
+logo, o corpus ativo continua com 40 documentos e 5.313 chunks. O parecer completo
+está em `corpus/reviews/batch_005.md`.

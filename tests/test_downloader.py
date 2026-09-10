@@ -32,7 +32,9 @@ def test_url_policy_accepts_official_subdomain() -> None:
         "https://www.bmj.com/content/article.full.pdf",
         "https://stacks.cdc.gov/view/report.pdf",
         "https://www.ncbi.nlm.nih.gov/books/report/",
+        "https://www.fda.gov/vaccines-blood-biologics/vaccines",
         "https://link.springer.com/content/pdf/article.pdf",
+        "https://njl-admin.nihr.ac.uk/document/download/2045643",
     ),
 )
 def test_default_url_policy_accepts_audited_scientific_repositories(url: str) -> None:

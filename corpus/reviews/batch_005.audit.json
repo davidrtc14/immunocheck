@@ -1,0 +1,272 @@
+{
+  "batch": "005",
+  "scope": "technical_only_not_human_approval",
+  "documents": [
+    {
+      "document_id": "jvacx_hpv_one_dose_review_2024",
+      "title": "Efficacy and immunogenicity of a single dose of human papillomavirus vaccine compared to multidose vaccination regimens or no vaccination: An updated systematic review of evidence from clinical trials",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11169951/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11169951/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:04.916190+00:00",
+      "raw_sha256": "76ad5a7523f8562be37c2f207dc16279eaeca041d43d209926522d6f180530ee",
+      "size_bytes": 160587,
+      "text_sha256": "53ee519a7a6d46e3370b01dfb3c11655324ab494d6cd2bf0c93e2df06e2d12e9",
+      "pages": 1,
+      "characters": 61182,
+      "chunks": 62,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "rmv_influenza_enhanced_review_2025",
+      "title": "Relative Efficacy Effectiveness and Safety of Newer and/or Enhanced Seasonal Influenza Vaccines for the Prevention of Laboratory-Confirmed Influenza in Individuals Aged 18 years and Over: Update of a Systematic Review",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11850296/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11850296/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:08.163884+00:00",
+      "raw_sha256": "3750668afaa755139a0ac8667d2c94614dc65e1e159282d2b83ded8468d70859",
+      "size_bytes": 245969,
+      "text_sha256": "d81e16db28a33d1cd9374aee59f6f17c3f2aff16ae24d341be2ab46d968077a7",
+      "pages": 1,
+      "characters": 45511,
+      "chunks": 46,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "vaccines_pertussis_pregnancy_meta_2025",
+      "title": "Efficacy Immunogenicity and Safety of Pertussis Vaccine During Pregnancy: A Meta-Analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12298825/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12298825/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:10.440519+00:00",
+      "raw_sha256": "0022aeb3b69697704900c7b9de4228bb01e7b4bab4fdcb5918ff9f6cfab4f504",
+      "size_bytes": 128116,
+      "text_sha256": "c3b1a5e97b3af54ead0f21360773af2ecd9ce629117524668ebd40732984d81e",
+      "pages": 1,
+      "characters": 38963,
+      "chunks": 40,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "bmc_hepb_children_africa_meta_2024",
+      "title": "Hepatitis B vaccine effectiveness among vaccinated children in Africa: a systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10900737/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10900737/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:11.548234+00:00",
+      "raw_sha256": "e4e2d880e311ed388213ae1c94eae7e3e46b92e37b5f5f3357635fea99b3d6e7",
+      "size_bytes": 76330,
+      "text_sha256": "3c566316bf335eac57b00ffb9f398228684a9f814d112e4439e70209a40abfc8",
+      "pages": 1,
+      "characters": 26086,
+      "chunks": 26,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "jkms_varicella_effectiveness_meta_2025",
+      "title": "Varicella Vaccine Effectiveness and Duration of Protection: A Systematic Review and Meta-Analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12624214/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12624214/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:12.719986+00:00",
+      "raw_sha256": "86ab5aa7a78dcf63eedb3119af9e1911dd0b80818179ae004e509ebc7b56c42b",
+      "size_bytes": 238715,
+      "text_sha256": "f16c00b1b25764f0e3c735bfc2cfdf86ec72055802d8eed4a2445d37703ad3b8",
+      "pages": 1,
+      "characters": 24692,
+      "chunks": 25,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nc/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "cid_yellow_fever_duration_meta_2022",
+      "title": "Duration of Protection After Vaccination Against Yellow Fever: A Systematic Review and Meta-Analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9761887/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9761887/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:14.099189+00:00",
+      "raw_sha256": "356a8e59c2bc6086d02c6e734a1d0e6a62ca6edb9533a307e29e5a073256fcd0",
+      "size_bytes": 143466,
+      "text_sha256": "192a517166e9475f8cbf6f0b5198627826a43ac0bca7ed49a465d2aa57fe7279",
+      "pages": 1,
+      "characters": 34589,
+      "chunks": 35,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "bmjgh_maternal_vaccines_rct_review_2023",
+      "title": "Are maternal vaccines effective and safe for mothers and infants? A systematic review and meta-analysis of randomised controlled trials",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10619060/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10619060/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:15.122476+00:00",
+      "raw_sha256": "dfebb6a82d9c3b0c7291618a9655fd86ada022c35118ebb7a770aba2eb6ffab3",
+      "size_bytes": 101779,
+      "text_sha256": "25c5de9f68beb6a2241f5f304aeccd1b70101459d6fc3cee821e81994722a585",
+      "pages": 1,
+      "characters": 42087,
+      "chunks": 43,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nc/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "hta_pneumococcal_network_meta_2024",
+      "title": "Immunogenicity and seroefficacy of pneumococcal conjugate vaccines: a systematic review and network meta-analysis",
+      "source_url": "https://njl-admin.nihr.ac.uk/document/download/2045643",
+      "final_url": "https://njl-admin.nihr.ac.uk/document/download/2045643",
+      "downloaded_at": "2026-09-10T17:34:24.101811+00:00",
+      "raw_sha256": "76970596b77a92f5b55c0b9d99866317458c3aab7c9081be7d5c15501d93d76f",
+      "size_bytes": 5700383,
+      "text_sha256": "1474968767658a3d67faaee0efe7547f0c11fe0f047ed5b5b6e374d812845fd6",
+      "pages": 138,
+      "characters": 352496,
+      "chunks": 392,
+      "empty_pages": [
+        2,
+        4,
+        6,
+        12,
+        18,
+        20,
+        26,
+        28,
+        60,
+        72,
+        78,
+        80,
+        86,
+        88,
+        134,
+        136,
+        137
+      ],
+      "warnings": [
+        "Páginas sem texto extraído: 2, 4, 6, 12, 18, 20, 26, 28, 60, 72"
+      ],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "thorax_bcg_effectiveness_meta_2021",
+      "title": "Timing of Mycobacterium tuberculosis exposure explains variation in BCG effectiveness: a systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8526882/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8526882/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:16.943871+00:00",
+      "raw_sha256": "83f6e23702447f55f4adbe409612d7be649fea4c82c49c1cbe99149b9448a681",
+      "size_bytes": 129371,
+      "text_sha256": "3151a7e61a73d6455c92d83ee1daaf756999944be844e7d46f7b9d9eb1199703",
+      "pages": 1,
+      "characters": 37462,
+      "chunks": 38,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nc/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "paho_meningococcal_impact_review_2017",
+      "title": "Impact and effectiveness of meningococcal vaccines: a review",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6660876/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6660876/fullTextXML",
+      "downloaded_at": "2026-09-10T17:31:18.367725+00:00",
+      "raw_sha256": "9c4617ccd7bacb12ead0b824bef5f817988120238500a82084d4c622e4e31457",
+      "size_bytes": 189378,
+      "text_sha256": "8302aad1c5797f47f94bf89ed38de2507317f5f291cd7c7c0f14c7239dba84ee",
+      "pages": 1,
+      "characters": 58378,
+      "chunks": 59,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    }
+  ],
+  "failures": [
+    {
+      "document_id": "fda_common_vaccine_ingredients",
+      "error": "Sem recibo de download; consultar o histórico de coleta."
+    },
+    {
+      "document_id": "fda_thimerosal_vaccines",
+      "error": "Sem recibo de download; consultar o histórico de coleta."
+    }
+  ],
+  "exact_text_duplicates_within_batch": [],
+  "raw_duplicates_against_validated_catalog": []
+}
