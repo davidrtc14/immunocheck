@@ -87,9 +87,9 @@ serão avaliados formalmente na Fase 6.
 **Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
 
 **Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
-o validador auditável do dataset fim a fim foram criados. Com o lote 007 preparado, o
-catálogo possui 100 entradas e o corpus ativo possui 58 documentos, 6.479 chunks
-e 6.479 embeddings. Ainda faltam 22 documentos validados para o mínimo temático,
+o validador auditável do dataset fim a fim foram criados. Com o lote 007 publicado, o
+catálogo possui 100 entradas e o corpus ativo possui 66 documentos, 6.989 chunks
+e 6.989 embeddings. Ainda faltam 14 documentos validados para o mínimo temático,
 anotar pelo menos 100 alegações, executar a segunda revisão e congelar o teste; por
 isso nenhum item de aceite da fase foi marcado como concluído.
 
@@ -123,11 +123,12 @@ versão com 58 documentos e 6.479 embeddings foi ativada no PostgreSQL; todas as
 fontes novas ficaram em primeiro lugar nas consultas híbridas dirigidas. O parecer
 está em `corpus/reviews/batch_006.md`.
 
-Em 12/09/2026, o lote 007 foi preparado com 13 candidatos para normas, composição,
-segurança e vacinas específicas. O parecer propõe oito aprovações, quatro retenções
-de PDFs da OMS sem licença explícita nos bytes e a rejeição de uma duplicata exata
-de fonte já validada. Nenhum candidato foi promovido antes da decisão do autor. O
-parecer está em `corpus/reviews/batch_007.md`.
+Em 12/09/2026, o autor aprovou conjuntamente as decisões do lote 007: oito artigos
+foram promovidos, quatro PDFs da OMS sem licença explícita nos bytes permaneceram
+retidos e uma duplicata exata foi rejeitada. A versão com 66 documentos e 6.989
+embeddings foi ativada no PostgreSQL; todas as fontes novas ficaram em primeiro
+lugar nas consultas híbridas dirigidas. O parecer está em
+`corpus/reviews/batch_007.md`.
 
 ## Fase 6 — Avaliação e entrega
 

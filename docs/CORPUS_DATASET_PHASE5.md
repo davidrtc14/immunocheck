@@ -203,16 +203,24 @@ uma busca vetorial exata no pgvector devolveu o próprio chunk consultado com
 similaridade 1,000000. A lacuna para o mínimo temático caiu de 30 para 22
 documentos.
 
-## Preparação do lote documental 007
+## Execução do lote documental 007
 
 Em 12/09/2026 foram coletados e auditados 13 candidatos voltados às lacunas de
 normas, composição e fabricação, segurança e vacinas específicas. Todos passaram
 pela extração técnica, totalizando 1.203.329 caracteres e 1.243 chunks potenciais.
 
-O parecer propõe oito artigos novos para aprovação, somando 510 chunks e com
-licenças Creative Commons explícitas. Quatro *position papers* da OMS foram
-retidos na proposta porque os PDFs coletados não contêm licença ou permissão de
-reutilização. Um nono artigo aberto foi identificado como duplicata bruta exata de
-`eclinm_rotavirus_global_2025` e teve rejeição proposta para evitar peso duplicado
-no retrieval. A decisão humana está pendente; o corpus ativo permanece com 58
-documentos e 6.479 chunks. A trilha está em `corpus/reviews/batch_007.md`.
+O autor aprovou conjuntamente oito artigos novos, somando 510 chunks e com licenças
+Creative Commons explícitas. Quatro *position papers* da OMS foram mantidos retidos
+porque os PDFs coletados não contêm licença ou permissão de reutilização. Um nono
+artigo aberto, duplicata bruta exata de `eclinm_rotavirus_global_2025`, foi rejeitado
+para evitar peso duplicado no retrieval. A trilha está em
+`corpus/reviews/batch_007.md`.
+
+A versão
+`sha256:26171e1196a3672e6a82711ab8c644e5bd662dc079fb275b087f013592c104e4`
+foi ativada com 66 documentos, 6.989 chunks e 6.989 embeddings. O BGE-M3
+reutilizou 6.479 vetores e gerou 510 novos em CPU, offline, em 305,55 segundos.
+Consultas dirigidas colocaram cada fonte nova em primeiro lugar no ranking híbrido;
+uma busca vetorial exata no pgvector devolveu o próprio chunk consultado com
+similaridade 1,000000. A lacuna para o mínimo temático caiu de 22 para 14
+documentos.

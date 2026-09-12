@@ -163,3 +163,14 @@ cosseno no pgvector, usando um chunk da revisão sobre vacinação e doenças
 autoimunes, devolveu o próprio chunk em primeiro lugar com similaridade 1,000000.
 Esta é uma verificação funcional; o benchmark distribucional permanece para a
 Fase 6.
+
+## Atualização do lote 007 da Fase 5
+
+Em 12/09/2026, a versão
+`sha256:26171e1196a3672e6a82711ab8c644e5bd662dc079fb275b087f013592c104e4`
+foi importada e ativada com 66 documentos, 6.989 chunks e 6.989 embeddings. A
+versão anterior permaneceu `ARCHIVED`. O construtor incremental reutilizou 6.479
+vetores e gerou 510 em CPU e modo offline, em 305,55 segundos. Uma busca exata por
+cosseno no pgvector, usando um chunk da revisão sobre Guillain-Barré como consulta,
+devolveu o próprio chunk em primeiro lugar com similaridade 1,000000. Esta é uma
+verificação funcional; o benchmark distribucional permanece para a Fase 6.

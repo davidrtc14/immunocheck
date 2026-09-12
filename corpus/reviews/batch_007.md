@@ -1,9 +1,8 @@
-# Lote documental 007 — parecer para aprovação
+# Lote documental 007 — decisão e publicação
 
-Preparado em 12/09/2026. Nenhum documento deste lote foi promovido ao corpus. As
-decisões abaixo são propostas e dependem da aprovação conjunta do autor. A eventual
-aprovação valerá somente para os bytes identificados pelos SHA-256 em
-`batch_007.csv`.
+Preparado, decidido e publicado em 12/09/2026. O autor aprovou conjuntamente as
+oito inclusões, quatro retenções e uma rejeição propostas. A decisão vale somente
+para os bytes identificados pelos SHA-256 em `batch_007.csv`.
 
 ## Resultado executivo
 
@@ -11,15 +10,15 @@ aprovação valerá somente para os bytes identificados pelos SHA-256 em
   composição e fabricação, segurança e vacinas específicas.
 - Todos foram obtidos por endpoints oficiais e passaram pela extração técnica. O
   lote soma 1.203.329 caracteres e 1.243 chunks potenciais.
-- **Propõe-se aprovar oito artigos**, todos com licença Creative Commons explícita,
+- **Foram aprovados oito artigos**, todos com licença Creative Commons explícita,
   somando 503.254 caracteres e 510 chunks potenciais.
-- **Propõe-se reter quatro documentos normativos da OMS:** os PDFs são íntegros e
+- **Foram retidos quatro documentos normativos da OMS:** os PDFs são íntegros e
   gratuitos para leitura, mas não declaram licença ou permissão de reutilização nos
   bytes coletados.
-- **Propõe-se rejeitar um registro duplicado:** o artigo de rotavírus de 2025 possui
+- **Foi rejeitado um registro duplicado:** o artigo de rotavírus de 2025 possui
   bytes idênticos a uma fonte já validada no lote 004.
 
-## Documentos propostos para aprovação
+## Documentos aprovados
 
 | Documento | Tema | Volume | Utilidade e cuidado obrigatório |
 |---|---|---:|---|
@@ -32,9 +31,9 @@ aprovação valerá somente para os bytes identificados pelos SHA-256 em
 | Queda da efetividade de vacinas acelulares contra coqueluche | Vacinas específicas | 29 chunks | Evidência restrita ao esquema dos EUA e poucos estudos; queda exponencial foi modelada e vários autores trabalhavam para fabricante. |
 | Fatores da resposta à vacina contra hepatite B em adultos | Vacinas específicas | 34 chunks | Meta-análise de resposta sorológica, não efetividade clínica; houve heterogeneidade, viés de publicação e formulações diferentes. |
 
-## Material proposto para retenção ou rejeição
+## Material retido ou rejeitado
 
-| Documento | Proposta | Motivo |
+| Documento | Decisão | Motivo |
 |---|---|---|
 | Posição da OMS sobre HPV — 2022 | Reter | PDF bilíngue íntegro, porém sem licença ou permissão explícita nos bytes; recomendação global e com uso off-label, não calendário brasileiro. |
 | Posição da OMS sobre rotavírus — 2021 | Reter | PDF bilíngue íntegro, porém sem licença ou permissão explícita nos bytes; sua data e escopo global exigem controle de vigência e jurisdição. |
@@ -60,6 +59,30 @@ reutilização.
 Não houve duplicata textual entre os demais documentos nem coincidência bruta com
 o corpus validado. Arquivos brutos, extrações e chunks continuam ignorados pelo
 Git; a licença MIT do código não relicencia nenhuma fonte documental.
+
+## Publicação e validação
+
+A versão
+`sha256:26171e1196a3672e6a82711ab8c644e5bd662dc079fb275b087f013592c104e4`
+foi ativada com 66 documentos, 6.989 chunks e 6.989 embeddings. O construtor BGE-M3
+reutilizou 6.479 vetores e gerou 510 em CPU e modo offline, em 305,55 segundos.
+
+Consultas híbridas dirigidas, combinando BGE-M3, BM25 e RRF, colocaram cada uma das
+oito fontes novas em primeiro lugar. O PostgreSQL confirmou que documentos, chunks
+e embeddings pertencem à mesma versão ativa. Uma busca exata por cosseno no
+pgvector, usando um chunk da revisão sobre Guillain-Barré como consulta, devolveu o
+próprio chunk em primeiro lugar com similaridade 1,000000. Essas verificações são
+funcionais; não substituem o benchmark distribucional da Fase 6.
+
+A auditoria de cobertura passou a registrar 100 entradas catalogadas, 66 validadas
+e lacuna mínima de 14 documentos. Composição/fabricação e segurança atingiram seus
+mínimos; continuam faltando quatro fontes normativas, duas de eficácia, duas de
+populações especiais, duas de epidemiologia, duas de alegações causais, uma de
+vacinas específicas e uma de comunicação/equidade/ética.
+
+A regressão final teve 182 testes aprovados na suíte geral e um teste aprovado em
+base PostgreSQL exclusiva e descartável, totalizando 183; o Ruff não apontou
+problemas. A base de teste foi removida após a execução.
 
 ## Guardrails metodológicos
 
@@ -97,7 +120,7 @@ os textos integrais permanecem locais e fora do Git.
 
 ## Estado
 
-**Aguardando aprovação humana conjunta.** Se o parecer for aprovado, somente os
-oito documentos marcados `approve` serão promovidos e indexados. Os quatro
-documentos da OMS permanecerão candidatos retidos, e a duplicata será marcada como
-`rejected`. Nenhuma alteração será aplicada ao corpus ativo antes dessa decisão.
+**Aprovado, publicado e validado.** Os oito documentos marcados `approve` estão no
+corpus ativo; os quatro documentos da OMS permanecem candidatos retidos, e a
+duplicata está marcada como `rejected`. A trilha humana está registrada em
+`batch_007.csv`.

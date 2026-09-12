@@ -98,26 +98,27 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001 a 006 foram processados. O catálogo possui 100 entradas e o
-snapshot local publicado possui 58 documentos, 6.479 chunks e versão
-`sha256:253c380014fb96f32be9dd3f47629ee055d1218bff85c594c757f8891d6754cb`.
-Na sexta publicação incremental, o BGE-M3 reutilizou 6.079 vetores e calculou
-400 em CPU e modo offline, em 264,25 segundos.
+Os lotes documentais 001 a 007 foram processados. O catálogo possui 100 entradas e o
+snapshot local publicado possui 66 documentos, 6.989 chunks e versão
+`sha256:26171e1196a3672e6a82711ab8c644e5bd662dc079fb275b087f013592c104e4`.
+Na sétima publicação incremental, o BGE-M3 reutilizou 6.479 vetores e calculou
+510 em CPU e modo offline, em 305,55 segundos.
 
-O snapshot e os 6.479 embeddings foram importados no PostgreSQL, e a nova versão
+O snapshot e os 6.989 embeddings foram importados no PostgreSQL, e a nova versão
 foi ativada somente após a verificação de completude. Consultas dirigidas
 recuperaram todos os oito documentos novos em primeiro lugar no ranking híbrido.
 Uma busca exata no pgvector devolveu o próprio chunk consultado com similaridade
-1,000000. A Fase 5 continua aberta: faltam 22 documentos para o mínimo temático, o
+1,000000. A Fase 5 continua aberta: faltam 14 documentos para o mínimo temático, o
 dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
 
-Atualização de 12/09/2026: o lote 006 está aprovado, publicado e validado. O lote
-007 foi preparado e aguarda decisão conjunta do autor: oito aprovações, quatro
-retenções e uma rejeição foram propostas em `corpus/reviews/batch_007.md`. Não
-tratar as 100 entradas catalogadas como 100 fontes utilizáveis: 58 estão validadas.
-O corpus ativo não muda antes da aprovação.
+Atualização de 12/09/2026: o lote 007 está aprovado, publicado e validado. Oito
+artigos foram promovidos, quatro documentos da OMS permaneceram retidos e uma
+duplicata foi rejeitada. Não tratar as 100 entradas catalogadas como 100 fontes
+utilizáveis: 66 estão validadas. As lacunas restantes são normas (4), eficácia (2),
+populações especiais (2), epidemiologia (2), alegações causais (2), vacinas
+específicas (1) e comunicação/equidade/ética (1).
 
 A auditoria dos sete documentos legados com licença
 `to_verify` também deve anteceder o fechamento da Fase 5. Continuam pendentes o

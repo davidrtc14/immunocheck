@@ -90,8 +90,9 @@ validação estão registradas em `reviews/batch_006.md`.
 ## Sétimo lote da Fase 5 em 12/09/2026
 
 O lote 007 acrescentou 13 candidatos para normas, composição, segurança e vacinas
-específicas. Todos passaram pela extração técnica. O parecer propõe aprovar oito
-artigos com licença Creative Commons, reter quatro PDFs normativos da OMS sem
-licença explícita nos bytes e rejeitar um artigo que duplica exatamente uma fonte
-já validada. Nenhum candidato entra no índice antes da decisão humana registrada
-em `reviews/batch_007.md`.
+específicas. Todos passaram pela extração técnica. O autor aprovou oito artigos com
+licença Creative Commons, reteve quatro PDFs normativos da OMS sem licença explícita
+nos bytes e rejeitou um artigo que duplicava exatamente uma fonte já validada. A
+versão publicada passou a 66 documentos, 6.989 chunks e 6.989 embeddings; cada uma
+das oito fontes novas ficou em primeiro lugar em sua consulta híbrida dirigida. A
+decisão e a validação estão em `reviews/batch_007.md`.
