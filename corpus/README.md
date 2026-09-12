@@ -69,3 +69,11 @@ Para artigos científicos com acesso aberto, a ingestão agora aceita XML JATS d
 serviço oficial Europe PMC, além de PDF e HTML. O XML é convertido em blocos de
 título, parágrafo e célula de tabela; arquivos brutos e textos extraídos continuam
 fora do Git.
+
+## Quinto lote da Fase 5 em 10/09/2026
+
+O lote 005 examinou 12 candidatos e teve dez documentos abertos aprovados; duas
+páginas da FDA permaneceram retidas por falha segura de validação TLS. A versão
+publicada passou a 50 documentos, 6.079 chunks e 6.079 embeddings. As dez fontes
+novas apareceram no top 10 de consultas híbridas dirigidas. A decisão, os hashes,
+as licenças e os cuidados metodológicos estão em `reviews/batch_005.md`.

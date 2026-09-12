@@ -140,3 +140,14 @@ foi importada e ativada com 40 documentos, 5.313 chunks e 5.313 embeddings. A
 versão anterior permaneceu `ARCHIVED`. A versão ativa contém 9 documentos HTML,
 27 PDF e 4 XML. O ranking denso top 10 de uma consulta sobre tiomersal e autismo
 foi idêntico entre o índice NumPy local e o pgvector.
+
+## Atualização do lote 005 da Fase 5
+
+Em 10/09/2026, a versão
+`sha256:f15c0ebd67783ccf16552c5230b230c73cde02ccd42a9888102510c5cf4e0119`
+foi importada e ativada com 50 documentos, 6.079 chunks e 6.079 embeddings. A
+versão anterior permaneceu `ARCHIVED`. O construtor incremental reutilizou 5.313
+vetores e gerou 766 em CPU e modo offline, em 552,95 segundos. Uma busca exata por
+cosseno no pgvector, usando um chunk do relatório pneumocócico como consulta,
+devolveu esse mesmo chunk em primeiro lugar com similaridade 1,000000. Esta é uma
+verificação funcional; o benchmark distribucional permanece para a Fase 6.

@@ -158,7 +158,7 @@ política de dados. Consultas dirigidas recuperaram as oito fontes no top 10 e o
 pgvector coincidiu com o NumPy na consulta sobre tiomersal e autismo. O relatório
 técnico e os guardrails por fonte estão em `corpus/reviews/batch_004.md`.
 
-## Preparação do lote documental 005
+## Execução do lote documental 005
 
 Em 10/09/2026 foram examinados 12 candidatos voltados a composição, eficácia,
 populações especiais e vacinas específicas. Nove artigos XML JATS e um relatório
@@ -167,9 +167,16 @@ integral em PDF foram coletados e auditados: 147 páginas/unidades documentais,
 regulatórias da FDA ficaram retidas porque o coletor não conseguiu validar a cadeia
 TLS; a verificação de certificado não foi desativada.
 
-O parecer propõe aprovar os dez documentos coletados, todos com licença aberta
+O autor aprovou conjuntamente os dez documentos coletados, todos com licença aberta
 explícita. As ressalvas incluem distinção entre imunogenicidade e efetividade clínica,
 heterogeneidade, risco de viés, recortes populacionais, conflitos declarados e caráter
-modelado de parte do relatório pneumocócico. A decisão humana ainda está pendente;
-logo, o corpus ativo continua com 40 documentos e 5.313 chunks. O parecer completo
-está em `corpus/reviews/batch_005.md`.
+modelado de parte do relatório pneumocócico.
+
+A versão
+`sha256:f15c0ebd67783ccf16552c5230b230c73cde02ccd42a9888102510c5cf4e0119`
+foi ativada com 50 documentos, 6.079 chunks e 6.079 embeddings. O BGE-M3
+reutilizou 5.313 vetores e gerou 766 em CPU, offline, em 552,95 segundos. Consultas
+dirigidas recuperaram as dez fontes novas no top 10 híbrido, e uma busca exata no
+pgvector devolveu o próprio chunk consultado com similaridade 1,000000. A lacuna
+para o mínimo temático caiu a 30 documentos. O parecer completo está em
+`corpus/reviews/batch_005.md`.

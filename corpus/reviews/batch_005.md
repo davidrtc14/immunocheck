@@ -1,9 +1,8 @@
-# Lote documental 005 — parecer para aprovação
+# Lote documental 005 — decisão e publicação
 
-Preparado em 10/09/2026. Nenhum documento deste lote foi promovido ao corpus:
-as decisões abaixo são propostas e dependem de aprovação conjunta do autor. A
-aprovação valerá somente para os bytes identificados pelos SHA-256 em
-`batch_005.csv`.
+Preparado e aprovado conjuntamente pelo autor em 10/09/2026. A aprovação vale
+somente para os bytes identificados pelos SHA-256 em `batch_005.csv`: dez
+documentos foram promovidos e duas páginas da FDA permaneceram retidas.
 
 ## Resultado executivo
 
@@ -12,16 +11,16 @@ aprovação valerá somente para os bytes identificados pelos SHA-256 em
 - Dez documentos foram coletados integralmente: nove artigos em XML JATS oficial e
   um relatório em PDF. Eles somam 147 páginas/unidades documentais, 721.446
   caracteres e 766 chunks potenciais.
-- **Propõe-se aprovar os dez documentos coletados.** Todos têm licença aberta
+- **Foram aprovados os dez documentos coletados.** Todos têm licença aberta
   explícita e utilidade temática, mas vários exigem ressalvas fortes de escopo,
   heterogeneidade, risco de viés ou conflito de interesses.
-- **Propõe-se reter duas páginas da FDA.** O conteúdo e a condição de uso são
+- **Foram retidas duas páginas da FDA.** O conteúdo e a condição de uso são
   adequados, porém o coletor Python não conseguiu validar a cadeia TLS; não há bytes
   nem recibos auditáveis e a validação não será desativada.
 - Não foram encontradas duplicatas exatas dentro do lote nem contra o corpus já
   validado.
 
-## Documentos propostos para aprovação
+## Documentos aprovados
 
 | Documento | Tema | Volume | Utilidade e cuidado obrigatório |
 |---|---|---:|---|
@@ -36,7 +35,7 @@ aprovação valerá somente para os bytes identificados pelos SHA-256 em
 | Revisão de efetividade da BCG | Vacinas específicas | 38 chunks | O efeito depende de idade, carga e momento da exposição à tuberculose e duração do acompanhamento. |
 | Revisão de vacinas meningocócicas | Vacinas específicas | 59 chunks | Evidência até março de 2017 e sem avaliação individual de risco de viés; preservar sorogrupo, produto, país e período. |
 
-## Material proposto para retenção
+## Material retido
 
 | Documento | Motivo |
 |---|---|
@@ -89,8 +88,30 @@ Isso representa a retenção segura dessas fontes, não falha dos dez documentos
 auditados. O JSON público contém somente metadados, hashes e métricas; os textos
 integrais permanecem locais e ignorados pelo Git.
 
+## Publicação e validação
+
+A versão
+`sha256:f15c0ebd67783ccf16552c5230b230c73cde02ccd42a9888102510c5cf4e0119`
+foi construída com **50 documentos e 6.079 chunks**. O índice incremental BGE-M3
+reutilizou 5.313 embeddings e gerou 766 novos vetores de 1.024 dimensões em CPU,
+offline, em 552,95 segundos.
+
+Os 6.079 embeddings foram importados antes da ativação transacional da versão no
+PostgreSQL. A conferência direta encontrou 50 documentos, 6.079 chunks e 6.079
+embeddings na versão `ACTIVE`. Uma busca exata por cosseno no pgvector, usando um
+chunk do relatório pneumocócico como vetor de consulta, devolveu o próprio chunk em
+primeiro lugar com similaridade 1,000000. Esta é uma verificação funcional, não o
+benchmark de latência ou qualidade previsto para a Fase 6.
+
+Consultas dirigidas e específicas para cada tema recuperaram as dez fontes novas no
+top 10 híbrido. Esse ensaio confirma a acessibilidade dos documentos pelo retrieval,
+mas não estima desempenho geral nem substitui o dataset congelado.
+
+A validação final aprovou 182 testes na suíte geral, com o teste PostgreSQL omitido
+por configuração, e aprovou esse teste separadamente em uma base exclusiva e
+descartável. O Ruff não encontrou apontamentos.
+
 ## Estado
 
-**Aguardando aprovação humana conjunta.** Se as decisões propostas forem aprovadas,
-somente os dez documentos marcados `approve` serão promovidos, versionados,
-indexados e testados. As duas páginas da FDA continuarão candidatas e retidas.
+**Aprovado, publicado e validado.** Dez documentos estão `validated`; as duas
+páginas da FDA continuam `candidate` e retidas, sem desativar a validação TLS.
