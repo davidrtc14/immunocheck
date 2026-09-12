@@ -98,7 +98,7 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001 a 006 foram aprovados. O catálogo possui 87 entradas e o
+Os lotes documentais 001 a 006 foram processados. O catálogo possui 100 entradas e o
 snapshot local publicado possui 58 documentos, 6.479 chunks e versão
 `sha256:253c380014fb96f32be9dd3f47629ee055d1218bff85c594c757f8891d6754cb`.
 Na sexta publicação incremental, o BGE-M3 reutilizou 6.079 vetores e calculou
@@ -108,17 +108,17 @@ O snapshot e os 6.479 embeddings foram importados no PostgreSQL, e a nova versã
 foi ativada somente após a verificação de completude. Consultas dirigidas
 recuperaram todos os oito documentos novos em primeiro lugar no ranking híbrido.
 Uma busca exata no pgvector devolveu o próprio chunk consultado com similaridade
-1,000000. A Fase 5
-continua aberta: faltam 22 documentos para o mínimo temático, o
+1,000000. A Fase 5 continua aberta: faltam 22 documentos para o mínimo temático, o
 dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
 
-Atualização de 12/09/2026: o lote 006 está aprovado, publicado e validado; oito
-fontes entraram no snapshot e duas permaneceram retidas. Não tratar as 87 entradas
-catalogadas como 87 fontes utilizáveis: 58 estão validadas. Os próximos lotes devem
-priorizar normas, composição, segurança e vacinas específicas, sem ignorar as
-lacunas menores dos demais temas.
+Atualização de 12/09/2026: o lote 006 está aprovado, publicado e validado. O lote
+007 foi preparado e aguarda decisão conjunta do autor: oito aprovações, quatro
+retenções e uma rejeição foram propostas em `corpus/reviews/batch_007.md`. Não
+tratar as 100 entradas catalogadas como 100 fontes utilizáveis: 58 estão validadas.
+O corpus ativo não muda antes da aprovação.
+
 A auditoria dos sete documentos legados com licença
 `to_verify` também deve anteceder o fechamento da Fase 5. Continuam pendentes o
 dataset definitivo, a segunda anotação e o congelamento do teste. A migration `0002`

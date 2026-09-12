@@ -1,0 +1,302 @@
+{
+  "batch": "007",
+  "scope": "technical_only_not_human_approval",
+  "documents": [
+    {
+      "document_id": "who_hpv_position_2022",
+      "title": "Human papillomavirus vaccines: WHO position paper - December 2022",
+      "source_url": "https://iris.who.int/server/api/core/bitstreams/182d51d2-6d08-4963-a643-43d4bc843189/content",
+      "final_url": "https://iris.who.int/server/api/core/bitstreams/182d51d2-6d08-4963-a643-43d4bc843189/content",
+      "downloaded_at": "2026-09-12T15:38:50.648334+00:00",
+      "raw_sha256": "b7988cf2dff5f4d32dcc691188f699d3f8e7fda17271cbfe9dffad151014d963",
+      "size_bytes": 604355,
+      "text_sha256": "8b38702638f560c6031a05775621634f2d66a74564d9a27d83353ed6394b3e60",
+      "pages": 28,
+      "characters": 195575,
+      "chunks": 206,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "who_rotavirus_position_2021",
+      "title": "Rotavirus vaccines: WHO position paper - July 2021",
+      "source_url": "https://iris.who.int/server/api/core/bitstreams/5a3e09d8-363e-4f85-bfd1-dc3a5bf4c47f/content",
+      "final_url": "https://iris.who.int/server/api/core/bitstreams/5a3e09d8-363e-4f85-bfd1-dc3a5bf4c47f/content",
+      "downloaded_at": "2026-09-12T15:38:51.456593+00:00",
+      "raw_sha256": "4df58d52b84b85561c5eee749e914c26bc559b6881f30d3bfa1cbc217badc4ed",
+      "size_bytes": 424708,
+      "text_sha256": "2a7349981354cc701c291f064e89a252277413840cdd38373abbeb759834e8cf",
+      "pages": 19,
+      "characters": 121519,
+      "chunks": 127,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "who_hepb_position_2017",
+      "title": "Hepatitis B vaccines: WHO position paper - July 2017",
+      "source_url": "https://iris.who.int/server/api/core/bitstreams/c55eb2dd-3b78-452d-b93c-a4471b2bdfed/content",
+      "final_url": "https://iris.who.int/server/api/core/bitstreams/c55eb2dd-3b78-452d-b93c-a4471b2bdfed/content",
+      "downloaded_at": "2026-09-12T15:38:52.500870+00:00",
+      "raw_sha256": "96640b8ca8fd9b3da22a59be9a49299d485d286e95d842db8762156531047073",
+      "size_bytes": 638308,
+      "text_sha256": "6a1340a63b935d9accdef1d39a4ba37fbf72e621e722d02e916dc8d1edb297dc",
+      "pages": 24,
+      "characters": 174418,
+      "chunks": 182,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "who_polio_position_2022",
+      "title": "Polio vaccines: WHO position paper - June 2022",
+      "source_url": "https://iris.who.int/server/api/core/bitstreams/d5f84a62-8242-4530-9c50-75e4f8de6703/content",
+      "final_url": "https://iris.who.int/server/api/core/bitstreams/d5f84a62-8242-4530-9c50-75e4f8de6703/content",
+      "downloaded_at": "2026-09-12T15:38:53.388359+00:00",
+      "raw_sha256": "0bd009dc89cf8bb43a58dc9940e9ed5d6cf392a6b8c4b761a7ffa1fedf01a4b1",
+      "size_bytes": 603310,
+      "text_sha256": "4dbc4f87f8120dcf9ebff353ce72f38da41c8f33f49c0910daf571308f3e3abe",
+      "pages": 24,
+      "characters": 169168,
+      "chunks": 178,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "sttt_vaccine_adjuvants_review_2023",
+      "title": "Vaccine adjuvants: mechanisms and platforms",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10356842/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10356842/fullTextXML",
+      "downloaded_at": "2026-09-12T15:38:54.646599+00:00",
+      "raw_sha256": "6e5a80610ce19525ffae7109db9991b7a061a7bff6c36cb28208bb2380bfd3dc",
+      "size_bytes": 390306,
+      "text_sha256": "c34cecc35682f4527ab53e41387838f176136ff4111351388b36e7878d2ec210",
+      "pages": 1,
+      "characters": 130676,
+      "chunks": 132,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "npj_aluminum_adjuvants_review_2018",
+      "title": "Optimizing the utilization of aluminum adjuvants in vaccines: you might just get what you want",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6180056/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6180056/fullTextXML",
+      "downloaded_at": "2026-09-12T15:38:55.701421+00:00",
+      "raw_sha256": "ee4168fcf84df8f37859cfe162c46f34e40db4312f93dfe8c8da636d950606ff",
+      "size_bytes": 182133,
+      "text_sha256": "704c19e9917e36bf51efb63a21e7da79f5e25e900f9e9bf70434abecbd8115c0",
+      "pages": 1,
+      "characters": 67157,
+      "chunks": 68,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "allergo_vaccine_additives_anaphylaxis_2022",
+      "title": "Anaphylaxis to additives in vaccines",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9194891/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9194891/fullTextXML",
+      "downloaded_at": "2026-09-12T15:38:56.695560+00:00",
+      "raw_sha256": "ee0d7e612e202edf37cbf5568b933122ba9ddf003dc0579cb8205e51f94fa72c",
+      "size_bytes": 128303,
+      "text_sha256": "0ae3cfe7ac3ad55ada284e837da06b4804698dbe638e41d249399b1e1cf5800f",
+      "pages": 1,
+      "characters": 50766,
+      "chunks": 52,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "acsomega_animal_cell_lines_vaccines_2024",
+      "title": "Animal Cell Lines as Expression Platforms in Viral Vaccine Production: A Post Covid-19 Perspective",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11025085/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11025085/fullTextXML",
+      "downloaded_at": "2026-09-12T15:38:57.893744+00:00",
+      "raw_sha256": "2698dd7fbc1e83a1b5b42ad61478ce6a7e32705193b370dd4721d3e16c0b1935",
+      "size_bytes": 374540,
+      "text_sha256": "8442435190ef1e81a32e1c1b608c7040a52945f5e0b0597cfc58bd240f101b88",
+      "pages": 1,
+      "characters": 111349,
+      "chunks": 112,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "frontiers_gbs_vaccination_meta_2022",
+      "title": "Population-Based Incidence of Guillain-Barre Syndrome During Mass Immunization With Viral Vaccines: A Pooled Analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8850251/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8850251/fullTextXML",
+      "downloaded_at": "2026-09-12T15:38:58.944478+00:00",
+      "raw_sha256": "40de8526676e9f483fd257563a1c18c9ca41d160603282309d22a72d2b3c567f",
+      "size_bytes": 185944,
+      "text_sha256": "d492d7e0f5d7581590b128d832258cf6776c16268042eceb2f5c3ced06a8ed66",
+      "pages": 1,
+      "characters": 28446,
+      "chunks": 29,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "bmjopen_mrna_myocarditis_meta_2023",
+      "title": "Risk of myocarditis and pericarditis in mRNA COVID-19-vaccinated and unvaccinated populations: a systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10314577/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10314577/fullTextXML",
+      "downloaded_at": "2026-09-12T15:38:59.990656+00:00",
+      "raw_sha256": "831b2275b4479191ba3c885e1735d30035030ead81666009f1ad30bbc4bcb2bc",
+      "size_bytes": 163987,
+      "text_sha256": "47767096150fb912e8674ffb098c0b3fa166b65d27fc655e591c381c58a59ab8",
+      "pages": 1,
+      "characters": 53701,
+      "chunks": 54,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nc/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "eclinical_rotavirus_effectiveness_2025",
+      "title": "Global estimates of rotavirus vaccine efficacy and effectiveness: a rapid review and meta-regression analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11925534/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11925534/fullTextXML",
+      "downloaded_at": "2026-09-12T15:39:00.931762+00:00",
+      "raw_sha256": "1627c6b1f94ce02b2453e91b86fc1bf2bb7d61c54d93212d4751cbbb537a5740",
+      "size_bytes": 105794,
+      "text_sha256": "05ae241d241a8f985fb77f16c084482ffc52f1368160bfb3ae65525b19d29e45",
+      "pages": 1,
+      "characters": 39395,
+      "chunks": 40,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "plos_pertussis_waning_meta_2018",
+      "title": "Acellular pertussis vaccines effectiveness over time: A systematic review meta-analysis and modeling study",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6005504/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6005504/fullTextXML",
+      "downloaded_at": "2026-09-12T15:39:01.891609+00:00",
+      "raw_sha256": "ab0787dffd6a85f94af641ec0fac43db42f2b8b7e649e9d02b55168a27bd1e5b",
+      "size_bytes": 105013,
+      "text_sha256": "4c3930ccf4fdb72f2d3dcbdf0039a4d7d9e790187e4b353c2ec83a442ae5a75c",
+      "pages": 1,
+      "characters": 28080,
+      "chunks": 29,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "scientificreports_hepb_response_meta_2016",
+      "title": "Factors influencing immunologic response to hepatitis B vaccine in adults",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4914839/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4914839/fullTextXML",
+      "downloaded_at": "2026-09-12T15:39:02.918847+00:00",
+      "raw_sha256": "b956933e474bf83a7f8edee6e9b9e1e715939ec09d171ce9fa8f477ae41132a9",
+      "size_bytes": 160079,
+      "text_sha256": "56c355659844f26e420c90cc8a1a0e1b5376b50d9fc7ee3967fa680419aca92a",
+      "pages": 1,
+      "characters": 33079,
+      "chunks": 34,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    }
+  ],
+  "failures": [],
+  "exact_text_duplicates_within_batch": [],
+  "raw_duplicates_against_validated_catalog": [
+    {
+      "document_id": "eclinical_rotavirus_effectiveness_2025",
+      "validated_document_id": "eclinm_rotavirus_global_2025"
+    }
+  ]
+}

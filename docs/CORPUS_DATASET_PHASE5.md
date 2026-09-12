@@ -202,3 +202,17 @@ Consultas dirigidas colocaram cada fonte nova em primeiro lugar no ranking híbr
 uma busca vetorial exata no pgvector devolveu o próprio chunk consultado com
 similaridade 1,000000. A lacuna para o mínimo temático caiu de 30 para 22
 documentos.
+
+## Preparação do lote documental 007
+
+Em 12/09/2026 foram coletados e auditados 13 candidatos voltados às lacunas de
+normas, composição e fabricação, segurança e vacinas específicas. Todos passaram
+pela extração técnica, totalizando 1.203.329 caracteres e 1.243 chunks potenciais.
+
+O parecer propõe oito artigos novos para aprovação, somando 510 chunks e com
+licenças Creative Commons explícitas. Quatro *position papers* da OMS foram
+retidos na proposta porque os PDFs coletados não contêm licença ou permissão de
+reutilização. Um nono artigo aberto foi identificado como duplicata bruta exata de
+`eclinm_rotavirus_global_2025` e teve rejeição proposta para evitar peso duplicado
+no retrieval. A decisão humana está pendente; o corpus ativo permanece com 58
+documentos e 6.479 chunks. A trilha está em `corpus/reviews/batch_007.md`.
