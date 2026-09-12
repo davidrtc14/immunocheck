@@ -1,9 +1,8 @@
-# Lote documental 006 — parecer para aprovação
+# Lote documental 006 — decisão e publicação
 
-Preparado em 12/09/2026. Nenhum documento deste lote foi promovido ao corpus:
-as decisões abaixo são propostas e dependem de aprovação conjunta do autor. A
-aprovação valerá somente para os bytes identificados pelos SHA-256 em
-`batch_006.csv`.
+Preparado e aprovado em 12/09/2026. O autor aprovou conjuntamente oito documentos
+e manteve dois retidos. A decisão vale somente para os bytes identificados pelos
+SHA-256 em `batch_006.csv`.
 
 ## Resultado executivo
 
@@ -12,14 +11,14 @@ aprovação valerá somente para os bytes identificados pelos SHA-256 em
 - Nove XML JATS integrais foram coletados pelo serviço oficial Europe PMC. Eles
   somam 430.407 caracteres e 434 chunks potenciais, sem duplicatas exatas dentro
   do lote ou contra o corpus validado.
-- **Propõe-se aprovar oito documentos**, somando 400 chunks potenciais: seis têm
+- **Foram aprovados oito documentos**, somando 400 chunks: seis têm
   licença Creative Commons e dois contêm concessão gratuita e expressa da Elsevier
   para reutilização em pesquisa enquanto o COVID-19 Resource Centre estiver ativo.
-- **Propõe-se reter dois documentos:** um XML da Revista Panamericana não declara
+- **Foram retidos dois documentos:** um XML da Revista Panamericana não declara
   licença nos bytes coletados; o manuscrito sobre hospitalizações por rotavírus
   retornou HTTP 404 e não possui bytes auditáveis.
 
-## Documentos propostos para aprovação
+## Documentos aprovados
 
 | Documento | Tema | Volume | Utilidade e cuidado obrigatório |
 |---|---|---:|---|
@@ -32,7 +31,7 @@ aprovação valerá somente para os bytes identificados pelos SHA-256 em
 | Carga de coqueluche em países de renda baixa e média | Epidemiologia | 53 chunks | Dados escassos e concentrados em países de renda média alta, com diferenças de diagnóstico, vigilância e cobertura. |
 | Carga global de rotavírus em menores de cinco anos | Epidemiologia | 28 chunks | Resultados do GBD são estimativas modeladas com intervalos de incerteza, não contagens individuais observadas. |
 
-## Material proposto para retenção
+## Material retido
 
 | Documento | Motivo |
 |---|---|
@@ -41,7 +40,7 @@ aprovação valerá somente para os bytes identificados pelos SHA-256 em
 
 ## Auditoria técnica e jurídica
 
-As oito aprovações propostas foram obtidas como XML JATS integral pelo Europe PMC.
+As oito fontes aprovadas foram obtidas como XML JATS integral pelo Europe PMC.
 Quatro documentos declaram CC BY 4.0; um declara CC BY-NC 4.0; e o artigo da JAMA
 declara CC BY sem explicitar a versão no XML. Os dois artigos da revista *Vaccine*
 preservam nos próprios bytes a concessão gratuita da Elsevier para reutilização e
@@ -50,7 +49,7 @@ Resource Centre permanecer ativo. Essa condição temporal deve acompanhar a
 proveniência e ser revalidada antes de eventual redistribuição externa.
 
 O aviso `all rights reserved` do artigo sobre fertilidade não foi ignorado: a
-aprovação proposta limita-se à concessão de pesquisa que aparece conjuntamente no
+aprovação limita-se à concessão de pesquisa que aparece conjuntamente no
 documento e ao uso local, acadêmico e não comercial. Arquivos brutos, textos e
 chunks continuam ignorados pelo Git; a licença MIT do código não relicencia as
 fontes.
@@ -88,8 +87,32 @@ Isso representa a retenção segura da fonte, não falha dos nove documentos aud
 O JSON público contém apenas metadados, hashes e métricas; os textos integrais ficam
 locais e ignorados pelo Git.
 
-## Estado
+## Decisão humana
 
-**Aguardando aprovação humana conjunta.** Se as decisões propostas forem aprovadas,
-somente os oito documentos marcados `approve` serão promovidos, versionados,
-indexados e testados. Os outros dois continuarão candidatos e retidos.
+O autor aprovou conjuntamente os oito documentos recomendados e confirmou a
+retenção dos outros dois. `batch_006.csv` registra `project_author`, a data da
+decisão e uma justificativa explícita por candidato. Somente as oito fontes
+aprovadas foram promovidas a `validated`; as duas retidas continuam `candidate`.
+
+## Publicação e validação
+
+A publicação gerou a versão
+`sha256:253c380014fb96f32be9dd3f47629ee055d1218bff85c594c757f8891d6754cb`,
+com **58 documentos, 6.479 chunks e 6.479 embeddings**. O BGE-M3 reutilizou os
+6.079 vetores anteriores e calculou 400 novos em CPU, offline, em 264,25 segundos.
+
+Os embeddings foram importados antes da ativação transacional no PostgreSQL. A
+conferência direta confirmou 58 documentos, 6.479 chunks e 6.479 embeddings na
+versão ativa. Uma busca exata por cosseno, usando um chunk da revisão sobre vacinas
+e doenças autoimunes como consulta, devolveu o próprio chunk em primeiro lugar com
+similaridade 1,000000.
+
+Oito consultas temáticas dirigidas recuperaram cada documento novo em primeiro
+lugar no ranking híbrido BM25 + BGE-M3 + RRF. Esse ensaio confirma a acessibilidade
+das fontes e não substitui a avaliação de retrieval com consultas e julgamentos
+humanos congelados.
+
+A regressão final aprovou 182 testes na suíte geral e um teste adicional em banco
+PostgreSQL exclusivo e descartável; um teste de integração aparece como ignorado na
+suíte geral quando a URL exclusiva não é fornecida. O Ruff foi executado sem
+apontamentos. A base temporária foi removida após o ensaio.

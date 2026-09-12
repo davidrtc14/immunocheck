@@ -81,7 +81,8 @@ as licenças e os cuidados metodológicos estão em `reviews/batch_005.md`.
 ## Sexto lote da Fase 5 em 12/09/2026
 
 O lote 006 adicionou dez candidatos voltados sobretudo a epidemiologia e alegações
-causais. Nove XML JATS foram auditados; oito documentos foram propostos para
-aprovação e dois para retenção por licença não declarada ou ausência de bytes
-integrais. Nenhuma fonte deste lote entra no índice antes da decisão humana conjunta
-registrada em `reviews/batch_006.md`.
+causais. Nove XML JATS foram auditados; o autor aprovou oito documentos e manteve
+dois retidos por licença não declarada ou ausência de bytes integrais. A versão
+publicada passou a 58 documentos, 6.479 chunks e 6.479 embeddings. As oito fontes
+novas ficaram em primeiro lugar nas consultas híbridas dirigidas. A decisão e a
+validação estão registradas em `reviews/batch_006.md`.

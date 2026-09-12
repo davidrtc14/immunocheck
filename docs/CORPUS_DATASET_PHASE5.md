@@ -181,16 +181,24 @@ pgvector devolveu o próprio chunk consultado com similaridade 1,000000. A lacun
 para o mínimo temático caiu a 30 documentos. O parecer completo está em
 `corpus/reviews/batch_005.md`.
 
-## Preparação do lote documental 006
+## Execução do lote documental 006
 
 Em 12/09/2026 foram examinados dez candidatos para comunicação, alegações causais,
 populações especiais, eficácia e epidemiologia. Nove XML JATS foram coletados e
 auditados, somando 430.407 caracteres e 434 chunks potenciais. Não houve duplicata
 exata dentro do lote nem contra o corpus validado.
 
-O parecer propõe oito aprovações, somando 400 chunks, e duas retenções. O artigo da
-Revista Panamericana sobre coqueluche não declara licença nos bytes coletados; o
-manuscrito sobre hospitalizações por rotavírus não retornou XML integral. A decisão
-humana está pendente, portanto o corpus ativo permanece com 50 documentos e 6.079
-chunks. O parecer e os guardrails por fonte estão em
+O autor aprovou conjuntamente oito fontes, somando 400 chunks, e manteve duas
+retidas. O artigo da Revista Panamericana sobre coqueluche não declara licença nos
+bytes coletados; o manuscrito sobre hospitalizações por rotavírus não retornou XML
+integral. A decisão e os guardrails por fonte estão em
 `corpus/reviews/batch_006.md`.
+
+A versão
+`sha256:253c380014fb96f32be9dd3f47629ee055d1218bff85c594c757f8891d6754cb`
+foi ativada com 58 documentos, 6.479 chunks e 6.479 embeddings. O BGE-M3
+reutilizou 6.079 vetores e gerou 400 novos em CPU, offline, em 264,25 segundos.
+Consultas dirigidas colocaram cada fonte nova em primeiro lugar no ranking híbrido;
+uma busca vetorial exata no pgvector devolveu o próprio chunk consultado com
+similaridade 1,000000. A lacuna para o mínimo temático caiu de 30 para 22
+documentos.

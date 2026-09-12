@@ -151,3 +151,15 @@ vetores e gerou 766 em CPU e modo offline, em 552,95 segundos. Uma busca exata p
 cosseno no pgvector, usando um chunk do relatório pneumocócico como consulta,
 devolveu esse mesmo chunk em primeiro lugar com similaridade 1,000000. Esta é uma
 verificação funcional; o benchmark distribucional permanece para a Fase 6.
+
+## Atualização do lote 006 da Fase 5
+
+Em 12/09/2026, a versão
+`sha256:253c380014fb96f32be9dd3f47629ee055d1218bff85c594c757f8891d6754cb`
+foi importada e ativada com 58 documentos, 6.479 chunks e 6.479 embeddings. A
+versão anterior permaneceu `ARCHIVED`. O construtor incremental reutilizou 6.079
+vetores e gerou 400 em CPU e modo offline, em 264,25 segundos. Uma busca exata por
+cosseno no pgvector, usando um chunk da revisão sobre vacinação e doenças
+autoimunes, devolveu o próprio chunk em primeiro lugar com similaridade 1,000000.
+Esta é uma verificação funcional; o benchmark distribucional permanece para a
+Fase 6.

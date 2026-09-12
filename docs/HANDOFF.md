@@ -98,27 +98,27 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001 a 005 foram aprovados. O catálogo possui 87 entradas e o
-snapshot local publicado possui 50 documentos, 6.079 chunks e versão
-`sha256:f15c0ebd67783ccf16552c5230b230c73cde02ccd42a9888102510c5cf4e0119`.
-Na quinta publicação incremental, o BGE-M3 reutilizou 5.313 vetores e calculou
-766 em CPU e modo offline, em 552,95 segundos.
+Os lotes documentais 001 a 006 foram aprovados. O catálogo possui 87 entradas e o
+snapshot local publicado possui 58 documentos, 6.479 chunks e versão
+`sha256:253c380014fb96f32be9dd3f47629ee055d1218bff85c594c757f8891d6754cb`.
+Na sexta publicação incremental, o BGE-M3 reutilizou 6.079 vetores e calculou
+400 em CPU e modo offline, em 264,25 segundos.
 
-O snapshot e os 6.079 embeddings foram importados no PostgreSQL, e a nova versão
+O snapshot e os 6.479 embeddings foram importados no PostgreSQL, e a nova versão
 foi ativada somente após a verificação de completude. Consultas dirigidas
-recuperaram todos os dez documentos novos no top 10 híbrido. Uma busca exata no
-pgvector devolveu o próprio chunk consultado com similaridade 1,000000. A Fase 5
-continua aberta: faltam 30 documentos para o mínimo temático, o
+recuperaram todos os oito documentos novos em primeiro lugar no ranking híbrido.
+Uma busca exata no pgvector devolveu o próprio chunk consultado com similaridade
+1,000000. A Fase 5
+continua aberta: faltam 22 documentos para o mínimo temático, o
 dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
 
-Atualização de 12/09/2026: o lote 005 está aprovado, publicado e validado. O lote
-006 está preparado e aguarda decisão conjunta do autor: oito aprovações e duas
-retenções foram propostas em `corpus/reviews/batch_006.md`. Não tratar as 87 entradas
-catalogadas como 87 fontes utilizáveis: 50 estão validadas. Depois da decisão, os
-próximos lotes devem priorizar normas, composição, segurança, populações especiais e
-vacinas específicas.
+Atualização de 12/09/2026: o lote 006 está aprovado, publicado e validado; oito
+fontes entraram no snapshot e duas permaneceram retidas. Não tratar as 87 entradas
+catalogadas como 87 fontes utilizáveis: 58 estão validadas. Os próximos lotes devem
+priorizar normas, composição, segurança e vacinas específicas, sem ignorar as
+lacunas menores dos demais temas.
 A auditoria dos sete documentos legados com licença
 `to_verify` também deve anteceder o fechamento da Fase 5. Continuam pendentes o
 dataset definitivo, a segunda anotação e o congelamento do teste. A migration `0002`
