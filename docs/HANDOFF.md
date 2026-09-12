@@ -98,7 +98,7 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001 a 005 foram aprovados. O catálogo possui 77 entradas e o
+Os lotes documentais 001 a 005 foram aprovados. O catálogo possui 87 entradas e o
 snapshot local publicado possui 50 documentos, 6.079 chunks e versão
 `sha256:f15c0ebd67783ccf16552c5230b230c73cde02ccd42a9888102510c5cf4e0119`.
 Na quinta publicação incremental, o BGE-M3 reutilizou 5.313 vetores e calculou
@@ -113,10 +113,12 @@ dataset de pelo menos 100 alegações, segunda anotação e congelamento do test
 
 ## Instruções para a próxima sessão
 
-Atualização de 12/09/2026: o lote 005 está aprovado, publicado e validado; sua trilha
-está em `corpus/reviews/batch_005.md`. Não tratar as 77 entradas catalogadas como 77
-fontes utilizáveis: 50 estão validadas. O próximo lote deve priorizar normas,
-composição, eficácia, populações especiais, vacinas específicas e epidemiologia.
+Atualização de 12/09/2026: o lote 005 está aprovado, publicado e validado. O lote
+006 está preparado e aguarda decisão conjunta do autor: oito aprovações e duas
+retenções foram propostas em `corpus/reviews/batch_006.md`. Não tratar as 87 entradas
+catalogadas como 87 fontes utilizáveis: 50 estão validadas. Depois da decisão, os
+próximos lotes devem priorizar normas, composição, segurança, populações especiais e
+vacinas específicas.
 A auditoria dos sete documentos legados com licença
 `to_verify` também deve anteceder o fechamento da Fase 5. Continuam pendentes o
 dataset definitivo, a segunda anotação e o congelamento do teste. A migration `0002`

@@ -77,3 +77,11 @@ páginas da FDA permaneceram retidas por falha segura de validação TLS. A vers
 publicada passou a 50 documentos, 6.079 chunks e 6.079 embeddings. As dez fontes
 novas apareceram no top 10 de consultas híbridas dirigidas. A decisão, os hashes,
 as licenças e os cuidados metodológicos estão em `reviews/batch_005.md`.
+
+## Sexto lote da Fase 5 em 12/09/2026
+
+O lote 006 adicionou dez candidatos voltados sobretudo a epidemiologia e alegações
+causais. Nove XML JATS foram auditados; oito documentos foram propostos para
+aprovação e dois para retenção por licença não declarada ou ausência de bytes
+integrais. Nenhuma fonte deste lote entra no índice antes da decisão humana conjunta
+registrada em `reviews/batch_006.md`.

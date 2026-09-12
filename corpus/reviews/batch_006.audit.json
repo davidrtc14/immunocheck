@@ -1,0 +1,216 @@
+{
+  "batch": "006",
+  "scope": "technical_only_not_human_approval",
+  "documents": [
+    {
+      "document_id": "vaccine_misinformation_communication_review_2023",
+      "title": "A systematic review of communication interventions for countering vaccine misinformation",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9829031/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9829031/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:18.447631+00:00",
+      "raw_sha256": "528118f9e081291fd85e1b334beddafe3b5aeee0ae5ea890b634950691cba7d6",
+      "size_bytes": 224762,
+      "text_sha256": "d2cdf7f3758cb28e1390941daf05b3f715ae7cdc59eb5d6bf3431190d054edaf",
+      "pages": 1,
+      "characters": 68546,
+      "chunks": 69,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "vaccines_autoimmune_disorders_meta_2021",
+      "title": "Can Vaccination Trigger Autoimmune Disorders? A Meta-Analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8402438/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8402438/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:19.424333+00:00",
+      "raw_sha256": "bef0dad15a5ee5649b27c728028e497d212201e060cee28c080a3d080317a1bf",
+      "size_bytes": 113477,
+      "text_sha256": "e7d0db7a6e3c3a2e9d6507d666f9d0606185d1198f19e52417ee957beec7e844",
+      "pages": 1,
+      "characters": 32414,
+      "chunks": 33,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "vaccine_covid_fertility_meta_2022",
+      "title": "The impact of COVID-19 vaccines on fertility - A systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9464596/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9464596/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:20.436003+00:00",
+      "raw_sha256": "ec5aa181b8388e033f1933bcbdda4edd8d4fa58853cd97ee63369139120ef0b2",
+      "size_bytes": 124460,
+      "text_sha256": "15e06cb1d225a4206f904331fa130b3f311c7516e9d5a0eb925e31895f8808bd",
+      "pages": 1,
+      "characters": 30626,
+      "chunks": 31,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "all rights reserved"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "rmdopen_aiird_vaccination_review_2019",
+      "title": "Efficacy immunogenicity and safety of vaccination in adult patients with autoimmune inflammatory rheumatic diseases",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6744079/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6744079/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:21.784048+00:00",
+      "raw_sha256": "6da00d2f88f17a191732c7916ea7b13e123fe2ab4862d746f2ffa2f5277dd3e5",
+      "size_bytes": 374856,
+      "text_sha256": "ceb1ed8c6624db93ce9c353bf359a9bb593b7a843f30ed4ccc32dd0b3daa904b",
+      "pages": 1,
+      "characters": 101692,
+      "chunks": 103,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "http://creativecommons.org/licenses/by-nc/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "measles_age_effect_meta_2020",
+      "title": "Effect of age at vaccination on the measles vaccine effectiveness and immunogenicity: systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7104533/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7104533/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:22.929773+00:00",
+      "raw_sha256": "d1b04206ced7710bc898ab2276c1e93607249ddd0e9fa86140f0fb0bb7ff6851",
+      "size_bytes": 235016,
+      "text_sha256": "b73c35e390d03bc54ac8010a9dc7866776197f9e3689382a59ba42b2e0251f7b",
+      "pages": 1,
+      "characters": 54783,
+      "chunks": 55,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "paho_pertussis_lac_meta_2019",
+      "title": "Systematic review and meta-analysis of pertussis epidemiology in Latin America and the Caribbean: 1980-2015",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6645303/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6645303/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:24.124506+00:00",
+      "raw_sha256": "58d3e78772809e0e49c910ac979565494212aef010081d8d30d9f4ccec0d22b5",
+      "size_bytes": 199390,
+      "text_sha256": "dbb9e712e59983c1fda50430ebbd8314e0b9c8f13923c61961587284b9daac08",
+      "pages": 1,
+      "characters": 33965,
+      "chunks": 34,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "bmc_measles_ethiopia_meta_2023",
+      "title": "Attack rate case fatality rate and determinants of measles infection during an outbreak in Ethiopia",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10623867/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10623867/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:25.638196+00:00",
+      "raw_sha256": "1e86d47606156add03029d5a29d519b4c46491d1dfc9617468f027f2f9ae4325",
+      "size_bytes": 81747,
+      "text_sha256": "f6bbb8c22de4f1e6f99022186248dbf11993b3642033adab8ae069464485975b",
+      "pages": 1,
+      "characters": 27702,
+      "chunks": 28,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "bmc_pertussis_lmic_burden_meta_2020",
+      "title": "The burden of laboratory-confirmed pertussis in low- and middle-income countries since the inception of the EPI",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7453720/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7453720/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:26.756379+00:00",
+      "raw_sha256": "0ad5df5505716a9c5d1f41fcb64edb452f3fc2fa4a8422d2a23ec68338e6b3a2",
+      "size_bytes": 219684,
+      "text_sha256": "e722a13e5d06debfe8c275220afa26e44b285885fe5436937ab0a3645f3680cf",
+      "pages": 1,
+      "characters": 52680,
+      "chunks": 53,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "http://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "jama_rotavirus_global_burden_2018",
+      "title": "Rotavirus Vaccination and the Global Burden of Rotavirus Diarrhea Among Children Younger Than 5 Years",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6233802/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6233802/fullTextXML",
+      "downloaded_at": "2026-09-12T14:58:27.702060+00:00",
+      "raw_sha256": "e14a2be33ef265f4570ae03daeee9031679aac010ab38144e78cda4cd8d18248",
+      "size_bytes": 87657,
+      "text_sha256": "b50e03289f678778d02de27533d2114c5fb760f54f00ca98c75af127a211bb40",
+      "pages": 1,
+      "characters": 27999,
+      "chunks": 28,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    }
+  ],
+  "failures": [
+    {
+      "document_id": "jpids_rotavirus_hospitalizations_2022",
+      "error": "Sem recibo de download; consultar o histórico de coleta."
+    }
+  ],
+  "exact_text_duplicates_within_batch": [],
+  "raw_duplicates_against_validated_catalog": []
+}

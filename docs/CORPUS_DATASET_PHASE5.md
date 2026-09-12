@@ -180,3 +180,17 @@ dirigidas recuperaram as dez fontes novas no top 10 híbrido, e uma busca exata 
 pgvector devolveu o próprio chunk consultado com similaridade 1,000000. A lacuna
 para o mínimo temático caiu a 30 documentos. O parecer completo está em
 `corpus/reviews/batch_005.md`.
+
+## Preparação do lote documental 006
+
+Em 12/09/2026 foram examinados dez candidatos para comunicação, alegações causais,
+populações especiais, eficácia e epidemiologia. Nove XML JATS foram coletados e
+auditados, somando 430.407 caracteres e 434 chunks potenciais. Não houve duplicata
+exata dentro do lote nem contra o corpus validado.
+
+O parecer propõe oito aprovações, somando 400 chunks, e duas retenções. O artigo da
+Revista Panamericana sobre coqueluche não declara licença nos bytes coletados; o
+manuscrito sobre hospitalizações por rotavírus não retornou XML integral. A decisão
+humana está pendente, portanto o corpus ativo permanece com 50 documentos e 6.079
+chunks. O parecer e os guardrails por fonte estão em
+`corpus/reviews/batch_006.md`.
