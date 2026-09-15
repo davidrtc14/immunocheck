@@ -96,3 +96,12 @@ nos bytes e rejeitou um artigo que duplicava exatamente uma fonte já validada. 
 versão publicada passou a 66 documentos, 6.989 chunks e 6.989 embeddings; cada uma
 das oito fontes novas ficou em primeiro lugar em sua consulta híbrida dirigida. A
 decisão e a validação estão em `reviews/batch_007.md`.
+
+## Auditoria de licenças legadas em 14/09/2026
+
+Os sete documentos validados que ainda conservavam `license_status=to_verify` foram
+reexaminados contra os bytes locais e a legislação oficial. O parecer propõe manter
+todos com classificações e restrições explícitas: dois CC BY-NC-SA 4.0, três CC
+BY-ND 3.0, uma permissão institucional de reprodução não comercial e uma Instrução
+Normativa caracterizada como ato oficial. A proposta aguarda decisão conjunta do
+autor em `reviews/license_audit_001.md`; nenhum corpus ou índice foi alterado.

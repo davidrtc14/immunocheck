@@ -56,14 +56,22 @@ por leitura das fontes, nunca pela resposta atual do ImmunoCheck.
 
 ## Critérios que ainda impedem o fechamento
 
-- O catálogo ainda não possui 80 documentos validados.
-- A cobertura temática foi auditada, mas nenhum mínimo por tema foi fechado.
+- O catálogo ainda não possui 80 documentos validados: há 66 e faltam 14.
+- A cobertura temática foi auditada; composição/fabricação e segurança atingiram o
+  mínimo, mas sete temas ainda apresentam lacunas.
 - O dataset definitivo ainda não foi anotado.
 - O segundo anotador e eventual adjudicador ainda precisam ser formalizados.
 - O split de teste ainda não foi criado nem congelado.
 
 Consequentemente, a Fase 5 está em andamento e nenhum item de aceite foi declarado
 concluído.
+
+Em 14/09/2026, foi preparada a auditoria dos sete documentos legados que ainda
+possuíam licença `to_verify`. O parecer propõe manter todos: dois PDFs declaram CC
+BY-NC-SA 4.0; três páginas declaram CC BY-ND 3.0; um PDF concede reprodução não
+comercial com atribuição; e a Instrução Normativa é tratada como ato oficial nos
+termos do art. 8º, IV, da Lei nº 9.610/1998. A decisão humana está pendente em
+`corpus/reviews/license_audit_001.md` e não alterou o corpus ativo.
 
 ## Execução do lote documental 001
 

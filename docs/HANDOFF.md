@@ -120,10 +120,13 @@ utilizáveis: 66 estão validadas. As lacunas restantes são normas (4), eficác
 populações especiais (2), epidemiologia (2), alegações causais (2), vacinas
 específicas (1) e comunicação/equidade/ética (1).
 
-A auditoria dos sete documentos legados com licença
-`to_verify` também deve anteceder o fechamento da Fase 5. Continuam pendentes o
-dataset definitivo, a segunda anotação e o congelamento do teste. A migration `0002`
-permite documentos XML JATS no PostgreSQL; não editar migrations já aplicadas.
+A auditoria dos sete documentos legados com licença `to_verify` foi preparada em
+14/09/2026 e aguarda aprovação conjunta em
+`corpus/reviews/license_audit_001.md`. A proposta mantém os sete documentos e corrige
+somente os metadados de licença, sem reconstruir o corpus. Continuam pendentes as 14
+fontes para a cobertura mínima, o dataset definitivo, a segunda anotação e o
+congelamento do teste. A migration `0002` permite documentos XML JATS no PostgreSQL;
+não editar migrations já aplicadas.
 Validação do marco: 183 testes aprovados — 182 na suíte geral e um em base
 PostgreSQL exclusiva e descartável —, e Ruff sem apontamentos.
 

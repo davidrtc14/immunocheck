@@ -130,6 +130,12 @@ embeddings foi ativada no PostgreSQL; todas as fontes novas ficaram em primeiro
 lugar nas consultas híbridas dirigidas. O parecer está em
 `corpus/reviews/batch_007.md`.
 
+Em 14/09/2026, foi preparada a auditoria dos sete documentos legados com licença
+`to_verify`. A evidência nos bytes e a legislação oficial sustentam a proposta de
+manter todos com metadados e restrições de reutilização explícitos. A decisão humana
+conjunta está pendente em `corpus/reviews/license_audit_001.md`; o corpus ativo não
+foi alterado.
+
 ## Fase 6 — Avaliação e entrega
 
 - [ ] Experimentos de retrieval.
