@@ -187,3 +187,17 @@ reutilizou todos os 6.989 vetores e não gerou embeddings novos, em 2,79 segundo
 Uma consulta direta confirmou as sete classificações na versão ativa. Uma busca
 exata por cosseno no pgvector, usando um chunk da Instrução Normativa como consulta,
 devolveu o próprio chunk em primeiro lugar com similaridade 1,000000.
+
+## Atualização do lote 008 da Fase 5
+
+Em 14/09/2026, a versão
+`sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7`
+foi importada e ativada com 80 documentos, 7.585 chunks e 7.585 embeddings. A versão
+anterior permaneceu `ARCHIVED`. O construtor incremental reutilizou 6.989 vetores e
+gerou 596 em CPU e modo offline, em 376,15 segundos.
+
+Nas consultas híbridas dirigidas, as 14 fontes novas ficaram no top 10: 12 na
+primeira posição e duas na segunda. Uma busca exata por cosseno no pgvector, usando
+um chunk novo da revisão sobre Guillain-Barré como consulta, devolveu o próprio chunk
+em primeiro lugar com similaridade 1,000000. Essas verificações são funcionais; o
+benchmark distribucional de desempenho permanece para a Fase 6.

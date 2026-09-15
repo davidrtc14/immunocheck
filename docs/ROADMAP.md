@@ -78,8 +78,8 @@ serão avaliados formalmente na Fase 6.
 
 ## Fase 5 — Corpus e dataset definitivos
 
-- [ ] 80–150 documentos catalogados e versionados.
-- [ ] Cobertura temática revisada.
+- [x] 80–150 documentos catalogados e versionados.
+- [x] Cobertura temática revisada.
 - [ ] 160 alegações como meta; mínimo de 100 documentado.
 - [ ] Segundo anotador em pelo menos 30%.
 - [ ] Teste congelado antes do ajuste final.
@@ -88,11 +88,10 @@ serão avaliados formalmente na Fase 6.
 
 **Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
 o validador auditável do dataset fim a fim foram criados. O catálogo possui 114
-entradas e o corpus ativo possui 66 documentos, 6.989 chunks e 6.989 embeddings. O
-lote 008 propõe os 14 documentos necessários para o mínimo temático, mas aguarda
-decisão humana. Também faltam anotar pelo menos 100 alegações, executar a segunda
-revisão e congelar o teste; por isso nenhum item de aceite da fase foi marcado como
-concluído.
+entradas e o corpus ativo possui 80 documentos, 7.585 chunks e 7.585 embeddings.
+Todos os mínimos temáticos foram atingidos. Ainda faltam anotar pelo menos 100
+alegações, executar a segunda revisão e congelar o teste; por isso a Fase 5 permanece
+aberta.
 
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
 ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi
@@ -137,11 +136,11 @@ proveniência preservou 66 documentos e 6.989 embeddings, reutilizando todos os
 vetores sem reprocessar texto. A decisão está em
 `corpus/reviews/license_audit_001.md`.
 
-Em 14/09/2026, o lote 008 foi preparado com 14 candidatos para as lacunas restantes.
-Todos passaram pela auditoria técnica e jurídica, somando 596 chunks potenciais sem
-duplicata detectada. Os 14 estão propostos para aprovação, com ressalvas de vigência,
-generalização e conflitos registradas. Eles ainda não foram promovidos nem publicados;
-o parecer está em `corpus/reviews/batch_008.md`.
+Em 14/09/2026, o autor aprovou os 14 documentos do lote 008 para as lacunas
+restantes. A versão com 80 documentos e 7.585 embeddings foi ativada no PostgreSQL;
+todos os mínimos temáticos foram atingidos. As 14 fontes apareceram no top 10 das
+consultas híbridas dirigidas, e o pgvector devolveu o próprio chunk consultado com
+similaridade 1,000000. O parecer está em `corpus/reviews/batch_008.md`.
 
 ## Fase 6 — Avaliação e entrega
 

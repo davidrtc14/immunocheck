@@ -56,24 +56,22 @@ por leitura das fontes, nunca pela resposta atual do ImmunoCheck.
 
 ## Critérios que ainda impedem o fechamento
 
-- O catálogo ainda não possui 80 documentos validados: há 66; os 14 candidatos que
-  completariam o mínimo aguardam decisão humana no lote 008.
-- A cobertura temática foi auditada; composição/fabricação e segurança atingiram o
-  mínimo, mas sete temas ainda apresentam lacunas.
+O corpus atingiu 80 documentos validados e todos os mínimos temáticos; essa parte
+documental está concluída e auditada. Permanecem pendentes:
+
 - O dataset definitivo ainda não foi anotado.
 - O segundo anotador e eventual adjudicador ainda precisam ser formalizados.
 - O split de teste ainda não foi criado nem congelado.
 
-Consequentemente, a Fase 5 está em andamento e nenhum item de aceite foi declarado
-concluído.
+Consequentemente, a Fase 5 continua em andamento, agora concentrada na construção e
+revisão do dataset experimental.
 
-Em 14/09/2026, o lote 008 foi preparado com 14 candidatos escolhidos para preencher
-as sete lacunas temáticas restantes. Os 14 passaram pela obtenção, extração,
+Em 14/09/2026, o autor aprovou os 14 documentos do lote 008, escolhidos para preencher
+as sete lacunas temáticas restantes. Os documentos passaram pela obtenção, extração,
 auditoria de licença e detecção de duplicidade, somando 566.342 caracteres e 596
-chunks potenciais. A proposta é aprovar todos, com ressalvas explícitas de vigência,
-generalização, causalidade e conflitos de interesse. Até a decisão humana, o catálogo
-possui 114 entradas, mas o corpus ativo permanece com 66 documentos. O parecer está
-em `corpus/reviews/batch_008.md`.
+chunks. O catálogo possui 114 entradas e o corpus ativo passou a 80 documentos, com
+ressalvas explícitas de vigência, generalização, causalidade e conflitos de interesse.
+O parecer está em `corpus/reviews/batch_008.md`.
 
 Em 14/09/2026, o autor aprovou conjuntamente a auditoria dos sete documentos legados
 que ainda possuíam licença `to_verify`. Dois PDFs declaram CC BY-NC-SA 4.0; três
@@ -248,17 +246,25 @@ uma busca vetorial exata no pgvector devolveu o próprio chunk consultado com
 similaridade 1,000000. A lacuna para o mínimo temático caiu de 22 para 14
 documentos.
 
-## Preparação do lote documental 008
+## Execução do lote documental 008
 
 Em 14/09/2026 foram coletados e auditados 14 candidatos: quatro fontes normativas,
 duas de eficácia, duas de populações especiais, duas de epidemiologia, duas de
 alegações causais, uma de vacina específica e uma de comunicação/equidade. Não houve
 falha técnica nem duplicata; as licenças e bases de reutilização foram explicitadas.
 
-A proposta é aprovar conjuntamente os 14 documentos. A revisão de vacinas de mRNA
+O autor aprovou conjuntamente os 14 documentos. A revisão de vacinas de mRNA
 em imunocomprometidos foi financiada pela Moderna e contou com empregados da
 empresa; a revisão pneumocócica regional recebeu grant independente da Pfizer; e a
 revisão de influenza declara relações de autores com fabricantes e comitês. Esses
 vínculos não implicam rejeição automática, mas exigem triangulação e permanecem nos
-metadados. O lote segue pendente e não foi construído, importado ou ativado. A trilha
-de decisão está em `corpus/reviews/batch_008.md`.
+metadados.
+
+A versão
+`sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7`
+foi ativada com 80 documentos, 7.585 chunks e 7.585 embeddings. O BGE-M3 reutilizou
+6.989 vetores e gerou 596 em CPU e modo offline, em 376,15 segundos. Nas consultas
+híbridas dirigidas, 12 fontes ficaram em primeiro lugar e duas em segundo; todas
+apareceram no top 10. A busca exata no pgvector devolveu o próprio chunk consultado
+com similaridade 1,000000. A lacuna temática mínima chegou a zero. A trilha de
+decisão está em `corpus/reviews/batch_008.md`.

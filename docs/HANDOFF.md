@@ -98,45 +98,42 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001 a 007 foram publicados, e o lote 008 foi preparado para
-decisão humana. O catálogo possui 114 entradas e o snapshot local publicado possui
-66 documentos, 6.989 chunks e versão
-`sha256:8dfd3d854c8855f71f34d6b5c9bba8e04acb106f43127f2a78659a2ea43d6dc9`.
-Após o lote 007, a auditoria de licenças atualizou apenas a proveniência de sete
-documentos e reutilizou todos os 6.989 vetores BGE-M3, sem nova inferência.
+Os lotes documentais 001 a 008 foram publicados. O catálogo possui 114 entradas e o
+snapshot local publicado possui 80 documentos, 7.585 chunks e versão
+`sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7`.
+No lote 008, o construtor incremental reutilizou 6.989 vetores BGE-M3 e gerou 596 em
+CPU e modo offline, em 376,15 segundos.
 
-O snapshot e os 6.989 embeddings foram importados no PostgreSQL, e a nova versão
-foi ativada somente após a verificação de completude. Consultas dirigidas
-recuperaram todos os oito documentos novos em primeiro lugar no ranking híbrido.
+O snapshot e os 7.585 embeddings foram importados no PostgreSQL, e a nova versão foi
+ativada somente após a verificação de completude. Nas 14 consultas dirigidas, 12
+fontes novas ficaram em primeiro lugar e duas em segundo; todas ficaram no top 10.
 Uma busca exata no pgvector devolveu o próprio chunk consultado com similaridade
-1,000000. A Fase 5 continua aberta: os 14 candidatos que completariam o mínimo
-temático aguardam aprovação; também faltam o dataset de pelo menos 100 alegações,
-segunda anotação e congelamento do teste.
+1,000000. A cobertura documental mínima está concluída. A Fase 5 continua aberta
+para o dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
 
 Atualização de 14/09/2026: o lote 007 está aprovado, publicado e validado. Oito
 artigos foram promovidos, quatro documentos da OMS permaneceram retidos e uma
-duplicata foi rejeitada. Não tratar as 100 entradas catalogadas como 100 fontes
-utilizáveis: 66 estão validadas. As lacunas restantes são normas (4), eficácia (2),
-populações especiais (2), epidemiologia (2), alegações causais (2), vacinas
-específicas (1) e comunicação/equidade/ética (1).
+duplicata foi rejeitada. Esse era o estado anterior ao lote 008 e permanece como
+histórico auditável, não como contagem atual.
 
 A auditoria dos sete documentos legados com licença `to_verify` foi aprovada e
 publicada em 14/09/2026. Todos foram mantidos com classificações e restrições
 explícitas; a versão de proveniência está registrada em
 `corpus/reviews/license_audit_001.md`.
 
-Atualização adicional de 14/09/2026: o lote 008 contém 14 candidatos auditados e
-todos são propostos para aprovação. Se aprovados, o corpus passará a 80 documentos e
-atingirá todos os mínimos temáticos. Até lá, eles permanecem `candidate` e o corpus
-ativo continua com 66. O parecer, os conflitos declarados e os hashes estão em
-`corpus/reviews/batch_008.md`. Continuam pendentes a decisão do lote, o dataset
+Atualização adicional de 14/09/2026: os 14 documentos do lote 008 foram aprovados,
+publicados e validados. O corpus ativo possui 80 documentos e todos os mínimos
+temáticos foram atingidos. O parecer, os conflitos declarados, os hashes e os testes
+dirigidos estão em `corpus/reviews/batch_008.md`. Continuam pendentes o dataset
 definitivo, a segunda anotação e o congelamento do teste. A migration `0002` permite
 documentos XML JATS no PostgreSQL; não editar
 migrations já aplicadas.
-Validação do marco: 183 testes aprovados — 182 na suíte geral e um em base
-PostgreSQL exclusiva e descartável —, e Ruff sem apontamentos.
+Validação final em 15/09/2026: 184 testes aprovados — 183 na suíte geral e um em
+base PostgreSQL exclusiva e descartável —, e Ruff sem apontamentos. O teste geral
+usou `-p no:cacheprovider --basetemp output/pytest-batch008-final` para evitar o
+diretório temporário global inacessível nesta sessão. A base de teste foi removida.
 
 1. Leia integralmente `AGENTS.md`, `docs/PROJECT_BRIEF.md`,
    `docs/ARCHITECTURE_DECISIONS.md`, `docs/ROADMAP.md` e este arquivo.

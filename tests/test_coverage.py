@@ -16,7 +16,9 @@ def test_project_coverage_audit_accounts_for_every_catalog_entry() -> None:
         entry.status == "validated" for entry in entries
     )
     assert all(row.gap_to_minimum >= 0 for row in rows)
-    assert "Lacuna mínima" in render_coverage_markdown(rows)
+    report = render_coverage_markdown(rows)
+    assert "Lacuna mínima" in report
+    assert "baixados não validados" in report
 
 
 def test_batch_001_decisions_match_catalog_statuses() -> None:
@@ -65,3 +67,22 @@ def test_batch_004_human_decisions_match_catalog_statuses() -> None:
         if review["human_review"] == "held":
             assert review["proposed_decision"] == "hold"
             assert status != "validated"
+
+
+def test_batch_008_approvals_match_catalog_statuses() -> None:
+    root = Path(__file__).parents[1]
+    entries = {
+        entry.metadata.document_id: entry
+        for entry in load_catalog(root / "corpus" / "catalog.csv")
+    }
+    with (root / "corpus" / "reviews" / "batch_008.csv").open(
+        encoding="utf-8", newline=""
+    ) as review_file:
+        reviews = tuple(csv.DictReader(review_file))
+
+    assert len(reviews) == 14
+    assert all(review["proposed_decision"] == "approve" for review in reviews)
+    assert all(review["human_review"] == "approved" for review in reviews)
+    assert all(review["human_reviewer"] == "project_author" for review in reviews)
+    assert all(review["reviewed_at"] == "2026-09-14" for review in reviews)
+    assert all(entries[review["document_id"]].status == "validated" for review in reviews)

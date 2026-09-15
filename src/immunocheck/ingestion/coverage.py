@@ -63,7 +63,7 @@ def render_coverage_markdown(rows: tuple[ThemeCoverage, ...]) -> str:
     totals = (
         f"\n\nTotais: {sum(row.cataloged for row in rows)} catalogados; "
         f"{sum(row.validated for row in rows)} validados; "
-        f"{sum(row.downloaded for row in rows)} baixados aguardando decisão; "
+        f"{sum(row.downloaded for row in rows)} baixados não validados; "
         f"lacuna de {sum(row.gap_to_minimum for row in rows)} documentos para o mínimo temático."
     )
     return "# Auditoria de cobertura do corpus\n\n" + header + "\n" + body + totals + "\n"

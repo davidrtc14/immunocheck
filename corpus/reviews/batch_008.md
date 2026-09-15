@@ -1,8 +1,8 @@
-# Lote documental 008 — proposta para decisão humana
+# Lote documental 008 — decisão e publicação
 
-Preparado em 14/09/2026. Este documento apresenta uma proposta técnica; nenhum
-item deste lote está validado ou publicado no corpus ativo antes da aprovação
-expressa do autor.
+Preparado, aprovado e publicado em 14/09/2026. O autor aprovou conjuntamente os 14
+documentos propostos. A decisão vale somente para os bytes identificados pelos
+SHA-256 em `batch_008.csv`.
 
 ## Resultado executivo
 
@@ -13,14 +13,14 @@ expressa do autor.
 - Os 14 documentos passaram pela obtenção, verificação de hash e extração. O lote
   soma 566.342 caracteres e 596 chunks potenciais; não houve arquivo vazio,
   alerta técnico, caractere de substituição nem duplicata bruta ou textual.
-- **A proposta é aprovar os 14 documentos**, respeitando os limites e conflitos
-  declarados abaixo. Se a proposta for aprovada, o corpus passará de 66 para 80
-  documentos validados e todos os mínimos temáticos planejados serão atingidos.
+- **Os 14 documentos foram aprovados**, respeitando os limites e conflitos
+  declarados abaixo. O corpus passou de 66 para 80 documentos validados e todos os
+  mínimos temáticos planejados foram atingidos.
 - A aprovação vale apenas para os bytes identificados pelos SHA-256 em
   `batch_008.csv`. Ela não autoriza usar as fontes como verdade absoluta nem
   dispensa triangulação, controle temporal e inspeção das citações.
 
-## Documentos propostos para aprovação
+## Documentos aprovados
 
 | Documento | Tema | Chunks | Licença/base | Limite principal |
 |---|---|---:|---|---|
@@ -95,8 +95,26 @@ Git. Nenhuma interação real de usuário foi coletada ou usada na seleção.
 .\.venv\Scripts\python.exe scripts\audit_corpus_batch.py --batch 008
 ```
 
+## Publicação e validação
+
+A versão
+`sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7`
+foi ativada com 80 documentos, 7.585 chunks e 7.585 embeddings. O construtor BGE-M3
+reutilizou 6.989 vetores e gerou 596 em CPU e modo offline, em 376,15 segundos.
+
+Nas 14 consultas híbridas dirigidas, 12 fontes novas ficaram na primeira posição e
+duas ficaram na segunda, ambas atrás de fontes semanticamente próximas. Todos os 14
+documentos apareceram no top 10. Uma busca exata por cosseno no pgvector, usando um
+chunk novo da revisão sobre Guillain-Barré como consulta, devolveu o próprio chunk
+em primeiro lugar com similaridade 1,000000. Essas verificações são funcionais e não
+substituem o benchmark distribucional da Fase 6.
+
+A auditoria de cobertura registra 114 entradas catalogadas, 80 validadas e lacuna
+temática mínima igual a zero. A regressão final em 15/09/2026 teve 183 testes
+aprovados na suíte geral e um em PostgreSQL exclusivo e descartável, totalizando
+184. O Ruff não apontou problemas, e o banco de teste foi removido após a execução.
+
 ## Estado
 
-**Aguardando decisão humana.** A proposta é aprovar conjuntamente os 14 documentos.
-Somente depois de uma aprovação expressa o catálogo poderá ser alterado para
-`validated` e uma nova versão do corpus poderá ser construída, importada e ativada.
+**Aprovado, publicado e validado.** Os 14 documentos estão no corpus ativo; os
+guardrails, conflitos declarados e limites de generalização permanecem obrigatórios.

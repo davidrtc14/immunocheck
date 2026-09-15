@@ -111,7 +111,7 @@ A nova versão de proveniência preserva os mesmos 66 documentos, 6.989 chunks e
 
 O lote 008 acrescentou 14 candidatos selecionados para preencher exatamente as
 lacunas temáticas restantes. Todos passaram pela auditoria técnica e jurídica,
-somando 596 chunks potenciais e sem duplicatas detectadas. A proposta é aprovar os
-14 documentos, com guardrails temporais, metodológicos e de conflitos de interesse
-registrados em `reviews/batch_008.md`. O lote continua como `candidate` e não faz
-parte do corpus ativo até a decisão humana expressa.
+somando 596 chunks e sem duplicatas detectadas. O autor aprovou conjuntamente os 14
+documentos, com guardrails temporais, metodológicos e de conflitos de interesse
+registrados em `reviews/batch_008.md`. A versão publicada passou a 80 documentos,
+7.585 chunks e 7.585 embeddings, e a lacuna temática mínima chegou a zero.
