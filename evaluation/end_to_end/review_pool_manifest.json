@@ -5,9 +5,9 @@
   "test_frozen": false,
   "corpus_version": "sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7",
   "total": 160,
-  "primary_reviewed": 12,
+  "primary_reviewed": 160,
   "second_reviewed": 0,
-  "pending": 148,
+  "pending": 0,
   "proposed_splits": {
     "development": 96,
     "test": 64
@@ -22,11 +22,11 @@
   "files": [
     {
       "path": "items.jsonl",
-      "sha256": "6337137b7b276fabbb9d93798f5a5561b00e22193b90dfa8d9de6fef1f319373"
+      "sha256": "b3e587898c71c48995fa7c06a3e42c67a022e7bba54147ea78c694dc09401f73"
     },
     {
       "path": "review_pool.jsonl",
-      "sha256": "1e5ce0f78b46a5641a8e43260c357714872166396cfe7c3b6e8519e3490e01b0"
+      "sha256": "b3e587898c71c48995fa7c06a3e42c67a022e7bba54147ea78c694dc09401f73"
     },
     {
       "path": "batches/batch_001.jsonl",

@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "purpose": "second_human_annotation_selection",
+  "prepared_at": "2026-09-15",
+  "test_frozen": false,
+  "annotation_completed": false,
+  "algorithm": "30% ceiling; primary_label/split strata; largest remainder; Random.sample/shuffle",
+  "seed": 20260915,
+  "dataset_sha256": "b3e587898c71c48995fa7c06a3e42c67a022e7bba54147ea78c694dc09401f73",
+  "corpus_version": "sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7",
+  "total_dataset": 160,
+  "selected": 48,
+  "share_with_participant": "participant/ only; never this mapping or repository review files",
+  "mapping": [
+    {
+      "task_id": "annotation-001",
+      "item_id": "e2e-0018",
+      "primary_label": "REFUTED",
+      "split": "development",
+      "claim_family": "bcg_effectiveness_context"
+    },
+    {
+      "task_id": "annotation-002",
+      "item_id": "e2e-0121",
+      "primary_label": "MISLEADING",
+      "split": "test",
+      "claim_family": "influenza_repeat_comparators"
+    },
+    {
+      "task_id": "annotation-003",
+      "item_id": "e2e-0078",
+      "primary_label": "REFUTED",
+      "split": "development",
+      "claim_family": "vpc20_registry_special_strategy"
+    },
+    {
+      "task_id": "annotation-004",
+      "item_id": "e2e-0090",
+      "primary_label": "REFUTED",
+      "split": "development",
+      "claim_family": "operation_gota_remote_access"
+    },
+    {
+      "task_id": "annotation-005",
+      "item_id": "e2e-0081",
+      "primary_label": "MISLEADING",
+      "split": "development",
+      "claim_family": "vpc20_registry_special_strategy"
+    },
+    {
+      "task_id": "annotation-006",
+      "item_id": "e2e-0013",
+      "primary_label": "SUPPORTED",
+      "split": "development",
+      "claim_family": "hpv_type_coverage"
+    },
+    {
+      "task_id": "annotation-007",
+      "item_id": "e2e-0016",
+      "primary_label": "REFUTED",
+      "split": "development",
+      "claim_family": "aluminum_autism_review"
+    },
+    {
+      "task_id": "annotation-008",
+      "item_id": "e2e-0021",
+      "primary_label": "MISLEADING",
+      "split": "development",
+      "claim_family": "bcg_effectiveness_context"
+    },
+    {
+      "task_id": "annotation-009",
+      "item_id": "e2e-0146",
+      "primary_label": "SUPPORTED",
+      "split": "test",
+      "claim_family": "immunocompromised_mrna_outcome_significance"
+    },
+    {
+      "task_id": "annotation-010",
+      "item_id": "e2e-0022",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "development",
+      "claim_family": "unidentified_hpv_campaign"
+    },
+    {
+      "task_id": "annotation-011",
+      "item_id": "e2e-0020",
+      "primary_label": "MISLEADING",
+      "split": "development",
+      "claim_family": "aluminum_local_reactions"
+    },
+    {
+      "task_id": "annotation-012",
+      "item_id": "e2e-0047",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "development",
+      "claim_family": "maternal_pertussis_evidence"
+    },
+    {
+      "task_id": "annotation-013",
+      "item_id": "e2e-0105",
+      "primary_label": "MISLEADING",
+      "split": "test",
+      "claim_family": "rotavirus_geographic_performance"
+    },
+    {
+      "task_id": "annotation-014",
+      "item_id": "e2e-0014",
+      "primary_label": "SUPPORTED",
+      "split": "development",
+      "claim_family": "aluminum_local_reactions"
+    },
+    {
+      "task_id": "annotation-015",
+      "item_id": "e2e-0027",
+      "primary_label": "SUPPORTED",
+      "split": "development",
+      "claim_family": "cell_lines_manufacturing"
+    },
+    {
+      "task_id": "annotation-016",
+      "item_id": "e2e-0075",
+      "primary_label": "SUPPORTED",
+      "split": "development",
+      "claim_family": "vpc20_registry_special_strategy"
+    },
+    {
+      "task_id": "annotation-017",
+      "item_id": "e2e-0010",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "development",
+      "claim_family": "unidentified_batch"
+    },
+    {
+      "task_id": "annotation-018",
+      "item_id": "e2e-0054",
+      "primary_label": "REFUTED",
+      "split": "development",
+      "claim_family": "art_fertility_scope"
+    },
+    {
+      "task_id": "annotation-019",
+      "item_id": "e2e-0019",
+      "primary_label": "MISLEADING",
+      "split": "development",
+      "claim_family": "hpv_type_coverage"
+    },
+    {
+      "task_id": "annotation-020",
+      "item_id": "e2e-0034",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "development",
+      "claim_family": "thiomersal_preservation"
+    },
+    {
+      "task_id": "annotation-021",
+      "item_id": "e2e-0082",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "development",
+      "claim_family": "polio_vip_transition"
+    },
+    {
+      "task_id": "annotation-022",
+      "item_id": "e2e-0148",
+      "primary_label": "SUPPORTED",
+      "split": "test",
+      "claim_family": "vaccination_coverage_relative_increment"
+    },
+    {
+      "task_id": "annotation-023",
+      "item_id": "e2e-0152",
+      "primary_label": "REFUTED",
+      "split": "test",
+      "claim_family": "vaccination_coverage_relative_increment"
+    },
+    {
+      "task_id": "annotation-024",
+      "item_id": "e2e-0051",
+      "primary_label": "SUPPORTED",
+      "split": "development",
+      "claim_family": "art_fertility_scope"
+    },
+    {
+      "task_id": "annotation-025",
+      "item_id": "e2e-0064",
+      "primary_label": "REFUTED",
+      "split": "development",
+      "claim_family": "tak003_serostatus"
+    },
+    {
+      "task_id": "annotation-026",
+      "item_id": "e2e-0089",
+      "primary_label": "REFUTED",
+      "split": "development",
+      "claim_family": "school_vaccination_consent"
+    },
+    {
+      "task_id": "annotation-027",
+      "item_id": "e2e-0084",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "development",
+      "claim_family": "vpc20_registry_special_strategy"
+    },
+    {
+      "task_id": "annotation-028",
+      "item_id": "e2e-0160",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "test",
+      "claim_family": "vaccination_coverage_relative_increment"
+    },
+    {
+      "task_id": "annotation-029",
+      "item_id": "e2e-0113",
+      "primary_label": "SUPPORTED",
+      "split": "test",
+      "claim_family": "influenza_repeat_comparators"
+    },
+    {
+      "task_id": "annotation-030",
+      "item_id": "e2e-0155",
+      "primary_label": "MISLEADING",
+      "split": "test",
+      "claim_family": "multivaccination_target_age"
+    },
+    {
+      "task_id": "annotation-031",
+      "item_id": "e2e-0141",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "test",
+      "claim_family": "measles_manaus_historical_outbreak"
+    },
+    {
+      "task_id": "annotation-032",
+      "item_id": "e2e-0150",
+      "primary_label": "REFUTED",
+      "split": "test",
+      "claim_family": "immunocompromised_mrna_outcome_significance"
+    },
+    {
+      "task_id": "annotation-033",
+      "item_id": "e2e-0123",
+      "primary_label": "MISLEADING",
+      "split": "test",
+      "claim_family": "ckd_nondialysis_population"
+    },
+    {
+      "task_id": "annotation-034",
+      "item_id": "e2e-0057",
+      "primary_label": "MISLEADING",
+      "split": "development",
+      "claim_family": "art_fertility_scope"
+    },
+    {
+      "task_id": "annotation-035",
+      "item_id": "e2e-0117",
+      "primary_label": "REFUTED",
+      "split": "test",
+      "claim_family": "influenza_repeat_comparators"
+    },
+    {
+      "task_id": "annotation-036",
+      "item_id": "e2e-0099",
+      "primary_label": "SUPPORTED",
+      "split": "test",
+      "claim_family": "yellow_fever_adult_seroprotection"
+    },
+    {
+      "task_id": "annotation-037",
+      "item_id": "e2e-0111",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "test",
+      "claim_family": "yellow_fever_adult_seroprotection"
+    },
+    {
+      "task_id": "annotation-038",
+      "item_id": "e2e-0008",
+      "primary_label": "MISLEADING",
+      "split": "development",
+      "claim_family": "herd_protection"
+    },
+    {
+      "task_id": "annotation-039",
+      "item_id": "e2e-0063",
+      "primary_label": "SUPPORTED",
+      "split": "development",
+      "claim_family": "butantan_dengue_product"
+    },
+    {
+      "task_id": "annotation-040",
+      "item_id": "e2e-0104",
+      "primary_label": "REFUTED",
+      "split": "test",
+      "claim_family": "yellow_fever_child_waning"
+    },
+    {
+      "task_id": "annotation-041",
+      "item_id": "e2e-0094",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "development",
+      "claim_family": "microplanning_local_context"
+    },
+    {
+      "task_id": "annotation-042",
+      "item_id": "e2e-0037",
+      "primary_label": "SUPPORTED",
+      "split": "development",
+      "claim_family": "maternal_influenza_trials"
+    },
+    {
+      "task_id": "annotation-043",
+      "item_id": "e2e-0118",
+      "primary_label": "REFUTED",
+      "split": "test",
+      "claim_family": "hepb_serosurvey_measurement"
+    },
+    {
+      "task_id": "annotation-044",
+      "item_id": "e2e-0092",
+      "primary_label": "MISLEADING",
+      "split": "development",
+      "claim_family": "school_vaccination_consent"
+    },
+    {
+      "task_id": "annotation-045",
+      "item_id": "e2e-0097",
+      "primary_label": "SUPPORTED",
+      "split": "test",
+      "claim_family": "rotavirus_geographic_performance"
+    },
+    {
+      "task_id": "annotation-046",
+      "item_id": "e2e-0125",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "test",
+      "claim_family": "influenza_repeat_comparators"
+    },
+    {
+      "task_id": "annotation-047",
+      "item_id": "e2e-0157",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "split": "test",
+      "claim_family": "immunocompromised_mrna_seroconversion"
+    },
+    {
+      "task_id": "annotation-048",
+      "item_id": "e2e-0139",
+      "primary_label": "MISLEADING",
+      "split": "test",
+      "claim_family": "meningitis_notifications_confirmation"
+    }
+  ]
+}

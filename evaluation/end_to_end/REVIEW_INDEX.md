@@ -1,31 +1,31 @@
 # Índice de revisão — todos os lotes experimentais
 
-Snapshot preparado em 15/09/2026, a pedido do autor para revisar lote por lote.
-**160 propostas no total: 12 com primeira revisão assistida e 148 pendentes.**
-O lote 002 ainda não foi aprovado. Os lotes 003–012 foram preparados conjuntamente;
-esta preparação não registra aprovação de nenhum deles.
+Atualizado em 15/09/2026 após a aprovação explícita “aprovo tudo, pode seguir”.
+**160 itens com primeira revisão assistida; zero com segunda anotação.**
+A aprovação cobre os lotes 002–012 sem exceções e preserva o aceite anterior do 001.
+Registro: [aprovação conjunta](reviews/batches_002_012.md). Não houve congelamento.
 
 | Lote | IDs | Itens | Tema | Split previsto | Estado humano |
 | --- | --- | --- | --- | --- | --- |
 | [001](batches/batch_001.md) | 0001–0012 | 12 | Mecanismos, conservação e causalidade | Desenvolvimento | Primeira revisão aceita |
-| [002](batches/batch_002.md) | 0013–0024 | 12 | HPV, alumínio e BCG | Desenvolvimento | Pendente |
-| [003](batches/batch_003.md) | 0025–0036 | 12 | Componentes e fabricação | Desenvolvimento | Pendente |
-| [004](batches/batch_004.md) | 0037–0048 | 12 | Vacinação materna | Desenvolvimento | Pendente |
-| [005](batches/batch_005.md) | 0049–0060 | 12 | Riscos e estudos de covid-19 | Desenvolvimento | Pendente |
-| [006](batches/batch_006.md) | 0061–0072 | 12 | Vacinas contra dengue | Desenvolvimento | Pendente |
-| [007](batches/batch_007.md) | 0073–0084 | 12 | Normas e calendários | Desenvolvimento | Pendente |
-| [008](batches/batch_008.md) | 0085–0096 | 12 | Acesso e organização | Desenvolvimento | Pendente |
-| [009](batches/batch_009.md) | 0097–0112 | 16 | Rotavírus, varicela e febre amarela | Teste previsto | Pendente |
-| [010](batches/batch_010.md) | 0113–0128 | 16 | Influenza, hepatite B e doença renal | Teste previsto | Pendente |
-| [011](batches/batch_011.md) | 0129–0144 | 16 | Epidemiologia e vigilância | Teste previsto | Pendente |
-| [012](batches/batch_012.md) | 0145–0160 | 16 | Populações especiais e indicadores | Teste previsto | Pendente |
+| [002](batches/batch_002.md) | 0013–0024 | 12 | HPV, alumínio e BCG | Desenvolvimento | Primeira revisão aceita |
+| [003](batches/batch_003.md) | 0025–0036 | 12 | Componentes e fabricação | Desenvolvimento | Primeira revisão aceita |
+| [004](batches/batch_004.md) | 0037–0048 | 12 | Vacinação materna | Desenvolvimento | Primeira revisão aceita |
+| [005](batches/batch_005.md) | 0049–0060 | 12 | Riscos e estudos de covid-19 | Desenvolvimento | Primeira revisão aceita |
+| [006](batches/batch_006.md) | 0061–0072 | 12 | Vacinas contra dengue | Desenvolvimento | Primeira revisão aceita |
+| [007](batches/batch_007.md) | 0073–0084 | 12 | Normas e calendários | Desenvolvimento | Primeira revisão aceita |
+| [008](batches/batch_008.md) | 0085–0096 | 12 | Acesso e organização | Desenvolvimento | Primeira revisão aceita |
+| [009](batches/batch_009.md) | 0097–0112 | 16 | Rotavírus, varicela e febre amarela | Teste previsto | Primeira revisão aceita |
+| [010](batches/batch_010.md) | 0113–0128 | 16 | Influenza, hepatite B e doença renal | Teste previsto | Primeira revisão aceita |
+| [011](batches/batch_011.md) | 0129–0144 | 16 | Epidemiologia e vigilância | Teste previsto | Primeira revisão aceita |
+| [012](batches/batch_012.md) | 0145–0160 | 16 | Populações especiais e indicadores | Teste previsto | Primeira revisão aceita |
 
-## Como revisar sem aprovar automaticamente
+## Procedimento e registro da revisão
 
-Abrir cada parecer, conferir as fontes e indicar aprovação ou correções pelos IDs.
-Você pode responder, por exemplo, “aprovo o lote 003; no 004, revisar o item 0043”.
-Uma resposta parcial só promove os lotes explicitamente aprovados. Não precisamos
-preparar um novo lote entre suas revisões: todos os pareceres já estão disponíveis.
+Todos os lotes receberam aceite explícito do autor. Correções futuras continuam
+possíveis pelos IDs, com registro e atualização dos hashes antes do congelamento.
+As justificativas foram propostas pelo agente e aceitas de forma assistida; o aceite
+não comprova leitura independente de cada fonte nem revisão especializada.
 
 O rótulo proposto **não é resposta da ferramenta**. Os itens foram formulados pelo
 agente, sem execução do ImmunoCheck ou consulta às suas previsões. Os pareceres
@@ -46,10 +46,10 @@ Essa distribuição pode mudar com a revisão. Não forçar rótulos ou aprovaç
 atingir a meta. Exclusões ou mudanças poderão exigir candidatos substitutos e
 nova divisão estratificada, sempre antes do congelamento.
 
-`review_pool.jsonl` reúne um snapshot dos 12 itens já revisados em `items.jsonl`
-e dos 148 rascunhos dos lotes 002–012. É um material **de revisão**, não um arquivo
-de teste congelado nem autorização para executar experimentos. Depois de cada
-aprovação, atualizar o snapshot e este índice sem sobrescrever os rascunhos originais.
+`review_pool.jsonl` e `items.jsonl` contêm os mesmos 160 itens com primeira revisão.
+Os JSONL de `batches/` conservam as propostas originais como rascunhos históricos,
+não pendências de aprovação. Este snapshot não é teste congelado nem autorização
+para executar experimentos finais. Correções exigem sincronização dos hashes.
 
 Corpus fixado para esta proposta:
 `sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7`
@@ -92,17 +92,19 @@ independência semântica entre famílias ou fontes compartilhadas.
 
 ## O que ainda impede concluir a Fase 5
 
-1. Primeira revisão dos 148 candidatos pendentes e eventuais correções/substituições.
-2. Segundo humano independente em pelo menos 30% (48 itens se forem mantidos 160),
-   com seleção estratificada e pacote cego sem os rótulos ou justificativas daqui.
-3. Concordância pré-adjudicação e resolução das divergências, preservando rótulos.
-4. Auditoria de famílias, validade do benchmark, splits e evidências; congelamento
+1. Segundo humano independente em pelo menos 30%. A seleção de 48 itens está em
+   `independent_review/selection_manifest.json`: 12 por classe, sete de desenvolvimento
+   e cinco de teste por classe (arredondamento por maiores restos; semente 20260915).
+   Entregar somente a pasta `independent_review/participant`, nunca o mapa ou este
+   repositório com rótulos. O pacote sem respostas facilita, mas não certifica cegamento.
+2. Concordância pré-adjudicação e resolução das divergências, preservando rótulos.
+3. Auditoria de famílias, validade do benchmark, splits e evidências; congelamento
    com hashes antes do ajuste final. `--ready` não certifica esses atos humanos.
 
 Consultar `ANNOTATION_GUIDE.md`. Não usar mensagens reais do Telegram como dataset
 e não copiar respostas de fact-checkers para o corpus.
 
-## Validação desta preparação
+## Validação histórica da preparação
 
 Em 15/09/2026, os 160 itens passaram na validação estrutural contra o corpus local:
 12 revisados, zero com segunda revisão, 40 propostas por classe e split 96/64.
@@ -111,3 +113,18 @@ não foi executado por ausência da variável de base exclusiva; esta unidade n�
 alterou banco, migrations ou índices. Os testes confirmam hashes, consistência
 entre pool e lotes, ausência de revisão fictícia e recusa do pool como pronto.
 Esses resultados não confirmam correção dos rótulos ou adequação científica.
+
+## Estado após aprovação
+
+A primeira revisão está registrada nos 160 itens (40 por classe, split 96/64).
+A seleção de 48 tarefas contém campos de resposta vazios: preparar o pacote não
+conta como segunda revisão. `--ready` continua recusando o dataset por cobertura
+insuficiente de segunda anotação. Não houve experimento, adjudicação ou alteração
+do corpus nesta unidade. A Fase 5 permanece aberta pelos atos humanos acima.
+
+Validação da promoção e do pacote: 219 testes aprovados, Ruff e `git diff --check`
+sem apontamentos; um teste PostgreSQL não executado por falta de base exclusiva.
+Referências dos 160 itens passaram na checagem contra os 7.585 chunks locais.
+Os testes incluem os hashes, a seleção estratificada, a ausência de respostas
+fabricadas e a preservação de todos os rascunhos originais. Não comprovam validade
+dos rótulos, competência dos anotadores, cegamento ou generalização.

@@ -270,9 +270,9 @@ def test_approved_batch_has_assisted_primary_review_without_second_annotation() 
     candidates = load_end_to_end_items(root / "batches/batch_001.jsonl")
     reviewed = load_end_to_end_items(root / "items.jsonl", require_reviewed=True)
     summary = summarize_end_to_end_items(reviewed)
-    assert summary.total == summary.reviewed == 12
+    assert summary.total == summary.reviewed == 160
     assert summary.second_reviewed == 0
-    for candidate, approved in zip(candidates, reviewed, strict=True):
+    for candidate, approved in zip(candidates, reviewed[:12], strict=True):
         assert candidate.item_id == approved.item_id
         assert candidate.claim == approved.claim
         assert candidate.evidence_chunk_ids == approved.evidence_chunk_ids
@@ -281,11 +281,11 @@ def test_approved_batch_has_assisted_primary_review_without_second_annotation() 
         assert approved.reviewer == "project_author"
         assert approved.reviewed_at == "2026-09-15"
         assert approved.rationale and approved.second_label is None
-    with pytest.raises(EndToEndDatasetError, match="mínimo documentado"):
+    with pytest.raises(EndToEndDatasetError, match="segunda revisão"):
         validate_dataset_ready(reviewed)
 
 
-def test_second_candidate_batch_is_pending_review() -> None:
+def test_second_batch_original_snapshot_preserves_draft_proposals() -> None:
     root = Path(__file__).parents[1] / "evaluation/end_to_end"
     candidates = load_end_to_end_items(root / "batches/batch_002.jsonl")
     summary = summarize_end_to_end_items(candidates)
@@ -298,16 +298,16 @@ def test_second_candidate_batch_is_pending_review() -> None:
         load_end_to_end_items(root / "batches/batch_002.jsonl", require_reviewed=True)
 
 
-def test_reviewed_and_pending_pools_have_distinct_ids_and_no_split_leakage(tmp_path: Path) -> None:
+def test_original_draft_snapshots_have_distinct_ids_and_no_split_leakage(tmp_path: Path) -> None:
     root = Path(__file__).parents[1] / "evaluation/end_to_end"
     merged = tmp_path / "pool.jsonl"
     merged.write_text(
-        (root / "items.jsonl").read_text(encoding="utf-8")
+        (root / "batches/batch_001.jsonl").read_text(encoding="utf-8")
         + (root / "batches/batch_002.jsonl").read_text(encoding="utf-8"),
         encoding="utf-8",
     )
     summary = summarize_end_to_end_items(load_end_to_end_items(merged))
-    assert summary.total == 24 and summary.reviewed == 12
+    assert summary.total == 24 and summary.reviewed == 0
 
 
 @pytest.mark.parametrize("batch_number", range(3, 13))
@@ -330,13 +330,13 @@ def test_all_remaining_batches_are_drafts_with_stratified_proposals(batch_number
             assert entry.evidence_chunk_ids and entry.origin_reference
 
 
-def test_complete_review_pool_is_not_an_approved_or_frozen_dataset() -> None:
+def test_primary_approved_pool_still_requires_independent_review() -> None:
     root = Path(__file__).parents[1] / "evaluation/end_to_end"
     path = root / "review_pool.jsonl"
     items = load_end_to_end_items(path)
     summary = summarize_end_to_end_items(items)
     assert summary.total == 160
-    assert summary.reviewed == 12 and summary.second_reviewed == 0
+    assert summary.reviewed == 160 and summary.second_reviewed == 0
     assert summary.labels == {verdict.value: 40 for verdict in Verdict}
     assert summary.splits == {"development": 96, "test": 64}
     for verdict in Verdict:
@@ -347,24 +347,37 @@ def test_complete_review_pool_is_not_an_approved_or_frozen_dataset() -> None:
             )
             == 24
         )
-    with pytest.raises(EndToEndDatasetError, match="revisão humana"):
+    with pytest.raises(EndToEndDatasetError, match="segunda revisão"):
         validate_dataset_ready(items)
 
 
-def test_review_pool_matches_approved_items_and_pending_batch_sources() -> None:
+def test_review_pool_matches_approved_items_and_preserved_draft_sources() -> None:
     root = Path(__file__).parents[1] / "evaluation/end_to_end"
-    expected = list(load_end_to_end_items(root / "items.jsonl", require_reviewed=True))
-    for number in range(2, 13):
-        expected.extend(load_end_to_end_items(root / f"batches/batch_{number:03d}.jsonl"))
-    assert load_end_to_end_items(root / "review_pool.jsonl") == tuple(expected)
+    approved = load_end_to_end_items(root / "items.jsonl", require_reviewed=True)
+    assert load_end_to_end_items(root / "review_pool.jsonl") == approved
+    by_id = {entry.item_id: entry for entry in approved}
+    candidates = []
+    for number in range(1, 13):
+        candidates.extend(load_end_to_end_items(root / f"batches/batch_{number:03d}.jsonl"))
+    assert len(candidates) == len(by_id) == 160
+    for candidate in candidates:
+        entry = by_id[candidate.item_id]
+        assert candidate.claim == entry.claim
+        assert candidate.label is entry.label is entry.primary_label
+        assert candidate.evidence_chunk_ids == entry.evidence_chunk_ids
+        assert candidate.claim_family == entry.claim_family
+        assert candidate.split is entry.split
+        assert entry.reviewer == "project_author" and entry.reviewed_at == "2026-09-15"
+        assert entry.rationale and entry.second_reviewer is None
+        assert entry.adjudicator is None and entry.adjudicated_at is None
 
 
 def test_review_manifest_matches_files_and_does_not_declare_test_frozen() -> None:
     root = Path(__file__).parents[1] / "evaluation/end_to_end"
     manifest = json.loads((root / "review_pool_manifest.json").read_text(encoding="utf-8"))
     assert manifest["test_frozen"] is False
-    assert manifest["total"] == 160 and manifest["pending"] == 148
-    assert manifest["primary_reviewed"] == 12 and manifest["second_reviewed"] == 0
+    assert manifest["total"] == 160 and manifest["pending"] == 0
+    assert manifest["primary_reviewed"] == 160 and manifest["second_reviewed"] == 0
     assert len(manifest["files"]) == 14
     for record in manifest["files"]:
         content = (root / record["path"]).read_bytes().replace(b"\r\n", b"\n")

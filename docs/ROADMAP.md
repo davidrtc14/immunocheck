@@ -80,7 +80,7 @@ serão avaliados formalmente na Fase 6.
 
 - [x] 80–150 documentos catalogados e versionados.
 - [x] Cobertura temática revisada.
-- [ ] 160 alegações como meta; mínimo de 100 documentado.
+- [x] 160 alegações com primeira revisão assistida; mínimo de 100 documentado.
 - [ ] Segundo anotador em pelo menos 30%.
 - [ ] Teste congelado antes do ajuste final.
 
@@ -89,9 +89,9 @@ serão avaliados formalmente na Fase 6.
 **Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
 o validador auditável do dataset fim a fim foram criados. O catálogo possui 114
 entradas e o corpus ativo possui 80 documentos, 7.585 chunks e 7.585 embeddings.
-Todos os mínimos temáticos foram atingidos. Ainda faltam anotar pelo menos 100
-alegações, executar a segunda revisão e congelar o teste; por isso a Fase 5 permanece
-aberta.
+Todos os mínimos temáticos foram atingidos. Há agora 160 alegações com primeira
+revisão assistida. Ainda faltam segunda anotação, auditoria de validade e congelamento;
+por isso a Fase 5 permanece aberta.
 
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
 ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi
@@ -162,6 +162,14 @@ O índice é `evaluation/end_to_end/REVIEW_INDEX.md`. O benchmark é inteirament
 sintético e exige análise de validade com o orientador antes de ser considerado
 definitivo. Nenhum experimento foi executado sobre os itens de teste previsto,
 e não houve congelamento; a Fase 5 continua aberta.
+
+Aprovação conjunta de 15/09/2026: o autor aceitou todos os lotes experimentais
+002–012 sem exceções. Há agora 160 itens com primeira revisão assistida, 40 por
+classe, split 96/64, zero segundas revisões. Os rascunhos foram preservados.
+O pacote para segundo humano contém 48 tarefas sem respostas, selecionadas por
+classe/split com semente registrada. Preparação não equivale a revisão realizada.
+Não houve congelamento ou experimento no teste; a validade do benchmark sintético
+continua sujeita ao orientador. Próxima ação humana: preencher o pacote independente.
 
 ## Fase 6 — Avaliação e entrega
 

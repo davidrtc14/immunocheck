@@ -1,72 +1,51 @@
 # Dataset fim a fim
 
-Este diretório contém `items.jsonl` em construção, com uma alegação por linha no
-formato de `item_template.json`. O template é estrutural e não constitui um item anotado.
+Estado em 15/09/2026: **160 itens com primeira revisão assistida**, 40 por classe,
+96 de desenvolvimento e 64 de teste previsto. Zero itens com segunda anotação;
+teste não congelado. A aprovação conjunta está em
+[reviews/batches_002_012.md](reviews/batches_002_012.md), preservando o aceite do 001.
 
-## Regras de construção
+`items.jsonl` e `review_pool.jsonl` estão sincronizados. Os arquivos em `batches/`
+permanecem rascunhos históricos imutáveis das propostas, não aprovações pendentes.
+`review_pool_manifest.json` registra hashes normalizados em LF e
+`test_frozen=false`. O template não constitui item anotado.
 
-1. Reescrever alegações públicas sem nomes, perfis ou identificadores.
-2. Manter cada item atômico: uma proposição verificável por vez.
-3. Não copiar a resposta de fact-checkers para o corpus de conhecimento.
-4. Registrar origem apenas para rastreabilidade; a origem da alegação não é evidência.
-5. Rótulos conclusivos exigem chunks que sustentem diretamente a anotação.
-6. `INSUFFICIENT_EVIDENCE` não recebe `evidence_chunk_ids` conclusivos.
-7. O anotador principal revisa 100%; um segundo anotador revisa ao menos 30%.
-8. Divergências de rótulo exigem adjudicação registrada.
-9. O split de teste será congelado antes do ajuste final e não poderá orientar prompts,
-   limiares ou hiperparâmetros.
-10. Preservar `primary_label` e `second_label` antes da adjudicação; `label` é final.
-11. Não separar a mesma `claim_family` entre desenvolvimento e teste.
+## Próxima etapa: segundo humano
 
-O procedimento e os critérios de rótulo estão em `ANNOTATION_GUIDE.md`.
-O lote 001 foi aprovado conjuntamente como primeira revisão assistida: há 12
-itens revisados em `items.jsonl`, todos de desenvolvimento e sem segunda anotação.
-O registro está em `reviews/batch_001.md`; o rascunho original foi preservado.
-O lote 002 está em `batches/batch_002.md`, com 12 propostas pendentes. O dataset
-ainda não é definitivo: não há teste congelado nem evidência de desempenho real.
+Há 48 tarefas selecionadas de forma reproduzível: 12 por classe, sete de
+desenvolvimento e cinco de teste por classe. Consulte
+[independent_review/participant/README.md](independent_review/participant/README.md).
 
-Todos os lotes restantes estão disponíveis em `REVIEW_INDEX.md`: são 12 lotes no
-total, 160 propostas (96 desenvolvimento / 64 teste previsto), das quais 148 ainda
-pendentes. `review_pool.jsonl` consolida esse snapshot de revisão, não um teste
-aprovado. Manter propostas separadas de anotações aceitas em `items.jsonl`.
-Após aprovações futuras, sincronizar o pool e o índice sem apagar os rascunhos.
+Entregar **somente a pasta participant** ao segundo anotador. O mapa de auditoria
+`independent_review/selection_manifest.json`, este índice e o repositório público
+contêm rótulos e não devem ser consultados por ele durante a anotação. Registrar
+exposição prévia; o pacote sem respostas não certifica cegamento. O autor não
+pode assumir as duas revisões.
 
-Validar todas as propostas de uma vez contra o corpus local:
+O participante pode preencher `ANNOTATIONS.md` (mais simples) ou `tasks.jsonl`.
+A seleção não cria respostas. Após o retorno, preservar rótulos originais,
+calcular concordância/Cohen's kappa antes da adjudicação e resolver divergências.
+Respostas discordantes ainda não adjudicadas devem permanecer separadas do dataset.
 
-```powershell
-.\.venv\Scripts\python.exe scripts\validate_end_to_end_dataset.py evaluation\end_to_end\review_pool.jsonl
-```
+## Regras e validação
 
-Mesmo com 160 linhas, `--ready` deve recusar o pool por revisão pendente. Os itens
-são sintéticos e correlacionados por famílias; quantidade não certifica validade
-ou representatividade. As limitações e o procedimento estão no índice.
-
-Validação estrutural desse lote contra o corpus local:
+Procedimento: [ANNOTATION_GUIDE.md](ANNOTATION_GUIDE.md).
+Limitações: [REVIEW_INDEX.md](REVIEW_INDEX.md). O benchmark é inteiramente sintético,
+correlacionado por famílias e precisa de auditoria com o orientador. Aprovação
+assistida não comprova leitura independente de cada fonte ou especialização.
+Quantidade não demonstra generalização para notícias reais nem desempenho de OCR.
 
 ```powershell
-.\.venv\Scripts\python.exe scripts\validate_end_to_end_dataset.py evaluation\end_to_end\batches\batch_001.jsonl
+.\.venv\Scripts\python.exe scripts\validate_end_to_end_dataset.py
+.\.venv\Scripts\python.exe scripts\validate_end_to_end_dataset.py --ready
 ```
 
-`--ready` deve recusá-lo enquanto houver rascunhos. O aceite exige mínimo de 100
-itens, pelo menos 25 por classe, split estratificado 60%/40%, famílias separadas,
-rótulos originais preservados e segunda revisão em pelo menos 30%.
-Para validar o lote seguinte, trocar o caminho por `batches/batch_002.jsonl`.
-O arquivo parcial `items.jsonl` também é recusado em `--ready`: possui apenas 12
-itens e ainda não satisfaz tamanho, segunda revisão ou split de teste.
+O primeiro comando valida estrutura e referências ao corpus local. O segundo
+**deve recusar o conjunto atual por falta de segunda revisão**. O aceite exige
+mínimo de 100 itens, 25 por classe, split 60%/40%, famílias separadas, rótulos
+originais preservados e segundo anotador em pelo menos 30%. O validador não
+certifica identidade, cegamento ou pertinência semântica das evidências.
 
-Validação durante a construção:
-
-```powershell
-python scripts/validate_end_to_end_dataset.py
-```
-
-Validação dos critérios mínimos antes de congelar o teste:
-
-```powershell
-python scripts/validate_end_to_end_dataset.py --ready
-```
-
-O validador rejeita IDs e alegações duplicados, chunks inexistentes, revisões
-incompletas, conclusões sem evidência e divergências sem adjudicação.
-Também rejeita o mesmo identificador nas duas revisões. Isso não certifica a
-independência humana nem a pertinência semântica das evidências.
+Não coletar mensagens reais do Telegram. Não incluir respostas de fact-checkers
+no corpus quando originarem alegações de avaliação. Não executar o teste previsto
+ou usar seus erros para ajustar prompts/limiares antes do congelamento.

@@ -113,35 +113,45 @@ para o dataset de pelo menos 100 alegações, segunda anotação e congelamento 
 
 ## Instruções para a próxima sessão
 
-Última atualização de 15/09/2026: a pedido do autor, todos os lotes experimentais
-restantes foram preparados conjuntamente. Abrir
-`evaluation/end_to_end/REVIEW_INDEX.md`: há 12 lotes, 160 propostas (96 de
-desenvolvimento / 64 de teste previsto). Só o lote 001 está aprovado: 12 itens
-com primeira revisão assistida; os lotes 002–012 somam 148 rascunhos pendentes.
-Não interpretar o pedido de preparação conjunta como aprovação desses lotes.
-Registrar somente as aprovações explícitas, preservar propostas originais e
-sincronizar `items.jsonl`, pool, manifesto e índice após cada revisão.
+Última atualização de 15/09/2026: o autor aprovou explicitamente todos os lotes
+experimentais 002–012 (“aprovo tudo, pode seguir”). Há 160 itens com primeira
+revisão assistida em `items.jsonl` e `review_pool.jsonl`, 40 por classe, split
+96/64, zero segundas revisões. Propostas JSONL originais permanecem imutáveis;
+não pedir novamente sua aprovação. Registro em `reviews/batches_002_012.md`.
+O corpus e o banco não mudaram; nenhum teste previsto foi executado ou congelado.
 
-O material é 100% sintético (120 formulações baseadas em fatos e 40 cenários
-fictícios). O índice registra limites de representatividade, padrões de redação,
-correlação e conhecimento do teste pelo preparador. Verificar validade com o
-orientador antes de congelar; não alegar desempenho em notícias reais. Nenhum
-segundo anotador ou congelamento foi registrado e nenhuma pipeline foi executada
-sobre os candidatos de teste. O corpus e o banco não mudaram.
+A próxima etapa é coletar a anotação de OUTRO humano. O pacote está em
+`evaluation/end_to_end/independent_review/participant/`, com formulário Markdown,
+JSONL alternativo e catálogo completo não ranqueado de 80 documentos. Entregar
+somente essa pasta, nunca o mapa de seleção ou links ao repositório com propostas.
+Registrar exposição prévia e procedimento: esconder respostas no pacote não
+certifica cegamento. A seleção contém 48 itens (12/classe, 7 dev + 5 teste por classe),
+semente 20260915, arredondamento por maiores restos, hash do snapshot e mapeamento
+em `independent_review/selection_manifest.json`. Este mapa é somente para auditoria.
 
-O manifesto `review_pool_manifest.json` é de revisão, não de teste congelado:
-SHA-256 dos JSONL com CRLF normalizado em LF; atualizar hashes quando necessário.
-A Fase 5 segue aberta para aprovação por lote, segunda revisão independente
-(48 itens se mantidos 160), adjudicação, auditoria e congelamento.
+`src/immunocheck/evaluation/second_annotation.py` reproduz seleção e textos do
+pacote sem LLM ou escrita de arquivos. Campos vazios não contam como anotações.
+Não preencher respostas por IA, registrar revisor inexistente ou interpretar
+aprovação do autor como anotação independente. Manter retornos brutos separados
+até calcular concordância/kappa pré-adjudicação e resolver divergências.
 
-Validação final da preparação conjunta: 210 testes aprovados, Ruff sem apontamentos,
-pool aceito estruturalmente contra os chunks locais e hashes verificados pela suíte.
-Um teste PostgreSQL foi ignorado por ausência de base exclusiva configurada;
-nenhuma alteração de banco ocorreu. Temporários da suíte não versionados:
-`output/pytest-e2e-all-batches-final`. Não reusar esse diretório de teste sem
-considerar que pytest pode limpar seu conteúdo. Os registros abaixo são históricos.
+O benchmark é 100% sintético; revisão assistida e correlação por famílias exigem
+auditoria de validade com o orientador antes do congelamento. `--ready` deve
+recusar o dataset atual por ausência de segunda revisão. A Fase 5 permanece aberta;
+não iniciar avaliação final da Fase 6 nem merge para main antes dos aceites.
+`review_pool_manifest.json` continua de revisão, com `test_frozen=false` e hashes
+SHA-256 normalizados em LF. Os relatos abaixo são históricos.
 
-Estado mais recente de 15/09/2026: o autor aprovou conjuntamente o lote
+Validação desta unidade: 219 testes aprovados, Ruff sem apontamentos, diff sem
+erros de whitespace e 160 itens aceitos estruturalmente contra o corpus local.
+Um teste PostgreSQL foi ignorado por falta de `IMMUNOCHECK_TEST_DATABASE_URL`;
+não houve mudança de banco. A suíte confirma seleção determinística/estratificada,
+campos de resposta vazios, preservação das propostas e recusa por falta de segunda
+revisão. Temporários não versionados: `output/pytest-e2e-second-review` e
+`output/pytest-e2e-second-review-final`. Não reutilizar esses caminhos sem considerar
+que pytest pode limpar seu conteúdo.
+
+Histórico de 15/09/2026: o autor aprovou conjuntamente o lote
 experimental 001. `evaluation/end_to_end/items.jsonl` contém 12 itens com primeira
 revisão assistida, não cegada, com rótulos originais preservados. O registro é
 `evaluation/end_to_end/reviews/batch_001.md`; não alterar o rascunho original.
