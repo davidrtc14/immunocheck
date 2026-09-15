@@ -113,6 +113,21 @@ para o dataset de pelo menos 100 alegações, segunda anotação e congelamento 
 
 ## Instruções para a próxima sessão
 
+Estado mais recente de 15/09/2026: o autor aprovou conjuntamente o lote
+experimental 001. `evaluation/end_to_end/items.jsonl` contém 12 itens com primeira
+revisão assistida, não cegada, com rótulos originais preservados. O registro é
+`evaluation/end_to_end/reviews/batch_001.md`; não alterar o rascunho original.
+O lote experimental 002 contém 12 novas propostas, ainda `draft`, nos temas HPV,
+alumínio e BCG. Próxima ação: obter aprovação ou correções desse lote antes de
+promover seus itens. Nenhum segundo anotador, teste ou congelamento está registrado.
+Os relatos abaixo preservam o histórico anterior à aprovação do lote 001.
+
+Validação desta atualização: 197 testes aprovados, Ruff sem apontamentos e os
+dois arquivos aceitos estruturalmente contra o corpus: 12 revisados em
+`items.jsonl` e 12 rascunhos no lote 002. Um teste PostgreSQL não foi executado
+por ausência de configuração de base exclusiva; não houve alteração no banco.
+Temporários não versionados: `output/pytest-e2e-batch002`.
+
 Atualização de 15/09/2026: foi preparado o lote **experimental** 001, distinto
 dos lotes documentais, com 12 candidatos sintéticos de desenvolvimento e zero
 itens revisados. Leia `evaluation/end_to_end/ANNOTATION_GUIDE.md` e

@@ -1,6 +1,9 @@
-# Lote experimental 001 — proposta para revisão
+# Lote experimental 001 — proposta original e aprovação
 
-Preparado em 15/09/2026. **12 rascunhos; zero revisados; todos de desenvolvimento.**
+Preparado em 15/09/2026 com 12 rascunhos de desenvolvimento. Posteriormente, o autor
+aprovou conjuntamente os 12 itens como **primeira revisão assistida**.
+O JSONL desta pasta preserva a proposta original; os itens revisados estão em
+`../items.jsonl` e o registro de aprovação em `../reviews/batch_001.md`.
 Não confundir com o lote documental 001. O corpus continua com 80 documentos;
 estes itens são perguntas de avaliação, não novas fontes do RAG.
 
@@ -48,8 +51,8 @@ Não reproduzir o texto integral de documentos com restrições de redistribuiç
 ## Aprovação
 
 Ler o guia de anotação e as fontes; confirmar ou corrigir cada proposta. É possível
-responder em conjunto, apontando IDs de exceções. Somente depois dessa confirmação
-serão registrados os rótulos da primeira revisão. Ainda faltam a segunda anotação
+responder em conjunto, apontando IDs de exceções. Os rótulos da primeira revisão
+foram registrados após a confirmação conjunta. Ainda faltam a segunda anotação
 independente, a ampliação até o mínimo de 100 e o congelamento do teste.
 
 ## Validação técnica

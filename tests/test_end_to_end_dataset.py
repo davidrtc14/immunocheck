@@ -262,3 +262,48 @@ def test_candidate_batch_remains_unreviewed_and_development_only() -> None:
     assert all(entry.primary_label is None and entry.reviewer is None for entry in items)
     with pytest.raises(EndToEndDatasetError, match="sem revisão humana"):
         load_end_to_end_items(path, require_reviewed=True)
+
+
+def test_approved_batch_has_assisted_primary_review_without_second_annotation() -> None:
+    root = Path(__file__).parents[1] / "evaluation/end_to_end"
+    candidates = load_end_to_end_items(root / "batches/batch_001.jsonl")
+    reviewed = load_end_to_end_items(root / "items.jsonl", require_reviewed=True)
+    summary = summarize_end_to_end_items(reviewed)
+    assert summary.total == summary.reviewed == 12
+    assert summary.second_reviewed == 0
+    for candidate, approved in zip(candidates, reviewed, strict=True):
+        assert candidate.item_id == approved.item_id
+        assert candidate.claim == approved.claim
+        assert candidate.evidence_chunk_ids == approved.evidence_chunk_ids
+        assert candidate.claim_family == approved.claim_family
+        assert candidate.label is approved.label is approved.primary_label
+        assert approved.reviewer == "project_author"
+        assert approved.reviewed_at == "2026-09-15"
+        assert approved.rationale and approved.second_label is None
+    with pytest.raises(EndToEndDatasetError, match="mínimo documentado"):
+        validate_dataset_ready(reviewed)
+
+
+def test_second_candidate_batch_is_pending_review() -> None:
+    root = Path(__file__).parents[1] / "evaluation/end_to_end"
+    candidates = load_end_to_end_items(root / "batches/batch_002.jsonl")
+    summary = summarize_end_to_end_items(candidates)
+    assert summary.total == 12
+    assert summary.reviewed == summary.second_reviewed == 0
+    assert summary.splits == {"development": 12}
+    assert summary.labels == {verdict.value: 3 for verdict in Verdict}
+    assert all(entry.primary_label is None for entry in candidates)
+    with pytest.raises(EndToEndDatasetError, match="sem revisão humana"):
+        load_end_to_end_items(root / "batches/batch_002.jsonl", require_reviewed=True)
+
+
+def test_reviewed_and_pending_pools_have_distinct_ids_and_no_split_leakage(tmp_path: Path) -> None:
+    root = Path(__file__).parents[1] / "evaluation/end_to_end"
+    merged = tmp_path / "pool.jsonl"
+    merged.write_text(
+        (root / "items.jsonl").read_text(encoding="utf-8")
+        + (root / "batches/batch_002.jsonl").read_text(encoding="utf-8"),
+        encoding="utf-8",
+    )
+    summary = summarize_end_to_end_items(load_end_to_end_items(merged))
+    assert summary.total == 24 and summary.reviewed == 12

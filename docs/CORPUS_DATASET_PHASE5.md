@@ -285,3 +285,22 @@ iguais nas duas revisões, sem pretender certificar identidade ou cegamento.
 Estado: 12 candidatos; zero revisados; mínimo de 100 e meta de 160 ainda pendentes.
 Esse lote calibra o manual, não demonstra qualidade em notícias reais. A Fase 5
 continua aberta para revisão humana, ampliação, segunda anotação e congelamento.
+
+## Aprovação do lote experimental 001 e preparação do 002
+
+Em 15/09/2026, o autor aprovou conjuntamente os 12 itens do lote experimental 001.
+Os rótulos aceitos, justificativas assistidas, datas e identificação interna do
+autor foram registrados em `evaluation/end_to_end/items.jsonl`. O rascunho foi
+preservado; a trilha e as limitações estão em
+`evaluation/end_to_end/reviews/batch_001.md`. Esse aceite é primeira revisão
+assistida e não prova revisão independente das fontes nem competência especializada.
+
+O lote 002 propõe mais 12 itens sintéticos de desenvolvimento sobre HPV, alumínio
+e BCG, com evidências rastreáveis e três cenários fictícios indeterminados. Todos
+permanecem pendentes em `evaluation/end_to_end/batches/batch_002.jsonl`. O corpus
+não mudou, e nenhuma previsão do sistema foi usada para anotação ou seleção.
+
+Estado atual: 12 itens com primeira revisão, 12 candidatos pendentes e zero com
+segunda anotação. Faltam 88 itens revisados para o mínimo de 100, além da revisão
+independente e do teste estratificado congelado. Itens de calibração sintéticos
+não serão usados para alegar representatividade de notícias reais.

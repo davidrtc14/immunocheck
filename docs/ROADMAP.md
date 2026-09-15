@@ -148,6 +148,12 @@ O guia de anotação e o validador agora operacionalizam os mínimos por classe,
 a separação de famílias, o split e a preservação dos rótulos independentes.
 Não houve congelamento nem execução do teste definitivo.
 
+Ainda em 15/09/2026, o autor aprovou conjuntamente o lote experimental 001.
+Há 12 itens com primeira revisão assistida em `evaluation/end_to_end/items.jsonl`,
+zero com segunda anotação e 12 novos candidatos de desenvolvimento no lote 002.
+O rascunho do lote 001 foi preservado. O mínimo de 100 itens revisados e todos
+os critérios humanos e de teste continuam pendentes.
+
 ## Fase 6 — Avaliação e entrega
 
 - [ ] Experimentos de retrieval.

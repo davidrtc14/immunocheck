@@ -1,7 +1,7 @@
 # Dataset fim a fim
 
-Este diretório receberá `items.jsonl`, com uma alegação por linha no formato de
-`item_template.json`. O template é estrutural e não constitui um item anotado.
+Este diretório contém `items.jsonl` em construção, com uma alegação por linha no
+formato de `item_template.json`. O template é estrutural e não constitui um item anotado.
 
 ## Regras de construção
 
@@ -19,8 +19,11 @@ Este diretório receberá `items.jsonl`, com uma alegação por linha no formato
 11. Não separar a mesma `claim_family` entre desenvolvimento e teste.
 
 O procedimento e os critérios de rótulo estão em `ANNOTATION_GUIDE.md`.
-O primeiro lote está em `batches/batch_001.md`: 12 propostas sintéticas de
-desenvolvimento, ainda sem revisão humana. Ele não é `items.jsonl` definitivo.
+O lote 001 foi aprovado conjuntamente como primeira revisão assistida: há 12
+itens revisados em `items.jsonl`, todos de desenvolvimento e sem segunda anotação.
+O registro está em `reviews/batch_001.md`; o rascunho original foi preservado.
+O lote 002 está em `batches/batch_002.md`, com 12 propostas pendentes. O dataset
+ainda não é definitivo: não há teste congelado nem evidência de desempenho real.
 
 Validação estrutural desse lote contra o corpus local:
 
@@ -31,6 +34,9 @@ Validação estrutural desse lote contra o corpus local:
 `--ready` deve recusá-lo enquanto houver rascunhos. O aceite exige mínimo de 100
 itens, pelo menos 25 por classe, split estratificado 60%/40%, famílias separadas,
 rótulos originais preservados e segunda revisão em pelo menos 30%.
+Para validar o lote seguinte, trocar o caminho por `batches/batch_002.jsonl`.
+O arquivo parcial `items.jsonl` também é recusado em `--ready`: possui apenas 12
+itens e ainda não satisfaz tamanho, segunda revisão ou split de teste.
 
 Validação durante a construção:
 
