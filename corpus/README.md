@@ -106,3 +106,12 @@ BY-ND 3.0, uma permissão institucional de reprodução não comercial e uma Ins
 Normativa caracterizada como ato oficial. O autor aprovou conjuntamente a proposta.
 A nova versão de proveniência preserva os mesmos 66 documentos, 6.989 chunks e
 6.989 embeddings; a decisão está em `reviews/license_audit_001.md`.
+
+## Oitavo lote da Fase 5 em 14/09/2026
+
+O lote 008 acrescentou 14 candidatos selecionados para preencher exatamente as
+lacunas temáticas restantes. Todos passaram pela auditoria técnica e jurídica,
+somando 596 chunks potenciais e sem duplicatas detectadas. A proposta é aprovar os
+14 documentos, com guardrails temporais, metodológicos e de conflitos de interesse
+registrados em `reviews/batch_008.md`. O lote continua como `candidate` e não faz
+parte do corpus ativo até a decisão humana expressa.

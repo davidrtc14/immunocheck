@@ -98,8 +98,9 @@ do Telegram como dados de pesquisa.
 
 ## Estado da Fase 5
 
-Os lotes documentais 001 a 007 foram processados. O catálogo possui 100 entradas e o
-snapshot local publicado possui 66 documentos, 6.989 chunks e versão
+Os lotes documentais 001 a 007 foram publicados, e o lote 008 foi preparado para
+decisão humana. O catálogo possui 114 entradas e o snapshot local publicado possui
+66 documentos, 6.989 chunks e versão
 `sha256:8dfd3d854c8855f71f34d6b5c9bba8e04acb106f43127f2a78659a2ea43d6dc9`.
 Após o lote 007, a auditoria de licenças atualizou apenas a proveniência de sete
 documentos e reutilizou todos os 6.989 vetores BGE-M3, sem nova inferência.
@@ -108,8 +109,9 @@ O snapshot e os 6.989 embeddings foram importados no PostgreSQL, e a nova versã
 foi ativada somente após a verificação de completude. Consultas dirigidas
 recuperaram todos os oito documentos novos em primeiro lugar no ranking híbrido.
 Uma busca exata no pgvector devolveu o próprio chunk consultado com similaridade
-1,000000. A Fase 5 continua aberta: faltam 14 documentos para o mínimo temático, o
-dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
+1,000000. A Fase 5 continua aberta: os 14 candidatos que completariam o mínimo
+temático aguardam aprovação; também faltam o dataset de pelo menos 100 alegações,
+segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
 
@@ -123,9 +125,15 @@ específicas (1) e comunicação/equidade/ética (1).
 A auditoria dos sete documentos legados com licença `to_verify` foi aprovada e
 publicada em 14/09/2026. Todos foram mantidos com classificações e restrições
 explícitas; a versão de proveniência está registrada em
-`corpus/reviews/license_audit_001.md`. Continuam pendentes as 14 fontes para a
-cobertura mínima, o dataset definitivo, a segunda anotação e o congelamento do
-teste. A migration `0002` permite documentos XML JATS no PostgreSQL; não editar
+`corpus/reviews/license_audit_001.md`.
+
+Atualização adicional de 14/09/2026: o lote 008 contém 14 candidatos auditados e
+todos são propostos para aprovação. Se aprovados, o corpus passará a 80 documentos e
+atingirá todos os mínimos temáticos. Até lá, eles permanecem `candidate` e o corpus
+ativo continua com 66. O parecer, os conflitos declarados e os hashes estão em
+`corpus/reviews/batch_008.md`. Continuam pendentes a decisão do lote, o dataset
+definitivo, a segunda anotação e o congelamento do teste. A migration `0002` permite
+documentos XML JATS no PostgreSQL; não editar
 migrations já aplicadas.
 Validação do marco: 183 testes aprovados — 182 na suíte geral e um em base
 PostgreSQL exclusiva e descartável —, e Ruff sem apontamentos.

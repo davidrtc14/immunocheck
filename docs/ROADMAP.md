@@ -87,11 +87,12 @@ serão avaliados formalmente na Fase 6.
 **Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
 
 **Estado:** iniciada em 01/09/2026. O plano de cobertura temática, o template JSONL e
-o validador auditável do dataset fim a fim foram criados. Com o lote 007 publicado, o
-catálogo possui 100 entradas e o corpus ativo possui 66 documentos, 6.989 chunks
-e 6.989 embeddings. Ainda faltam 14 documentos validados para o mínimo temático,
-anotar pelo menos 100 alegações, executar a segunda revisão e congelar o teste; por
-isso nenhum item de aceite da fase foi marcado como concluído.
+o validador auditável do dataset fim a fim foram criados. O catálogo possui 114
+entradas e o corpus ativo possui 66 documentos, 6.989 chunks e 6.989 embeddings. O
+lote 008 propõe os 14 documentos necessários para o mínimo temático, mas aguarda
+decisão humana. Também faltam anotar pelo menos 100 alegações, executar a segunda
+revisão e congelar o teste; por isso nenhum item de aceite da fase foi marcado como
+concluído.
 
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
 ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi
@@ -135,6 +136,12 @@ Em 14/09/2026, o autor aprovou a auditoria dos sete documentos legados com licen
 proveniência preservou 66 documentos e 6.989 embeddings, reutilizando todos os
 vetores sem reprocessar texto. A decisão está em
 `corpus/reviews/license_audit_001.md`.
+
+Em 14/09/2026, o lote 008 foi preparado com 14 candidatos para as lacunas restantes.
+Todos passaram pela auditoria técnica e jurídica, somando 596 chunks potenciais sem
+duplicata detectada. Os 14 estão propostos para aprovação, com ressalvas de vigência,
+generalização e conflitos registradas. Eles ainda não foram promovidos nem publicados;
+o parecer está em `corpus/reviews/batch_008.md`.
 
 ## Fase 6 — Avaliação e entrega
 

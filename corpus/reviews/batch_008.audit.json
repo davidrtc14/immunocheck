@@ -1,0 +1,321 @@
+{
+  "batch": "008",
+  "scope": "technical_only_not_human_approval",
+  "documents": [
+    {
+      "document_id": "ms_nt20_imunizacao_recem_nascidos_2026",
+      "title": "Orientações Técnicas para a Imunização de Recém-Nascidos no Âmbito das Maternidades",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/notas-tecnicas/2026/nota-tecnica-conjunta-no-20-2026-dpni-dahu-svsa-saes-ms.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/notas-tecnicas/2026/nota-tecnica-conjunta-no-20-2026-dpni-dahu-svsa-saes-ms.pdf/@@download/file",
+      "downloaded_at": "2026-09-15T01:10:34.035252+00:00",
+      "raw_sha256": "f8676a461c3dc52c845d9dd49a549d0bcdf1cbf68fc7eb350c6951a0b19c3dc3",
+      "size_bytes": 92372,
+      "text_sha256": "9c789eee93a74395b493a1d1a840ffac5d75a053c73dc9f5abf5fd005b2ab992",
+      "pages": 7,
+      "characters": 16542,
+      "chunks": 20,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_nt21_sarampo_dose_zero_2026",
+      "title": "Orientações para o uso da dose zero da vacina tríplice viral em ações de bloqueio vacinal",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/notas-tecnicas/2026/nota-tecnica-no-21-2026-cgici-dpni-svsa-ms.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/notas-tecnicas/2026/nota-tecnica-no-21-2026-cgici-dpni-svsa-ms.pdf/@@download/file",
+      "downloaded_at": "2026-09-15T01:10:34.570830+00:00",
+      "raw_sha256": "f8caa3478d122181992087caa63f7cc922b97f9ff5444ee86a0fd2573432b539",
+      "size_bytes": 93638,
+      "text_sha256": "149153838a74f630e7593065a4d1c22edc5292a43f989466fe4b15cf24899e11",
+      "pages": 3,
+      "characters": 10675,
+      "chunks": 12,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_nt64_vpc20_2026",
+      "title": "Atualização das diretrizes da vacina pneumocócica conjugada 20-valente em estratégias especiais",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/notas-tecnicas/2026/nota-tecnica-no-64-2026-dpni-svsa-ms.pdf/@@download/file",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/notas-tecnicas/2026/nota-tecnica-no-64-2026-dpni-svsa-ms.pdf/@@download/file",
+      "downloaded_at": "2026-09-15T01:10:34.980810+00:00",
+      "raw_sha256": "c34508a9b2b2ef897f661dbe9148f5c54f5268c14957e66324bd686cba2016c2",
+      "size_bytes": 56176,
+      "text_sha256": "737bb0c5adc533891937b62939959556cf56aa0fa8f3d8e7ac72c1ca6a91f73b",
+      "pages": 3,
+      "characters": 5853,
+      "chunks": 7,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_nt234_alerta_sarampo_2026",
+      "title": "Alerta para intensificação das ações e identificação de casos suspeitos de sarampo",
+      "source_url": "https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/s/sarampo/notas-tecnicas/nota-tecnica-conjunta-no-234-2026-cgvdi-dpni-svsa-ms",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/notas-tecnicas/2026/nota-tecnica-conjunta-no-324-2026-cgvdi-dpni-svsa-ms.pdf",
+      "downloaded_at": "2026-09-15T01:16:23.123133+00:00",
+      "raw_sha256": "9137963c33193aea4682350e355be03d7f702d6fcbf6eb0af5f8f70c2f021e2c",
+      "size_bytes": 282135,
+      "text_sha256": "45cdd73bb891f5e3cff94a0d1d43337cb36c6c28d99228f71ef89f447bf2add4",
+      "pages": 4,
+      "characters": 28340,
+      "chunks": 29,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "pathogens_pneumococcal_adults_meta_2023",
+      "title": "Systematic Review and Meta-Analysis of the Efficacy and Effectiveness of Pneumococcal Vaccines in Adults",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10222197/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10222197/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:36.959684+00:00",
+      "raw_sha256": "7ce24a4205d9ba9bac7368bc1173356bdeace2ed99a1226bb7ff2d8df3db3ca4",
+      "size_bytes": 135072,
+      "text_sha256": "27e65d6bfc506ab7da60a952f52825d5a701ab0c114980f0541dd6ddd197bd9f",
+      "pages": 1,
+      "characters": 43705,
+      "chunks": 44,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "lancet_repeated_influenza_meta_2022",
+      "title": "Does repeated influenza vaccination attenuate effectiveness? A systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9780123/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9780123/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:38.107179+00:00",
+      "raw_sha256": "b7a70dca750044bb891d10f5525eda8dae71ca20c348e7e96eb111a67db3bda6",
+      "size_bytes": 255667,
+      "text_sha256": "080cfd90edc9736dd0364694787463dbc9dac11d4869887f0d1e292374f29812",
+      "pages": 1,
+      "characters": 73921,
+      "chunks": 75,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "idt_immunocompromised_mrna_meta_2024",
+      "title": "Immunogenicity of mRNA-1273 and BNT162b2 in Immunocompromised Patients: Systematic Review and Meta-analysis Using GRADE",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11219657/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11219657/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:39.185690+00:00",
+      "raw_sha256": "cf975ae82b6eddf986c7862a02219c45a2448f5ec538bb453516b7c59b4e99a1",
+      "size_bytes": 179106,
+      "text_sha256": "7f61420ca8c1e33374ced05258548bd970492b84ec055481a449fe667a4140d5",
+      "pages": 1,
+      "characters": 42693,
+      "chunks": 43,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nc/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ckj_ckd_vaccine_efficacy_meta_2026",
+      "title": "Vaccine efficacy in CKD patients not on dialysis: a systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13133630/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13133630/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:40.406331+00:00",
+      "raw_sha256": "be0e33ded42d756044f62af451ff9ed7de66c1a8600a29cc7d57f9bfc18fcb83",
+      "size_bytes": 213717,
+      "text_sha256": "b2e0bcdc76874d506e4418e95731474d381aee583af6f9f4f9e58f79f5f4a181",
+      "pages": 1,
+      "characters": 41568,
+      "chunks": 42,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "plos_pneumococcal_lac_meta_2024",
+      "title": "Invasive pneumococcal disease in Latin America and the Caribbean: Serotype distribution, disease burden, and impact of vaccination",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11210815/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11210815/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:41.821627+00:00",
+      "raw_sha256": "d8fe1bfd5ac773b574b7e0dca3e2c3fcbf95e3aedc9dd2928e78ced656bebb8a",
+      "size_bytes": 366975,
+      "text_sha256": "9fcec0c2b4ee2bc958140e054dbff4bb4d990a394d64a916fab2b6c8ed1444d2",
+      "pages": 1,
+      "characters": 57897,
+      "chunks": 59,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "einstein_measles_amazon_spatiotemporal_2024",
+      "title": "Temporal and spatial analysis of over 7,000 measles cases outbreak from 2018 to 2019 in the Brazilian Amazon",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11081026/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11081026/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:42.812117+00:00",
+      "raw_sha256": "666e041b126da835b38dee550a68a73548e546878069ef96cdf9444b6bb1cf90",
+      "size_bytes": 83581,
+      "text_sha256": "2d5101f4330ab39aeda7d93e273bce2599e2130564f81b833f572d6096f2509e",
+      "pages": 1,
+      "characters": 34912,
+      "chunks": 35,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "jneurol_gbs_covid_vaccination_meta_2024",
+      "title": "Guillain-Barré syndrome and COVID-19 vaccination: a systematic review and meta-analysis",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10896967/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10896967/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:43.905135+00:00",
+      "raw_sha256": "77cb078d90ccd0c268ae697effa0c606eabc6383b1369f67c2362dea2427912e",
+      "size_bytes": 75219,
+      "text_sha256": "ba40ecc487be863f27501c9beb1abd8dee45fd6c4b3297e3a367eb1b092559c5",
+      "pages": 1,
+      "characters": 25635,
+      "chunks": 26,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by/4.0/"
+      ],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "vaccines_hpv_autoimmune_meta_2025",
+      "title": "No Increased Risk of Autoimmune Diseases Following HPV Vaccination: A Systematic Review and Meta-Analysis",
+      "source_url": "https://mdpi-res.com/d_attachment/vaccines/vaccines-13-00391/article_deploy/vaccines-13-00391.pdf",
+      "final_url": "https://mdpi-res.com/d_attachment/vaccines/vaccines-13-00391/article_deploy/vaccines-13-00391.pdf",
+      "downloaded_at": "2026-09-15T01:13:35.877269+00:00",
+      "raw_sha256": "e3c189e12af490221555f485cb8880c0490cffff9899d0a38532ff17a8d2e4cf",
+      "size_bytes": 2216619,
+      "text_sha256": "060c07779a6a75a95a4001ae30f5d0e8028056ae0363adfc44165c24bb5eeb93",
+      "pages": 14,
+      "characters": 55056,
+      "chunks": 60,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "ms_guia_dengue_butantan_2026",
+      "title": "Guia técnico-operacional da vacina dengue atenuada do Instituto Butantan",
+      "source_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/guias-e-manuais/2026/guia-tecnico-operacional-da-vacina-dengue-atenuada-do-instituto-butantan.pdf",
+      "final_url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/guias-e-manuais/2026/guia-tecnico-operacional-da-vacina-dengue-atenuada-do-instituto-butantan.pdf",
+      "downloaded_at": "2026-09-15T01:10:46.186232+00:00",
+      "raw_sha256": "8b8fee42aacef37210abdc610c3f5205d1842e0cdb5f72b85bc3c7a1f0df2499",
+      "size_bytes": 1935201,
+      "text_sha256": "247a0ab15e275b333627e2aebae33f5f3d48ac55075ef9401af2c0757c9b120e",
+      "pages": 37,
+      "characters": 67177,
+      "chunks": 81,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons",
+        "reprodução parcial ou total",
+        "não comercial"
+      ],
+      "license_links": [],
+      "human_review": "pending"
+    },
+    {
+      "document_id": "bmjopen_equity_risk_communication_2024",
+      "title": "Equity-informed social media COVID-19 risk communication strategies: a scoping review",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11331911/fullTextXML",
+      "final_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11331911/fullTextXML",
+      "downloaded_at": "2026-09-15T01:10:47.785946+00:00",
+      "raw_sha256": "011b42486c9f5c2577a62fb24ca3916f6b0071933ad564730dece99bbdc9dfce",
+      "size_bytes": 115060,
+      "text_sha256": "2ab8827ebfb8fea1651febde0a590bb52e0fb8b69727ee3c70bad9ed595bd6f3",
+      "pages": 1,
+      "characters": 62368,
+      "chunks": 63,
+      "empty_pages": [],
+      "warnings": [],
+      "replacement_characters": 0,
+      "control_characters": 0,
+      "license_signals_not_permission": [
+        "creative commons"
+      ],
+      "license_links": [
+        "https://creativecommons.org/licenses/by-nc/4.0/"
+      ],
+      "human_review": "pending"
+    }
+  ],
+  "failures": [],
+  "exact_text_duplicates_within_batch": [],
+  "raw_duplicates_against_validated_catalog": []
+}
