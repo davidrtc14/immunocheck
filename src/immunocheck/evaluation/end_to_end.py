@@ -13,6 +13,7 @@ END_TO_END_SCHEMA_VERSION = 1
 MINIMUM_DATASET_SIZE = 100
 TARGET_DATASET_SIZE = 160
 MINIMUM_SECOND_REVIEW_FRACTION = 0.30
+MINIMUM_ITEMS_PER_CLASS = 25
 
 
 class EndToEndDatasetError(RuntimeError):
@@ -50,6 +51,8 @@ class EndToEndItem:
     adjudicator: str | None
     adjudicated_at: str | None
     notes: str | None
+    claim_family: str | None = None
+    primary_label: Verdict | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -90,12 +93,17 @@ def load_end_to_end_items(
     if len(normalized_claims) != len(set(normalized_claims)):
         raise EndToEndDatasetError("O dataset contém alegações duplicadas.")
 
+    family_splits: dict[str, set[DatasetSplit]] = {}
+    for item in items:
+        if item.claim_family:
+            family_splits.setdefault(item.claim_family, set()).add(item.split)
+    if any(len(splits) > 1 for splits in family_splits.values()):
+        raise EndToEndDatasetError("Uma família de alegações aparece em desenvolvimento e teste.")
+
     if require_reviewed:
         drafts = [item.item_id for item in items if item.status is DatasetStatus.DRAFT]
         if drafts:
-            raise EndToEndDatasetError(
-                "Existem itens sem revisão humana: " + ", ".join(drafts)
-            )
+            raise EndToEndDatasetError("Existem itens sem revisão humana: " + ", ".join(drafts))
     if valid_chunk_ids is not None:
         unknown = sorted(
             chunk_id
@@ -135,14 +143,26 @@ def validate_dataset_ready(items: tuple[EndToEndItem, ...]) -> EndToEndDatasetSu
     if summary.reviewed != summary.total:
         raise EndToEndDatasetError("Todos os itens precisam de revisão humana antes da avaliação.")
     if summary.second_review_fraction < MINIMUM_SECOND_REVIEW_FRACTION:
-        raise EndToEndDatasetError(
-            "A segunda revisão cobre menos de 30% do dataset."
-        )
+        raise EndToEndDatasetError("A segunda revisão cobre menos de 30% do dataset.")
     expected_labels = {verdict.value for verdict in Verdict}
     if set(summary.labels) != expected_labels:
         raise EndToEndDatasetError("O dataset pronto precisa representar as quatro classes.")
     if set(summary.splits) != {split.value for split in DatasetSplit}:
         raise EndToEndDatasetError("O dataset pronto precisa conter desenvolvimento e teste.")
+    if any(count < MINIMUM_ITEMS_PER_CLASS for count in summary.labels.values()):
+        raise EndToEndDatasetError("Cada classe precisa de pelo menos 25 itens.")
+    if any(not item.claim_family for item in items):
+        raise EndToEndDatasetError("Todos os itens precisam de uma família de alegações.")
+    if any(item.primary_label is None for item in items):
+        raise EndToEndDatasetError(
+            "Todos os itens precisam preservar o rótulo do primeiro anotador."
+        )
+    for verdict in Verdict:
+        selected = tuple(item for item in items if item.label is verdict)
+        expected_development = round(len(selected) * 0.60)
+        actual_development = sum(item.split is DatasetSplit.DEVELOPMENT for item in selected)
+        if actual_development != expected_development:
+            raise EndToEndDatasetError("O split deve ser estratificado em 60%/40% por classe.")
     return summary
 
 
@@ -182,8 +202,23 @@ def _parse_item(value: object, line_number: int) -> EndToEndItem:
     adjudicator = _optional_text(value, "adjudicator", line_number)
     adjudicated_at = _optional_text(value, "adjudicated_at", line_number)
     notes = _optional_text(value, "notes", line_number)
+    claim_family = _optional_text(value, "claim_family", line_number)
+    primary_label_text = _optional_text(value, "primary_label", line_number)
+    primary_label = Verdict(primary_label_text) if primary_label_text else None
 
-    if status is DatasetStatus.DRAFT and any((reviewer, reviewed_at, rationale)):
+    if status is DatasetStatus.DRAFT and any(
+        (
+            reviewer,
+            reviewed_at,
+            rationale,
+            primary_label,
+            second_reviewer,
+            second_label,
+            second_reviewed_at,
+            adjudicator,
+            adjudicated_at,
+        )
+    ):
         raise ValueError(f"Rascunho declara revisão na linha {line_number}.")
     if status is DatasetStatus.REVIEWED:
         if not atomic or not rationale or not reviewer or not reviewed_at:
@@ -194,11 +229,16 @@ def _parse_item(value: object, line_number: int) -> EndToEndItem:
     second_fields = (second_reviewer, second_label, second_reviewed_at)
     if any(second_fields) and not all(second_fields):
         raise ValueError(f"Segunda revisão incompleta na linha {line_number}.")
-    disagreement = second_label is not None and second_label is not label
+    if reviewer and second_reviewer and reviewer.casefold() == second_reviewer.casefold():
+        raise ValueError(f"A segunda revisão deve ser independente na linha {line_number}.")
+    original_label = primary_label if primary_label is not None else label
+    disagreement = second_label is not None and second_label is not original_label
     if disagreement and not (adjudicator and adjudicated_at):
         raise ValueError(f"Divergência sem adjudicação na linha {line_number}.")
     if not disagreement and (adjudicator or adjudicated_at):
         raise ValueError(f"Adjudicação sem divergência na linha {line_number}.")
+    if not disagreement and label is not original_label:
+        raise ValueError(f"Rótulo final alterado sem adjudicação na linha {line_number}.")
 
     return EndToEndItem(
         item_id=item_id,
@@ -220,6 +260,8 @@ def _parse_item(value: object, line_number: int) -> EndToEndItem:
         adjudicator=adjudicator,
         adjudicated_at=adjudicated_at,
         notes=notes,
+        claim_family=claim_family,
+        primary_label=primary_label,
     )
 
 

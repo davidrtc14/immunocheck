@@ -142,6 +142,12 @@ todos os mínimos temáticos foram atingidos. As 14 fontes apareceram no top 10 
 consultas híbridas dirigidas, e o pgvector devolveu o próprio chunk consultado com
 similaridade 1,000000. O parecer está em `corpus/reviews/batch_008.md`.
 
+Atualização de 15/09/2026 da Fase 5: o lote experimental 001 contém 12 propostas
+sintéticas, exclusivamente de desenvolvimento e ainda sem revisão humana.
+O guia de anotação e o validador agora operacionalizam os mínimos por classe,
+a separação de famílias, o split e a preservação dos rótulos independentes.
+Não houve congelamento nem execução do teste definitivo.
+
 ## Fase 6 — Avaliação e entrega
 
 - [ ] Experimentos de retrieval.

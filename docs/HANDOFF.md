@@ -113,6 +113,22 @@ para o dataset de pelo menos 100 alegações, segunda anotação e congelamento 
 
 ## Instruções para a próxima sessão
 
+Atualização de 15/09/2026: foi preparado o lote **experimental** 001, distinto
+dos lotes documentais, com 12 candidatos sintéticos de desenvolvimento e zero
+itens revisados. Leia `evaluation/end_to_end/ANNOTATION_GUIDE.md` e
+`evaluation/end_to_end/batches/batch_001.md`. A próxima ação é obter a revisão
+do autor sobre os rótulos e evidências, sem converter propostas em revisão por
+conta própria. A segunda anotação precisa de outro humano e cegamento; aprovação
+do autor não a substitui. Não executar ou ajustar com o teste definitivo antes
+do congelamento. O corpus ativo não mudou.
+
+Validação dessa unidade: 194 testes aprovados na suíte geral, um teste de
+integração PostgreSQL não executado por ausência da variável de base exclusiva,
+Ruff sem apontamentos e 12 itens aceitos na validação estrutural contra o corpus.
+O teste automatizado confirma rejeição do lote no modo de revisão obrigatória.
+Temporários da suíte: `output/pytest-e2e-batch001`, não versionados. Não houve
+migration nem mudança de índice ou banco nesta unidade.
+
 Atualização de 14/09/2026: o lote 007 está aprovado, publicado e validado. Oito
 artigos foram promovidos, quatro documentos da OMS permaneceram retidos e uma
 duplicata foi rejeitada. Esse era o estado anterior ao lote 008 e permanece como

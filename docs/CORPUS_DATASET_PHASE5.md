@@ -268,3 +268,20 @@ híbridas dirigidas, 12 fontes ficaram em primeiro lugar e duas em segundo; toda
 apareceram no top 10. A busca exata no pgvector devolveu o próprio chunk consultado
 com similaridade 1,000000. A lacuna temática mínima chegou a zero. A trilha de
 decisão está em `corpus/reviews/batch_008.md`.
+
+## Preparação do lote experimental 001
+
+Em 15/09/2026 foram preparados 12 candidatos sintéticos para desenvolvimento,
+três propostas por classe, com evidências referenciadas no snapshot do lote 008.
+São nove formulações baseadas em fontes e três cenários fictícios indeterminados;
+não são mensagens de usuários nem previsões do sistema. Todos continuam `draft`.
+
+O parecer para revisão está em `evaluation/end_to_end/batches/batch_001.md` e
+o procedimento em `evaluation/end_to_end/ANNOTATION_GUIDE.md`. O validador exige
+no aceite 25 itens por classe, split 60%/40%, separação por famílias e preservação
+do primeiro rótulo para concordância pré-adjudicação. Também recusa identificadores
+iguais nas duas revisões, sem pretender certificar identidade ou cegamento.
+
+Estado: 12 candidatos; zero revisados; mínimo de 100 e meta de 160 ainda pendentes.
+Esse lote calibra o manual, não demonstra qualidade em notícias reais. A Fase 5
+continua aberta para revisão humana, ampliação, segunda anotação e congelamento.

@@ -7,6 +7,8 @@
   "split": "development",
   "status": "draft",
   "atomic": true,
+  "claim_family": "familia_da_proposicao",
+  "primary_label": null,
   "evidence_chunk_ids": [],
   "rationale": null,
   "origin_type": "public_content_rewritten",

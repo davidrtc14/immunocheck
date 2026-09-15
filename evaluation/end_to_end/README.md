@@ -15,6 +15,22 @@ Este diretório receberá `items.jsonl`, com uma alegação por linha no formato
 8. Divergências de rótulo exigem adjudicação registrada.
 9. O split de teste será congelado antes do ajuste final e não poderá orientar prompts,
    limiares ou hiperparâmetros.
+10. Preservar `primary_label` e `second_label` antes da adjudicação; `label` é final.
+11. Não separar a mesma `claim_family` entre desenvolvimento e teste.
+
+O procedimento e os critérios de rótulo estão em `ANNOTATION_GUIDE.md`.
+O primeiro lote está em `batches/batch_001.md`: 12 propostas sintéticas de
+desenvolvimento, ainda sem revisão humana. Ele não é `items.jsonl` definitivo.
+
+Validação estrutural desse lote contra o corpus local:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\validate_end_to_end_dataset.py evaluation\end_to_end\batches\batch_001.jsonl
+```
+
+`--ready` deve recusá-lo enquanto houver rascunhos. O aceite exige mínimo de 100
+itens, pelo menos 25 por classe, split estratificado 60%/40%, famílias separadas,
+rótulos originais preservados e segunda revisão em pelo menos 30%.
 
 Validação durante a construção:
 
@@ -30,3 +46,5 @@ python scripts/validate_end_to_end_dataset.py --ready
 
 O validador rejeita IDs e alegações duplicados, chunks inexistentes, revisões
 incompletas, conclusões sem evidência e divergências sem adjudicação.
+Também rejeita o mesmo identificador nas duas revisões. Isso não certifica a
+independência humana nem a pertinência semântica das evidências.
