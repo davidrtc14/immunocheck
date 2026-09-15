@@ -1,13 +1,13 @@
-# Auditoria de licenças legadas 001 — parecer para aprovação
+# Auditoria de licenças legadas 001 — decisão e publicação
 
-Preparada em 14/09/2026. Esta auditoria revisita os sete documentos que já estavam
-validados no corpus, mas ainda conservavam `license_status=to_verify`. Nenhum estado
-ou índice foi alterado nesta etapa; a atualização do catálogo depende de aprovação
-humana conjunta.
+Preparada, aprovada e publicada em 14/09/2026. Esta auditoria revisita os sete
+documentos que já estavam validados no corpus, mas ainda conservavam
+`license_status=to_verify`. O autor aprovou conjuntamente as sete classificações e
+suas restrições de uso.
 
 ## Resultado executivo
 
-- **Propõe-se manter os sete documentos.** Não foi identificada fonte que exija
+- **Foram mantidos os sete documentos.** Não foi identificada fonte que exija
   remoção imediata do corpus acadêmico local.
 - Dois manuais declaram **CC BY-NC-SA 4.0** na página 3 dos próprios PDFs.
 - Três páginas do portal Gov.br declaram **CC BY-ND 3.0** no rodapé dos HTMLs
@@ -18,7 +18,7 @@ humana conjunta.
   Lei nº 9.610/1998 exclui textos de atos oficiais da proteção autoral; a conclusão
   não se estende automaticamente a ilustrações ou materiais de terceiros.
 
-## Decisões propostas
+## Decisões aprovadas
 
 | Documento | Evidência auditada | Classificação proposta | Decisão |
 |---|---|---|---|
@@ -32,6 +32,23 @@ humana conjunta.
 
 Os SHA-256 dos sete arquivos estão em `license_audit_001.csv`. A decisão vale apenas
 para esses bytes e para o uso acadêmico local descrito no projeto.
+
+## Publicação e validação
+
+Como a licença integra a proveniência dos chunks, a correção criou a versão
+`sha256:8dfd3d854c8855f71f34d6b5c9bba8e04acb106f43127f2a78659a2ea43d6dc9`.
+Os sete documentos tiveram apenas metadados atualizados; 59 documentos foram
+reutilizados e nenhum texto foi reprocessado. Todos os 6.989 vetores BGE-M3 foram
+reutilizados, sem gerar embeddings novos, em 2,79 segundos.
+
+A nova versão foi ativada no PostgreSQL com 66 documentos, 6.989 chunks e 6.989
+embeddings. Uma consulta direta confirmou as sete licenças persistidas. Uma busca
+exata por cosseno no pgvector, usando um chunk da Instrução Normativa como consulta,
+devolveu o próprio chunk em primeiro lugar com similaridade 1,000000.
+
+A regressão final teve 182 testes aprovados na suíte geral e um teste aprovado em
+base PostgreSQL exclusiva e descartável, totalizando 183; o Ruff não apontou
+problemas. A base de teste foi removida após a execução.
 
 ## Base jurídica e limites da conclusão
 
@@ -71,7 +88,7 @@ jurisdição exigirá nova análise e, quando aplicável, consulta institucional
 
 ## Estado
 
-**Aguardando aprovação humana conjunta.** Se aprovado, somente o campo de licença e
-as notas de rastreabilidade desses sete registros serão corrigidos. Os documentos,
-chunks e embeddings permanecem textualmente idênticos, portanto a versão do corpus
-não deve mudar.
+**Aprovado, publicado e validado.** Os sete registros não possuem mais
+`license_status=to_verify`. Os textos e `chunk_id`s permaneceram idênticos, mas o
+manifesto recebeu uma nova versão porque a licença faz parte da proveniência. A
+trilha humana está registrada em `license_audit_001.csv`.

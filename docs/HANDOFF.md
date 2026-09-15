@@ -100,9 +100,9 @@ do Telegram como dados de pesquisa.
 
 Os lotes documentais 001 a 007 foram processados. O catálogo possui 100 entradas e o
 snapshot local publicado possui 66 documentos, 6.989 chunks e versão
-`sha256:26171e1196a3672e6a82711ab8c644e5bd662dc079fb275b087f013592c104e4`.
-Na sétima publicação incremental, o BGE-M3 reutilizou 6.479 vetores e calculou
-510 em CPU e modo offline, em 305,55 segundos.
+`sha256:8dfd3d854c8855f71f34d6b5c9bba8e04acb106f43127f2a78659a2ea43d6dc9`.
+Após o lote 007, a auditoria de licenças atualizou apenas a proveniência de sete
+documentos e reutilizou todos os 6.989 vetores BGE-M3, sem nova inferência.
 
 O snapshot e os 6.989 embeddings foram importados no PostgreSQL, e a nova versão
 foi ativada somente após a verificação de completude. Consultas dirigidas
@@ -113,20 +113,20 @@ dataset de pelo menos 100 alegações, segunda anotação e congelamento do test
 
 ## Instruções para a próxima sessão
 
-Atualização de 12/09/2026: o lote 007 está aprovado, publicado e validado. Oito
+Atualização de 14/09/2026: o lote 007 está aprovado, publicado e validado. Oito
 artigos foram promovidos, quatro documentos da OMS permaneceram retidos e uma
 duplicata foi rejeitada. Não tratar as 100 entradas catalogadas como 100 fontes
 utilizáveis: 66 estão validadas. As lacunas restantes são normas (4), eficácia (2),
 populações especiais (2), epidemiologia (2), alegações causais (2), vacinas
 específicas (1) e comunicação/equidade/ética (1).
 
-A auditoria dos sete documentos legados com licença `to_verify` foi preparada em
-14/09/2026 e aguarda aprovação conjunta em
-`corpus/reviews/license_audit_001.md`. A proposta mantém os sete documentos e corrige
-somente os metadados de licença, sem reconstruir o corpus. Continuam pendentes as 14
-fontes para a cobertura mínima, o dataset definitivo, a segunda anotação e o
-congelamento do teste. A migration `0002` permite documentos XML JATS no PostgreSQL;
-não editar migrations já aplicadas.
+A auditoria dos sete documentos legados com licença `to_verify` foi aprovada e
+publicada em 14/09/2026. Todos foram mantidos com classificações e restrições
+explícitas; a versão de proveniência está registrada em
+`corpus/reviews/license_audit_001.md`. Continuam pendentes as 14 fontes para a
+cobertura mínima, o dataset definitivo, a segunda anotação e o congelamento do
+teste. A migration `0002` permite documentos XML JATS no PostgreSQL; não editar
+migrations já aplicadas.
 Validação do marco: 183 testes aprovados — 182 na suíte geral e um em base
 PostgreSQL exclusiva e descartável —, e Ruff sem apontamentos.
 

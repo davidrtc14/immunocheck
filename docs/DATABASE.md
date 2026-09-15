@@ -174,3 +174,16 @@ vetores e gerou 510 em CPU e modo offline, em 305,55 segundos. Uma busca exata p
 cosseno no pgvector, usando um chunk da revisão sobre Guillain-Barré como consulta,
 devolveu o próprio chunk em primeiro lugar com similaridade 1,000000. Esta é uma
 verificação funcional; o benchmark distribucional permanece para a Fase 6.
+
+## Atualização de proveniência da auditoria de licenças 001
+
+Em 14/09/2026, a versão
+`sha256:8dfd3d854c8855f71f34d6b5c9bba8e04acb106f43127f2a78659a2ea43d6dc9`
+foi importada e ativada com 66 documentos, 6.989 chunks e 6.989 embeddings. Sete
+documentos tiveram somente o campo de licença e as notas de rastreabilidade
+atualizados; seus textos e `chunk_id`s permaneceram iguais. O construtor incremental
+reutilizou todos os 6.989 vetores e não gerou embeddings novos, em 2,79 segundos.
+
+Uma consulta direta confirmou as sete classificações na versão ativa. Uma busca
+exata por cosseno no pgvector, usando um chunk da Instrução Normativa como consulta,
+devolveu o próprio chunk em primeiro lugar com similaridade 1,000000.

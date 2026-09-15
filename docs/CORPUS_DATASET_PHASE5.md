@@ -66,12 +66,18 @@ por leitura das fontes, nunca pela resposta atual do ImmunoCheck.
 Consequentemente, a Fase 5 está em andamento e nenhum item de aceite foi declarado
 concluído.
 
-Em 14/09/2026, foi preparada a auditoria dos sete documentos legados que ainda
-possuíam licença `to_verify`. O parecer propõe manter todos: dois PDFs declaram CC
-BY-NC-SA 4.0; três páginas declaram CC BY-ND 3.0; um PDF concede reprodução não
-comercial com atribuição; e a Instrução Normativa é tratada como ato oficial nos
-termos do art. 8º, IV, da Lei nº 9.610/1998. A decisão humana está pendente em
-`corpus/reviews/license_audit_001.md` e não alterou o corpus ativo.
+Em 14/09/2026, o autor aprovou conjuntamente a auditoria dos sete documentos legados
+que ainda possuíam licença `to_verify`. Dois PDFs declaram CC BY-NC-SA 4.0; três
+páginas declaram CC BY-ND 3.0; um PDF concede reprodução não comercial com
+atribuição; e a Instrução Normativa é tratada como ato oficial nos termos do art.
+8º, IV, da Lei nº 9.610/1998.
+
+A correção de proveniência gerou a versão
+`sha256:8dfd3d854c8855f71f34d6b5c9bba8e04acb106f43127f2a78659a2ea43d6dc9`,
+com os mesmos 66 documentos, 6.989 chunks e 6.989 embeddings. Os sete documentos
+tiveram apenas metadados atualizados, nenhum texto foi reprocessado e todos os
+vetores foram reutilizados. O parecer e as restrições estão em
+`corpus/reviews/license_audit_001.md`.
 
 ## Execução do lote documental 001
 
