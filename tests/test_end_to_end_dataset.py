@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -307,3 +308,64 @@ def test_reviewed_and_pending_pools_have_distinct_ids_and_no_split_leakage(tmp_p
     )
     summary = summarize_end_to_end_items(load_end_to_end_items(merged))
     assert summary.total == 24 and summary.reviewed == 12
+
+
+@pytest.mark.parametrize("batch_number", range(3, 13))
+def test_all_remaining_batches_are_drafts_with_stratified_proposals(batch_number: int) -> None:
+    root = Path(__file__).parents[1] / "evaluation/end_to_end"
+    items = load_end_to_end_items(root / f"batches/batch_{batch_number:03d}.jsonl")
+    summary = summarize_end_to_end_items(items)
+    expected_count = 12 if batch_number <= 8 else 16
+    expected_split = "development" if batch_number <= 8 else "test"
+    assert summary.total == expected_count
+    assert summary.reviewed == summary.second_reviewed == 0
+    assert summary.splits == {expected_split: expected_count}
+    assert summary.labels == {verdict.value: expected_count // 4 for verdict in Verdict}
+    assert all(entry.primary_label is None and entry.reviewer is None for entry in items)
+    for entry in items:
+        if entry.label is Verdict.INSUFFICIENT_EVIDENCE:
+            assert not entry.evidence_chunk_ids
+            assert entry.origin_type == "synthetic_scenario"
+        else:
+            assert entry.evidence_chunk_ids and entry.origin_reference
+
+
+def test_complete_review_pool_is_not_an_approved_or_frozen_dataset() -> None:
+    root = Path(__file__).parents[1] / "evaluation/end_to_end"
+    path = root / "review_pool.jsonl"
+    items = load_end_to_end_items(path)
+    summary = summarize_end_to_end_items(items)
+    assert summary.total == 160
+    assert summary.reviewed == 12 and summary.second_reviewed == 0
+    assert summary.labels == {verdict.value: 40 for verdict in Verdict}
+    assert summary.splits == {"development": 96, "test": 64}
+    for verdict in Verdict:
+        assert (
+            sum(
+                entry.label is verdict and entry.split is DatasetSplit.DEVELOPMENT
+                for entry in items
+            )
+            == 24
+        )
+    with pytest.raises(EndToEndDatasetError, match="revisão humana"):
+        validate_dataset_ready(items)
+
+
+def test_review_pool_matches_approved_items_and_pending_batch_sources() -> None:
+    root = Path(__file__).parents[1] / "evaluation/end_to_end"
+    expected = list(load_end_to_end_items(root / "items.jsonl", require_reviewed=True))
+    for number in range(2, 13):
+        expected.extend(load_end_to_end_items(root / f"batches/batch_{number:03d}.jsonl"))
+    assert load_end_to_end_items(root / "review_pool.jsonl") == tuple(expected)
+
+
+def test_review_manifest_matches_files_and_does_not_declare_test_frozen() -> None:
+    root = Path(__file__).parents[1] / "evaluation/end_to_end"
+    manifest = json.loads((root / "review_pool_manifest.json").read_text(encoding="utf-8"))
+    assert manifest["test_frozen"] is False
+    assert manifest["total"] == 160 and manifest["pending"] == 148
+    assert manifest["primary_reviewed"] == 12 and manifest["second_reviewed"] == 0
+    assert len(manifest["files"]) == 14
+    for record in manifest["files"]:
+        content = (root / record["path"]).read_bytes().replace(b"\r\n", b"\n")
+        assert hashlib.sha256(content).hexdigest() == record["sha256"]

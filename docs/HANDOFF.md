@@ -1,6 +1,6 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 12/09/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 15/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
 ## Objetivo imutável
@@ -112,6 +112,34 @@ Uma busca exata no pgvector devolveu o próprio chunk consultado com similaridad
 para o dataset de pelo menos 100 alegações, segunda anotação e congelamento do teste.
 
 ## Instruções para a próxima sessão
+
+Última atualização de 15/09/2026: a pedido do autor, todos os lotes experimentais
+restantes foram preparados conjuntamente. Abrir
+`evaluation/end_to_end/REVIEW_INDEX.md`: há 12 lotes, 160 propostas (96 de
+desenvolvimento / 64 de teste previsto). Só o lote 001 está aprovado: 12 itens
+com primeira revisão assistida; os lotes 002–012 somam 148 rascunhos pendentes.
+Não interpretar o pedido de preparação conjunta como aprovação desses lotes.
+Registrar somente as aprovações explícitas, preservar propostas originais e
+sincronizar `items.jsonl`, pool, manifesto e índice após cada revisão.
+
+O material é 100% sintético (120 formulações baseadas em fatos e 40 cenários
+fictícios). O índice registra limites de representatividade, padrões de redação,
+correlação e conhecimento do teste pelo preparador. Verificar validade com o
+orientador antes de congelar; não alegar desempenho em notícias reais. Nenhum
+segundo anotador ou congelamento foi registrado e nenhuma pipeline foi executada
+sobre os candidatos de teste. O corpus e o banco não mudaram.
+
+O manifesto `review_pool_manifest.json` é de revisão, não de teste congelado:
+SHA-256 dos JSONL com CRLF normalizado em LF; atualizar hashes quando necessário.
+A Fase 5 segue aberta para aprovação por lote, segunda revisão independente
+(48 itens se mantidos 160), adjudicação, auditoria e congelamento.
+
+Validação final da preparação conjunta: 210 testes aprovados, Ruff sem apontamentos,
+pool aceito estruturalmente contra os chunks locais e hashes verificados pela suíte.
+Um teste PostgreSQL foi ignorado por ausência de base exclusiva configurada;
+nenhuma alteração de banco ocorreu. Temporários da suíte não versionados:
+`output/pytest-e2e-all-batches-final`. Não reusar esse diretório de teste sem
+considerar que pytest pode limpar seu conteúdo. Os registros abaixo são históricos.
 
 Estado mais recente de 15/09/2026: o autor aprovou conjuntamente o lote
 experimental 001. `evaluation/end_to_end/items.jsonl` contém 12 itens com primeira

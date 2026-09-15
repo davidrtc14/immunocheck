@@ -85,3 +85,13 @@ estável.
 - Dependência de OCR em conteúdo degradado.
 - Possível viés institucional e geográfico das fontes.
 - Resultados de desempenho limitados ao hardware de referência.
+- Propostas de avaliação de 15/09/2026 inteiramente sintéticas e baseadas nas
+  próprias fontes do corpus; proximidade lexical e padrões de formulação podem
+  facilitar a tarefa. Benchmark controlado não demonstra desempenho em notícias
+  espontâneas; revisar essa validade com o orientador antes do congelamento.
+- Correlação entre versões da mesma família e entre fontes compartilhadas. Reportar
+  contagem de famílias e análise de sensibilidade da incerteza por família; 160
+  itens não equivalem necessariamente a 160 observações independentes.
+- O preparador conhece os candidatos de ambos os splits. Nenhuma previsão orientou
+  a construção; futuros ajustes precisam usar somente desenvolvimento, com
+  registro dessa limitação e sem execução exploratória sobre o teste.

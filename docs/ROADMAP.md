@@ -154,6 +154,15 @@ zero com segunda anotação e 12 novos candidatos de desenvolvimento no lote 002
 O rascunho do lote 001 foi preservado. O mínimo de 100 itens revisados e todos
 os critérios humanos e de teste continuam pendentes.
 
+Preparação conjunta de 15/09/2026: os lotes experimentais 003–012 estão disponíveis
+para revisão junto ao lote 002 ainda pendente. O pool contém 160 propostas,
+40 por classe, com split previsto 96/64 e hashes de revisão. Apenas 12 itens têm
+primeira revisão assistida; 148 permanecem rascunhos e zero têm segunda anotação.
+O índice é `evaluation/end_to_end/REVIEW_INDEX.md`. O benchmark é inteiramente
+sintético e exige análise de validade com o orientador antes de ser considerado
+definitivo. Nenhum experimento foi executado sobre os itens de teste previsto,
+e não houve congelamento; a Fase 5 continua aberta.
+
 ## Fase 6 — Avaliação e entrega
 
 - [ ] Experimentos de retrieval.

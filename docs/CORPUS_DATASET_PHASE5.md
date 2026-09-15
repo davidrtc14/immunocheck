@@ -304,3 +304,29 @@ Estado atual: 12 itens com primeira revisão, 12 candidatos pendentes e zero com
 segunda anotação. Faltam 88 itens revisados para o mínimo de 100, além da revisão
 independente e do teste estratificado congelado. Itens de calibração sintéticos
 não serão usados para alegar representatividade de notícias reais.
+
+## Preparação conjunta de todos os lotes experimentais
+
+Em 15/09/2026, a pedido do autor para revisão posterior lote por lote, foram
+preparados os lotes 003–012: 136 novos rascunhos. Junto aos 12 itens aprovados do
+lote 001 e aos 12 pendentes do lote 002, há 160 propostas, 40 por classe, com
+96 itens de desenvolvimento e 64 de teste previsto. O índice de revisão é
+`evaluation/end_to_end/REVIEW_INDEX.md`; o snapshot consolidado e seus hashes estão
+em `review_pool.jsonl` e `review_pool_manifest.json` no mesmo diretório.
+
+O material é inteiramente sintético: 120 formulações baseadas em fatos do corpus
+e 40 cenários indeterminados fictícios. Não é amostra de notícias reais e não
+resolve representatividade por atingir 160 linhas. As famílias nominais (33 em
+desenvolvimento e 16 em teste), correlações, estilo artificial e conhecimento do
+teste pelo preparador precisam de auditoria humana e análise de validade antes
+do congelamento. Nenhuma previsão do ImmunoCheck orientou os rótulos.
+
+Estado humano inalterado: 12 com primeira revisão assistida; 148 pendentes; zero
+com segunda anotação. Todos os pareceres estão disponíveis para aprovação ou
+correções individuais por lote. O pedido de preparação não aprovou o lote 002
+ou qualquer lote novo. Corpus, embeddings e PostgreSQL permaneceram inalterados.
+
+Validação técnica: 210 testes aprovados e Ruff limpo; um teste PostgreSQL não
+executado por ausência de base exclusiva. O validador aceitou os 160 itens
+contra os chunks do snapshot. Os testes verificam hashes e consistência do pool,
+sem certificar rótulos, adequação científica, independência humana ou congelamento.

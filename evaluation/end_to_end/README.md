@@ -25,6 +25,22 @@ O registro está em `reviews/batch_001.md`; o rascunho original foi preservado.
 O lote 002 está em `batches/batch_002.md`, com 12 propostas pendentes. O dataset
 ainda não é definitivo: não há teste congelado nem evidência de desempenho real.
 
+Todos os lotes restantes estão disponíveis em `REVIEW_INDEX.md`: são 12 lotes no
+total, 160 propostas (96 desenvolvimento / 64 teste previsto), das quais 148 ainda
+pendentes. `review_pool.jsonl` consolida esse snapshot de revisão, não um teste
+aprovado. Manter propostas separadas de anotações aceitas em `items.jsonl`.
+Após aprovações futuras, sincronizar o pool e o índice sem apagar os rascunhos.
+
+Validar todas as propostas de uma vez contra o corpus local:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\validate_end_to_end_dataset.py evaluation\end_to_end\review_pool.jsonl
+```
+
+Mesmo com 160 linhas, `--ready` deve recusar o pool por revisão pendente. Os itens
+são sintéticos e correlacionados por famílias; quantidade não certifica validade
+ou representatividade. As limitações e o procedimento estão no índice.
+
 Validação estrutural desse lote contra o corpus local:
 
 ```powershell

@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-09-15",
+  "purpose": "human_review_snapshot",
+  "test_frozen": false,
+  "corpus_version": "sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7",
+  "total": 160,
+  "primary_reviewed": 12,
+  "second_reviewed": 0,
+  "pending": 148,
+  "proposed_splits": {
+    "development": 96,
+    "test": 64
+  },
+  "proposed_labels": {
+    "SUPPORTED": 40,
+    "REFUTED": 40,
+    "MISLEADING": 40,
+    "INSUFFICIENT_EVIDENCE": 40
+  },
+  "hash_normalization": "UTF-8, CRLF normalized to LF, no BOM",
+  "files": [
+    {
+      "path": "items.jsonl",
+      "sha256": "6337137b7b276fabbb9d93798f5a5561b00e22193b90dfa8d9de6fef1f319373"
+    },
+    {
+      "path": "review_pool.jsonl",
+      "sha256": "1e5ce0f78b46a5641a8e43260c357714872166396cfe7c3b6e8519e3490e01b0"
+    },
+    {
+      "path": "batches/batch_001.jsonl",
+      "sha256": "ac10fad0ba36c1a59d11573c63b7acbe9b3310f189cdadf5daddd33a30c49999"
+    },
+    {
+      "path": "batches/batch_002.jsonl",
+      "sha256": "6ebd80aa6abc8d501d0c2e38aaafb65b1cbb9ce45cc0404b69eeb7deb2da7a08"
+    },
+    {
+      "path": "batches/batch_003.jsonl",
+      "sha256": "3218b2b7bc91773f8bdf7955640810dec27fb593e7d80ad2f2bd5c2587de4665"
+    },
+    {
+      "path": "batches/batch_004.jsonl",
+      "sha256": "ed6258959bebe144f5e477c3269ae9763063fc2f7823c757488c14a12d29f10d"
+    },
+    {
+      "path": "batches/batch_005.jsonl",
+      "sha256": "2a1067ef4af6113a8a94a84bcf73db5ce01b42f8f03be28f8f7dc2dd6fcaa968"
+    },
+    {
+      "path": "batches/batch_006.jsonl",
+      "sha256": "ac021129a90a2e69bc635bc3d7b993a80c0102d9bb1fd1e1502090250c5e5723"
+    },
+    {
+      "path": "batches/batch_007.jsonl",
+      "sha256": "d921dd9971a335dd2c1a51514abe35c98205cc3f58e6fca385f726029a314e87"
+    },
+    {
+      "path": "batches/batch_008.jsonl",
+      "sha256": "fa3cbc9936aa2eb1a885acd589e31aacbaf65a8f08a5835d4793da10b4d92c75"
+    },
+    {
+      "path": "batches/batch_009.jsonl",
+      "sha256": "1aa8aa3c8d47fd23c447a938b648737ef5706c708845245ff3783dc9c709c738"
+    },
+    {
+      "path": "batches/batch_010.jsonl",
+      "sha256": "592dffdf42f303ad412767bc14001550eb6cc65195f5c5b92e64642fa207ce25"
+    },
+    {
+      "path": "batches/batch_011.jsonl",
+      "sha256": "f91883b4def85ba9e511caca6217d687124198fce95f3093a01c0f7d43f4265d"
+    },
+    {
+      "path": "batches/batch_012.jsonl",
+      "sha256": "8839c711cfdb1491417467ba0b0d6d187d6b841deb1dfd3e2d46ee226f6048b6"
+    }
+  ]
+}
