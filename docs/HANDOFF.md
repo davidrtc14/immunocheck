@@ -113,6 +113,14 @@ para o dataset de pelo menos 100 alegações, segunda anotação e congelamento 
 
 ## Instruções para a próxima sessão
 
+**Publicação pendente:** o commit local `73e7915` contém retornos humanos,
+relatórios e adjudicação ainda não publicada. O push para o repositório público
+foi bloqueado pela revisão automática por ausência de autorização específica
+para esse conteúdo. Não tentar novamente, contornar o bloqueio ou interpretar
+aprovação metodológica como consentimento para publicação. Solicitar autorização
+explícita e verificar a permissão da revisora para compartilhar seus pareceres,
+mesmo com identificador interno. O remoto permanece em `fede76d`.
+
 Estado atual após retorno revisado do segundo humano: 48 respostas recebidas,
 duas rodadas da mesma revisora, preservadas sem dados pessoais em
 `evaluation/end_to_end/independent_review/returns/`. A independência e consulta
