@@ -10,8 +10,8 @@
 | ADR-006 | Execução e demonstração locais | Aceita | Evita dependência de hospedagem gratuita sem garantia. |
 | ADR-007 | Qwen3-8B local como única LLM principal | Aceita | Reprodutibilidade, gratuidade e nenhuma transferência de conteúdo para terceiros. |
 | ADR-008 | Gemini excluído da produção | Aceita | O tier gratuito tem implicações de uso de dados e criaria diferença entre avaliação e entrega. |
-| ADR-009 | BGE-M3 + BM25 + RRF | Aceita | O piloto obteve o mesmo Recall@10 do dense e melhor MRR/nDCG@10; promovido ao fluxo real em 01/09/2026. |
-| ADR-010 | Reranker condicionado ao experimento | Aceita | Só entra no caminho final se melhorar relevância o suficiente para justificar latência. |
+| ADR-009 | BGE-M3 + BM25 + RRF | Substituída pela ADR-020 | A conclusão do piloto de 12 consultas não se sustentou nas 72 consultas de desenvolvimento. |
+| ADR-010 | Reranker condicionado ao experimento | Cumprida pela ADR-021 | O experimento formal mostrou ganho de relevância e custo local mensurável. |
 | ADR-011 | PostgreSQL + pgvector | Aceita | Solução gratuita e madura para metadados, texto, vetores e rastreabilidade. |
 | ADR-012 | Sem pesos editoriais manuais na primeira versão | Aceita | Evita viés e hiperparâmetros frágeis em conjunto pequeno. |
 | ADR-013 | Produção sem persistência de interações | Aceita | Minimização por desenho e menor risco sob LGPD. |
@@ -21,6 +21,8 @@
 | ADR-017 | Fontes parciais em abstenções | Aceita | Fontes consultadas podem ser exibidas como não conclusivas, sem fingir que sustentam um veredito. |
 | ADR-018 | Avaliação por famílias e teste selado | Aceita | Validação cruzada usa somente desenvolvimento e mantém famílias inteiras em um fold; o teste congelado só participa da execução definitiva. |
 | ADR-019 | Baseline lexical obrigatório | Aceita | TF-IDF com regressão logística mede atalhos de redação no benchmark sintético e contextualiza o ganho real da pipeline RAG. |
+| ADR-020 | BGE-M3 sem reranker; híbrido como entrada do reranker | Aceita | No desenvolvimento, o denso teve nDCG@10 0,461 contra 0,365 do híbrido; a diferença pareada ainda inclui empate, portanto o híbrido não demonstrou vantagem sem reranking. |
+| ADR-021 | Híbrido + reranker como candidato fim a fim, não padrão | Aceita | O reranker chegou a nDCG@10 0,615 com ganho pareado positivo, mas acrescentou mediana de 10,0 s em CPU; a latência total ainda precisa ser validada. |
 
 ## Histórico de alterações
 
@@ -36,6 +38,14 @@
   desenvolvimento. Um baseline lexical gratuito e local é obrigatório para revelar
   possível desempenho por moldes sintéticos. Métricas do teste não podem orientar
   alterações posteriores de prompt, modelo, retrieval, reranker ou limiares.
+- **16/09/2026 — ADR-020/021:** o Experimento B substituiu a decisão provisória
+  baseada no piloto. Em 72 consultas de desenvolvimento, o BGE-M3 isolado teve
+  nDCG@10 0,461 e o híbrido RRF 0,365; o IC 95% do delta híbrido menos denso foi
+  de -0,222 a +0,032. O reranking do conjunto híbrido alcançou nDCG@10 0,615,
+  com delta de +0,153 sobre o denso (IC 95% +0,059 a +0,258), mas mediana de
+  10,0 s somente para reranking em CPU. Por isso, o denso passa a ser a opção
+  sem reranker e híbrido + reranker avança apenas como condição comparativa da
+  avaliação fim a fim. Nenhum item do teste foi executado nessa alteração.
 
 ## Política de alteração
 

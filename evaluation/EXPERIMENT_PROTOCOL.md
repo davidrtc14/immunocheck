@@ -78,3 +78,28 @@ uma nova versão e invalida a comparação confirmatória original.
 - Identidade, competência e independência não certificadas por software.
 - Possíveis atalhos lexicais e validade externa limitada para notícias reais.
 - O mesmo projeto participou da construção dos itens e da pipeline.
+
+## Emenda após os Experimentos A e B, antes do Experimento C
+
+Data: 16/09/2026. Esta emenda usa somente resultados de desenvolvimento e foi
+registrada antes da primeira execução fim a fim da Fase 6. O teste continua
+selado e não participou da decisão.
+
+- O baseline lexical obteve macro-F1 0,610 (IC 95% 0,509–0,700). O resultado e
+  termos como `entao`, `municipio` e `campanha` indicam risco material de atalhos
+  de redação; conclusões sobre generalização para notícias reais serão limitadas.
+- O híbrido melhorou BM25, mas não demonstrou vantagem sobre BGE-M3 isolado. O
+  caminho sem reranker do Experimento C passa a usar BGE-M3.
+- O híbrido + reranker foi aceito como condição comparativa: o IC 95% do ganho
+  de nDCG@10 foi positivo contra híbrido e denso, e Recall@5 aumentou. Ele não
+  foi promovido ao padrão porque acrescentou cerca de 10 s por consulta em CPU.
+
+As quatro condições fim a fim ficam, portanto:
+
+1. BM25 + geração, sem auditor — ablação offline.
+2. BGE-M3 + geração, sem auditor — ablação offline.
+3. BGE-M3 + geração + auditor — candidata simples.
+4. Híbrido + reranker + auditor — candidata de maior qualidade de retrieval.
+
+Esta alteração é adaptação transparente com dados de desenvolvimento, não uma
+hipótese confirmatória nova. As condições e decisões ficam fixas antes do teste.

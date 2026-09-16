@@ -1,0 +1,1631 @@
+{
+  "schema_version": 1,
+  "purpose": "detect_lexical_shortcuts_not_validate_immunocheck",
+  "partition": "development",
+  "test_items_loaded_into_model": false,
+  "seed": 20260916,
+  "folds": 5,
+  "bootstrap_unit": "claim_family",
+  "bootstrap_resamples": 2000,
+  "dataset_identity_sha256": "f8808bf942df6e40c7fcc65812742397b1073b77892e1f1c2f82f3f8bd2f54ea",
+  "item_count": 96,
+  "family_count": 33,
+  "label_order": [
+    "SUPPORTED",
+    "REFUTED",
+    "MISLEADING",
+    "INSUFFICIENT_EVIDENCE"
+  ],
+  "model": {
+    "features": "word_tfidf_unigrams_bigrams",
+    "classifier": "logistic_regression_balanced",
+    "strip_accents": "unicode",
+    "sublinear_tf": true
+  },
+  "metrics": {
+    "accuracy": 0.6145833333333334,
+    "balanced_accuracy": 0.6268715970961887,
+    "macro_f1": 0.6100603119703344,
+    "weighted_f1": 0.6051203514900182,
+    "per_class": {
+      "SUPPORTED": {
+        "precision": 0.5714285714285714,
+        "recall": 0.5,
+        "f1": 0.5333333333333333,
+        "support": 24
+      },
+      "REFUTED": {
+        "precision": 0.5909090909090909,
+        "recall": 0.4482758620689655,
+        "f1": 0.5098039215686274,
+        "support": 29
+      },
+      "MISLEADING": {
+        "precision": 0.5416666666666666,
+        "recall": 0.6842105263157895,
+        "f1": 0.6046511627906976,
+        "support": 19
+      },
+      "INSUFFICIENT_EVIDENCE": {
+        "precision": 0.7241379310344828,
+        "recall": 0.875,
+        "f1": 0.7924528301886793,
+        "support": 24
+      }
+    },
+    "confusion_matrix_reference_rows": [
+      [
+        12,
+        7,
+        4,
+        1
+      ],
+      [
+        7,
+        13,
+        6,
+        3
+      ],
+      [
+        2,
+        0,
+        13,
+        4
+      ],
+      [
+        0,
+        2,
+        1,
+        21
+      ]
+    ]
+  },
+  "bootstrap_95_percentile_interval": {
+    "accuracy": {
+      "lower": 0.5138621794871795,
+      "median": 0.6134219554030875,
+      "upper": 0.7058983375959079
+    },
+    "balanced_accuracy": {
+      "lower": 0.5336943581780539,
+      "median": 0.6271862648221344,
+      "upper": 0.7174920620216134
+    },
+    "macro_f1": {
+      "lower": 0.5090321539111995,
+      "median": 0.6071089890131434,
+      "upper": 0.7004781649118056
+    }
+  },
+  "fold_records": [
+    {
+      "fold": 1,
+      "training_items": 78,
+      "validation_items": 18,
+      "training_families": [
+        "allergy_excipients",
+        "aluminum_autism_review",
+        "aluminum_local_reactions",
+        "antigen_specificity",
+        "butantan_dengue_product",
+        "eapv_temporality",
+        "gbs_vaccine_platforms",
+        "herd_protection",
+        "hpv_type_coverage",
+        "maternal_influenza_trials",
+        "maternal_pertussis_evidence",
+        "maternal_rsv_transfer",
+        "measles_dose_zero",
+        "mechanisms_doses",
+        "microplanning_local_context",
+        "mrna_myocarditis_risk",
+        "neonatal_maternity_policy",
+        "operation_gota_remote_access",
+        "polio_vip_transition",
+        "postmarketing_surveillance",
+        "school_vaccination_consent",
+        "tak003_single_dose_uncertainty",
+        "unidentified_batch",
+        "unidentified_bcg_outbreak",
+        "unidentified_hpv_campaign",
+        "vaccination_coverage_relative_increment",
+        "vaccine_platforms",
+        "vpc20_registry_special_strategy"
+      ],
+      "validation_families": [
+        "bcg_effectiveness_context",
+        "cell_lines_manufacturing",
+        "storage_temperature",
+        "tak003_serostatus",
+        "thiomersal_preservation"
+      ],
+      "metrics": {
+        "accuracy": 0.6111111111111112,
+        "balanced_accuracy": 0.625,
+        "macro_f1": 0.6253968253968254,
+        "weighted_f1": 0.6139329805996473,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.5,
+            "recall": 0.4,
+            "f1": 0.4444444444444444,
+            "support": 5
+          },
+          "REFUTED": {
+            "precision": 0.6,
+            "recall": 0.6,
+            "f1": 0.6,
+            "support": 5
+          },
+          "MISLEADING": {
+            "precision": 0.5,
+            "recall": 0.75,
+            "f1": 0.6,
+            "support": 4
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571428571428571,
+            "support": 4
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            2,
+            2,
+            1,
+            0
+          ],
+          [
+            1,
+            3,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            3,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 2,
+      "training_items": 78,
+      "validation_items": 18,
+      "training_families": [
+        "aluminum_local_reactions",
+        "antigen_specificity",
+        "bcg_effectiveness_context",
+        "butantan_dengue_product",
+        "cell_lines_manufacturing",
+        "eapv_temporality",
+        "gbs_vaccine_platforms",
+        "herd_protection",
+        "hpv_type_coverage",
+        "maternal_pertussis_evidence",
+        "maternal_rsv_transfer",
+        "measles_dose_zero",
+        "mechanisms_doses",
+        "microplanning_local_context",
+        "neonatal_maternity_policy",
+        "operation_gota_remote_access",
+        "polio_vip_transition",
+        "postmarketing_surveillance",
+        "storage_temperature",
+        "tak003_serostatus",
+        "tak003_single_dose_uncertainty",
+        "thiomersal_preservation",
+        "unidentified_bcg_outbreak",
+        "unidentified_hpv_campaign",
+        "vaccination_coverage_relative_increment",
+        "vaccine_platforms",
+        "vpc20_registry_special_strategy"
+      ],
+      "validation_families": [
+        "allergy_excipients",
+        "aluminum_autism_review",
+        "maternal_influenza_trials",
+        "mrna_myocarditis_risk",
+        "school_vaccination_consent",
+        "unidentified_batch"
+      ],
+      "metrics": {
+        "accuracy": 0.7222222222222222,
+        "balanced_accuracy": 0.7833333333333333,
+        "macro_f1": 0.7294372294372294,
+        "weighted_f1": 0.6995350328683663,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.5714285714285714,
+            "recall": 1.0,
+            "f1": 0.7272727272727273,
+            "support": 4
+          },
+          "REFUTED": {
+            "precision": 0.6666666666666666,
+            "recall": 0.3333333333333333,
+            "f1": 0.4444444444444444,
+            "support": 6
+          },
+          "MISLEADING": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "support": 3
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.8888888888888888,
+            "support": 5
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            4,
+            0,
+            0,
+            0
+          ],
+          [
+            3,
+            2,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            3,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 3,
+      "training_items": 78,
+      "validation_items": 18,
+      "training_families": [
+        "allergy_excipients",
+        "aluminum_autism_review",
+        "aluminum_local_reactions",
+        "bcg_effectiveness_context",
+        "butantan_dengue_product",
+        "cell_lines_manufacturing",
+        "gbs_vaccine_platforms",
+        "herd_protection",
+        "hpv_type_coverage",
+        "maternal_influenza_trials",
+        "maternal_rsv_transfer",
+        "measles_dose_zero",
+        "microplanning_local_context",
+        "mrna_myocarditis_risk",
+        "neonatal_maternity_policy",
+        "polio_vip_transition",
+        "school_vaccination_consent",
+        "storage_temperature",
+        "tak003_serostatus",
+        "thiomersal_preservation",
+        "unidentified_batch",
+        "unidentified_bcg_outbreak",
+        "unidentified_hpv_campaign",
+        "vaccination_coverage_relative_increment",
+        "vpc20_registry_special_strategy"
+      ],
+      "validation_families": [
+        "antigen_specificity",
+        "eapv_temporality",
+        "maternal_pertussis_evidence",
+        "mechanisms_doses",
+        "operation_gota_remote_access",
+        "postmarketing_surveillance",
+        "tak003_single_dose_uncertainty",
+        "vaccine_platforms"
+      ],
+      "metrics": {
+        "accuracy": 0.5,
+        "balanced_accuracy": 0.5583333333333333,
+        "macro_f1": 0.48042929292929293,
+        "weighted_f1": 0.45173961840628507,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.5,
+            "recall": 0.4,
+            "f1": 0.4444444444444444,
+            "support": 5
+          },
+          "REFUTED": {
+            "precision": 0.5,
+            "recall": 0.16666666666666666,
+            "f1": 0.25,
+            "support": 6
+          },
+          "MISLEADING": {
+            "precision": 0.4,
+            "recall": 0.6666666666666666,
+            "f1": 0.5,
+            "support": 3
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.5714285714285714,
+            "recall": 1.0,
+            "f1": 0.7272727272727273,
+            "support": 4
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            2,
+            1,
+            2,
+            0
+          ],
+          [
+            2,
+            1,
+            1,
+            2
+          ],
+          [
+            0,
+            0,
+            2,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 4,
+      "training_items": 75,
+      "validation_items": 21,
+      "training_families": [
+        "allergy_excipients",
+        "aluminum_autism_review",
+        "antigen_specificity",
+        "bcg_effectiveness_context",
+        "butantan_dengue_product",
+        "cell_lines_manufacturing",
+        "eapv_temporality",
+        "gbs_vaccine_platforms",
+        "hpv_type_coverage",
+        "maternal_influenza_trials",
+        "maternal_pertussis_evidence",
+        "maternal_rsv_transfer",
+        "measles_dose_zero",
+        "mechanisms_doses",
+        "mrna_myocarditis_risk",
+        "operation_gota_remote_access",
+        "polio_vip_transition",
+        "postmarketing_surveillance",
+        "school_vaccination_consent",
+        "storage_temperature",
+        "tak003_serostatus",
+        "tak003_single_dose_uncertainty",
+        "thiomersal_preservation",
+        "unidentified_batch",
+        "unidentified_hpv_campaign",
+        "vaccine_platforms"
+      ],
+      "validation_families": [
+        "aluminum_local_reactions",
+        "herd_protection",
+        "microplanning_local_context",
+        "neonatal_maternity_policy",
+        "unidentified_bcg_outbreak",
+        "vaccination_coverage_relative_increment",
+        "vpc20_registry_special_strategy"
+      ],
+      "metrics": {
+        "accuracy": 0.6190476190476191,
+        "balanced_accuracy": 0.6,
+        "macro_f1": 0.5950854700854701,
+        "weighted_f1": 0.6139601139601141,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.6666666666666666,
+            "recall": 0.4,
+            "f1": 0.5,
+            "support": 5
+          },
+          "REFUTED": {
+            "precision": 0.6666666666666666,
+            "recall": 0.6666666666666666,
+            "f1": 0.6666666666666666,
+            "support": 6
+          },
+          "MISLEADING": {
+            "precision": 0.4,
+            "recall": 0.5,
+            "f1": 0.4444444444444444,
+            "support": 4
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.7142857142857143,
+            "recall": 0.8333333333333334,
+            "f1": 0.7692307692307693,
+            "support": 6
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            2,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            4,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            2,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            5
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 5,
+      "training_items": 75,
+      "validation_items": 21,
+      "training_families": [
+        "allergy_excipients",
+        "aluminum_autism_review",
+        "aluminum_local_reactions",
+        "antigen_specificity",
+        "bcg_effectiveness_context",
+        "cell_lines_manufacturing",
+        "eapv_temporality",
+        "herd_protection",
+        "maternal_influenza_trials",
+        "maternal_pertussis_evidence",
+        "mechanisms_doses",
+        "microplanning_local_context",
+        "mrna_myocarditis_risk",
+        "neonatal_maternity_policy",
+        "operation_gota_remote_access",
+        "postmarketing_surveillance",
+        "school_vaccination_consent",
+        "storage_temperature",
+        "tak003_serostatus",
+        "tak003_single_dose_uncertainty",
+        "thiomersal_preservation",
+        "unidentified_batch",
+        "unidentified_bcg_outbreak",
+        "vaccination_coverage_relative_increment",
+        "vaccine_platforms",
+        "vpc20_registry_special_strategy"
+      ],
+      "validation_families": [
+        "butantan_dengue_product",
+        "gbs_vaccine_platforms",
+        "hpv_type_coverage",
+        "maternal_rsv_transfer",
+        "measles_dose_zero",
+        "polio_vip_transition",
+        "unidentified_hpv_campaign"
+      ],
+      "metrics": {
+        "accuracy": 0.6190476190476191,
+        "balanced_accuracy": 0.625,
+        "macro_f1": 0.6089743589743589,
+        "weighted_f1": 0.6037851037851037,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.6666666666666666,
+            "recall": 0.4,
+            "f1": 0.5,
+            "support": 5
+          },
+          "REFUTED": {
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1": 0.5,
+            "support": 6
+          },
+          "MISLEADING": {
+            "precision": 0.75,
+            "recall": 0.6,
+            "f1": 0.6666666666666666,
+            "support": 5
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.625,
+            "recall": 1.0,
+            "f1": 0.7692307692307693,
+            "support": 5
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            2,
+            3,
+            0,
+            0
+          ],
+          [
+            1,
+            3,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            3,
+            2
+          ],
+          [
+            0,
+            0,
+            0,
+            5
+          ]
+        ]
+      }
+    }
+  ],
+  "top_weighted_terms_diagnostic_only": {
+    "INSUFFICIENT_EVIDENCE": [
+      {
+        "term": "na",
+        "coefficient": 0.4844087089481574
+      },
+      {
+        "term": "deste",
+        "coefficient": 0.4574165467141904
+      },
+      {
+        "term": "as",
+        "coefficient": 0.41810686810888903
+      },
+      {
+        "term": "unidade",
+        "coefficient": 0.4105530819701013
+      },
+      {
+        "term": "da",
+        "coefficient": 0.4051236369440489
+      },
+      {
+        "term": "foi",
+        "coefficient": 0.3890692873898524
+      },
+      {
+        "term": "municipio",
+        "coefficient": 0.3890057589056326
+      },
+      {
+        "term": "campanha",
+        "coefficient": 0.3804607324901597
+      },
+      {
+        "term": "neste",
+        "coefficient": 0.33283359557464903
+      },
+      {
+        "term": "mes",
+        "coefficient": 0.3214209866703151
+      },
+      {
+        "term": "da vacina",
+        "coefficient": 0.308558918942187
+      },
+      {
+        "term": "na campanha",
+        "coefficient": 0.302121238876003
+      },
+      {
+        "term": "ano",
+        "coefficient": 0.3001695604292936
+      },
+      {
+        "term": "aplicada",
+        "coefficient": 0.29389384821689274
+      },
+      {
+        "term": "no",
+        "coefficient": 0.27624412742423754
+      }
+    ],
+    "MISLEADING": [
+      {
+        "term": "entao",
+        "coefficient": 0.9214827495046759
+      },
+      {
+        "term": "qualquer",
+        "coefficient": 0.5050575556984295
+      },
+      {
+        "term": "portanto",
+        "coefficient": 0.3914761726690898
+      },
+      {
+        "term": "qualquer vacina",
+        "coefficient": 0.3649960809514496
+      },
+      {
+        "term": "dose",
+        "coefficient": 0.31295243142465895
+      },
+      {
+        "term": "uma",
+        "coefficient": 0.3119324655057313
+      },
+      {
+        "term": "bebe",
+        "coefficient": 0.303753061451401
+      },
+      {
+        "term": "das",
+        "coefficient": 0.27521058138086224
+      },
+      {
+        "term": "maioria das",
+        "coefficient": 0.2657051308470779
+      },
+      {
+        "term": "maioria",
+        "coefficient": 0.2657051308470779
+      },
+      {
+        "term": "ao",
+        "coefficient": 0.2607752244200385
+      },
+      {
+        "term": "necessariamente",
+        "coefficient": 0.25420864243289265
+      },
+      {
+        "term": "revisao encontrou",
+        "coefficient": 0.24691257740423186
+      },
+      {
+        "term": "para",
+        "coefficient": 0.2462962237253175
+      },
+      {
+        "term": "sua",
+        "coefficient": 0.24610822452652611
+      }
+    ],
+    "REFUTED": [
+      {
+        "term": "sem",
+        "coefficient": 0.30393057557774045
+      },
+      {
+        "term": "revisao",
+        "coefficient": 0.27255146330894875
+      },
+      {
+        "term": "mesmo",
+        "coefficient": 0.2620598269137438
+      },
+      {
+        "term": "agente",
+        "coefficient": 0.2491578026169191
+      },
+      {
+        "term": "agente infeccioso",
+        "coefficient": 0.2491578026169191
+      },
+      {
+        "term": "infeccioso",
+        "coefficient": 0.2491578026169191
+      },
+      {
+        "term": "protecao",
+        "coefficient": 0.2437625853412179
+      },
+      {
+        "term": "revisao de",
+        "coefficient": 0.21041373397538665
+      },
+      {
+        "term": "contra os",
+        "coefficient": 0.20184221105480027
+      },
+      {
+        "term": "protege",
+        "coefficient": 0.20184221105480027
+      },
+      {
+        "term": "18",
+        "coefficient": 0.20184221105480027
+      },
+      {
+        "term": "tipos 16",
+        "coefficient": 0.20184221105480027
+      },
+      {
+        "term": "16 18",
+        "coefficient": 0.20184221105480027
+      },
+      {
+        "term": "16",
+        "coefficient": 0.20184221105480027
+      },
+      {
+        "term": "documento",
+        "coefficient": 0.20167493214579146
+      }
+    ],
+    "SUPPORTED": [
+      {
+        "term": "algumas vacinas",
+        "coefficient": 0.36845288103044105
+      },
+      {
+        "term": "algumas",
+        "coefficient": 0.36845288103044105
+      },
+      {
+        "term": "em",
+        "coefficient": 0.3418133740610166
+      },
+      {
+        "term": "de",
+        "coefficient": 0.2586636897452087
+      },
+      {
+        "term": "sao",
+        "coefficient": 0.2212769643037554
+      },
+      {
+        "term": "vacinas",
+        "coefficient": 0.2034841239703448
+      },
+      {
+        "term": "com",
+        "coefficient": 0.20036678159551383
+      },
+      {
+        "term": "de algumas",
+        "coefficient": 0.19749787565145696
+      },
+      {
+        "term": "casos",
+        "coefficient": 0.19341895060123393
+      },
+      {
+        "term": "risco de",
+        "coefficient": 0.19330517144313086
+      },
+      {
+        "term": "reacoes",
+        "coefficient": 0.19265282263125896
+      },
+      {
+        "term": "na revisao",
+        "coefficient": 0.19204553766579596
+      },
+      {
+        "term": "nas",
+        "coefficient": 0.17386438665344778
+      },
+      {
+        "term": "revisao de",
+        "coefficient": 0.17089258194564605
+      },
+      {
+        "term": "cobre",
+        "coefficient": 0.16937896375728834
+      }
+    ]
+  },
+  "predictions": [
+    {
+      "item_id": "e2e-0001",
+      "claim_family": "mechanisms_doses",
+      "fold": 3,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0002",
+      "claim_family": "postmarketing_surveillance",
+      "fold": 3,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0003",
+      "claim_family": "storage_temperature",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0004",
+      "claim_family": "vaccine_platforms",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0005",
+      "claim_family": "eapv_temporality",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0006",
+      "claim_family": "antigen_specificity",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0007",
+      "claim_family": "storage_temperature",
+      "fold": 1,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0008",
+      "claim_family": "herd_protection",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0009",
+      "claim_family": "measles_dose_zero",
+      "fold": 5,
+      "reference_label": "MISLEADING",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0010",
+      "claim_family": "unidentified_batch",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0011",
+      "claim_family": "storage_temperature",
+      "fold": 1,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0012",
+      "claim_family": "eapv_temporality",
+      "fold": 3,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0013",
+      "claim_family": "hpv_type_coverage",
+      "fold": 5,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0014",
+      "claim_family": "aluminum_local_reactions",
+      "fold": 4,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0015",
+      "claim_family": "bcg_effectiveness_context",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0016",
+      "claim_family": "aluminum_autism_review",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0017",
+      "claim_family": "hpv_type_coverage",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0018",
+      "claim_family": "bcg_effectiveness_context",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0019",
+      "claim_family": "hpv_type_coverage",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0020",
+      "claim_family": "aluminum_local_reactions",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0021",
+      "claim_family": "bcg_effectiveness_context",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0022",
+      "claim_family": "unidentified_hpv_campaign",
+      "fold": 5,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0023",
+      "claim_family": "aluminum_local_reactions",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0024",
+      "claim_family": "unidentified_bcg_outbreak",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0025",
+      "claim_family": "thiomersal_preservation",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0026",
+      "claim_family": "allergy_excipients",
+      "fold": 2,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0027",
+      "claim_family": "cell_lines_manufacturing",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0028",
+      "claim_family": "thiomersal_preservation",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0029",
+      "claim_family": "allergy_excipients",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0030",
+      "claim_family": "cell_lines_manufacturing",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0031",
+      "claim_family": "thiomersal_preservation",
+      "fold": 1,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0032",
+      "claim_family": "allergy_excipients",
+      "fold": 2,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0033",
+      "claim_family": "cell_lines_manufacturing",
+      "fold": 1,
+      "reference_label": "MISLEADING",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0034",
+      "claim_family": "thiomersal_preservation",
+      "fold": 1,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0035",
+      "claim_family": "allergy_excipients",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0036",
+      "claim_family": "cell_lines_manufacturing",
+      "fold": 1,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0037",
+      "claim_family": "maternal_influenza_trials",
+      "fold": 2,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0038",
+      "claim_family": "maternal_pertussis_evidence",
+      "fold": 3,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0039",
+      "claim_family": "maternal_rsv_transfer",
+      "fold": 5,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0040",
+      "claim_family": "maternal_influenza_trials",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0041",
+      "claim_family": "maternal_pertussis_evidence",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0042",
+      "claim_family": "maternal_rsv_transfer",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0043",
+      "claim_family": "maternal_influenza_trials",
+      "fold": 2,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0044",
+      "claim_family": "maternal_pertussis_evidence",
+      "fold": 3,
+      "reference_label": "MISLEADING",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0045",
+      "claim_family": "maternal_rsv_transfer",
+      "fold": 5,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0046",
+      "claim_family": "maternal_influenza_trials",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0047",
+      "claim_family": "maternal_pertussis_evidence",
+      "fold": 3,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0048",
+      "claim_family": "maternal_rsv_transfer",
+      "fold": 5,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0049",
+      "claim_family": "mrna_myocarditis_risk",
+      "fold": 2,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0050",
+      "claim_family": "gbs_vaccine_platforms",
+      "fold": 5,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0052",
+      "claim_family": "mrna_myocarditis_risk",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0053",
+      "claim_family": "gbs_vaccine_platforms",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0055",
+      "claim_family": "mrna_myocarditis_risk",
+      "fold": 2,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0056",
+      "claim_family": "gbs_vaccine_platforms",
+      "fold": 5,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0058",
+      "claim_family": "mrna_myocarditis_risk",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0059",
+      "claim_family": "gbs_vaccine_platforms",
+      "fold": 5,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0061",
+      "claim_family": "tak003_serostatus",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0062",
+      "claim_family": "tak003_single_dose_uncertainty",
+      "fold": 3,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0063",
+      "claim_family": "butantan_dengue_product",
+      "fold": 5,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0064",
+      "claim_family": "tak003_serostatus",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0065",
+      "claim_family": "tak003_single_dose_uncertainty",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0066",
+      "claim_family": "butantan_dengue_product",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0067",
+      "claim_family": "tak003_serostatus",
+      "fold": 1,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0068",
+      "claim_family": "tak003_single_dose_uncertainty",
+      "fold": 3,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0069",
+      "claim_family": "butantan_dengue_product",
+      "fold": 5,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0070",
+      "claim_family": "tak003_serostatus",
+      "fold": 1,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0071",
+      "claim_family": "tak003_single_dose_uncertainty",
+      "fold": 3,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0072",
+      "claim_family": "butantan_dengue_product",
+      "fold": 5,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0073",
+      "claim_family": "polio_vip_transition",
+      "fold": 5,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0074",
+      "claim_family": "neonatal_maternity_policy",
+      "fold": 4,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0075",
+      "claim_family": "vpc20_registry_special_strategy",
+      "fold": 4,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0076",
+      "claim_family": "polio_vip_transition",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0077",
+      "claim_family": "neonatal_maternity_policy",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0078",
+      "claim_family": "vpc20_registry_special_strategy",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0079",
+      "claim_family": "polio_vip_transition",
+      "fold": 5,
+      "reference_label": "MISLEADING",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0080",
+      "claim_family": "neonatal_maternity_policy",
+      "fold": 4,
+      "reference_label": "MISLEADING",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0081",
+      "claim_family": "vpc20_registry_special_strategy",
+      "fold": 4,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0082",
+      "claim_family": "polio_vip_transition",
+      "fold": 5,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0083",
+      "claim_family": "neonatal_maternity_policy",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0084",
+      "claim_family": "vpc20_registry_special_strategy",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0085",
+      "claim_family": "microplanning_local_context",
+      "fold": 4,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0086",
+      "claim_family": "school_vaccination_consent",
+      "fold": 2,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0087",
+      "claim_family": "operation_gota_remote_access",
+      "fold": 3,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0088",
+      "claim_family": "microplanning_local_context",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0089",
+      "claim_family": "school_vaccination_consent",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0090",
+      "claim_family": "operation_gota_remote_access",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0091",
+      "claim_family": "microplanning_local_context",
+      "fold": 4,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0092",
+      "claim_family": "school_vaccination_consent",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0093",
+      "claim_family": "operation_gota_remote_access",
+      "fold": 3,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0094",
+      "claim_family": "microplanning_local_context",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0095",
+      "claim_family": "school_vaccination_consent",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0096",
+      "claim_family": "operation_gota_remote_access",
+      "fold": 3,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0148",
+      "claim_family": "vaccination_coverage_relative_increment",
+      "fold": 4,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0152",
+      "claim_family": "vaccination_coverage_relative_increment",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "e2e-0156",
+      "claim_family": "vaccination_coverage_relative_increment",
+      "fold": 4,
+      "reference_label": "MISLEADING",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "e2e-0160",
+      "claim_family": "vaccination_coverage_relative_increment",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    }
+  ],
+  "executed_at": "2026-09-16T19:18:16.671054+00:00",
+  "protocol": "evaluation/EXPERIMENT_PROTOCOL.md",
+  "freeze_id": "sha256:a352d9f93032b87652b38ffea2b855cef393bd822f04142dbfbd5830ad609666",
+  "frozen_dataset_sha256": "5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.2",
+    "scikit_learn": "1.9.0"
+  }
+}

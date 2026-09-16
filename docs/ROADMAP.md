@@ -224,7 +224,7 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 
 ## Fase 6 — Avaliação e entrega
 
-- [ ] Experimentos de retrieval.
+- [x] Experimentos de retrieval.
 - [ ] Experimentos fim a fim.
 - [ ] Métricas de qualidade, segurança e desempenho.
 - [ ] Bootstrap e análise qualitativa de erros.
@@ -233,3 +233,13 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 
 **Aceite:** resultados reproduzíveis, limitações explícitas e versão estável em
 `main` pronta para apresentação.
+
+**Estado em 16/09/2026:** o protocolo foi registrado antes das execuções e o
+teste de 64 itens permanece selado. O baseline lexical e o retrieval foram
+avaliados somente nos 96 itens de desenvolvimento, com bootstrap de 2.000
+reamostragens por família. O baseline lexical atingiu macro-F1 0,610, revelando
+risco de atalhos sintéticos. Em 72 consultas conclusivas, BGE-M3 superou o
+híbrido no ponto estimado; o híbrido + reranker obteve o melhor nDCG@10 (0,615),
+mas acrescentou mediana de 10,0 s em CPU. Resultados, intervalos e comandos estão
+em `evaluation/results/development/README.md`. O próximo marco é executar as
+quatro condições fim a fim no desenvolvimento, sem consultar o teste.
