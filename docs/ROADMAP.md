@@ -104,6 +104,14 @@ O roteiro da devolutiva única está em
 Os 22 pareceres e a auditoria semântica humana continuam pendentes; a Fase 6
 não foi iniciada por essa automação.
 
+Retorno parcial em 16/09/2026: uma cópia contém 18 decisões fechadas e quatro
+pendentes. A conferência automática manteve uma quinta decisão fora do candidato
+por ausência de chunk declarado como efetivamente conferido, apesar de haver IDs
+candidatos no texto. As páginas locais solicitadas foram encontradas e devolvidas
+para conclusão pelo mesmo responsável; um trecho que a própria decisão condicionou
+à possível troca de rótulo também foi sinalizado. Os pareceres recebidos não foram
+publicados nem incorporados ao dataset. Teste não congelado; Fase 5 ainda aberta.
+
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
 ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi
 publicada e validada no PostgreSQL. O parecer completo está em

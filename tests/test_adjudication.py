@@ -140,7 +140,7 @@ def test_markdown_imports_multiline_sources_and_brazilian_date(tmp_path, primary
     answers = [
         "SUPPORTED",
         "Aplicação fictícia.\nContinuação.",
-        "Página 1, " + CHUNK,
+        "Chunk conferido: " + CHUNK,
         "manter",
         "",
         "fixture_adjudicator",
@@ -169,6 +169,92 @@ def test_markdown_cannot_silently_change_claim(tmp_path):
             expected_tasks={"annotation-001": "e2e-0001"},
             expected_claims={"annotation-001": "Alegação original."},
         )
+
+
+def test_import_accepts_filled_form_marker_without_changing_original_marker(tmp_path):
+    answers = [
+        "SUPPORTED",
+        "Fundamentação fictícia.",
+        "Chunk conferido: " + CHUNK,
+        "manter",
+        "",
+        "fixture_adjudicator",
+        "2026-09-03",
+    ]
+    text = "## annotation-001 — e2e-0001\n\nAlegação original.\n\n"
+    text += "### Decisão a preencher\n\n"
+    text += "\n".join(f"- {field}: {answer}" for field, answer in zip(FIELDS, answers, strict=True))
+    path = tmp_path / "filled.md"
+    path.write_text(text, "utf-8")
+    (decision,) = load_adjudication_decisions(
+        path,
+        expected_tasks={"annotation-001": "e2e-0001"},
+        expected_claims={"annotation-001": "Alegação original."},
+    )
+    assert decision.final_label is Verdict.SUPPORTED
+    assert not pending_decision_ids((decision,))
+
+
+def test_import_rejects_both_decision_markers_in_one_section(tmp_path):
+    text = "## annotation-001 — e2e-0001\n\nAlegação original.\n\n"
+    text += "### Decisão humana a preencher\n\n### Decisão a preencher\n"
+    path = tmp_path / "ambiguous.md"
+    path.write_text(text, "utf-8")
+    with pytest.raises(EndToEndDatasetError):
+        load_adjudication_decisions(
+            path,
+            expected_tasks={"annotation-001": "e2e-0001"},
+            expected_claims={"annotation-001": "Alegação original."},
+        )
+
+
+def test_markdown_uses_only_chunks_explicitly_marked_as_checked(tmp_path):
+    answers = [
+        "PENDENTE",
+        "Diligência fictícia pendente.",
+        "Nenhum chunk conferido; " + CHUNK + " permanece candidato não verificado.",
+        "pendente",
+        "Nenhuma alteração de alegação.",
+        "fixture_adjudicator",
+        "2026-09-03",
+    ]
+    text = "## annotation-001 — e2e-0001\n\nAlegação original.\n\n"
+    text += "### Decisão a preencher\n\n"
+    text += "\n".join(f"- {field}: {answer}" for field, answer in zip(FIELDS, answers, strict=True))
+    path = tmp_path / "pending.md"
+    path.write_text(text, "utf-8")
+    (decision,) = load_adjudication_decisions(
+        path,
+        expected_tasks={"annotation-001": "e2e-0001"},
+        expected_claims={"annotation-001": "Alegação original."},
+    )
+    assert not decision.evidence_chunk_ids
+    assert decision.claim_correction is None
+    assert pending_decision_ids((decision,)) == ("annotation-001",)
+
+
+def test_markdown_keeps_material_claim_correction(tmp_path):
+    answers = [
+        "SUPPORTED",
+        "Fundamentação fictícia.",
+        "Chunk conferido: " + CHUNK,
+        "corrigir",
+        "Nomear o documento na alegação.",
+        "fixture_adjudicator",
+        "2026-09-03",
+    ]
+    text = "## annotation-001 — e2e-0001\n\nAlegação original.\n\n"
+    text += "### Decisão a preencher\n\n"
+    text += "\n".join(f"- {field}: {answer}" for field, answer in zip(FIELDS, answers, strict=True))
+    path = tmp_path / "correction.md"
+    path.write_text(text, "utf-8")
+    (decision,) = load_adjudication_decisions(
+        path,
+        expected_tasks={"annotation-001": "e2e-0001"},
+        expected_claims={"annotation-001": "Alegação original."},
+    )
+    assert decision.evidence_chunk_ids == (CHUNK,)
+    assert decision.claim_correction == "Nomear o documento na alegação."
 
 
 @pytest.mark.parametrize(

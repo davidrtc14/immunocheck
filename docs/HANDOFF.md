@@ -26,6 +26,25 @@ genérica como substituto. Não editar o TASKS.md original: seu hash está no re
 O software não escreve promoção ou congelamento; uma futura incorporação precisa
 preservar snapshot e ledger. Publicação de novos pareceres exige autoridade própria.
 
+Atualização local de 16/09/2026: foram recebidos `TASKS_preenchido.md` e
+`CORRECOES_E_AUDITORIA.md`, lidos integralmente, mas não publicados no repositório.
+O primeiro contém 18 decisões fechadas e quatro declaradas `PENDENTE`. A importação
+rigorosa identificou ainda o caso 039 como incompleto porque seus chunks estavam
+explicitamente descritos como candidatos não abertos, e não como conferidos.
+O snapshot local permitiu localizar as páginas solicitadas para 022, 023, 026, 039
+e 044. Também foi localizado o enunciado condicionalmente relevante para 038 e os
+reforços desejáveis de 015 e 030. O retorno técnico está apenas em
+`output/RETORNO_DILIGENCIAS_ADJUDICACAO.md`, deliberadamente ignorado pelo Git.
+
+O importador passou a aceitar o título usado na cópia preenchida, interpretar
+“Nenhuma” como ausência de correção material e incorporar somente IDs declarados
+como chunks efetivamente conferidos. Isso evita promover candidatos que o humano
+disse não ter examinado. Após a mudança, 277 testes passaram e um teste PostgreSQL
+foi pulado por configuração de integração ausente. Não houve aplicação ao dataset,
+congelamento, experimento ou alteração de rótulo pela IA. A próxima devolutiva deve
+resolver 022, 023, 026 e 044, registrar os chunks conferidos em 039 e confirmar a
+aplicação do trecho literal encontrado para 038. A auditoria geral permanece aberta.
+
 ## Objetivo imutável
 
 TCC de Ciência da Computação da UNIPÊ, sem orçamento, para verificar alegações

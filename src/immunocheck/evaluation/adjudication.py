@@ -28,7 +28,11 @@ FIELDS = (
     "Identificador interno do responsável",
     "Data",
 )
+DECISION_MARKERS = ("### Decisão humana a preencher", "### Decisão a preencher")
 CHUNK_PATTERN = re.compile(r"(?<![\w:-])[a-zA-Z0-9_-]+:p\d+:c\d+:[a-f0-9]{12}(?![\w:-])")
+CONFIRMED_CHUNKS_PATTERN = re.compile(
+    r"\bchunks? conferidos?(?: em [^:.;\n]+)?(?::|\s)([^.\n]+)", re.IGNORECASE
+)
 REVIEWER_PATTERN = re.compile(r"[a-z][a-z0-9_-]{1,63}")
 
 
@@ -262,7 +266,7 @@ def _parse_decision(value: object) -> AdjudicationDecision:
         sources_checked=_text(value["sources_checked"]),
         evidence_chunk_ids=tuple(c.strip() for c in chunks),
         action=(_text(value["action"]) or "pendente").casefold(),
-        claim_correction=_text(value["claim_correction"]),
+        claim_correction=_claim_correction(value["claim_correction"]),
         reviewer=_text(value["reviewer"]),
         reviewed_at=_text(value["reviewed_at"]),
     )
@@ -278,6 +282,23 @@ def _text(value: object) -> str | None:
     return value.strip() or None
 
 
+def _claim_correction(value: object) -> str | None:
+    text = _text(value)
+    if text and re.match(r"^nenhuma\b", text, re.IGNORECASE):
+        return None
+    return text
+
+
+def _confirmed_chunk_ids(sources: str) -> list[str]:
+    return list(
+        dict.fromkeys(
+            chunk_id
+            for match in CONFIRMED_CHUNKS_PATTERN.finditer(sources)
+            for chunk_id in CHUNK_PATTERN.findall(match.group(1))
+        )
+    )
+
+
 def _markdown_values(
     text: str, *, expected_claims: Mapping[str, str] | None = None
 ) -> list[dict[str, object]]:
@@ -291,10 +312,10 @@ def _markdown_values(
                 raise ValueError(
                     "Alegação alterada no formulário; registrar correção separadamente."
                 )
-        marker = "### Decisão humana a preencher"
-        if body.count(marker) != 1:
+        markers = [marker for marker in DECISION_MARKERS if body.count(marker)]
+        if len(markers) != 1 or body.count(markers[0]) != 1:
             raise ValueError("Seção de decisão ausente ou duplicada.")
-        content = body.split(marker)[1]
+        content = body.split(markers[0])[1]
         fields: dict[str, str] = {}
         active = None
         for line in content.splitlines():
@@ -322,7 +343,7 @@ def _markdown_values(
                 "final_label": fields[FIELDS[0]],
                 "rationale": fields[FIELDS[1]],
                 "sources_checked": fields[FIELDS[2]],
-                "evidence_chunk_ids": list(dict.fromkeys(CHUNK_PATTERN.findall(fields[FIELDS[2]]))),
+                "evidence_chunk_ids": _confirmed_chunk_ids(fields[FIELDS[2]]),
                 "action": fields[FIELDS[3]],
                 "claim_correction": fields[FIELDS[4]],
                 "reviewer": fields[FIELDS[5]],

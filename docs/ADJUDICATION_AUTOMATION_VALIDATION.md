@@ -58,3 +58,24 @@ contagens, reconciliar mínimos/estratificação sem manipular rótulos ou separ
 famílias. Prontidão estrutural não certifica identidade, expertise, cegamento,
 validade científica ou pertinência das fontes. Publicação de novos pareceres e
 aceite final de congelamento exigem a autoridade correspondente.
+
+## Retorno parcial validado em 16/09/2026
+
+Uma cópia preenchida e suas correções foram lidas localmente, sem versionar o
+conteúdo humano. O parser foi ajustado para a variante de título usada no formulário,
+para distinguir “nenhuma correção” de alteração material e, principalmente, para
+aceitar como evidência apenas chunks explicitamente marcados como conferidos.
+Mencionar um ID como candidato não examinado não o promove mais silenciosamente.
+
+A CLI reconheceu as 22 tarefas, mantendo o snapshot primário e as duas rodadas
+inalterados. Quatro decisões estavam declaradas pendentes e uma decisão conclusiva
+não tinha chunk efetivamente conferido. Os documentos locais requisitados foram
+verificados por hash, chunk e extração independente das páginas dos PDFs; uma
+devolutiva técnica foi produzida em `output/`, fora do Git, para que o mesmo humano
+conclua o julgamento. Um trecho adicional que a própria decisão humana declarou
+capaz de mudar seu rótulo também foi localizado e sinalizado, sem alteração pela IA.
+
+Regressão depois desses ajustes: **277 testes aprovados**, um teste PostgreSQL
+pulado por ausência de `IMMUNOCHECK_TEST_DATABASE_URL`; lint e `git diff --check`
+aprovados. O dataset autoritativo continua com zero segundas revisões incorporadas,
+e `test_frozen` continua falso.

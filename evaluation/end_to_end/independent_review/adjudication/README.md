@@ -15,6 +15,9 @@ O original tem hash no recibo: devolva uma **cópia preenchida**, sem editá-lo.
    de fontes. Os candidatos não são evidência automaticamente aprovada.
    Para `INSUFFICIENT_EVIDENCE`, não incluir IDs de evidência conclusiva; explicar
    a busca e a insuficiência das fontes.
+   Para rótulo conclusivo, introduzir os IDs efetivamente vistos com `Chunk
+   conferido:` ou `Chunks conferidos:`. IDs descritos como candidatos, não abertos
+   ou não verificados são deliberadamente ignorados pelo importador.
 4. Usar código interno do responsável, sem nome civil ou instituição, e data
    `AAAA-MM-DD` ou `DD/MM/AAAA`. O código não certifica identidade ou expertise.
 5. Correções materiais na alegação precisam de nova anotação. Exclusões também
@@ -37,6 +40,9 @@ Na raiz do repositório:
 O primeiro comando audita o original vazio; o segundo importa a cópia preenchida.
 Campos podem continuar em linhas comuns; manter alegações, títulos e nomes dos sete campos.
 Não adicionar seções no bloco de decisão. Comentários devem ficar na fundamentação.
+O título do bloco pode ser o original `Decisão humana a preencher` ou a variante
+`Decisão a preencher`; usar apenas um deles por caso. Uma resposta iniciada por
+`Nenhuma` no campo de correção é tratada como ausência de mudança na alegação.
 
 Também é aceito JSONL schema 1 com exatamente estes campos: `schema_version`,
 `task_id`, `item_id`, `final_label`, `rationale`, `sources_checked`,
