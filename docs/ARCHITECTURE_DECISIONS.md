@@ -19,6 +19,8 @@
 | ADR-015 | Python 3.12 | Aceita | Base estável e reproduzível para o ecossistema de ML e OCR. |
 | ADR-016 | Quatro classes com abstenção | Aceita | Evita binarização indevida e diferencia falta de evidência de falsidade. |
 | ADR-017 | Fontes parciais em abstenções | Aceita | Fontes consultadas podem ser exibidas como não conclusivas, sem fingir que sustentam um veredito. |
+| ADR-018 | Avaliação por famílias e teste selado | Aceita | Validação cruzada usa somente desenvolvimento e mantém famílias inteiras em um fold; o teste congelado só participa da execução definitiva. |
+| ADR-019 | Baseline lexical obrigatório | Aceita | TF-IDF com regressão logística mede atalhos de redação no benchmark sintético e contextualiza o ganho real da pipeline RAG. |
 
 ## Histórico de alterações
 
@@ -29,6 +31,11 @@
 - **01/09/2026 — ADR-017:** o teste com alegação composta mostrou que descartar todas as referências
   após a auditoria reduzia a transparência. A resposta agora separa fontes conclusivas de fontes
   parciais consultadas; nenhuma interação passou a ser persistida.
+- **16/09/2026 — ADR-018/019:** após o congelamento do benchmark, a Fase 6 passa a
+  usar validação cruzada estratificada por `claim_family` exclusivamente no split de
+  desenvolvimento. Um baseline lexical gratuito e local é obrigatório para revelar
+  possível desempenho por moldes sintéticos. Métricas do teste não podem orientar
+  alterações posteriores de prompt, modelo, retrieval, reranker ou limiares.
 
 ## Política de alteração
 
