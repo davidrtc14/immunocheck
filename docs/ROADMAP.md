@@ -91,8 +91,18 @@ serão avaliados formalmente na Fase 6.
 o validador auditável do dataset fim a fim foram criados. O catálogo possui 114
 entradas e o corpus ativo possui 80 documentos, 7.585 chunks e 7.585 embeddings.
 Todos os mínimos temáticos foram atingidos. Há agora 160 alegações com primeira
-revisão assistida. Ainda faltam segunda anotação, auditoria de validade e congelamento;
+revisão assistida e 48 retornos secundários recebidos. Ainda faltam sua incorporação,
+adjudicação, auditoria de validade e congelamento;
 por isso a Fase 5 permanece aberta.
+
+Automação técnica em 15/09/2026: importação em lote de adjudicação Markdown/JSONL,
+montagem de candidato em memória e auditoria somente leitura disponíveis em
+`scripts/check_adjudication.py`. A ferramenta verifica proveniência, decisões,
+corpus, chunks e mínimos estruturais sem escrever o dataset nem congelar teste.
+O roteiro da devolutiva única está em
+`evaluation/end_to_end/independent_review/adjudication/README.md`.
+Os 22 pareceres e a auditoria semântica humana continuam pendentes; a Fase 6
+não foi iniciada por essa automação.
 
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
 ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi

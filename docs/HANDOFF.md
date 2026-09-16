@@ -3,6 +3,29 @@
 Atualizado em 15/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
+## Ponto atual — automação em lote, Fase 5 ainda aberta
+
+Em 15/09/2026, o usuário pediu maior agrupamento do trabalho técnico, com menos
+aprovações intermediárias. Foram preparados importador Markdown/JSONL de decisões,
+candidato em memória, validação estrutural compartilhada e comando
+`scripts/check_adjudication.py` somente leitura. Orientações completas em
+`evaluation/end_to_end/independent_review/adjudication/README.md`.
+
+Validação desta unidade: 273 testes aprovados, um teste PostgreSQL pulado por
+configuração ausente; lint e formatação dos arquivos alterados aprovados.
+Evidências/limitações em `docs/ADJUDICATION_AUTOMATION_VALIDATION.md`.
+
+Não foram preenchidos pareceres pela IA: seguem 22 casos pendentes e 48 retornos
+recebidos, ainda não incorporados a `items.jsonl`. Nenhum congelamento ou experimento
+de teste ocorreu. `adjudication_basis` permite conferência documental de erro
+compartilhado sem alterar os rótulos originais dos anotadores.
+
+Próxima entrada humana: cópia preenchida do pacote inteiro de adjudicação, além da
+auditoria geral de evidências/famílias e validade do benchmark. Não usar aprovação
+genérica como substituto. Não editar o TASKS.md original: seu hash está no recibo.
+O software não escreve promoção ou congelamento; uma futura incorporação precisa
+preservar snapshot e ledger. Publicação de novos pareceres exige autoridade própria.
+
 ## Objetivo imutável
 
 TCC de Ciência da Computação da UNIPÊ, sem orçamento, para verificar alegações

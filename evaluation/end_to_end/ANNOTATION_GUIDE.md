@@ -1,5 +1,12 @@
 # Guia de anotação fim a fim
 
+A importação em lote das decisões humanas e os limites da verificação automática
+estão em `independent_review/adjudication/README.md`. O comando
+`scripts/check_adjudication.py` é somente leitura: não promove dataset nem congela
+teste. Auditoria documental de erro compartilhado pode usar o campo opcional
+`adjudication_basis=evidence_audit`, com responsável/data, preservando os dois
+rótulos originais. Isso não cria uma terceira anotação independente.
+
 ## Unidade e evidência
 
 Anotar uma proposição factual sobre vacinação humana, não a intenção do autor,

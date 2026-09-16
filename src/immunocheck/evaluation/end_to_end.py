@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from collections import Counter
 from collections.abc import Set as AbstractSet
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from enum import StrEnum
 from pathlib import Path
 
@@ -53,6 +53,7 @@ class EndToEndItem:
     notes: str | None
     claim_family: str | None = None
     primary_label: Verdict | None = None
+    adjudication_basis: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,6 +85,43 @@ def load_end_to_end_items(
     except (OSError, json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
         raise EndToEndDatasetError("O dataset fim a fim está inválido.") from exc
 
+    return validate_end_to_end_items(
+        tuple(items), valid_chunk_ids=valid_chunk_ids, require_reviewed=require_reviewed
+    )
+
+
+def serialize_end_to_end_items(items: tuple[EndToEndItem, ...]) -> str:
+    """Serializa sem escrever arquivos ou promover um candidato a benchmark."""
+    return "".join(
+        json.dumps(
+            {"schema_version": END_TO_END_SCHEMA_VERSION, **asdict(item)}, ensure_ascii=False
+        )
+        + "\n"
+        for item in items
+    )
+
+
+def validate_end_to_end_items(
+    items: tuple[EndToEndItem, ...],
+    *,
+    valid_chunk_ids: AbstractSet[str] | None = None,
+    require_reviewed: bool = False,
+) -> tuple[EndToEndItem, ...]:
+    """Aplica ao candidato em memória as mesmas regras do carregamento JSONL."""
+    try:
+        items = tuple(
+            _parse_item(
+                {
+                    "schema_version": END_TO_END_SCHEMA_VERSION,
+                    **asdict(item),
+                    "evidence_chunk_ids": list(item.evidence_chunk_ids),
+                },
+                index,
+            )
+            for index, item in enumerate(items, 1)
+        )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise EndToEndDatasetError("O dataset fim a fim está inválido.") from exc
     if not items:
         raise EndToEndDatasetError("O dataset fim a fim está vazio.")
     item_ids = [item.item_id for item in items]
@@ -135,6 +173,7 @@ def summarize_end_to_end_items(items: tuple[EndToEndItem, ...]) -> EndToEndDatas
 
 
 def validate_dataset_ready(items: tuple[EndToEndItem, ...]) -> EndToEndDatasetSummary:
+    items = validate_end_to_end_items(items, require_reviewed=True)
     summary = summarize_end_to_end_items(items)
     if summary.total < MINIMUM_DATASET_SIZE:
         raise EndToEndDatasetError(
@@ -205,6 +244,9 @@ def _parse_item(value: object, line_number: int) -> EndToEndItem:
     claim_family = _optional_text(value, "claim_family", line_number)
     primary_label_text = _optional_text(value, "primary_label", line_number)
     primary_label = Verdict(primary_label_text) if primary_label_text else None
+    adjudication_basis = _optional_text(value, "adjudication_basis", line_number)
+    if adjudication_basis not in (None, "annotation_disagreement", "evidence_audit"):
+        raise ValueError(f"Motivo de adjudicação inválido na linha {line_number}.")
 
     if status is DatasetStatus.DRAFT and any(
         (
@@ -217,6 +259,7 @@ def _parse_item(value: object, line_number: int) -> EndToEndItem:
             second_reviewed_at,
             adjudicator,
             adjudicated_at,
+            adjudication_basis,
         )
     ):
         raise ValueError(f"Rascunho declara revisão na linha {line_number}.")
@@ -233,11 +276,18 @@ def _parse_item(value: object, line_number: int) -> EndToEndItem:
         raise ValueError(f"A segunda revisão deve ser independente na linha {line_number}.")
     original_label = primary_label if primary_label is not None else label
     disagreement = second_label is not None and second_label is not original_label
+    if bool(adjudicator) != bool(adjudicated_at):
+        raise ValueError(f"Adjudicação incompleta na linha {line_number}.")
+    if adjudication_basis and not (adjudicator and adjudicated_at):
+        raise ValueError(f"Motivo sem adjudicação na linha {line_number}.")
+    if adjudication_basis == "annotation_disagreement" and not disagreement:
+        raise ValueError(f"Motivo declara divergência inexistente na linha {line_number}.")
     if disagreement and not (adjudicator and adjudicated_at):
         raise ValueError(f"Divergência sem adjudicação na linha {line_number}.")
-    if not disagreement and (adjudicator or adjudicated_at):
+    evidence_audit = adjudication_basis == "evidence_audit"
+    if not disagreement and (adjudicator or adjudicated_at) and not evidence_audit:
         raise ValueError(f"Adjudicação sem divergência na linha {line_number}.")
-    if not disagreement and label is not original_label:
+    if not disagreement and label is not original_label and not evidence_audit:
         raise ValueError(f"Rótulo final alterado sem adjudicação na linha {line_number}.")
 
     return EndToEndItem(
@@ -262,6 +312,7 @@ def _parse_item(value: object, line_number: int) -> EndToEndItem:
         notes=notes,
         claim_family=claim_family,
         primary_label=primary_label,
+        adjudication_basis=adjudication_basis,
     )
 
 
