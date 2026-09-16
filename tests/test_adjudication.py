@@ -413,9 +413,9 @@ def test_read_only_cli_reports_real_pending_without_modifying_artifacts():
     before = (dataset.read_bytes(), form.read_bytes())
     report = module.inspect_adjudication(form)
     assert report["secondary_responses_received"] == 48
-    assert report["secondary_responses_applied_to_authoritative_items"] == 0
+    assert report["secondary_responses_applied_to_authoritative_items"] == 48
     assert len(report["pending_task_ids"]) == 22
-    assert not report["candidate_created"] and not report["test_frozen"]
+    assert not report["candidate_created"] and report["test_frozen"]
     assert report["pre_adjudication_agreement"]["cohens_kappa"] == pytest.approx(5 / 9)
     assert before == (dataset.read_bytes(), form.read_bytes())
 

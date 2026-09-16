@@ -1,10 +1,10 @@
 # Índice de revisão — todos os lotes experimentais
 
-Atualizado em 15/09/2026 após a aprovação explícita “aprovo tudo, pode seguir”.
-**160 itens com primeira revisão assistida; 48 respostas do segundo anotador
-recebidas, ainda separadas até adjudicação e conferência de evidências.**
-A aprovação cobre os lotes 002–012 sem exceções e preserva o aceite anterior do 001.
-Registro: [aprovação conjunta](reviews/batches_002_012.md). Não houve congelamento.
+Preparação registrada em 15/09/2026 e congelamento em 16/09/2026. Os relatos abaixo
+preservam o histórico da primeira revisão e do recebimento. O estado autoritativo
+atual está em `freeze_manifest.json`: 160 itens, 48 segundas revisões, 22 decisões
+e teste congelado. `review_pool.jsonl` preserva o snapshot primário; `items.jsonl`
+contém a versão adjudicada e reestratificada.
 
 | Lote | IDs | Itens | Tema | Split previsto | Estado humano |
 | --- | --- | --- | --- | --- | --- |
@@ -91,7 +91,7 @@ independência semântica entre famílias ou fontes compartilhadas.
 - As alegações são unidades textuais. Ensaios de imagem/link e de latência permanecem
   na Fase 6; gerar 160 alegações não valida OCR ou extração de páginas.
 
-## O que ainda impede concluir a Fase 5
+## Pendências históricas antes do congelamento
 
 1. Resolver o retorno do segundo humano em 30%: 48 respostas recebidas em duas
    rodadas, preservadas em `independent_review/returns/`. O revisado declara

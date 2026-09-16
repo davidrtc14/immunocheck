@@ -268,7 +268,7 @@ def test_candidate_batch_remains_unreviewed_and_development_only() -> None:
 def test_approved_batch_has_assisted_primary_review_without_second_annotation() -> None:
     root = Path(__file__).parents[1] / "evaluation/end_to_end"
     candidates = load_end_to_end_items(root / "batches/batch_001.jsonl")
-    reviewed = load_end_to_end_items(root / "items.jsonl", require_reviewed=True)
+    reviewed = load_end_to_end_items(root / "review_pool.jsonl", require_reviewed=True)
     summary = summarize_end_to_end_items(reviewed)
     assert summary.total == summary.reviewed == 160
     assert summary.second_reviewed == 0
@@ -351,10 +351,9 @@ def test_primary_approved_pool_still_requires_independent_review() -> None:
         validate_dataset_ready(items)
 
 
-def test_review_pool_matches_approved_items_and_preserved_draft_sources() -> None:
+def test_review_pool_preserves_primary_items_and_draft_sources() -> None:
     root = Path(__file__).parents[1] / "evaluation/end_to_end"
-    approved = load_end_to_end_items(root / "items.jsonl", require_reviewed=True)
-    assert load_end_to_end_items(root / "review_pool.jsonl") == approved
+    approved = load_end_to_end_items(root / "review_pool.jsonl", require_reviewed=True)
     by_id = {entry.item_id: entry for entry in approved}
     candidates = []
     for number in range(1, 13):
@@ -380,5 +379,8 @@ def test_review_manifest_matches_files_and_does_not_declare_test_frozen() -> Non
     assert manifest["primary_reviewed"] == 160 and manifest["second_reviewed"] == 0
     assert len(manifest["files"]) == 14
     for record in manifest["files"]:
-        content = (root / record["path"]).read_bytes().replace(b"\r\n", b"\n")
+        # items.jsonl era o caminho autoritativo no snapshot histórico; após o
+        # congelamento, seu conteúdo original permanece em review_pool.jsonl.
+        path = "review_pool.jsonl" if record["path"] == "items.jsonl" else record["path"]
+        content = (root / path).read_bytes().replace(b"\r\n", b"\n")
         assert hashlib.sha256(content).hexdigest() == record["sha256"]

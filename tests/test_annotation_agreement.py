@@ -18,7 +18,7 @@ ROOT = Path(__file__).parents[1] / "evaluation/end_to_end"
 
 
 def expected_tasks():
-    by_id = {item.item_id: item for item in load_end_to_end_items(ROOT / "items.jsonl")}
+    by_id = {item.item_id: item for item in load_end_to_end_items(ROOT / "review_pool.jsonl")}
     manifest = json.loads((ROOT / "independent_review/selection_manifest.json").read_text("utf-8"))
     return {entry["task_id"]: by_id[entry["item_id"]] for entry in manifest["mapping"]}
 

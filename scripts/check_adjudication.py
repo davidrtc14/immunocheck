@@ -17,6 +17,7 @@ from immunocheck.evaluation.annotation_agreement import (
     compute_annotation_agreement,
     load_annotation_responses,
 )
+from immunocheck.evaluation.benchmark_freeze import validate_freeze_manifest
 from immunocheck.evaluation.end_to_end import (
     EndToEndDatasetError,
     load_end_to_end_items,
@@ -39,7 +40,10 @@ def inspect_adjudication(path: Path, *, root: Path = ROOT) -> dict[str, object]:
     independent = root / "independent_review"
     selection = json.loads((independent / "selection_manifest.json").read_text("utf-8"))
     receipt = json.loads((independent / "review_receipt.json").read_text("utf-8"))
-    if normalized_sha256(root / "items.jsonl") != selection["dataset_sha256"]:
+    primary_path = root / "review_pool.jsonl"
+    if not primary_path.exists():
+        primary_path = root / "items.jsonl"
+    if normalized_sha256(primary_path) != selection["dataset_sha256"]:
         raise EndToEndDatasetError("Snapshot primário alterado; reconciliar antes da incorporação.")
     for entry in receipt["files"]:
         # O formato do recibo é conferido nos testes e não autoriza leitura fora do pacote.
@@ -49,7 +53,12 @@ def inspect_adjudication(path: Path, *, root: Path = ROOT) -> dict[str, object]:
             raise EndToEndDatasetError("Caminho de recibo fora do pacote.")
         if normalized_sha256(target) != entry["sha256"]:
             raise EndToEndDatasetError("Artefato arquivado alterado: " + str(relative))
-    items = load_end_to_end_items(root / "items.jsonl", require_reviewed=True)
+    items = load_end_to_end_items(primary_path, require_reviewed=True)
+    authoritative_items = load_end_to_end_items(root / "items.jsonl", require_reviewed=True)
+    freeze_manifest = (
+        validate_freeze_manifest(root=root) if (root / "freeze_manifest.json").exists() else None
+    )
+    test_frozen = freeze_manifest is not None
     by_id = {item.item_id: item for item in items}
     expected = {entry["task_id"]: by_id[entry["item_id"]] for entry in selection["mapping"]}
     if len(expected) != len(selection["mapping"]):
@@ -72,19 +81,19 @@ def inspect_adjudication(path: Path, *, root: Path = ROOT) -> dict[str, object]:
         "dataset_snapshot_sha256": selection["dataset_sha256"],
         "secondary_responses_received": len(responses),
         "secondary_responses_applied_to_authoritative_items": sum(
-            item.second_reviewer is not None for item in items
+            item.second_reviewer is not None for item in authoritative_items
         ),
         "adjudication_tasks": len(decisions),
         "pending_task_ids": list(pending),
         "pre_adjudication_agreement": compute_annotation_agreement(primary, responses),
         "candidate_created": False,
-        "test_frozen": False,
+        "test_frozen": test_frozen,
         "human_gates_not_certified_by_software": [
             "pertinência semântica das evidências de todos os itens",
             "ausência de vazamento semântico entre famílias e splits",
             "competência, independência e procedimento declarados pelos anotadores",
-            "reconciliação de correções/exclusões e autorização final de congelamento",
-        ],
+        ]
+        + ([] if test_frozen else ["autorização final de congelamento"]),
     }
     if pending:
         return report
@@ -140,7 +149,14 @@ def inspect_adjudication(path: Path, *, root: Path = ROOT) -> dict[str, object]:
             "candidate_sha256": hashlib.sha256(
                 serialize_end_to_end_items(plan.items).encode("utf-8")
             ).hexdigest(),
-            "test_frozen": False,
+            "test_frozen": test_frozen,
+            "matches_frozen_dataset": (
+                not test_frozen
+                or freeze_manifest["frozen_dataset_sha256"]
+                == hashlib.sha256(
+                    serialize_end_to_end_items(plan.items).encode("utf-8")
+                ).hexdigest()
+            ),
         }
     return report
 

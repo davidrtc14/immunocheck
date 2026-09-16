@@ -23,7 +23,7 @@ ROOT = Path(__file__).parents[1] / "evaluation/end_to_end"
 
 
 def test_selection_is_reproducible_stratified_and_order_independent() -> None:
-    items = load_end_to_end_items(ROOT / "items.jsonl", require_reviewed=True)
+    items = load_end_to_end_items(ROOT / "review_pool.jsonl", require_reviewed=True)
     selected = select_second_annotation_items(items)
     assert selected == select_second_annotation_items(tuple(reversed(items)))
     assert len(selected) == len({item.item_id for item in selected}) == 48
@@ -39,7 +39,7 @@ def test_selection_is_reproducible_stratified_and_order_independent() -> None:
 
 @pytest.mark.parametrize("problem", ["small", "draft", "primary", "duplicate", "second", "strata"])
 def test_selection_rejects_invalid_or_previously_second_reviewed_input(problem: str) -> None:
-    items = load_end_to_end_items(ROOT / "items.jsonl")
+    items = load_end_to_end_items(ROOT / "review_pool.jsonl")
     if problem == "small":
         items = items[:12]
     elif problem == "draft":
@@ -57,10 +57,10 @@ def test_selection_rejects_invalid_or_previously_second_reviewed_input(problem: 
 
 
 def test_rendered_participant_tasks_hide_labels_mapping_evidence_and_splits() -> None:
-    items = load_end_to_end_items(ROOT / "items.jsonl")
+    items = load_end_to_end_items(ROOT / "review_pool.jsonl")
     package = render_second_annotation_package(
         items,
-        dataset_text=(ROOT / "items.jsonl").read_text(encoding="utf-8"),
+        dataset_text=(ROOT / "review_pool.jsonl").read_text(encoding="utf-8"),
         corpus_version="test-snapshot",
         source_catalog={"source-a": ("Example document", "https://example.org/document")},
     )
@@ -88,12 +88,12 @@ def test_rendered_participant_tasks_hide_labels_mapping_evidence_and_splits() ->
 
 
 def test_published_package_matches_selection_and_unannotated_snapshot() -> None:
-    items = load_end_to_end_items(ROOT / "items.jsonl")
+    items = load_end_to_end_items(ROOT / "review_pool.jsonl")
     base = ROOT / "independent_review"
     manifest = json.loads((base / "selection_manifest.json").read_text(encoding="utf-8"))
     assert manifest["selected"] == 48 and manifest["total_dataset"] == 160
     assert manifest["test_frozen"] is manifest["annotation_completed"] is False
-    normalized = (ROOT / "items.jsonl").read_bytes().replace(b"\r\n", b"\n")
+    normalized = (ROOT / "review_pool.jsonl").read_bytes().replace(b"\r\n", b"\n")
     assert manifest["dataset_sha256"] == hashlib.sha256(normalized).hexdigest()
     selected = select_second_annotation_items(items, seed=manifest["seed"])
     tasks = [

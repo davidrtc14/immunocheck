@@ -101,3 +101,11 @@ não existe limiar automático de vazamento.
 Prontidão estrutural não certifica auditoria humana, não autoriza publicar novos
 pareceres e não encerra a Fase 5. Congelamento/experimentos dependem da reconciliação
 e do aceite explícitos dos critérios do roadmap.
+
+## Estado publicado em 16/09/2026
+
+O autor concedeu o aceite explícito. `DECISIONS_round_002.md` e
+`AUDIT_round_002.md` preservam a devolutiva desidentificada; seus hashes e os das
+duas rodadas constam em `../../freeze_manifest.json`. O arquivo `TASKS.md` vazio,
+o recibo e a seleção permanecem históricos. O benchmark congelado está em
+`../../items.jsonl`; não usar o split de teste para ajuste do sistema.

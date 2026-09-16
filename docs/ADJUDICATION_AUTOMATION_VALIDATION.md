@@ -123,3 +123,19 @@ lexical simples e registrar essa limitação na análise de validade.
 Ainda faltam interpretação humana dos pares, análise de validade do benchmark
 sintético, aceite do orientador e autorização de publicação/incorporação dos novos
 pareceres.
+
+## Incorporação e congelamento autorizados
+
+O autor autorizou explicitamente as quatro ações em 16/09/2026. O script
+`scripts/freeze_end_to_end_dataset.py` reconstruiu o candidato a partir do snapshot
+primário, da rodada 002 e das decisões, exigiu a mesma troca de famílias aprovada e
+publicou o manifesto por último. Os pareceres foram publicados somente com o código
+interno `usr_002-independente`; caminhos locais e identidade civil não foram incluídos.
+
+O dataset congelado tem SHA-256
+`5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf`; o identificador
+do congelamento é
+`sha256:a352d9f93032b87652b38ffea2b855cef393bd822f04142dbfbd5830ad609666`.
+Os manifestos de seleção/recebimento permanecem inalterados e com
+`test_frozen=false`, pois são registros históricos. O estado atual é definido por
+`evaluation/end_to_end/freeze_manifest.json`.

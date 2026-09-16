@@ -3,7 +3,7 @@
 Atualizado em 16/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
-## Ponto atual — automação em lote, Fase 5 ainda aberta
+## Ponto atual — benchmark congelado, gate acadêmico ainda aberto
 
 Em 15/09/2026, o usuário pediu maior agrupamento do trabalho técnico, com menos
 aprovações intermediárias. Foram preparados importador Markdown/JSONL de decisões,
@@ -72,6 +72,18 @@ semelhantes. Isso recomenda manter as famílias, mas não substitui a avaliaçã
 humana/orientador sobre validade. A incorporação/publicação também aguarda aceite
 da troca de famílias e autoridade específica para publicar os novos pareceres
 humanos.
+
+Autorização posterior do autor encerrou os gates operacionais. Em 16/09/2026,
+`items.jsonl` foi substituído pelo candidato adjudicado e reestratificado, enquanto
+`review_pool.jsonl` preservou o snapshot primário. As devolutivas desidentificadas
+foram arquivadas em `independent_review/adjudication/`; o manifesto autoritativo é
+`evaluation/end_to_end/freeze_manifest.json`, com identidade
+`sha256:a352d9f93032b87652b38ffea2b855cef393bd822f04142dbfbd5830ad609666`.
+
+O teste está congelado. É proibido usar seus erros para ajustar prompt, modelo,
+retrieval, reranker ou limiares. A Fase 6 pode começar por experimentos e decisões
+no split de desenvolvimento. Continua pendente o parecer do orientador sobre a
+validade externa e as limitações do benchmark inteiramente sintético.
 
 ## Objetivo imutável
 

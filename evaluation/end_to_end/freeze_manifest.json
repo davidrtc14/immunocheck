@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "purpose": "end_to_end_benchmark_freeze",
+  "frozen_at": "2026-09-16",
+  "test_frozen": true,
+  "authorization": {
+    "actor_code": "project_author",
+    "scope": [
+      "incorporate_22_human_decisions",
+      "apply_approved_family_rebalance",
+      "publish_deidentified_review_records",
+      "freeze_test_split"
+    ],
+    "record": "explicit_authorization_in_project_thread"
+  },
+  "corpus_version": "sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7",
+  "corpus_chunks_sha256": "401bed2cad62142b30e2879b6f91e6f05098ab9ac86191316ba65685af36b19a",
+  "hash_normalization": "UTF-8, CRLF/CR normalized to LF, no BOM",
+  "source_snapshot_sha256": "b3e587898c71c48995fa7c06a3e42c67a022e7bba54147ea78c694dc09401f73",
+  "frozen_dataset_sha256": "5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf",
+  "summary": {
+    "total": 160,
+    "reviewed": 160,
+    "second_reviewed": 48,
+    "second_review_fraction": 0.3,
+    "labels": {
+      "INSUFFICIENT_EVIDENCE": 40,
+      "MISLEADING": 31,
+      "REFUTED": 49,
+      "SUPPORTED": 40
+    },
+    "splits": {
+      "development": 96,
+      "test": 64
+    },
+    "topics": {
+      "alegacoes_causais_recorrentes": 16,
+      "composicao_e_fabricacao": 13,
+      "comunicacao_equidade_e_etica": 12,
+      "contraindicacoes_e_populacoes_especiais": 29,
+      "eficacia_e_imunogenicidade": 28,
+      "epidemiologia_e_cobertura": 22,
+      "normas_e_calendarios": 17,
+      "seguranca_e_farmacovigilancia": 7,
+      "vacinas_especificas": 16
+    }
+  },
+  "class_split_counts": {
+    "SUPPORTED": {
+      "development": 24,
+      "test": 16
+    },
+    "REFUTED": {
+      "development": 29,
+      "test": 20
+    },
+    "MISLEADING": {
+      "development": 19,
+      "test": 12
+    },
+    "INSUFFICIENT_EVIDENCE": {
+      "development": 24,
+      "test": 16
+    }
+  },
+  "rebalance": {
+    "seed": 20260916,
+    "selection_rule": "minimum_moved_items_then_sha256_seed_and_family_names",
+    "uses_system_predictions": false,
+    "development_to_test": "art_fertility_scope",
+    "test_to_development": "vaccination_coverage_relative_increment",
+    "moved_item_ids": [
+      "e2e-0051",
+      "e2e-0054",
+      "e2e-0057",
+      "e2e-0060",
+      "e2e-0148",
+      "e2e-0152",
+      "e2e-0156",
+      "e2e-0160"
+    ]
+  },
+  "adjudication": {
+    "decision_count": 22,
+    "disagreement_count": 16,
+    "agreement_count": 32,
+    "cohens_kappa_pre_adjudication": 0.5555555555555556,
+    "secondary_reviewed": 48,
+    "excluded_items": 0,
+    "reviewer_code": "usr_002-independente",
+    "identity_and_expertise_certified_by_software": false
+  },
+  "semantic_audit": {
+    "method": "normalized_cosine_cross_split_ranking",
+    "model": "BAAI/bge-m3",
+    "model_revision": "b28ce2a6fcc9c75ef1c0619575d0ec19af760082",
+    "dataset_identity_sha256": "88118da91882a6701c9e29abb18bb366ded0336cbb5588b0942ae69338f4d03c",
+    "ranked_pairs_read": 40,
+    "maximum_cosine_similarity": 0.7011207342147827,
+    "same_fact_target_found_in_ranked_pairs": false,
+    "decision_authority": "ai_technical_review_accepted_by_project_author",
+    "advisor_review_pending": true
+  },
+  "files": [
+    {
+      "path": "independent_review/adjudication/AUDIT_round_002.md",
+      "sha256": "bfed927531241e59bcb9d9c22ced8b6b3b335a760d25a4fa7645d55af63457d6"
+    },
+    {
+      "path": "independent_review/adjudication/DECISIONS_round_002.md",
+      "sha256": "3d1efdfe43ef457241431903a13ca1eff369ff0d9817579d37e8ac0d80537e97"
+    },
+    {
+      "path": "independent_review/returns/round_001.jsonl",
+      "sha256": "9ff9d987e428ce0e0156df6830c0b246943e4b02cb0699ad96defa222d731ce8"
+    },
+    {
+      "path": "independent_review/returns/round_002.jsonl",
+      "sha256": "f757eafa1b714aa7078f817c260bf487b3d531f8aabb6fca505c5e553d902280"
+    },
+    {
+      "path": "independent_review/review_receipt.json",
+      "sha256": "1872036d981e41f23ece2fdfe4e9e676c7d0039c077c79e5f295a8b7d07eb180"
+    },
+    {
+      "path": "independent_review/selection_manifest.json",
+      "sha256": "2a2e8fd966da992a73cf29877740314ee32e17d149e9abd2bf5a2b3aeac7655a"
+    },
+    {
+      "path": "items.jsonl",
+      "sha256": "5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf"
+    },
+    {
+      "path": "review_pool.jsonl",
+      "sha256": "b3e587898c71c48995fa7c06a3e42c67a022e7bba54147ea78c694dc09401f73"
+    }
+  ],
+  "limitations": [
+    "benchmark_inteiramente_sintetico",
+    "identidade_competencia_e_independencia_humana_nao_certificadas_por_software",
+    "triagem_semantica_assistida_por_ia_aceita_pelo_autor_mas_nao_pelo_orientador",
+    "moldes_sinteticos_podem_permitir_atalhos_lexicais",
+    "teste_nao_deve_ser_usado_para_ajustar_prompt_modelo_limiar_ou_retrieval"
+  ],
+  "freeze_id": "sha256:a352d9f93032b87652b38ffea2b855cef393bd822f04142dbfbd5830ad609666"
+}

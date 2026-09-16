@@ -82,8 +82,9 @@ serão avaliados formalmente na Fase 6.
 - [x] Cobertura temática revisada.
 - [x] 160 alegações com primeira revisão assistida; mínimo de 100 documentado.
 - [x] Retorno do segundo anotador em pelo menos 30% (48 itens) e 22 decisões concluídas.
-- [ ] Divergências adjudicadas e evidências/famílias auditadas.
-- [ ] Teste congelado antes do ajuste final.
+- [x] Divergências adjudicadas e famílias separadas entre os splits.
+- [ ] Validade/evidências do benchmark sintético discutidas com o orientador.
+- [x] Teste congelado antes do ajuste final.
 
 **Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
 
@@ -122,9 +123,14 @@ válido, mas continua local, não publicado, não incorporado e não congelado.
 Uma triagem local BGE-M3 ranqueou os 40 pares desenvolvimento/teste mais próximos
 para revisão humana. A maior similaridade foi 0,701121 e nenhuma família apareceu
 nos dois splits; isso é diagnóstico, não limiar nem certificação de ausência de
-vazamento. A interpretação dos pares, a validade do benchmark, a discussão com o
-orientador e a autorização de publicação dos novos pareceres ainda impedem concluir
-a Fase 5.
+vazamento. A interpretação técnica dos pares não identificou repetição do mesmo
+fato-alvo. O autor autorizou em seguida a incorporação, a troca, a publicação
+desidentificada dos pareceres e o congelamento. O manifesto
+`evaluation/end_to_end/freeze_manifest.json` vincula por hash o dataset final, o
+snapshot primário, as rodadas, as decisões e o corpus. A parte técnica da Fase 5
+está concluída; a validade externa e a revisão das evidências com o orientador
+continuam como gate acadêmico e limitação explícita, sem impedir iniciar os
+experimentos de desenvolvimento da Fase 6.
 
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
 ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi

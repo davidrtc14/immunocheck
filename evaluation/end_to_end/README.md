@@ -1,18 +1,17 @@
 # Dataset fim a fim
 
-Estado em 15/09/2026: **160 itens com primeira revisão assistida**, 40 por classe,
-96 de desenvolvimento e 64 de teste previsto. Há 48 respostas do segundo anotador
-recebidas em duas rodadas, ainda separadas do arquivo final: zero segundas revisões
-incorporadas a `items.jsonl` até resolver divergências/evidências. Teste não congelado.
-A aprovação conjunta está em
-[reviews/batches_002_012.md](reviews/batches_002_012.md), preservando o aceite do 001.
+Estado em 16/09/2026: benchmark **congelado** após autorização explícita do autor.
+`items.jsonl` contém 160 itens revisados, 48 segundas revisões incorporadas, 22
+decisões finais e zero exclusões. São 96 itens de desenvolvimento e 64 de teste;
+as classes finais têm 40 `SUPPORTED`, 49 `REFUTED`, 31 `MISLEADING` e 40
+`INSUFFICIENT_EVIDENCE`. O manifesto autoritativo é `freeze_manifest.json`.
 
-`items.jsonl` e `review_pool.jsonl` estão sincronizados. Os arquivos em `batches/`
-permanecem rascunhos históricos imutáveis das propostas, não aprovações pendentes.
-`review_pool_manifest.json` registra hashes normalizados em LF e
-`test_frozen=false`. O template não constitui item anotado.
+`review_pool.jsonl` preserva o snapshot primário anterior à segunda revisão;
+`items.jsonl` é agora o benchmark adjudicado. Os manifestos antigos continuam com
+`test_frozen=false` porque descrevem etapas históricas, e não devem ser reescritos.
+Os pareceres desidentificados estão em `independent_review/adjudication/`.
 
-## Próxima etapa: segundo humano
+## Histórico do segundo humano
 
 **Atualização:** o segundo humano já devolveu as 48 respostas. Não pedir nova revisão
 integral. Consulte [retornos e limitações](independent_review/returns/README.md) e
@@ -60,14 +59,12 @@ Quantidade não demonstra generalização para notícias reais nem desempenho de
 .\.venv\Scripts\python.exe scripts\validate_end_to_end_dataset.py --ready
 ```
 
-O primeiro comando valida estrutura e referências ao corpus local. O segundo
-**deve recusar o conjunto atual por falta de segunda revisão incorporada**.
-O retorno bruto, embora recebido, permanece separado enquanto houver divergências
-e pendências de evidência. O aceite exige mínimo de 100 itens, 25 por classe,
+O primeiro comando valida estrutura e referências ao corpus local. O segundo deve
+aceitar o conjunto congelado. O aceite exige mínimo de 100 itens, 25 por classe,
 split 60%/40%, famílias separadas, rótulos
 originais preservados e segundo anotador em pelo menos 30%. O validador não
 certifica identidade, cegamento ou pertinência semântica das evidências.
 
 Não coletar mensagens reais do Telegram. Não incluir respostas de fact-checkers
-no corpus quando originarem alegações de avaliação. Não executar o teste previsto
-ou usar seus erros para ajustar prompts/limiares antes do congelamento.
+no corpus quando originarem alegações de avaliação. Não usar erros do teste
+congelado para ajustar prompts, modelos, limiares, retrieval ou reranker.
