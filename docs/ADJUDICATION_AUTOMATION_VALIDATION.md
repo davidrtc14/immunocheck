@@ -79,3 +79,47 @@ Regressão depois desses ajustes: **277 testes aprovados**, um teste PostgreSQL
 pulado por ausência de `IMMUNOCHECK_TEST_DATABASE_URL`; lint e `git diff --check`
 aprovados. O dataset autoritativo continua com zero segundas revisões incorporadas,
 e `test_frozen` continua falso.
+
+## Pacote concluído e reestratificação proposta em 16/09/2026
+
+A segunda devolutiva resolveu os 22 casos sem exclusões ou mudanças materiais nas
+alegações. A montagem em memória preservou rótulos primários/secundários e registrou
+adjudicação somente nas 16 divergências; confirmações documentais concordantes
+permanecem no ledger, sem fabricar `adjudication_basis`.
+
+As decisões resultaram em 40/49/31/40 itens nas quatro classes. Os splits antigos
+ficaram 24/16, 30/19, 18/13 e 24/16, respectivamente. Uma busca determinística por
+troca mínima de famílias encontrou um par de quatro itens por lado, restaurando
+24/16, 29/20, 19/12 e 24/16. A seleção usa a semente 20260916 e hash como desempate;
+não consulta previsões, respostas ou métricas do sistema. O relatório completo,
+incluindo hashes e gates humanos, está em `output/PRE_FREEZE_CANDIDATE_REPORT.md`.
+
+O candidato reestratificado passou a validação estrutural, mas permaneceu somente
+em memória e não foi congelado. A cobertura secundária após a troca continua em 48
+itens: por classe e desenvolvimento/teste, 7/5, 12/9, 1/2 e 8/4.
+
+## Triagem semântica pré-congelamento
+
+O script `scripts/audit_benchmark_semantics.py` aplica somente a troca proposta em
+memória, gera embeddings das alegações com BGE-M3 local na revisão fixa
+`b28ce2a6fcc9c75ef1c0619575d0ec19af760082` e ranqueia pares entre desenvolvimento
+e teste por cosseno normalizado. Ele recusa família presente nos dois splits e não
+altera arquivos, rótulos ou modelos.
+
+A execução sobre a proposta produziu identidade
+`88118da91882a6701c9e29abb18bb366ded0336cbb5588b0942ae69338f4d03c`, 40 pares para
+revisão e máximo 0,701121. Os grupos mais recorrentes refletem moldes genéricos de
+causalidade/falha local, revisões de influenza em populações diferentes, estudos de
+plataformas de mRNA, e duas famílias distintas sobre poliomielite. Nenhum resultado
+é tratado automaticamente como vazamento ou aprovação: não foi definido limiar nem
+houve ajuste por desempenho do sistema.
+
+A leitura técnica dos 40 pares não identificou repetição do mesmo fato-alvo entre
+splits e recomenda não reagrupar itens nessa etapa. O risco residual mais relevante
+é outro: construções sintéticas repetidas podem permitir atalhos lexicais sem que
+haja paráfrase factual. A Fase 6 deve, portanto, comparar o pipeline com um baseline
+lexical simples e registrar essa limitação na análise de validade.
+
+Ainda faltam interpretação humana dos pares, análise de validade do benchmark
+sintético, aceite do orientador e autorização de publicação/incorporação dos novos
+pareceres.

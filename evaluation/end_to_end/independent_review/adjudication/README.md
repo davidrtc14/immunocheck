@@ -61,8 +61,8 @@ IDs devem cobrir exatamente os 22 casos, sem duplicatas. Markdown é a opção u
   apenas **em memória**, reportando hash, exclusões e prontidão estrutural.
   O objeto candidato conserva o ledger das decisões. Justificativas primárias
   continuam preservadas no snapshot original, mesmo se a final for corrigida.
-- Não reequilibra classes/famílias, não escreve dataset, recibos ou banco, não
-  chama modelos, não congela teste e não executa experimentos.
+- Não aplica reequilíbrio automaticamente, não escreve dataset, recibos ou banco,
+  não chama modelos, não congela teste e não executa experimentos.
 
 Uma auditoria pode corrigir erro compartilhado pelos anotadores. O campo opcional
 `adjudication_basis=evidence_audit` registra esse caso com responsável/data, sem
@@ -78,6 +78,25 @@ splits, limites de validade e procedimento real de anotação. Registrar respons
 data, escopo, exceções e hashes do candidato final/corpus; discutir a validade com
 o orientador conforme o protocolo. Após correções/exclusões, reconferir mínimos
 por classe, cobertura secundária e split 60%/40%, sem separar uma família.
+
+Se os rótulos finais quebrarem a proporção, a CLI pode propor a troca de um par
+de famílias inteiras de mesmo tamanho. A regra minimiza itens movidos e desempata
+por hash com semente registrada; não altera rótulos e não consulta previsões do
+sistema. A proposta continua sujeita à auditoria e ao aceite pré-congelamento.
+
+Para auxiliar a auditoria de paráfrases após uma troca proposta, sem tomar a decisão
+humana, execute:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\audit_benchmark_semantics.py `
+  --development-to-test art_fertility_scope `
+  --test-to-development vaccination_coverage_relative_increment `
+  --limit 40
+```
+
+O comando usa o modelo local em revisão fixa, mostra hashes, alegações e famílias e
+não escreve no dataset. Similaridade cosseno serve apenas para priorizar leitura;
+não existe limiar automático de vazamento.
 
 Prontidão estrutural não certifica auditoria humana, não autoriza publicar novos
 pareceres e não encerra a Fase 5. Congelamento/experimentos dependem da reconciliação

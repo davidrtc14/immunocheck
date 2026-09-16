@@ -1,6 +1,6 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 15/09/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 16/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
 ## Ponto atual — automação em lote, Fase 5 ainda aberta
@@ -44,6 +44,34 @@ foi pulado por configuração de integração ausente. Não houve aplicação ao
 congelamento, experimento ou alteração de rótulo pela IA. A próxima devolutiva deve
 resolver 022, 023, 026 e 044, registrar os chunks conferidos em 039 e confirmar a
 aplicação do trecho literal encontrado para 038. A auditoria geral permanece aberta.
+
+Nova devolutiva de 16/09/2026 em `Downloads/files (1)`: todos os 22 casos foram
+resolvidos pelo mesmo código humano; os arquivos foram lidos, validados e mantidos
+fora do Git. O candidato adjudicado tem 160 itens, cobertura secundária de 30%,
+classes 40/49/31/40 e hash
+`4fe9abcf7b38c91936bb1ca98bff8d7d807d4f711a12762d9132e6d2a5aad730`.
+Ele falha apenas o 60%/40% por classe com os splits antigos.
+
+A proposta determinística usa semente 20260916, minimiza itens movidos e desempata
+por hash, sem usar previsões do sistema: `art_fertility_scope` vai de desenvolvimento
+para teste e `vaccination_coverage_relative_increment` faz o caminho inverso.
+Oito itens mudam de split, nenhuma família é dividida e o candidato passa a ter hash
+`5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf`, com validação
+estrutural aprovada e `test_frozen=false`. Relatório local em
+`output/PRE_FREEZE_CANDIDATE_REPORT.md`.
+
+Concordâncias apenas confirmadas ficam no ledger e não são registradas como falsa
+adjudicação. Uma triagem reproduzível com BGE-M3 na revisão fixa
+`b28ce2a6fcc9c75ef1c0619575d0ec19af760082` ranqueou os 40 pares entre splits mais
+próximos. A identidade da entrada foi
+`88118da91882a6701c9e29abb18bb366ded0336cbb5588b0942ae69338f4d03c`; a maior
+similaridade foi 0,701121. Nenhuma família cruza os splits, mas similaridade não é
+decisão de vazamento. A leitura técnica dos 40 pares não encontrou repetição do
+mesmo fato-alvo entre splits; os escores altos vieram sobretudo de moldes sintéticos
+semelhantes. Isso recomenda manter as famílias, mas não substitui a avaliação
+humana/orientador sobre validade. A incorporação/publicação também aguarda aceite
+da troca de famílias e autoridade específica para publicar os novos pareceres
+humanos.
 
 ## Objetivo imutável
 

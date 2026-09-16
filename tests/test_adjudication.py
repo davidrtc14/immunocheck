@@ -299,7 +299,8 @@ def test_candidate_preserves_primary_and_secondary_labels_without_freezing(prima
     d = decision_for(primary_items[0])
     candidate = assemble(primary_items, responses, (d,))
     assert candidate.structurally_ready and candidate.test_frozen is False
-    assert candidate.items[0].adjudication_basis == "evidence_audit"
+    assert candidate.items[0].adjudication_basis is None
+    assert candidate.items[0].adjudicator is None
     assert candidate.items[0].primary_label is Verdict.SUPPORTED
     assert candidate.items[0].second_label is Verdict.SUPPORTED
     assert candidate.decisions == (d,)
@@ -307,6 +308,20 @@ def test_candidate_preserves_primary_and_secondary_labels_without_freezing(prima
     path = tmp_path / "candidate.jsonl"
     path.write_text(serialize_end_to_end_items(candidate.items), "utf-8")
     assert load_end_to_end_items(path, valid_chunk_ids={CHUNK}) == candidate.items
+
+
+def test_agreement_audit_stays_in_ledger_without_faking_adjudication(primary_items):
+    d = decision_for(
+        primary_items[0],
+        rationale="Confirmação documental fictícia.",
+        evidence_chunk_ids=(CHUNK,),
+    )
+    candidate = assemble(primary_items, responses_for(primary_items), (d,))
+    result = candidate.items[0]
+    assert result.rationale == primary_items[0].rationale
+    assert result.evidence_chunk_ids == primary_items[0].evidence_chunk_ids
+    assert result.adjudicator is None and result.adjudication_basis is None
+    assert candidate.decisions == (d,)
 
 
 def test_disagreement_is_resolved_only_by_explicit_human_decision(primary_items):

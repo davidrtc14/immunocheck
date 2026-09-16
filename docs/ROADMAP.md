@@ -81,7 +81,7 @@ serão avaliados formalmente na Fase 6.
 - [x] 80–150 documentos catalogados e versionados.
 - [x] Cobertura temática revisada.
 - [x] 160 alegações com primeira revisão assistida; mínimo de 100 documentado.
-- [x] Retorno do segundo anotador em pelo menos 30% (48 itens); adjudicação pendente.
+- [x] Retorno do segundo anotador em pelo menos 30% (48 itens) e 22 decisões concluídas.
 - [ ] Divergências adjudicadas e evidências/famílias auditadas.
 - [ ] Teste congelado antes do ajuste final.
 
@@ -111,6 +111,20 @@ candidatos no texto. As páginas locais solicitadas foram encontradas e devolvid
 para conclusão pelo mesmo responsável; um trecho que a própria decisão condicionou
 à possível troca de rótulo também foi sinalizado. Os pareceres recebidos não foram
 publicados nem incorporados ao dataset. Teste não congelado; Fase 5 ainda aberta.
+
+Retorno revisado no mesmo dia: as 22 decisões ficaram completas, sem exclusões e
+sem alteração material de alegações. O candidato em memória passou todos os gates
+estruturais exceto a estratificação, pois os rótulos humanos finais produziram
+40/49/31/40 itens por classe. Uma troca determinística de duas famílias completas,
+oito itens ao todo, restaura as metas inteiras de 60%/40% sem usar previsões do
+sistema e sem dividir famílias. O candidato reestratificado é estruturalmente
+válido, mas continua local, não publicado, não incorporado e não congelado.
+Uma triagem local BGE-M3 ranqueou os 40 pares desenvolvimento/teste mais próximos
+para revisão humana. A maior similaridade foi 0,701121 e nenhuma família apareceu
+nos dois splits; isso é diagnóstico, não limiar nem certificação de ausência de
+vazamento. A interpretação dos pares, a validade do benchmark, a discussão com o
+orientador e a autorização de publicação dos novos pareceres ainda impedem concluir
+a Fase 5.
 
 Em 06/09/2026, cinco PDFs do lote 002 foram aprovados pelo autor; outros 14 materiais
 ficaram retidos e um candidato não retornou PDF. Em 07/09/2026, a nova versão foi

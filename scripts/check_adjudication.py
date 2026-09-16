@@ -22,7 +22,9 @@ from immunocheck.evaluation.end_to_end import (
     load_end_to_end_items,
     serialize_end_to_end_items,
     summarize_end_to_end_items,
+    validate_dataset_ready,
 )
+from immunocheck.evaluation.split_rebalance import class_split_counts, propose_minimal_family_swap
 from immunocheck.ingestion.corpus_versioning import CorpusVersioningError, load_published_corpus
 
 REPOSITORY = Path(__file__).resolve().parents[1]
@@ -110,8 +112,36 @@ def inspect_adjudication(path: Path, *, root: Path = ROOT) -> dict[str, object]:
             "excluded_item_ids": list(candidate.excluded_item_ids),
             "structurally_ready": candidate.structurally_ready,
             "readiness_error": candidate.readiness_error,
+            "class_split_counts": class_split_counts(candidate.items),
+            "secondary_review_class_split_counts": class_split_counts(
+                tuple(item for item in candidate.items if item.second_reviewer is not None)
+            ),
         }
     )
+    if candidate.readiness_error == "O split deve ser estratificado em 60%/40% por classe.":
+        plan = propose_minimal_family_swap(candidate.items, seed=20260916)
+        ready_summary = validate_dataset_ready(plan.items)
+        report["minimal_family_rebalance"] = {
+            "seed": 20260916,
+            "selection_rule": (
+                "menor numero de itens movidos; desempate SHA-256 da semente e familias"
+            ),
+            "uses_system_predictions": False,
+            "development_to_test": plan.development_to_test,
+            "test_to_development": plan.test_to_development,
+            "moved_item_ids": list(plan.moved_item_ids),
+            "development_targets": plan.development_targets,
+            "class_split_counts": class_split_counts(plan.items),
+            "secondary_review_class_split_counts": class_split_counts(
+                tuple(item for item in plan.items if item.second_reviewer is not None)
+            ),
+            "structurally_ready": True,
+            "summary": asdict(ready_summary),
+            "candidate_sha256": hashlib.sha256(
+                serialize_end_to_end_items(plan.items).encode("utf-8")
+            ).hexdigest(),
+            "test_frozen": False,
+        }
     return report
 
 

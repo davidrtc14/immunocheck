@@ -170,16 +170,19 @@ def assemble_adjudication_candidate(
             unknown = set(decision.evidence_chunk_ids) - valid_chunk_ids
             if unknown:
                 raise EndToEndDatasetError("Decisão referencia chunks ausentes do corpus.")
-            updated = replace(
-                updated,
-                label=decision.final_label,
-                rationale=decision.rationale,
-                evidence_chunk_ids=decision.evidence_chunk_ids,
-                adjudicator=decision.reviewer,
-                adjudicated_at=decision.reviewed_at,
-                adjudication_basis="annotation_disagreement" if disagreement else "evidence_audit",
-                # Justificativa primária continua preservada no snapshot e nas rodadas arquivadas.
-            )
+            if disagreement or decision.final_label is not item.primary_label:
+                updated = replace(
+                    updated,
+                    label=decision.final_label,
+                    rationale=decision.rationale,
+                    evidence_chunk_ids=decision.evidence_chunk_ids,
+                    adjudicator=decision.reviewer,
+                    adjudicated_at=decision.reviewed_at,
+                    adjudication_basis=(
+                        "annotation_disagreement" if disagreement else "evidence_audit"
+                    ),
+                    # Justificativa primária continua preservada no snapshot e nas rodadas.
+                )
         candidate[item.item_id] = updated
     validated = validate_end_to_end_items(
         tuple(candidate.values()), valid_chunk_ids=valid_chunk_ids, require_reviewed=True
