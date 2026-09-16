@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "purpose": "human_annotation_receipt_pending_adjudication",
+  "form_date": "2026-09-15",
+  "reviewer": "usr_002-independente",
+  "reviewer_identity_certified": false,
+  "independence": "self_declared_in_revised_form",
+  "source_original_round_001_available_at_import": false,
+  "source_round_001_recovery": "previously_read_text_snapshot_with_identification_removed",
+  "dataset_sha256": "b3e587898c71c48995fa7c06a3e42c67a022e7bba54147ea78c694dc09401f73",
+  "corpus_version": "sha256:d6cb49e72edbe28e0958b1e8be440e655c93c972af78383121c04687f2d984a7",
+  "dataset_total": 160,
+  "returned_per_round": 48,
+  "selected_fraction": 0.3,
+  "rounds": 2,
+  "distinct_second_reviewers_reported": 1,
+  "second_reviews_applied_to_items": 0,
+  "adjudication_completed": false,
+  "phase5_complete": false,
+  "test_frozen": false,
+  "round_001_agreement": 0.6458333333333334,
+  "round_001_kappa": 0.5277777777777778,
+  "round_002_agreement": 0.6666666666666666,
+  "round_002_kappa": 0.5555555555555556,
+  "adjudication_task_ids": [
+    "annotation-001",
+    "annotation-002",
+    "annotation-008",
+    "annotation-011",
+    "annotation-013",
+    "annotation-015",
+    "annotation-018",
+    "annotation-019",
+    "annotation-022",
+    "annotation-023",
+    "annotation-024",
+    "annotation-026",
+    "annotation-030",
+    "annotation-031",
+    "annotation-033",
+    "annotation-034",
+    "annotation-037",
+    "annotation-038",
+    "annotation-039",
+    "annotation-044",
+    "annotation-046",
+    "annotation-048"
+  ],
+  "hash_normalization": "UTF-8, CRLF normalized to LF, no BOM",
+  "files": [
+    {
+      "sha256": "9ff9d987e428ce0e0156df6830c0b246943e4b02cb0699ad96defa222d731ce8",
+      "path": "returns/round_001.jsonl"
+    },
+    {
+      "sha256": "f757eafa1b714aa7078f817c260bf487b3d531f8aabb6fca505c5e553d902280",
+      "path": "returns/round_002.jsonl"
+    },
+    {
+      "sha256": "2e21ee7716c0edd35be536f56603cc90aa87be7661445fda50ccb6cb920871c7",
+      "path": "returns/round_002_source.md"
+    },
+    {
+      "sha256": "444ae33a31bac0cf1c13bd8f5aa3de010d945d2231a1618487a234ad7a772df3",
+      "path": "returns/agreement_round_001.json"
+    },
+    {
+      "sha256": "3b2a9b1f0061364275d7765bbe2013ba6ececb4db8698273739228d377b4367d",
+      "path": "returns/agreement_round_002.json"
+    },
+    {
+      "sha256": "63602874af3d1562d0e2f000ec303e6a0e41e4877fed9e72edbe8d40c07b0ae7",
+      "path": "adjudication/TASKS.md"
+    }
+  ]
+}

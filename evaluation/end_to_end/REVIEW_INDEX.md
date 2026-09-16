@@ -1,7 +1,8 @@
 # Índice de revisão — todos os lotes experimentais
 
 Atualizado em 15/09/2026 após a aprovação explícita “aprovo tudo, pode seguir”.
-**160 itens com primeira revisão assistida; zero com segunda anotação.**
+**160 itens com primeira revisão assistida; 48 respostas do segundo anotador
+recebidas, ainda separadas até adjudicação e conferência de evidências.**
 A aprovação cobre os lotes 002–012 sem exceções e preserva o aceite anterior do 001.
 Registro: [aprovação conjunta](reviews/batches_002_012.md). Não houve congelamento.
 
@@ -92,12 +93,17 @@ independência semântica entre famílias ou fontes compartilhadas.
 
 ## O que ainda impede concluir a Fase 5
 
-1. Segundo humano independente em pelo menos 30%. A seleção de 48 itens está em
+1. Resolver o retorno do segundo humano em 30%: 48 respostas recebidas em duas
+   rodadas, preservadas em `independent_review/returns/`. O revisado declara
+   independência; não há certificação por software. A seleção está em
    `independent_review/selection_manifest.json`: 12 por classe, sete de desenvolvimento
    e cinco de teste por classe (arredondamento por maiores restos; semente 20260915).
    Entregar somente a pasta `independent_review/participant`, nunca o mapa ou este
    repositório com rótulos. O pacote sem respostas facilita, mas não certifica cegamento.
-2. Concordância pré-adjudicação e resolução das divergências, preservando rótulos.
+2. Concordância já calculada: 31/48 na primeira rodada (kappa 0,527778) e 32/48
+   na revisada (kappa 0,555556). Resolver 16 divergências e seis conferências adicionais
+   no pacote `independent_review/adjudication/TASKS.md`, preservando os dois rótulos
+   e ambas as rodadas. Não ajustar decisões para aumentar kappa.
 3. Auditoria de famílias, validade do benchmark, splits e evidências; congelamento
    com hashes antes do ajuste final. `--ready` não certifica esses atos humanos.
 
@@ -114,7 +120,15 @@ alterou banco, migrations ou índices. Os testes confirmam hashes, consistência
 entre pool e lotes, ausência de revisão fictícia e recusa do pool como pronto.
 Esses resultados não confirmam correção dos rótulos ou adequação científica.
 
-## Estado após aprovação
+## Estado histórico após aprovação
+
+Estado atual após recebimento: duas rodadas preservadas, 48 respostas por rodada,
+16 divergências e seis conferências adicionais em um pacote único. O recebimento
+está em `independent_review/review_receipt.json`, com hashes; decisões humanas
+finais continuam vazias e `items.jsonl` não mudou. Validação desta unidade:
+236 testes aprovados, Ruff e diff sem apontamentos; um teste PostgreSQL não
+executado por ausência de base exclusiva. Sem experimento ou congelamento.
+Os parágrafos seguintes são o histórico da preparação anterior ao recebimento.
 
 A primeira revisão está registrada nos 160 itens (40 por classe, split 96/64).
 A seleção de 48 tarefas contém campos de resposta vazios: preparar o pacote não

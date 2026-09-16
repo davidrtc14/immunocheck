@@ -1,0 +1,66 @@
+{
+  "total": 48,
+  "agreement_count": 32,
+  "disagreement_count": 16,
+  "disagreement_task_ids": [
+    "annotation-002",
+    "annotation-008",
+    "annotation-011",
+    "annotation-013",
+    "annotation-019",
+    "annotation-022",
+    "annotation-023",
+    "annotation-030",
+    "annotation-031",
+    "annotation-033",
+    "annotation-034",
+    "annotation-037",
+    "annotation-038",
+    "annotation-044",
+    "annotation-046",
+    "annotation-048"
+  ],
+  "observed_agreement": 0.6666666666666666,
+  "expected_agreement": 0.25,
+  "cohens_kappa": 0.5555555555555556,
+  "primary_counts": {
+    "SUPPORTED": 12,
+    "REFUTED": 12,
+    "MISLEADING": 12,
+    "INSUFFICIENT_EVIDENCE": 12
+  },
+  "second_counts": {
+    "SUPPORTED": 11,
+    "REFUTED": 24,
+    "MISLEADING": 2,
+    "INSUFFICIENT_EVIDENCE": 11
+  },
+  "matrix_primary_rows_second_columns": {
+    "SUPPORTED": {
+      "SUPPORTED": 11,
+      "REFUTED": 0,
+      "MISLEADING": 0,
+      "INSUFFICIENT_EVIDENCE": 1
+    },
+    "REFUTED": {
+      "SUPPORTED": 0,
+      "REFUTED": 11,
+      "MISLEADING": 0,
+      "INSUFFICIENT_EVIDENCE": 1
+    },
+    "MISLEADING": {
+      "SUPPORTED": 0,
+      "REFUTED": 11,
+      "MISLEADING": 1,
+      "INSUFFICIENT_EVIDENCE": 0
+    },
+    "INSUFFICIENT_EVIDENCE": {
+      "SUPPORTED": 0,
+      "REFUTED": 2,
+      "MISLEADING": 1,
+      "INSUFFICIENT_EVIDENCE": 9
+    }
+  },
+  "adjudication_applied": false,
+  "round_id": "round_002"
+}

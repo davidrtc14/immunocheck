@@ -113,7 +113,47 @@ para o dataset de pelo menos 100 alegações, segunda anotação e congelamento 
 
 ## Instruções para a próxima sessão
 
-Última atualização de 15/09/2026: o autor aprovou explicitamente todos os lotes
+Estado atual após retorno revisado do segundo humano: 48 respostas recebidas,
+duas rodadas da mesma revisora, preservadas sem dados pessoais em
+`evaluation/end_to_end/independent_review/returns/`. A independência e consulta
+às fontes são declaradas no revisado, não certificadas pelo software. Na rodada
+inicial houve 31 concordâncias e kappa 0,527778; na revisada, 32 e kappa 0,555556.
+Cinco rótulos mudaram entre rodadas. Não ocultar a primeira ou tratar as duas
+como revisores independentes distintos. O original inicial não estava mais em
+Downloads; os campos foram recuperados do snapshot textual desta tarefa.
+
+Próxima ação: preencher `independent_review/adjudication/TASKS.md`, pacote único
+com 22 casos (16 divergências e seis conferências adicionais). Não pedir outra
+revisão integral dos 48 itens. As duas anotações estão visíveis na adjudicação;
+não chamá-la anotação cega. Registrar decisão humana, fundamento, responsável
+interno e data por item. Os arquivos brutos não alteraram `items.jsonl`: esse
+arquivo final ainda tem zero segundas revisões incorporadas enquanto há pendências.
+`--ready` deve continuar recusando-o. Não registrar adjudicador inexistente ou
+aceitar automaticamente a primeira/segunda anotação. Mudanças materiais nas
+alegações exigem nova anotação do item; mudanças de classes podem exigir
+reconciliação do split/famílias sem forçar cotas. A Fase 5 permanece aberta.
+
+`src/immunocheck/evaluation/annotation_agreement.py` valida pares e calcula
+concordância/kappa nominal antes da adjudicação; o script
+`scripts/report_annotation_agreement.py` reproduz uma rodada e confere o hash
+do dataset primário usado na seleção. `review_receipt.json` registra recebimento,
+hashes e pendências; não é congelamento. `selection_manifest.json` conserva
+o snapshot de preparação; seus campos de conclusão não são o estado atual.
+O corpus de 80 documentos e 7.585 chunks, banco, modelos, prompts, famílias e
+splits não mudaram. Não foi executada a pipeline sobre o teste previsto.
+
+Os registros abaixo são históricos, anteriores ao retorno do segundo anotador.
+
+Validação do recebimento: 236 testes aprovados, Ruff e diff sem apontamentos.
+Um teste PostgreSQL não foi executado por ausência de base exclusiva configurada;
+esta unidade não alterou banco. Foram testados pares completos, IDs/alegações,
+datas, códigos internos, preservação das rodadas, kappa, casos degenerados,
+hashes e 22 formulários de decisão vazios. O dataset primário segue válido contra
+os chunks locais e ainda é recusado como pronto. Temporários não versionados:
+`output/pytest-annotation-round002` e `output/pytest-annotation-round002-final`.
+Não reutilizar esses diretórios sem considerar a limpeza automática do pytest.
+
+Atualização histórica de 15/09/2026: o autor aprovou explicitamente todos os lotes
 experimentais 002–012 (“aprovo tudo, pode seguir”). Há 160 itens com primeira
 revisão assistida em `items.jsonl` e `review_pool.jsonl`, 40 por classe, split
 96/64, zero segundas revisões. Propostas JSONL originais permanecem imutáveis;

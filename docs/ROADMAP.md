@@ -81,7 +81,8 @@ serão avaliados formalmente na Fase 6.
 - [x] 80–150 documentos catalogados e versionados.
 - [x] Cobertura temática revisada.
 - [x] 160 alegações com primeira revisão assistida; mínimo de 100 documentado.
-- [ ] Segundo anotador em pelo menos 30%.
+- [x] Retorno do segundo anotador em pelo menos 30% (48 itens); adjudicação pendente.
+- [ ] Divergências adjudicadas e evidências/famílias auditadas.
 - [ ] Teste congelado antes do ajuste final.
 
 **Aceite:** hashes, splits, rótulos, evidências e processo de revisão auditáveis.
@@ -170,6 +171,18 @@ O pacote para segundo humano contém 48 tarefas sem respostas, selecionadas por
 classe/split com semente registrada. Preparação não equivale a revisão realizada.
 Não houve congelamento ou experimento no teste; a validade do benchmark sintético
 continua sujeita ao orientador. Próxima ação humana: preencher o pacote independente.
+
+Retorno humano recebido em 15/09/2026: duas rodadas da mesma revisora foram
+preservadas em `evaluation/end_to_end/independent_review/returns/`. A versão
+revisada declara consulta às fontes e ausência de acesso aos rótulos anteriores;
+isso é autodeclaração, não certificação pelo software. São 48 respostas, 32
+concordâncias e 16 divergências na rodada revisada (kappa 0,555556). A primeira
+rodada tinha 31 concordâncias (kappa 0,527778) e não foi ocultada.
+O pacote único `independent_review/adjudication/TASKS.md` contém 22 casos:
+16 divergências e seis conferências adicionais. Os retornos continuam separados
+de `items.jsonl`, com zero segundas revisões incorporadas ao arquivo final até
+resolver as pendências. Nenhum rótulo, split, família, corpus ou teste foi alterado
+ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento.
 
 ## Fase 6 — Avaliação e entrega
 
