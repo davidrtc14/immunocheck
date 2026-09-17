@@ -24,7 +24,7 @@ usuário possa verificar. O sistema não oferece aconselhamento médico individu
 - Texto, prints/cards por OCR e links HTTPS públicos.
 - Corpus prioritariamente formado por Ministério da Saúde, PNI, Anvisa, OMS,
   OPAS e literatura científica selecionada.
-- Recuperação lexical e semântica, com reranking como candidato experimental,
+- Recuperação semântica local; reranking mantido somente para ablação offline,
   geração local e verificação pós-geração.
 - Nenhuma persistência de conteúdo ou identificadores de usuários em produção.
 
@@ -34,17 +34,18 @@ trabalhos futuros.
 ## Estado
 
 O corte vertical textual da Fase 1 está funcional. Na Fase 2, o índice BGE-M3 local
-e a fusão BM25+dense por RRF já foram implementados. Na Fase 6, 72 consultas de
-desenvolvimento mostraram que o BGE-M3 isolado é o melhor caminho simples e que o
-híbrido + reranker é o candidato de maior qualidade, ainda condicionado à latência
-fim a fim. O corpus possui manifesto,
+e a fusão BM25+dense por RRF já foram implementados. Na Fase 6, o BGE-M3 isolado
+teve o melhor equilíbrio fim a fim no desenvolvimento. O reranker melhorou ranking,
+mas não a classificação completa e duplicou a latência; permanece apenas como
+ablação. O auditor aumenta a detecção de casos sem evidência, mas ainda precisa de
+calibração antes do teste congelado. O corpus possui manifesto,
 proveniência e atualização incremental manual. A persistência PostgreSQL+pgvector,
 suas migrations, importação e busca exata foram validadas no Docker local. Consulte
 `docs/ROADMAP.md`.
 
 O adaptador Telegram foi testado com um bot real. Texto, imagem textual e link HTTPS
 convergem para a mesma pipeline; OCR, download com proteção contra SSRF e extração de
-HTML/PDF foram validados na Fase 4. O caminho real usa BM25 + BGE-M3 + RRF e informa
+HTML/PDF foram validados na Fase 4. O caminho real usa BGE-M3 e informa
 quando analisa somente a alegação principal ou quando as fontes exibidas são parciais.
 A parte técnica da Fase 5 está concluída e os experimentos de desenvolvimento da
 Fase 6 estão em andamento. Consulte `docs/ROADMAP.md`.

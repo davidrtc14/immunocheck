@@ -225,9 +225,9 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 ## Fase 6 — Avaliação e entrega
 
 - [x] Experimentos de retrieval.
-- [ ] Experimentos fim a fim.
+- [x] Experimentos fim a fim no desenvolvimento.
 - [ ] Métricas de qualidade, segurança e desempenho.
-- [ ] Bootstrap e análise qualitativa de erros.
+- [x] Bootstrap e análise qualitativa de erros no desenvolvimento.
 - [ ] Revisão LGPD/ética e consulta institucional quando aplicável.
 - [ ] Documentação de reprodução e roteiro de demonstração.
 
@@ -246,4 +246,10 @@ condições fim a fim foi concluída nos 96 itens de desenvolvimento. A maior
 estimativa de macro-F1 foi 0,446, sem superioridade conclusiva entre candidatas;
 as condições auditadas tiveram recall zero para `MISLEADING`. A análise encontrou
 omissão material no extrator de alegações, que será corrigida e avaliada em uma
-v2 separada antes de qualquer execução no teste.
+v2 separada antes de qualquer execução no teste. A v2 recuperou as três entradas
+fora do escopo e elevou o BGE-M3 sem auditor de macro-F1 0,381 para 0,577; o IC
+95% pareado do ganho foi +0,114 a +0,281. O auditor elevou o recall de abstenção
+de 0,125 para 0,625, mas reduziu macro-F1 para 0,528 e removeu seis previsões
+`MISLEADING` corretas. O reranker não melhorou o resultado fim a fim e permanece
+fora do caminho padrão. O próximo gate é avaliar/calibrar o auditor e fixar a
+configuração final ainda no desenvolvimento; o teste de 64 itens segue fechado.

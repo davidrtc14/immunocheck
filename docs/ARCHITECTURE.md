@@ -64,7 +64,8 @@ Documento aprovado
 - Adaptador Telegram: recebimento, feedback de processamento e resposta.
 - Normalizadores: texto, OCR e extração segura de links.
 - Ingestão: loaders, limpeza, chunking e catálogo do corpus.
-- Retrieval: dense, BM25, RRF e reranker opcional.
+- Retrieval online: BGE-M3 denso. BM25, RRF e reranker permanecem disponíveis
+  somente para reprodução e ablações offline.
 - Verificação: extração de alegação, suficiência, geração e fidelidade.
 - Avaliação: datasets congelados, métricas, latência e relatórios.
 - Persistência: documentos, chunks, embeddings e dados experimentais curados.

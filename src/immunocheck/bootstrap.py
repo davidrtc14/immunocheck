@@ -94,7 +94,7 @@ def _build_pipeline(
         retriever=_build_retriever(
             corpus_path=corpus_path,
             top_k=top_k,
-            retrieval_mode=retrieval_mode or os.getenv("RETRIEVAL_MODE", "hybrid"),
+            retrieval_mode=retrieval_mode or os.getenv("RETRIEVAL_MODE", "dense"),
         ),
         generator=LLMVerdictGenerator(client),
         verifier=GuardedFaithfulnessVerifier(LLMFaithfulnessVerifier(client)),
@@ -105,8 +105,8 @@ def _build_retriever(*, corpus_path: Path, top_k: int, retrieval_mode: str):
     mode = retrieval_mode.strip().lower()
     if mode == "bm25":
         return PilotCorpusBM25Retriever.from_jsonl(corpus_path, top_k=top_k)
-    if mode != "hybrid":
-        raise ValueError("RETRIEVAL_MODE deve ser 'hybrid' ou 'bm25'.")
+    if mode not in {"dense", "hybrid"}:
+        raise ValueError("RETRIEVAL_MODE deve ser 'dense', 'hybrid' ou 'bm25'.")
 
     evidence = load_evidence_jsonl(corpus_path)
     bm25 = PilotCorpusBM25Retriever(evidence, top_k=RRF_INPUT_DEPTH)
@@ -123,7 +123,13 @@ def _build_retriever(*, corpus_path: Path, top_k: int, retrieval_mode: str):
         device="cpu",
         local_files_only=True,
     )
-    dense = DenseRetriever(embedder, dense_index, top_k=RRF_INPUT_DEPTH)
+    dense = DenseRetriever(
+        embedder,
+        dense_index,
+        top_k=top_k if mode == "dense" else RRF_INPUT_DEPTH,
+    )
+    if mode == "dense":
+        return dense
     return HybridRetriever(
         (bm25, dense),
         top_k=top_k,

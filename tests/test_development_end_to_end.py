@@ -8,6 +8,7 @@ import pytest
 
 from immunocheck.evaluation.development_end_to_end import (
     END_TO_END_CONDITIONS,
+    compare_end_to_end_iterations,
     load_checkpoint,
     summarize_end_to_end_records,
     validate_checkpoint_prefix,
@@ -75,3 +76,20 @@ def test_checkpoint_loader_rejects_non_object(tmp_path: Path) -> None:
 
     with pytest.raises(EndToEndDatasetError, match="inválido"):
         load_checkpoint(path)
+
+
+def test_iteration_comparison_is_paired_and_deterministic() -> None:
+    items, records = records_for_development()
+
+    comparison = compare_end_to_end_iterations(
+        records,
+        deepcopy(records),
+        items,
+        bootstrap_resamples=20,
+        seed=7,
+    )
+
+    assert comparison["conditions"]["dense_no_auditor"]["changed_predictions"] == 0
+    assert comparison["bootstrap"]["candidate_minus_baseline_macro_f1_95_percentile_interval"][
+        "dense_no_auditor"
+    ] == {"lower": 0.0, "median": 0.0, "upper": 0.0}

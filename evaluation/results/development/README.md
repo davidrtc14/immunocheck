@@ -67,6 +67,16 @@ Os arquivos `end_to_end_records.jsonl` e `end_to_end.json` preservam as 96 saíd
 e o resumo vinculado ao checkpoint. Eles são diagnósticos de desenvolvimento,
 não resultados confirmatórios no teste.
 
+## Experimento fim a fim v2
+
+A v2 alterou somente o extrator, conforme emenda prévia ao protocolo. BGE-M3 sem
+auditor obteve macro-F1 0,577 e BGE-M3 com auditor, 0,528. O reranker não converteu
+o ganho de ranking em classificação e permaneceu com recall zero de `MISLEADING`.
+
+O relatório completo está em `END_TO_END_V2.md`. Os artefatos brutos são
+`end_to_end_v2_records.jsonl`, `end_to_end_v2.json` e
+`end_to_end_v1_v2_comparison.json`. O teste continua selado.
+
 ## Reprodução
 
 Com o ambiente do projeto e os modelos já disponíveis localmente:

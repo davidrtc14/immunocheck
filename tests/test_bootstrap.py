@@ -8,7 +8,7 @@ import pytest
 
 from immunocheck import bootstrap
 from immunocheck.domain.models import ExtractedClaim
-from immunocheck.retrieval.dense import DenseIndex
+from immunocheck.retrieval.dense import DenseIndex, DenseRetriever
 from immunocheck.retrieval.rrf import HybridRetriever
 
 
@@ -46,7 +46,28 @@ def write_corpus(path: Path) -> None:
     )
 
 
-def test_builds_hybrid_retriever_as_online_default(tmp_path: Path, monkeypatch) -> None:
+def test_builds_dense_retriever_as_online_default(tmp_path: Path, monkeypatch) -> None:
+    corpus_path = tmp_path / "chunks.jsonl"
+    write_corpus(corpus_path)
+
+    def fake_load_dense_index(*, evidence, **kwargs):
+        del kwargs
+        return DenseIndex(evidence, np.eye(2, dtype=np.float32)), object()
+
+    monkeypatch.setattr(bootstrap, "load_dense_index", fake_load_dense_index)
+    monkeypatch.setattr(bootstrap, "SentenceTransformerEmbedder", lambda **kwargs: FakeEmbedder())
+
+    retriever = bootstrap._build_retriever(
+        corpus_path=corpus_path,
+        top_k=2,
+        retrieval_mode="dense",
+    )
+
+    assert isinstance(retriever, DenseRetriever)
+    assert len(retriever.retrieve(ExtractedClaim("vacina alumínio", 0.9))) == 2
+
+
+def test_hybrid_mode_remains_available_for_ablation(tmp_path: Path, monkeypatch) -> None:
     corpus_path = tmp_path / "chunks.jsonl"
     write_corpus(corpus_path)
 

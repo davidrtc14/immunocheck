@@ -129,6 +129,97 @@ def summarize_end_to_end_records(
     }
 
 
+def compare_end_to_end_iterations(
+    baseline_records: Sequence[Mapping[str, object]],
+    candidate_records: Sequence[Mapping[str, object]],
+    items: Sequence[EndToEndItem],
+    *,
+    bootstrap_resamples: int = END_TO_END_BOOTSTRAP_RESAMPLES,
+    seed: int = END_TO_END_BOOTSTRAP_SEED,
+) -> dict[str, object]:
+    validate_checkpoint_prefix(baseline_records, items)
+    validate_checkpoint_prefix(candidate_records, items)
+    if len(baseline_records) != len(items) or len(candidate_records) != len(items):
+        raise EndToEndDatasetError("A comparação exige duas iterações completas.")
+    if bootstrap_resamples <= 0:
+        raise ValueError("Bootstrap exige pelo menos uma reamostragem.")
+    baseline_ids = [record["item_id"] for record in baseline_records]
+    candidate_ids = [record["item_id"] for record in candidate_records]
+    if baseline_ids != candidate_ids:
+        raise EndToEndDatasetError("As iterações não possuem os mesmos itens na mesma ordem.")
+
+    expected = [str(record["expected_label"]) for record in baseline_records]
+    families = [str(record["claim_family"]) for record in baseline_records]
+    condition_comparisons = {}
+    baseline_predictions = {}
+    candidate_predictions = {}
+    for condition in END_TO_END_CONDITIONS:
+        before = [
+            str(_condition_record(record, condition)["verdict"]) for record in baseline_records
+        ]
+        after = [
+            str(_condition_record(record, condition)["verdict"]) for record in candidate_records
+        ]
+        baseline_predictions[condition] = before
+        candidate_predictions[condition] = after
+        changed_indices = [index for index in range(len(items)) if before[index] != after[index]]
+        condition_comparisons[condition] = {
+            "baseline_macro_f1": float(
+                f1_score(expected, before, labels=[item.value for item in Verdict], average="macro")
+            ),
+            "candidate_macro_f1": float(
+                f1_score(expected, after, labels=[item.value for item in Verdict], average="macro")
+            ),
+            "changed_predictions": len(changed_indices),
+            "improved_predictions": sum(
+                after[index] == expected[index] and before[index] != expected[index]
+                for index in changed_indices
+            ),
+            "worsened_predictions": sum(
+                before[index] == expected[index] and after[index] != expected[index]
+                for index in changed_indices
+            ),
+            "changed_but_still_wrong": sum(
+                before[index] != expected[index] and after[index] != expected[index]
+                for index in changed_indices
+            ),
+        }
+
+    bootstrap = _paired_iteration_bootstrap(
+        expected,
+        baseline_predictions,
+        candidate_predictions,
+        families,
+        resamples=bootstrap_resamples,
+        seed=seed,
+    )
+    baseline_claims = [_extracted_claim(record) for record in baseline_records]
+    candidate_claims = [_extracted_claim(record) for record in candidate_records]
+    original_claims = [item.claim for item in items]
+    return {
+        "item_count": len(items),
+        "family_count": len(set(families)),
+        "conditions": condition_comparisons,
+        "extraction": {
+            "changed_extractions": sum(
+                before != after
+                for before, after in zip(baseline_claims, candidate_claims, strict=True)
+            ),
+            "baseline_missing": sum(claim is None for claim in baseline_claims),
+            "candidate_missing": sum(claim is None for claim in candidate_claims),
+            "baseline_exact_original": sum(
+                claim == original
+                for claim, original in zip(baseline_claims, original_claims, strict=True)
+            ),
+            "candidate_exact_original": sum(
+                claim == original
+                for claim, original in zip(candidate_claims, original_claims, strict=True)
+            ),
+        },
+        "bootstrap": bootstrap,
+    }
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as source:
@@ -277,6 +368,69 @@ def _family_bootstrap(
         "macro_f1_95_percentile_interval": intervals,
         "paired_macro_f1_deltas_95_percentile_interval": comparisons,
     }
+
+
+def _paired_iteration_bootstrap(
+    expected: Sequence[str],
+    baseline_predictions: Mapping[str, Sequence[str]],
+    candidate_predictions: Mapping[str, Sequence[str]],
+    families: Sequence[str],
+    *,
+    resamples: int,
+    seed: int,
+) -> dict[str, object]:
+    indices_by_family: dict[str, list[int]] = defaultdict(list)
+    for index, family in enumerate(families):
+        indices_by_family[family].append(index)
+    unique_families = sorted(indices_by_family)
+    rng = random.Random(seed)
+    deltas = {condition: [] for condition in END_TO_END_CONDITIONS}
+    labels = [item.value for item in Verdict]
+    for _ in range(resamples):
+        sampled_families = rng.choices(unique_families, k=len(unique_families))
+        sampled_indices = [
+            index for family in sampled_families for index in indices_by_family[family]
+        ]
+        sampled_expected = [expected[index] for index in sampled_indices]
+        for condition in END_TO_END_CONDITIONS:
+            before = [baseline_predictions[condition][index] for index in sampled_indices]
+            after = [candidate_predictions[condition][index] for index in sampled_indices]
+            deltas[condition].append(
+                float(
+                    f1_score(
+                        sampled_expected,
+                        after,
+                        labels=labels,
+                        average="macro",
+                        zero_division=0,
+                    )
+                    - f1_score(
+                        sampled_expected,
+                        before,
+                        labels=labels,
+                        average="macro",
+                        zero_division=0,
+                    )
+                )
+            )
+    return {
+        "unit": "claim_family",
+        "resamples": resamples,
+        "seed": seed,
+        "candidate_minus_baseline_macro_f1_95_percentile_interval": {
+            condition: _percentile_interval(values) for condition, values in deltas.items()
+        },
+    }
+
+
+def _extracted_claim(record: Mapping[str, object]) -> str | None:
+    extraction = record.get("extraction")
+    if not isinstance(extraction, dict):
+        raise EndToEndDatasetError("Registro de extração ausente.")
+    claim = extraction.get("claim")
+    if claim is not None and not isinstance(claim, str):
+        raise EndToEndDatasetError("Alegação extraída inválida.")
+    return claim
 
 
 def _latency_summary(values: Sequence[float]) -> dict[str, float | int]:

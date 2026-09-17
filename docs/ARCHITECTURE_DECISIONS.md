@@ -15,15 +15,18 @@
 | ADR-011 | PostgreSQL + pgvector | Aceita | Solução gratuita e madura para metadados, texto, vetores e rastreabilidade. |
 | ADR-012 | Sem pesos editoriais manuais na primeira versão | Aceita | Evita viés e hiperparâmetros frágeis em conjunto pequeno. |
 | ADR-013 | Produção sem persistência de interações | Aceita | Minimização por desenho e menor risco sob LGPD. |
-| ADR-014 | Verificação pós-geração obrigatória | Aceita | Reduz citações inválidas e afirmações sem suporte; efeito será medido. |
+| ADR-014 | Verificação pós-geração obrigatória | Mantida, com calibração pendente | Na v2 elevou o recall de abstenção de 0,125 para 0,625, mas reduziu macro-F1 e removeu seis `MISLEADING` corretos; continua por segurança, sem alegação de ganho geral. |
 | ADR-015 | Python 3.12 | Aceita | Base estável e reproduzível para o ecossistema de ML e OCR. |
 | ADR-016 | Quatro classes com abstenção | Aceita | Evita binarização indevida e diferencia falta de evidência de falsidade. |
 | ADR-017 | Fontes parciais em abstenções | Aceita | Fontes consultadas podem ser exibidas como não conclusivas, sem fingir que sustentam um veredito. |
 | ADR-018 | Avaliação por famílias e teste selado | Aceita | Validação cruzada usa somente desenvolvimento e mantém famílias inteiras em um fold; o teste congelado só participa da execução definitiva. |
 | ADR-019 | Baseline lexical obrigatório | Aceita | TF-IDF com regressão logística mede atalhos de redação no benchmark sintético e contextualiza o ganho real da pipeline RAG. |
 | ADR-020 | BGE-M3 sem reranker; híbrido como entrada do reranker | Aceita | No desenvolvimento, o denso teve nDCG@10 0,461 contra 0,365 do híbrido; a diferença pareada ainda inclui empate, portanto o híbrido não demonstrou vantagem sem reranking. |
-| ADR-021 | Híbrido + reranker como candidato fim a fim, não padrão | Aceita | O reranker chegou a nDCG@10 0,615 com ganho pareado positivo, mas acrescentou mediana de 10,0 s em CPU; a latência total ainda precisa ser validada. |
+| ADR-021 | Híbrido + reranker como candidato fim a fim, não padrão | Encerrada pela ADR-024 | O ganho isolado de retrieval não se converteu em classificação fim a fim. |
 | ADR-022 | Não promover a pipeline fim a fim v1 | Aceita | Macro-F1 máximo de 0,446, zero recall de `MISLEADING` nas condições auditadas e omissões materiais do extrator exigem uma iteração de desenvolvimento antes do teste. |
+| ADR-023 | Guarda de integridade para alegações curtas | Aceita | A v2 eliminou três recusas indevidas e melhorou o denso sem auditor em +0,197 macro-F1 pareado (IC 95% +0,114 a +0,281). |
+| ADR-024 | Reranker fora do caminho padrão | Aceita | Na v2, híbrido + reranker + auditor teve macro-F1 0,464, recall zero de `MISLEADING` e mediana de 19,3 s; fica apenas para ablação. |
+| ADR-025 | BGE-M3 + auditor como candidata de segurança, teste ainda fechado | Em avaliação | Denso sem auditor lidera em macro-F1 (0,577), mas recupera só 12,5% das abstenções; o auditor chega a 62,5%, com custo de falsos negativos e macro-F1 0,528. |
 
 ## Histórico de alterações
 
@@ -54,6 +57,16 @@
   `MISLEADING` foi zero. O extrator removeu marcadores materiais em diversos
   encadeamentos de premissa e conclusão, alterando a alegação antes do RAG.
   A execução foi preservada como diagnóstico v1; o teste permaneceu selado.
+- **17/09/2026 — ADR-023/024/025:** a v2 alterou somente o extrator e foi
+  registrada antes da execução. O BGE-M3 sem auditor subiu de macro-F1 0,381
+  para 0,577; o delta pareado por família foi +0,197 (IC 95% +0,114 a +0,281),
+  com 15 previsões corrigidas e nenhuma correta piorada entre as mudanças. A
+  condição densa auditada subiu para 0,528, mas o auditor alterou 39 resultados:
+  12 melhoraram, 19 pioraram e oito continuaram errados. Híbrido + reranker +
+  auditor ficou em 0,464, sem reconhecer `MISLEADING`, e teve mediana de 19,3 s.
+  O reranker deixa de ser candidato online. O denso auditado permanece como
+  candidato de segurança porque eleva recall de abstenção, mas o teste continua
+  fechado até avaliar/calibrar o auditor sem novo uso do teste.
 
 ## Política de alteração
 

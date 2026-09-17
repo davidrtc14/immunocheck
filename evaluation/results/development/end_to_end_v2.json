@@ -1,0 +1,374 @@
+{
+  "schema_version": 1,
+  "development_iteration": 2,
+  "single_changed_component": "claim_extractor",
+  "executed_at": "2026-09-17T18:34:45.829663+00:00",
+  "protocol": "evaluation/EXPERIMENT_PROTOCOL.md",
+  "partition": "development",
+  "test_items_loaded": 0,
+  "freeze_id": "sha256:a352d9f93032b87652b38ffea2b855cef393bd822f04142dbfbd5830ad609666",
+  "frozen_dataset_sha256": "5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf",
+  "model": "qwen3:8b",
+  "ollama_base_url": "http://127.0.0.1:11434",
+  "temperature": 0,
+  "seed": 42,
+  "conditions": [
+    "bm25_no_auditor",
+    "dense_no_auditor",
+    "dense_with_auditor",
+    "hybrid_reranked_with_auditor"
+  ],
+  "checkpoint_path": "evaluation/results/development/end_to_end_v2_records.jsonl",
+  "checkpoint_sha256": "208f6195a2477dd2139cb5b2b4066bb07f1cbc9c12a04e9ba20af51aa8be90f1",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "summary": {
+    "item_count": 96,
+    "family_count": 33,
+    "systems": {
+      "bm25_no_auditor": {
+        "accuracy": 0.5416666666666666,
+        "balanced_accuracy": 0.5204930429522081,
+        "macro_f1": 0.489536343247445,
+        "weighted_f1": 0.49477162287296855,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.75,
+            "recall": 0.75,
+            "f1": 0.75,
+            "support": 24
+          },
+          "REFUTED": {
+            "precision": 0.4528301886792453,
+            "recall": 0.8275862068965517,
+            "f1": 0.5853658536585366,
+            "support": 29
+          },
+          "MISLEADING": {
+            "precision": 0.5714285714285714,
+            "recall": 0.42105263157894735,
+            "f1": 0.48484848484848486,
+            "support": 19
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.4,
+            "recall": 0.08333333333333333,
+            "f1": 0.13793103448275862,
+            "support": 24
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            18,
+            5,
+            0,
+            1
+          ],
+          [
+            1,
+            24,
+            2,
+            2
+          ],
+          [
+            0,
+            11,
+            8,
+            0
+          ],
+          [
+            5,
+            13,
+            4,
+            2
+          ]
+        ],
+        "abstention": {
+          "precision": 0.4,
+          "recall": 0.08333333333333333,
+          "f1": 0.13793103448275862
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.4027777777777778,
+        "technical_failure_rate": 0.0,
+        "auditor_invocation_rate": 0.0,
+        "auditor_approval_rate_when_invoked": null,
+        "latency_ms": {
+          "median": 7943.948349999118,
+          "p95": 10037.169999995967,
+          "samples": 96
+        }
+      },
+      "dense_no_auditor": {
+        "accuracy": 0.6354166666666666,
+        "balanced_accuracy": 0.6080043859649122,
+        "macro_f1": 0.5774413213561287,
+        "weighted_f1": 0.5810760367365337,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.7407407407407407,
+            "recall": 0.8333333333333334,
+            "f1": 0.7843137254901961,
+            "support": 24
+          },
+          "REFUTED": {
+            "precision": 0.5272727272727272,
+            "recall": 1.0,
+            "f1": 0.6904761904761905,
+            "support": 29
+          },
+          "MISLEADING": {
+            "precision": 0.9,
+            "recall": 0.47368421052631576,
+            "f1": 0.6206896551724138,
+            "support": 19
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.75,
+            "recall": 0.125,
+            "f1": 0.21428571428571427,
+            "support": 24
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            20,
+            3,
+            0,
+            1
+          ],
+          [
+            0,
+            29,
+            0,
+            0
+          ],
+          [
+            0,
+            10,
+            9,
+            0
+          ],
+          [
+            7,
+            13,
+            1,
+            3
+          ]
+        ],
+        "abstention": {
+          "precision": 0.75,
+          "recall": 0.125,
+          "f1": 0.21428571428571427
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.5416666666666666,
+        "technical_failure_rate": 0.010416666666666666,
+        "auditor_invocation_rate": 0.0,
+        "auditor_approval_rate_when_invoked": null,
+        "latency_ms": {
+          "median": 7679.806350002764,
+          "p95": 9388.027500004682,
+          "samples": 96
+        }
+      },
+      "dense_with_auditor": {
+        "accuracy": 0.5625,
+        "balanced_accuracy": 0.5312121899576527,
+        "macro_f1": 0.5282731788450638,
+        "weighted_f1": 0.5510309989819161,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.8235294117647058,
+            "recall": 0.5833333333333334,
+            "f1": 0.6829268292682927,
+            "support": 24
+          },
+          "REFUTED": {
+            "precision": 0.6666666666666666,
+            "recall": 0.7586206896551724,
+            "f1": 0.7096774193548387,
+            "support": 29
+          },
+          "MISLEADING": {
+            "precision": 1.0,
+            "recall": 0.15789473684210525,
+            "f1": 0.2727272727272727,
+            "support": 19
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.3488372093023256,
+            "recall": 0.625,
+            "f1": 0.44776119402985076,
+            "support": 24
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            14,
+            2,
+            0,
+            8
+          ],
+          [
+            0,
+            22,
+            0,
+            7
+          ],
+          [
+            0,
+            3,
+            3,
+            13
+          ],
+          [
+            3,
+            6,
+            0,
+            15
+          ]
+        ],
+        "abstention": {
+          "precision": 0.3488372093023256,
+          "recall": 0.625,
+          "f1": 0.44776119402985076
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.5416666666666666,
+        "technical_failure_rate": 0.010416666666666666,
+        "auditor_invocation_rate": 0.9895833333333334,
+        "auditor_approval_rate_when_invoked": 0.5578947368421052,
+        "latency_ms": {
+          "median": 9046.151400005328,
+          "p95": 11313.950000003388,
+          "samples": 96
+        }
+      },
+      "hybrid_reranked_with_auditor": {
+        "accuracy": 0.5416666666666666,
+        "balanced_accuracy": 0.5039511494252874,
+        "macro_f1": 0.46430433365917234,
+        "weighted_f1": 0.4995865917236885,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.8095238095238095,
+            "recall": 0.7083333333333334,
+            "f1": 0.7555555555555555,
+            "support": 24
+          },
+          "REFUTED": {
+            "precision": 0.6363636363636364,
+            "recall": 0.7241379310344828,
+            "f1": 0.6774193548387096,
+            "support": 29
+          },
+          "MISLEADING": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 19
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.3333333333333333,
+            "recall": 0.5833333333333334,
+            "f1": 0.42424242424242425,
+            "support": 24
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            17,
+            0,
+            0,
+            7
+          ],
+          [
+            0,
+            21,
+            0,
+            8
+          ],
+          [
+            1,
+            5,
+            0,
+            13
+          ],
+          [
+            3,
+            7,
+            0,
+            14
+          ]
+        ],
+        "abstention": {
+          "precision": 0.3333333333333333,
+          "recall": 0.5833333333333334,
+          "f1": 0.42424242424242425
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.6805555555555556,
+        "technical_failure_rate": 0.020833333333333332,
+        "auditor_invocation_rate": 0.9791666666666666,
+        "auditor_approval_rate_when_invoked": 0.574468085106383,
+        "latency_ms": {
+          "median": 19254.746650000016,
+          "p95": 22449.44289999694,
+          "samples": 96
+        }
+      }
+    },
+    "extraction": {
+      "in_scope_rate": 1.0,
+      "technical_failure_rate": 0.0,
+      "latency_ms": {
+        "median": 1576.4731999988726,
+        "p95": 1850.679000002856,
+        "samples": 96
+      }
+    },
+    "bootstrap": {
+      "unit": "claim_family",
+      "resamples": 2000,
+      "seed": 20260916,
+      "macro_f1_95_percentile_interval": {
+        "bm25_no_auditor": {
+          "lower": 0.4109336484209839,
+          "median": 0.4874410750918465,
+          "upper": 0.5640821492749056
+        },
+        "dense_no_auditor": {
+          "lower": 0.4900399900442807,
+          "median": 0.5740831528490331,
+          "upper": 0.6621471601837594
+        },
+        "dense_with_auditor": {
+          "lower": 0.41592809977830447,
+          "median": 0.5244545336647461,
+          "upper": 0.636273989818924
+        },
+        "hybrid_reranked_with_auditor": {
+          "lower": 0.39074553064758466,
+          "median": 0.4644990372115593,
+          "upper": 0.5344334209776872
+        }
+      },
+      "paired_macro_f1_deltas_95_percentile_interval": {
+        "dense_with_auditor_minus_dense_no_auditor": {
+          "lower": -0.13697562403081784,
+          "median": -0.049278301250055556,
+          "upper": 0.03523865204872795
+        },
+        "hybrid_reranked_with_auditor_minus_dense_with_auditor": {
+          "lower": -0.17209467374783838,
+          "median": -0.05995082323262774,
+          "upper": 0.044999901864883306
+        },
+        "hybrid_reranked_with_auditor_minus_dense_no_auditor": {
+          "lower": -0.23064432018067094,
+          "median": -0.10939332880160349,
+          "upper": 0.007398833941472619
+        }
+      }
+    }
+  }
+}
