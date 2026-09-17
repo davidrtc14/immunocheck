@@ -56,6 +56,17 @@ CPU no ambiente local, sem API ou modelo pago.
 4. O teste permanece selado até código, modelos, prompts e condições estarem
    definitivamente fixos.
 
+## Experimento fim a fim v1
+
+A primeira execução das quatro condições foi concluída em 17/09/2026. Nenhuma
+configuração foi promovida: o melhor macro-F1 pontual foi 0,446 e as condições
+auditadas tiveram recall zero para `MISLEADING`. A análise, as latências e a
+taxonomia inicial de erros estão em `END_TO_END_V1.md`.
+
+Os arquivos `end_to_end_records.jsonl` e `end_to_end.json` preservam as 96 saídas
+e o resumo vinculado ao checkpoint. Eles são diagnósticos de desenvolvimento,
+não resultados confirmatórios no teste.
+
 ## Reprodução
 
 Com o ambiente do projeto e os modelos já disponíveis localmente:

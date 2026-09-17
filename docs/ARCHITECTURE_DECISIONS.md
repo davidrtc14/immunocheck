@@ -23,6 +23,7 @@
 | ADR-019 | Baseline lexical obrigatório | Aceita | TF-IDF com regressão logística mede atalhos de redação no benchmark sintético e contextualiza o ganho real da pipeline RAG. |
 | ADR-020 | BGE-M3 sem reranker; híbrido como entrada do reranker | Aceita | No desenvolvimento, o denso teve nDCG@10 0,461 contra 0,365 do híbrido; a diferença pareada ainda inclui empate, portanto o híbrido não demonstrou vantagem sem reranking. |
 | ADR-021 | Híbrido + reranker como candidato fim a fim, não padrão | Aceita | O reranker chegou a nDCG@10 0,615 com ganho pareado positivo, mas acrescentou mediana de 10,0 s em CPU; a latência total ainda precisa ser validada. |
+| ADR-022 | Não promover a pipeline fim a fim v1 | Aceita | Macro-F1 máximo de 0,446, zero recall de `MISLEADING` nas condições auditadas e omissões materiais do extrator exigem uma iteração de desenvolvimento antes do teste. |
 
 ## Histórico de alterações
 
@@ -46,6 +47,13 @@
   10,0 s somente para reranking em CPU. Por isso, o denso passa a ser a opção
   sem reranker e híbrido + reranker avança apenas como condição comparativa da
   avaliação fim a fim. Nenhum item do teste foi executado nessa alteração.
+- **17/09/2026 — ADR-022:** a primeira execução fim a fim em 96 itens de
+  desenvolvimento não aprovou configuração para teste. Híbrido + reranker +
+  auditor teve a maior estimativa de macro-F1 (0,446), porém os intervalos dos
+  deltas entre condições incluíram zero, a mediana foi 18,6 s e o recall de
+  `MISLEADING` foi zero. O extrator removeu marcadores materiais em diversos
+  encadeamentos de premissa e conclusão, alterando a alegação antes do RAG.
+  A execução foi preservada como diagnóstico v1; o teste permaneceu selado.
 
 ## Política de alteração
 
