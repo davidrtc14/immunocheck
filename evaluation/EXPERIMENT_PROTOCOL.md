@@ -139,3 +139,41 @@ Critérios definidos antes da execução:
 - comparar v1/v2 por item e família, sem selecionar exemplos favoráveis;
 - não promover configuração ao teste apenas por melhora pontual no
   desenvolvimento.
+
+## Emenda de calibração do auditor v3
+
+Data: 17/09/2026. Registrada antes da primeira inferência da v3. A análise da
+v2 mostrou que o auditor aumentou o recall de abstenção de 0,125 para 0,625,
+mas reduziu o recall de `MISLEADING` de 0,474 para 0,158. Entre as 39 mudanças
+de rótulo, 19 pioraram previsões corretas. O teste continua selado e não
+participou desta decisão.
+
+A v3 altera **somente o objetivo do auditor pós-geração**. Ele deixa de atuar
+como um segundo classificador e passa a avaliar apenas se as afirmações factuais
+do rascunho — inclusive `correct_fact` e `omitted_or_distorted` — estão cobertas
+pelos trechos citados. Discordância isolada entre `REFUTED` e `MISLEADING` não
+reprova o rascunho; afirmação factual sem apoio, exagero causal, alteração do
+sentido da fonte ou orientação médica individual continuam provocando abstenção.
+Validação de IDs, campos obrigatórios e coerência estrutural permanece inalterada.
+
+Para isolar o componente, a execução reutilizará as extrações, os seis chunks
+densos e os rascunhos já registrados na v2, chamando novamente apenas o auditor.
+Não haverá novo retrieval nem nova geração. O checkpoint v2 e seu hash serão
+validados antes da execução; a v3 terá artefatos separados e não sobrescreverá
+resultados anteriores.
+
+Critérios definidos antes da execução, todos no desenvolvimento:
+
+- macro-F1 pelo menos igual ao auditor v2 no ponto estimado (`0,528`);
+- recall de `MISLEADING` de pelo menos `0,35` (sete dos 19 itens);
+- recall de abstenção de pelo menos `0,50` (12 dos 24 itens);
+- taxa de citação relevante de pelo menos `0,50`, falha técnica de no máximo
+  `0,02` e P95 de latência total estimada de no máximo 12 segundos;
+- promoção somente se todos os limites forem cumpridos e houver melhora em
+  macro-F1 ou recall de `MISLEADING` sobre o auditor v2.
+
+Serão relatados matriz de confusão, métricas por classe, precisão/F1 de
+abstenção, mudanças item a item e bootstrap pareado por família com 2.000
+reamostragens. Se os gates falharem, não haverá nova variante orientada pelos
+mesmos 96 itens: o teste permanecerá fechado até uma decisão metodológica
+explícita.

@@ -38,6 +38,7 @@ EVIDENCE = Evidence(
 class ScriptedClient:
     responses: list[dict[str, Any]]
     user_prompts: list[str] = field(default_factory=list)
+    system_prompts: list[str] = field(default_factory=list)
 
     def chat(
         self,
@@ -47,7 +48,8 @@ class ScriptedClient:
         schema: dict[str, Any],
         max_output_tokens: int,
     ) -> dict[str, Any]:
-        del system_prompt, schema, max_output_tokens
+        del schema, max_output_tokens
+        self.system_prompts.append(system_prompt)
         self.user_prompts.append(user_prompt)
         return self.responses.pop(0)
 
@@ -259,7 +261,22 @@ def test_faithfulness_verifier_rejects_inconsistent_fields() -> None:
         )
 
 
-def test_faithfulness_verifier_does_not_report_original_claim_as_draft_error() -> None:
+def test_faithfulness_auditor_is_not_a_second_classifier() -> None:
+    client = ScriptedClient([{"all_supported": True, "unsupported_sentences": []}])
+    draft = DraftVerdict(Verdict.MISLEADING, "Fatos sustentados.", ("official:p1:c1",))
+
+    LLMFaithfulnessVerifier(client).verify(
+        ExtractedClaim("Alegação", 0.9),
+        draft,
+        (EVIDENCE,),
+    )
+
+    normalized_prompt = " ".join(client.system_prompts[0].split())
+    assert "não como um segundo classificador" in normalized_prompt
+    assert "não marque all_supported como falso apenas" in normalized_prompt
+
+
+def test_faithfulness_verifier_conservatively_maps_nonliteral_rejection_to_draft() -> None:
     original_claim = "A alegação original não está sustentada."
     client = ScriptedClient([{"all_supported": False, "unsupported_sentences": [original_claim]}])
     draft = DraftVerdict(Verdict.REFUTED, "O rascunho traz uma correção.", ("official:p1:c1",))
@@ -270,9 +287,7 @@ def test_faithfulness_verifier_does_not_report_original_claim_as_draft_error() -
         (EVIDENCE,),
     )
 
-    assert report.unsupported_sentences == (
-        "O rótulo não decorre do rascunho e das evidências citadas.",
-    )
+    assert report.unsupported_sentences == (draft.explanation,)
 
 
 @dataclass
