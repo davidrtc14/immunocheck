@@ -68,8 +68,8 @@ CORPUS_PATH = REPOSITORY / "corpus/processed/chunks.jsonl"
 VECTORS_PATH = REPOSITORY / "corpus/processed/dense_bge_m3.npz"
 DENSE_MANIFEST_PATH = REPOSITORY / "corpus/processed/dense_bge_m3.json"
 MODEL_CACHE = REPOSITORY / "models"
-DEFAULT_CHECKPOINT = REPOSITORY / "evaluation/results/development/end_to_end_records.jsonl"
-DEFAULT_OUTPUT = REPOSITORY / "evaluation/results/development/end_to_end.json"
+DEFAULT_CHECKPOINT = REPOSITORY / "evaluation/results/development/end_to_end_v2_records.jsonl"
+DEFAULT_OUTPUT = REPOSITORY / "evaluation/results/development/end_to_end_v2.json"
 RRF_INPUT_DEPTH = 60
 RRF_RANK_CONSTANT = 60
 GENERATOR_OUTPUT_DEPTH = 6
@@ -191,6 +191,8 @@ def main() -> None:
     )
     report = {
         "schema_version": 1,
+        "development_iteration": 2,
+        "single_changed_component": "claim_extractor",
         "executed_at": datetime.now(UTC).isoformat(),
         "protocol": "evaluation/EXPERIMENT_PROTOCOL.md",
         "partition": "development",

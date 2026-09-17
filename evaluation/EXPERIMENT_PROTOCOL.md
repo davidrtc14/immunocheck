@@ -103,3 +103,39 @@ As quatro condições fim a fim ficam, portanto:
 
 Esta alteração é adaptação transparente com dados de desenvolvimento, não uma
 hipótese confirmatória nova. As condições e decisões ficam fixas antes do teste.
+
+## Emenda diagnóstica v2 após a primeira execução fim a fim
+
+Data: 17/09/2026. Registrada antes da primeira inferência da v2. A v1 usou os 96
+itens de desenvolvimento e não carregou teste. O maior macro-F1 foi 0,446; os
+ICs dos deltas entre candidatas incluíram zero e as condições auditadas tiveram
+recall zero para `MISLEADING`.
+
+A inspeção de erros encontrou alteração da alegação antes do retrieval. Em dez
+dos 19 itens `MISLEADING`, o texto extraído ficou com menos de 80% do tamanho do
+original e frequentemente perdeu `então`, `portanto`, universais ou a conclusão.
+Três alegações verificáveis de política/logística vacinal foram recusadas como
+fora do escopo. Esses números são diagnóstico de desenvolvimento, não validação
+semântica independente.
+
+A v2 altera **somente o extrator de alegações**:
+
+1. políticas, logística, acesso e comunicação vacinal entram explicitamente no
+   escopo já definido de vacinação humana;
+2. o prompt exige preservar premissa e conclusão do mesmo fato-alvo;
+3. uma guarda determinística preserva a entrada curta e de alegação única se a
+   extração remover negação, quantificador, causalidade ou conector material.
+
+Retrieval, top-k, corpus, embeddings, reranker, LLM, gerador, auditor, schemas,
+temperatura e sementes permanecem fixos. A v2 usa novos artefatos e não
+sobrescreve a v1.
+
+Critérios definidos antes da execução:
+
+- reduzir as três recusas indevidas de escopo;
+- obter recall maior que zero para `MISLEADING` em ao menos uma condição
+  auditada;
+- relatar macro-F1, abstenção, citação, falhas e latência mesmo se piorarem;
+- comparar v1/v2 por item e família, sem selecionar exemplos favoráveis;
+- não promover configuração ao teste apenas por melhora pontual no
+  desenvolvimento.
