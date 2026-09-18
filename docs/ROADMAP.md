@@ -226,7 +226,8 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 
 - [x] Experimentos de retrieval.
 - [x] Experimentos fim a fim no desenvolvimento.
-- [ ] Métricas de qualidade, segurança e desempenho.
+- [x] Métricas finais de qualidade, segurança e desempenho textual.
+- [ ] Desempenho formal de imagem, link e feedback do Telegram.
 - [x] Bootstrap e análise qualitativa de erros no desenvolvimento.
 - [x] Revisão técnica LGPD/ética e direitos humanos.
 - [ ] Definição institucional de papéis, base legal, canal do titular e CEP/CONEP quando aplicável.
@@ -266,3 +267,11 @@ novo, além dos demais itens de qualidade, LGPD/ética e reprodução desta fase
 A matriz de decisão e a recomendação de segurança estão em
 `docs/FINAL_CONFIGURATION_GATE.md`. Ela recomenda BGE-M3 + auditor v2, mas exige
 ciência do orientador e autorização explícita antes da abertura irreversível do teste.
+
+Execução definitiva de 18/09/2026: após confirmação do gate, a configuração
+BGE-M3 + auditor v2 foi executada uma única vez nos 64 itens de teste e vinculada
+ao commit `52ab0bd`. Obteve macro-F1 0,416 (IC 95% 0,308–0,507), acurácia 0,469,
+recall de abstenção 0,750, recall zero de `MISLEADING`, mediana 9,43 s, P95 12,42 s
+e zero falhas técnicas. Não haverá ajuste pós-teste. O resultado permite concluir
+a prova de conceito, mas não sustenta implantação pública; faltam desempenho
+multimodal, pendências institucionais LGPD/ética e ensaio final de demonstração.

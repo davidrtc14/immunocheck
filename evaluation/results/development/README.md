@@ -1,5 +1,9 @@
 # Resultados de desenvolvimento — Fase 6
 
+Este diretório preserva exclusivamente seleção e diagnóstico no desenvolvimento.
+A avaliação definitiva foi executada depois do congelamento e está documentada em
+`../test/FINAL_TEST_REPORT.md`; seus resultados não retroalimentam estes experimentos.
+
 Data das execuções: 16/09/2026. Estes resultados seguem o protocolo em
 `evaluation/EXPERIMENT_PROTOCOL.md` e usam exclusivamente o split de
 desenvolvimento do benchmark congelado. Nenhum dos 64 itens de teste foi

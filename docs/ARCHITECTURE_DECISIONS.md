@@ -28,6 +28,7 @@
 | ADR-024 | Reranker fora do caminho padrão | Aceita | Na v2, híbrido + reranker + auditor teve macro-F1 0,464, recall zero de `MISLEADING` e mediana de 19,3 s; fica apenas para ablação. |
 | ADR-025 | BGE-M3 + auditor v2 como candidata de segurança | Não promovida | Embora eleve o recall de abstenção para 0,625, tem macro-F1 0,528 e recall `MISLEADING` 0,158; permanece no código somente como opção conservadora provisória. |
 | ADR-026 | Auditor restrito à fidelidade factual | Descartada | A v3 obteve macro-F1 0,405, recall zero de `MISLEADING` e delta pareado negativo contra a v2; falhou os gates pré-registrados. |
+| ADR-027 | BGE-M3 + auditor v2 como configuração definitiva da v1 | Aceita com limitação crítica | No teste único obteve macro-F1 0,416, recall de abstenção 0,750 e recall zero de `MISLEADING`; congela a prova de conceito, mas impede recomendação de implantação pública. |
 
 ## Histórico de alterações
 
@@ -75,6 +76,12 @@
   -0,212 a -0,024. A variante foi descartada e o prompt v2 restaurado. Conforme o
   protocolo, não haverá nova calibração orientada pelos mesmos 96 itens. O teste
   permanece fechado até validação externa ou decisão metodológica com o orientador.
+- **18/09/2026 — ADR-027:** após confirmação do gate, os 64 itens de teste foram
+  executados uma única vez no commit `52ab0bd`. A configuração teve macro-F1 0,416
+  (IC 95% 0,308–0,507), recall de abstenção 0,750 e recall zero de `MISLEADING`.
+  A mediana foi 9,43 s, o P95 12,42 s e não houve falha técnica. A versão fica
+  congelada como protótipo acadêmico demonstrável; nenhum ajuste pós-teste é
+  permitido e os resultados não sustentam serviço público de verificação em saúde.
 
 ## Política de alteração
 

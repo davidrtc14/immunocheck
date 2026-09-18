@@ -2,9 +2,9 @@
 
 ## Finalidade e estado
 
-Este guia reproduz o protótipo local e organiza uma apresentação sem abrir o teste
-congelado. Em 18/09/2026, a configuração final de auditoria ainda não foi promovida;
-portanto, os comandos de demonstração validam integração, não eficácia clínica nem
+Este guia reproduz o protótipo local e organiza uma apresentação sem reexecutar o
+teste congelado. A configuração final foi avaliada uma única vez em 18/09/2026;
+os comandos de demonstração validam integração e não podem substituir ou ampliar o
 resultado confirmatório.
 
 ## Ambiente de referência
@@ -115,8 +115,8 @@ processamento local; a demonstração deve usar somente alegações sintéticas.
    uma única alegação legível; explicar limiar/rejeição do OCR.
 6. **Falha segura (1 min):** mostrar entrada fora de escopo, imagem ilegível ou
    pedido médico individual e a resposta transparente.
-7. **Resultados (1–2 min):** apresentar desenvolvimento, intervalos, v3 descartada
-   e teste ainda selado; não afirmar desempenho em notícias reais.
+7. **Resultados (1–2 min):** apresentar macro-F1 0,416, recall zero de
+   `MISLEADING`, intervalos e v3 descartada; não afirmar desempenho em notícias reais.
 
 ## Checklist anterior à banca
 

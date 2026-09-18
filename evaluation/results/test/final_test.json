@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "purpose": "single_final_evaluation_no_post_test_tuning",
+  "executed_at": "2026-09-18T20:43:44.482871+00:00",
+  "protocol": "evaluation/EXPERIMENT_PROTOCOL.md",
+  "partition": "test",
+  "test_items_loaded": 64,
+  "post_test_changes_allowed": false,
+  "authorization": {
+    "actor_code": "project_author",
+    "orientador_confirmed_by_author": true,
+    "record": "explicit_confirmation_in_project_thread_2026-09-18"
+  },
+  "candidate_commit": "52ab0bdef6b9c8649c8e1ee2b56996d24d0f0ac3",
+  "freeze_id": "sha256:a352d9f93032b87652b38ffea2b855cef393bd822f04142dbfbd5830ad609666",
+  "frozen_dataset_sha256": "5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf",
+  "configuration": {
+    "retrieval": "bge_m3_dense",
+    "top_k": 6,
+    "reranker": false,
+    "claim_extractor": "v2_material_integrity_guard",
+    "generator": "qwen3_8b_local",
+    "faithfulness_auditor": "v2_restored"
+  },
+  "model": "qwen3:8b",
+  "ollama_base_url": "http://127.0.0.1:11434",
+  "temperature": 0,
+  "seed": 42,
+  "checkpoint_path": "evaluation/results/test/final_test_records.jsonl",
+  "checkpoint_sha256": "30090bfcd3bb53ebac03ac8c261d8cee025af32b6991f8e7abcfffd955f1c4ac",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "summary": {
+    "item_count": 64,
+    "family_count": 16,
+    "metrics": {
+      "accuracy": 0.46875,
+      "balanced_accuracy": 0.44375,
+      "macro_f1": 0.4156843156843157,
+      "weighted_f1": 0.4442557442557442,
+      "per_class": {
+        "SUPPORTED": {
+          "precision": 1.0,
+          "recall": 0.625,
+          "f1": 0.7692307692307693,
+          "support": 16
+        },
+        "REFUTED": {
+          "precision": 0.5333333333333333,
+          "recall": 0.4,
+          "f1": 0.45714285714285713,
+          "support": 20
+        },
+        "MISLEADING": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 12
+        },
+        "INSUFFICIENT_EVIDENCE": {
+          "precision": 0.3076923076923077,
+          "recall": 0.75,
+          "f1": 0.43636363636363634,
+          "support": 16
+        }
+      },
+      "confusion_matrix_reference_rows": [
+        [
+          10,
+          1,
+          0,
+          5
+        ],
+        [
+          0,
+          8,
+          0,
+          12
+        ],
+        [
+          0,
+          2,
+          0,
+          10
+        ],
+        [
+          0,
+          4,
+          0,
+          12
+        ]
+      ],
+      "abstention": {
+        "precision": 0.3076923076923077,
+        "recall": 0.75,
+        "f1": 0.43636363636363634
+      },
+      "relevant_citation_hit_rate_on_conclusive_items": 0.4375,
+      "technical_failure_rate": 0.0,
+      "auditor_invocation_rate": 0.921875,
+      "auditor_approval_rate_when_invoked": 0.423728813559322,
+      "latency_ms": {
+        "median": 9433.343649987364,
+        "p95": 12424.847499991301,
+        "samples": 64
+      }
+    },
+    "bootstrap": {
+      "unit": "claim_family",
+      "resamples": 2000,
+      "seed": 20260918,
+      "95_percentile_interval": {
+        "macro_f1": {
+          "lower": 0.3083404338614591,
+          "median": 0.4145707813740601,
+          "upper": 0.5072235689275979
+        },
+        "balanced_accuracy": {
+          "lower": 0.3296114042207792,
+          "median": 0.44375,
+          "upper": 0.5509905801435407
+        },
+        "accuracy": {
+          "lower": 0.34375,
+          "median": 0.46875,
+          "upper": 0.59375
+        },
+        "abstention_recall": {
+          "lower": 0.5,
+          "median": 0.75,
+          "upper": 0.9375
+        },
+        "misleading_recall": {
+          "lower": 0.0,
+          "median": 0.0,
+          "upper": 0.0
+        }
+      }
+    }
+  }
+}

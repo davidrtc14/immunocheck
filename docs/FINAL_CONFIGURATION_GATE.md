@@ -4,6 +4,10 @@ Data: 18/09/2026. Este registro transforma o impasse do auditor em uma decisão
 explícita antes da execução única no teste congelado. Nenhum item de teste foi
 carregado para preparar esta recomendação.
 
+**Estado:** gate concluído e teste executado uma única vez no commit `52ab0bd`.
+Este documento permanece como registro anterior à abertura; o resultado está em
+`evaluation/results/test/FINAL_TEST_REPORT.md`.
+
 ## Alternativas já avaliadas no desenvolvimento
 
 | Configuração | Macro-F1 | Recall `MISLEADING` | Recall de abstenção | P95 | Situação |

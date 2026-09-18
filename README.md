@@ -37,8 +37,9 @@ O corte vertical textual da Fase 1 está funcional. Na Fase 2, o índice BGE-M3 
 e a fusão BM25+dense por RRF já foram implementados. Na Fase 6, o BGE-M3 isolado
 teve o melhor equilíbrio fim a fim no desenvolvimento. O reranker melhorou ranking,
 mas não a classificação completa e duplicou a latência; permanece apenas como
-ablação. A calibração factual do auditor falhou os gates e foi descartada; o auditor
-anterior foi restaurado provisoriamente, sem abrir o teste congelado. O corpus possui manifesto,
+ablação. A calibração factual do auditor falhou e a configuração conservadora v2 foi
+avaliada uma única vez no teste: macro-F1 0,416 e recall zero de `MISLEADING`. O
+resultado limita o projeto a protótipo acadêmico, sem implantação pública. O corpus possui manifesto,
 proveniência e atualização incremental manual. A persistência PostgreSQL+pgvector,
 suas migrations, importação e busca exata foram validadas no Docker local. Consulte
 `docs/ROADMAP.md`.
@@ -94,7 +95,8 @@ entregue ao bot.
 - `docs/RESEARCH_PROTOCOL.md` — corpus, dataset e avaliação.
 - `docs/PRIVACY_AND_ETHICS.md` — LGPD, ética e direitos humanos.
 - `docs/REPRODUCTION_AND_DEMO.md` — instalação limpa, reprodução e roteiro de banca.
-- `docs/FINAL_CONFIGURATION_GATE.md` — decisão exigida antes de abrir o teste congelado.
+- `docs/FINAL_CONFIGURATION_GATE.md` — decisão registrada antes da abertura do teste.
+- `evaluation/results/test/FINAL_TEST_REPORT.md` — resultado definitivo e limitações.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.
