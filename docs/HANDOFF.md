@@ -26,6 +26,12 @@ o ambiente da banca. Essas são decisões humanas/institucionais ou operacionais
 devem ser inventadas pelo software. As dez perguntas fechadas e a recomendação de
 escopo estão em `docs/INSTITUTIONAL_GATE_PACKAGE.md`.
 
+O preflight do commit `1b56d22` aprovou 18/18 verificações técnicas, incluindo
+Docker/PostgreSQL, corpus/índice, artefatos finais, Ruff e 327 testes. A classificação
+é `release_candidate_blocked_by_human_gates`; `develop` não deve ser promovida ainda.
+O relatório está em `evaluation/results/release/RELEASE_CANDIDATE_STATUS.md` e o
+formulário da passagem real está em `docs/LIVE_DEMO_CHECKLIST.md`.
+
 ## Histórico — congelamento e adjudicação
 
 Em 15/09/2026, o usuário pediu maior agrupamento do trabalho técnico, com menos

@@ -234,6 +234,7 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 - [x] Pacote fechado de perguntas e recomendações preparado para a decisão institucional.
 - [x] Documentação de reprodução e roteiro de demonstração.
 - [x] Ensaio automatizado local do roteiro de demonstração.
+- [x] Preflight técnico completo do release candidate.
 - [ ] Ensaio ao vivo com o bot e o ambiente que serão usados na apresentação.
 
 **Aceite:** resultados reproduzíveis, limitações explícitas e versão estável em
@@ -297,3 +298,11 @@ feedback antes da pipeline, preservaram todas as seções da resposta e respeita
 limite de mensagem; duraram entre 7,55 s e 7,80 s. O registro está em
 `evaluation/results/demo/AUTOMATED_REHEARSAL_REPORT.md`. A execução ao vivo com a
 Bot API, o token e a apresentação falada permanece como tarefa humana anterior à banca.
+
+Preflight de release de 18/09/2026: o commit `1b56d22` passou nas 18 verificações
+técnicas obrigatórias. Foram validados Git limpo e sincronizado, política de arquivos,
+benchmark congelado, corpus com 7.585 chunks, índice BGE-M3, artefatos finais,
+Qwen3-8B, Tesseract, Docker, Compose, PostgreSQL, Ruff e a suíte com 327 testes
+aprovados. A classificação formal é `release_candidate_blocked_by_human_gates`:
+tecnicamente pronto, mas sem promoção a `main` até decisão institucional e ensaio ao
+vivo. O relatório está em `evaluation/results/release/RELEASE_CANDIDATE_STATUS.md`.

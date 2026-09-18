@@ -160,6 +160,15 @@ Essa automação não substitui a passagem ao vivo com o bot e o ambiente da ban
 - [ ] Capturas de execução rotuladas como demonstração, não como experimento.
 - [ ] Limitações, resultado negativo do auditor e estado do teste apresentados.
 
+O preenchimento operacional único, pronto para devolução, está em
+`docs/LIVE_DEMO_CHECKLIST.md`. Antes dele, executar o preflight sem sobrescrever o
+registro original:
+
+```powershell
+python scripts/release_preflight.py --with-tests `
+  --output output/live-preflight.json
+```
+
 ## Critério de conclusão deste documento
 
 O roteiro, os comandos, o ensaio operacional controlado e o ensaio automatizado do
