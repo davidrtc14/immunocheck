@@ -251,5 +251,13 @@ fora do escopo e elevou o BGE-M3 sem auditor de macro-F1 0,381 para 0,577; o IC
 95% pareado do ganho foi +0,114 a +0,281. O auditor elevou o recall de abstenção
 de 0,125 para 0,625, mas reduziu macro-F1 para 0,528 e removeu seis previsões
 `MISLEADING` corretas. O reranker não melhorou o resultado fim a fim e permanece
-fora do caminho padrão. O próximo gate é avaliar/calibrar o auditor e fixar a
-configuração final ainda no desenvolvimento; o teste de 64 itens segue fechado.
+fora do caminho padrão.
+
+Calibração de 17/09/2026: a variante v3 foi pré-registrada e executou somente o
+auditor sobre as saídas densas congeladas da v2. Ela falhou os gates: macro-F1
+0,405, recall zero de `MISLEADING` e delta pareado totalmente negativo contra a
+v2 (IC 95% -0,212 a -0,024), apesar de recall de abstenção 0,708 e P95 de 11,6 s.
+O candidato foi descartado, o auditor v2 foi restaurado provisoriamente e nenhuma
+quarta variante será ajustada nos mesmos 96 itens. Antes do teste único, falta uma
+decisão metodológica apoiada por validação externa ou por um conjunto de calibração
+novo, além dos demais itens de qualidade, LGPD/ética e reprodução desta fase.

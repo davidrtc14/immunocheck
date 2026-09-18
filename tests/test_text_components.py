@@ -7,6 +7,7 @@ from typing import Any
 import pytest
 
 from immunocheck.application.text_components import (
+    FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
     GuardedFaithfulnessVerifier,
     LLMClaimExtractor,
     LLMFaithfulnessVerifier,
@@ -265,7 +266,11 @@ def test_faithfulness_auditor_is_not_a_second_classifier() -> None:
     client = ScriptedClient([{"all_supported": True, "unsupported_sentences": []}])
     draft = DraftVerdict(Verdict.MISLEADING, "Fatos sustentados.", ("official:p1:c1",))
 
-    LLMFaithfulnessVerifier(client).verify(
+    LLMFaithfulnessVerifier(
+        client,
+        system_prompt=FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
+        map_nonliteral_to_full_draft=True,
+    ).verify(
         ExtractedClaim("Alegação", 0.9),
         draft,
         (EVIDENCE,),
@@ -276,7 +281,7 @@ def test_faithfulness_auditor_is_not_a_second_classifier() -> None:
     assert "não marque all_supported como falso apenas" in normalized_prompt
 
 
-def test_faithfulness_verifier_conservatively_maps_nonliteral_rejection_to_draft() -> None:
+def test_default_verifier_maps_nonliteral_rejection_to_label_reason() -> None:
     original_claim = "A alegação original não está sustentada."
     client = ScriptedClient([{"all_supported": False, "unsupported_sentences": [original_claim]}])
     draft = DraftVerdict(Verdict.REFUTED, "O rascunho traz uma correção.", ("official:p1:c1",))
@@ -287,7 +292,27 @@ def test_faithfulness_verifier_conservatively_maps_nonliteral_rejection_to_draft
         (EVIDENCE,),
     )
 
-    assert report.unsupported_sentences == (draft.explanation,)
+    assert report.unsupported_sentences == (
+        "O rótulo não decorre do rascunho e das evidências citadas.",
+    )
+
+
+def test_factual_candidate_maps_nonliteral_rejection_to_full_draft() -> None:
+    client = ScriptedClient([{"all_supported": False, "unsupported_sentences": ["Paráfrase"]}])
+    draft = DraftVerdict(
+        Verdict.MISLEADING,
+        "A explicação factual.",
+        ("official:p1:c1",),
+        omitted_or_distorted="A distorção factual.",
+    )
+
+    report = LLMFaithfulnessVerifier(
+        client,
+        system_prompt=FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
+        map_nonliteral_to_full_draft=True,
+    ).verify(ExtractedClaim("Alegação", 0.9), draft, (EVIDENCE,))
+
+    assert report.unsupported_sentences == (draft.explanation, draft.omitted_or_distorted)
 
 
 @dataclass

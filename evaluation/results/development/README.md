@@ -77,6 +77,19 @@ O relatório completo está em `END_TO_END_V2.md`. Os artefatos brutos são
 `end_to_end_v2_records.jsonl`, `end_to_end_v2.json` e
 `end_to_end_v1_v2_comparison.json`. O teste continua selado.
 
+## Calibração do auditor v3
+
+A v3 reutilizou integralmente extração, retrieval e geração densos da v2 e
+executou novamente somente o auditor com objetivo restrito à fidelidade factual.
+Ela falhou os gates pré-registrados: macro-F1 0,405, recall zero de `MISLEADING`
+e delta pareado negativo contra o auditor v2 (IC 95% -0,212 a -0,024). Recall de
+abstenção 0,708, citação relevante 0,542, falha técnica 0,010 e P95 de 11,6 s
+passaram seus limites isolados, mas não compensaram a perda de qualidade.
+
+O relatório completo está em `END_TO_END_V3_AUDITOR.md`; os artefatos brutos são
+`end_to_end_v3_records.jsonl` e `end_to_end_v3.json`. A variante foi descartada,
+o auditor v2 foi restaurado provisoriamente e o teste continua selado.
+
 ## Reprodução
 
 Com o ambiente do projeto e os modelos já disponíveis localmente:
@@ -85,6 +98,7 @@ Com o ambiente do projeto e os modelos já disponíveis localmente:
 python scripts/evaluate_lexical_baseline.py
 python scripts/evaluate_development_retrieval.py
 python scripts/evaluate_development_reranker.py
+python scripts/evaluate_development_auditor_v3.py
 ```
 
 Os scripts recusam sobrescrever resultados existentes sem `--overwrite`. Os

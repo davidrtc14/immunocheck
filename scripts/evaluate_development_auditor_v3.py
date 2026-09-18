@@ -12,6 +12,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from immunocheck.application.text_components import (
+    FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
     GuardedFaithfulnessVerifier,
     LLMFaithfulnessVerifier,
     ModelOutputError,
@@ -71,7 +72,11 @@ def main() -> None:
     validate_checkpoint_prefix(checkpoint, items)
     evidence_by_id = {item.chunk_id: item for item in load_evidence_jsonl(CORPUS_PATH)}
     verifier = GuardedFaithfulnessVerifier(
-        LLMFaithfulnessVerifier(OllamaStructuredClient(model=args.model))
+        LLMFaithfulnessVerifier(
+            OllamaStructuredClient(model=args.model),
+            system_prompt=FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
+            map_nonliteral_to_full_draft=True,
+        )
     )
     for index in range(len(checkpoint), len(items)):
         record = _evaluate_record(baseline[index], evidence_by_id, verifier)

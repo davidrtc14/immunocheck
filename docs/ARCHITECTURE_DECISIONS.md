@@ -15,7 +15,7 @@
 | ADR-011 | PostgreSQL + pgvector | Aceita | Solução gratuita e madura para metadados, texto, vetores e rastreabilidade. |
 | ADR-012 | Sem pesos editoriais manuais na primeira versão | Aceita | Evita viés e hiperparâmetros frágeis em conjunto pequeno. |
 | ADR-013 | Produção sem persistência de interações | Aceita | Minimização por desenho e menor risco sob LGPD. |
-| ADR-014 | Verificação pós-geração obrigatória | Mantida, com calibração pendente | Na v2 elevou o recall de abstenção de 0,125 para 0,625, mas reduziu macro-F1 e removeu seis `MISLEADING` corretos; continua por segurança, sem alegação de ganho geral. |
+| ADR-014 | Verificação pós-geração obrigatória | Mantida, calibração interna encerrada | A variante factual v3 piorou macro-F1 e zerou `MISLEADING`; o auditor v2 foi restaurado provisoriamente, sem promoção ao teste. |
 | ADR-015 | Python 3.12 | Aceita | Base estável e reproduzível para o ecossistema de ML e OCR. |
 | ADR-016 | Quatro classes com abstenção | Aceita | Evita binarização indevida e diferencia falta de evidência de falsidade. |
 | ADR-017 | Fontes parciais em abstenções | Aceita | Fontes consultadas podem ser exibidas como não conclusivas, sem fingir que sustentam um veredito. |
@@ -26,7 +26,8 @@
 | ADR-022 | Não promover a pipeline fim a fim v1 | Aceita | Macro-F1 máximo de 0,446, zero recall de `MISLEADING` nas condições auditadas e omissões materiais do extrator exigem uma iteração de desenvolvimento antes do teste. |
 | ADR-023 | Guarda de integridade para alegações curtas | Aceita | A v2 eliminou três recusas indevidas e melhorou o denso sem auditor em +0,197 macro-F1 pareado (IC 95% +0,114 a +0,281). |
 | ADR-024 | Reranker fora do caminho padrão | Aceita | Na v2, híbrido + reranker + auditor teve macro-F1 0,464, recall zero de `MISLEADING` e mediana de 19,3 s; fica apenas para ablação. |
-| ADR-025 | BGE-M3 + auditor como candidata de segurança, teste ainda fechado | Em avaliação | Denso sem auditor lidera em macro-F1 (0,577), mas recupera só 12,5% das abstenções; o auditor chega a 62,5%, com custo de falsos negativos e macro-F1 0,528. |
+| ADR-025 | BGE-M3 + auditor v2 como candidata de segurança | Não promovida | Embora eleve o recall de abstenção para 0,625, tem macro-F1 0,528 e recall `MISLEADING` 0,158; permanece no código somente como opção conservadora provisória. |
+| ADR-026 | Auditor restrito à fidelidade factual | Descartada | A v3 obteve macro-F1 0,405, recall zero de `MISLEADING` e delta pareado negativo contra a v2; falhou os gates pré-registrados. |
 
 ## Histórico de alterações
 
@@ -67,6 +68,13 @@
   O reranker deixa de ser candidato online. O denso auditado permanece como
   candidato de segurança porque eleva recall de abstenção, mas o teste continua
   fechado até avaliar/calibrar o auditor sem novo uso do teste.
+- **17/09/2026 — ADR-026:** a calibração v3 foi registrada no commit `4b9fc0d`
+  antes das inferências e reutilizou extração, retrieval e geração da v2. Restringir
+  o auditor à fidelidade factual reduziu macro-F1 de 0,528 para 0,405 e o recall de
+  `MISLEADING` de 0,158 para zero; o IC 95% do delta pareado por família foi
+  -0,212 a -0,024. A variante foi descartada e o prompt v2 restaurado. Conforme o
+  protocolo, não haverá nova calibração orientada pelos mesmos 96 itens. O teste
+  permanece fechado até validação externa ou decisão metodológica com o orientador.
 
 ## Política de alteração
 

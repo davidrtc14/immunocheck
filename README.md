@@ -37,8 +37,8 @@ O corte vertical textual da Fase 1 está funcional. Na Fase 2, o índice BGE-M3 
 e a fusão BM25+dense por RRF já foram implementados. Na Fase 6, o BGE-M3 isolado
 teve o melhor equilíbrio fim a fim no desenvolvimento. O reranker melhorou ranking,
 mas não a classificação completa e duplicou a latência; permanece apenas como
-ablação. O auditor aumenta a detecção de casos sem evidência, mas ainda precisa de
-calibração antes do teste congelado. O corpus possui manifesto,
+ablação. A calibração factual do auditor falhou os gates e foi descartada; o auditor
+anterior foi restaurado provisoriamente, sem abrir o teste congelado. O corpus possui manifesto,
 proveniência e atualização incremental manual. A persistência PostgreSQL+pgvector,
 suas migrations, importação e busca exata foram validadas no Docker local. Consulte
 `docs/ROADMAP.md`.
