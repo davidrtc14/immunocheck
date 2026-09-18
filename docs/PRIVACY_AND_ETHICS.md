@@ -7,6 +7,7 @@ jurídico nem declara conformidade integral com a LGPD.
 Referências oficiais consultadas:
 
 - [Lei nº 13.709/2018 — LGPD](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm);
+- [Guia da ANPD para fins acadêmicos e pesquisas](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-tratamento-de-dados-pessoais-para-fins-academicos-e-para-a-realizacao-de-estudos-e-pesquisas);
 - [Guia da ANPD sobre agentes de tratamento e encarregado](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-para-definicoes-dos-agentes-de-tratamento-de-dados-pessoais-e-do-encarregado);
 - [Guia da ANPD sobre segurança da informação](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/processo-guia-orientativo-sobre-seguranca-da-informacao-para-agentes-de-tratamento-de-pequeno-porte.pdf);
 - [Resolução CNS nº 510/2016](https://www.gov.br/conselho-nacional-de-saude/pt-br/atos-normativos/resolucoes/2016/resolucao-no-510.pdf/view).
@@ -132,3 +133,5 @@ instituição, não o software, decide o enquadramento e a tramitação aplicáv
 
 Enquanto essas pendências estiverem abertas, o uso autorizado é demonstração local
 com dados sintéticos, não serviço público de saúde nem estudo com participantes.
+O formulário de decisão para orientador, encarregado e CEP está consolidado em
+`docs/INSTITUTIONAL_GATE_PACKAGE.md`.

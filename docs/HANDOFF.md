@@ -23,7 +23,8 @@ de texto, imagem, link controlado e recusa de vídeo. Antes do marco estável em
 `main`, ainda faltam a definição institucional de controlador/operador, base legal,
 canal do titular e aplicabilidade de CEP/CONEP, além da passagem ao vivo com o bot e
 o ambiente da banca. Essas são decisões humanas/institucionais ou operacionais; não
-devem ser inventadas pelo software.
+devem ser inventadas pelo software. As dez perguntas fechadas e a recomendação de
+escopo estão em `docs/INSTITUTIONAL_GATE_PACKAGE.md`.
 
 ## Histórico — congelamento e adjudicação
 

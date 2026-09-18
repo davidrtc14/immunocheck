@@ -231,6 +231,7 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 - [x] Bootstrap e análise qualitativa de erros no desenvolvimento.
 - [x] Revisão técnica LGPD/ética e direitos humanos.
 - [ ] Definição institucional de papéis, base legal, canal do titular e CEP/CONEP quando aplicável.
+- [x] Pacote fechado de perguntas e recomendações preparado para a decisão institucional.
 - [x] Documentação de reprodução e roteiro de demonstração.
 - [x] Ensaio automatizado local do roteiro de demonstração.
 - [ ] Ensaio ao vivo com o bot e o ambiente que serão usados na apresentação.
