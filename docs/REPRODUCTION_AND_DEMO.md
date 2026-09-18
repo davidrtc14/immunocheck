@@ -77,6 +77,22 @@ Resultados publicados de desenvolvimento ficam em
 `--overwrite` só devem usá-lo em reprodução declarada, nunca para substituir a
 primeira execução sem preservar o artefato anterior.
 
+## Desempenho operacional multimodal
+
+O resultado original está em `evaluation/results/performance/` e não deve ser
+sobrescrito. Para uma réplica explicitamente separada, use caminhos novos:
+
+```powershell
+python scripts/benchmark_operational_modalities.py `
+  --records evaluation/results/performance/replica_records.jsonl `
+  --output evaluation/results/performance/replica_summary.json
+```
+
+O ensaio executa 30 imagens, 30 links controlados e 30 confirmações locais. Ele
+requer Ollama, índice BGE-M3 e Tesseract, leva vários minutos e não acessa a rede do
+Telegram nem servidores dos links. Consulte `docs/OPERATIONAL_PERFORMANCE_PROTOCOL.md`
+antes de interpretar ou reproduzir os números.
+
 ## Teste local do protótipo
 
 Com o Ollama ativo e o índice construído:
@@ -132,7 +148,7 @@ processamento local; a demonstração deve usar somente alegações sintéticas.
 
 ## Critério de conclusão deste documento
 
-O roteiro e os comandos estão definidos. A evidência operacional final ainda exige
-um ensaio cronometrado completo no commit candidato, depois da decisão metodológica
-sobre o auditor. Esse ensaio deve registrar duração, falhas e divergências do roteiro
-sem alterar o conjunto de teste.
+O roteiro, os comandos e o ensaio operacional controlado estão concluídos. Ainda é
+necessário executar uma passagem ensaiada da apresentação no ambiente e com o bot
+que serão usados pela banca; isso é validação de demonstração, não novo experimento
+nem oportunidade de ajustar a configuração a partir do teste congelado.

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "purpose": "operational_multimodal_performance_no_quality_tuning",
+  "executed_at": "2026-09-18T21:14:29.248084+00:00",
+  "protocol": "docs/OPERATIONAL_PERFORMANCE_PROTOCOL.md",
+  "current_commit": "b80828a450f4383b275ef899353d6658697030d1",
+  "final_quality_candidate_commit": "52ab0bdef6b9c8649c8e1ee2b56996d24d0f0ac3",
+  "quality_test_reused": false,
+  "post_test_tuning_performed": false,
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
+    "model": "qwen3:8b",
+    "retrieval": "bge_m3_dense",
+    "top_k": 6,
+    "reranker": false,
+    "auditor": "v2_restored"
+  },
+  "controlled_conditions": {
+    "image": "synthetic_typographic_images_with_real_ocr",
+    "link": "in_memory_https_resources_with_real_html_text_pdf_parsers",
+    "telegram_feedback": "in_memory_client_without_bot_api_or_network"
+  },
+  "resources": {
+    "samples": 852,
+    "scope": "whole_system",
+    "system_ram_used_gib": {
+      "baseline_gib": 14.889389038085938,
+      "peak_gib": 20.276451110839844,
+      "peak_minus_baseline_gib": 5.387062072753906,
+      "target_gib": 24.0,
+      "target_met_conservative_whole_system": true
+    },
+    "gpu_vram_used_gib": {
+      "baseline_gib": 6.8154296875,
+      "peak_gib": 6.8271484375,
+      "peak_minus_baseline_gib": 0.01171875,
+      "target_gib": 7.5,
+      "target_met_conservative_whole_system": true
+    }
+  },
+  "summaries": {
+    "image": {
+      "runs": 30,
+      "successful_runs": 30,
+      "technical_failures": 0,
+      "completion_rate": 1.0,
+      "completion_target": 0.95,
+      "completion_target_met": true,
+      "total_latency": {
+        "samples": 30,
+        "minimum_ms": 6587.632600014331,
+        "median_ms": 8095.402350008953,
+        "mean_ms": 8315.787046666568,
+        "p95_ms": 10285.725599998841,
+        "maximum_ms": 10842.121399997268,
+        "standard_deviation_ms": 914.6325898267264,
+        "target_ms": 60000.0,
+        "target_met": true
+      },
+      "normalization_latency": {
+        "samples": 30,
+        "minimum_ms": 112.04810001072474,
+        "median_ms": 124.92070000735112,
+        "mean_ms": 135.57196333325314,
+        "p95_ms": 132.4171000160277,
+        "maximum_ms": 483.394800015958,
+        "standard_deviation_ms": 65.83136915808977,
+        "target_ms": 60000.0,
+        "target_met": true
+      }
+    },
+    "link": {
+      "runs": 30,
+      "successful_runs": 30,
+      "technical_failures": 0,
+      "completion_rate": 1.0,
+      "completion_target": 0.95,
+      "completion_target_met": true,
+      "total_latency": {
+        "samples": 30,
+        "minimum_ms": 5945.276699989336,
+        "median_ms": 7605.154049990233,
+        "mean_ms": 7593.794376665998,
+        "p95_ms": 9068.010799994227,
+        "maximum_ms": 9527.826599980472,
+        "standard_deviation_ms": 979.33780455921,
+        "target_ms": 45000.0,
+        "target_met": true
+      },
+      "normalization_latency": {
+        "samples": 30,
+        "minimum_ms": 0.01170000177808106,
+        "median_ms": 0.33400001120753586,
+        "mean_ms": 0.4685533359103526,
+        "p95_ms": 1.2304999982006848,
+        "maximum_ms": 1.288400002522394,
+        "standard_deviation_ms": 0.42957187856011064,
+        "target_ms": 45000.0,
+        "target_met": true
+      }
+    },
+    "telegram_feedback": {
+      "runs": 30,
+      "network_included": false,
+      "feedback_latency": {
+        "samples": 30,
+        "minimum_ms": 0.006900023436173797,
+        "median_ms": 0.00864999310579151,
+        "mean_ms": 0.009536667494103312,
+        "p95_ms": 0.014899997040629387,
+        "maximum_ms": 0.020899984519928694,
+        "standard_deviation_ms": 0.002901538817587811,
+        "target_ms": 2000.0,
+        "target_met": true
+      }
+    }
+  }
+}

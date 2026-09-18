@@ -1,9 +1,29 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 16/09/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 18/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
-## Ponto atual — benchmark congelado, gate acadêmico ainda aberto
+## Ponto atual — prova de conceito avaliada, gates humanos ainda abertos
+
+O teste congelado foi executado uma única vez no commit candidato `52ab0bd`.
+A configuração BGE-M3 densa, Qwen3-8B e auditor v2 obteve macro-F1 0,416, recall
+zero de `MISLEADING`, mediana de 9,43 s e P95 de 12,42 s. Não é permitido ajustar
+prompt, modelo, retrieval, auditor ou limiares a partir desses 64 itens. O resultado
+sustenta uma prova de conceito acadêmica demonstrável, não implantação pública.
+
+O desempenho multimodal foi pré-registrado no commit `b80828a` e medido em 90
+execuções controladas: P95 de 10,29 s para imagem, 9,07 s para link e 0,015 ms para
+o feedback local do adaptador Telegram, sem falhas. O sistema inteiro atingiu pico
+de 20,28 GiB de RAM e 6,83 GiB de VRAM. Link e Telegram não incluíram rede externa;
+as imagens eram tipográficas. Consulte
+`evaluation/results/performance/OPERATIONAL_PERFORMANCE_REPORT.md`.
+
+A parte técnica da Fase 6 está concluída. Antes do marco estável em `main`, ainda
+faltam a definição institucional de controlador/operador, base legal, canal do
+titular e aplicabilidade de CEP/CONEP, além de um ensaio final do roteiro de banca.
+Essas são decisões humanas/institucionais; não devem ser inventadas pelo software.
+
+## Histórico — congelamento e adjudicação
 
 Em 15/09/2026, o usuário pediu maior agrupamento do trabalho técnico, com menos
 aprovações intermediárias. Foram preparados importador Markdown/JSONL de decisões,
@@ -99,8 +119,8 @@ uso acadêmico. LGPD, ética em IA e direitos humanos fazem parte do desenho.
 - V1 recebe texto, imagem predominantemente textual e link; vídeo é trabalho futuro.
 - Produção não persiste mensagens, imagens, URLs, respostas ou IDs de usuários.
 - Qwen3-8B local como LLM principal; nenhuma LLM externa recebe conteúdo de usuário.
-- BGE-M3 + BM25 + RRF é o retrieval adotado; reranker só entra se o experimento
-  provar ganho útil.
+- BGE-M3 denso é o retrieval final da v1; híbrido e reranker ficaram apenas como
+  ablações porque os ganhos de retrieval não melhoraram o resultado fim a fim.
 - PostgreSQL + pgvector persiste apenas corpus e embeddings; interações não têm tabelas.
 - Quatro vereditos: `SUPPORTED`, `REFUTED`, `MISLEADING` e `INSUFFICIENT_EVIDENCE`.
 - Não oferecer diagnóstico, dosagem ou recomendação médica individual.

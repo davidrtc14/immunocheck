@@ -227,7 +227,7 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 - [x] Experimentos de retrieval.
 - [x] Experimentos fim a fim no desenvolvimento.
 - [x] Métricas finais de qualidade, segurança e desempenho textual.
-- [ ] Desempenho formal de imagem, link e feedback do Telegram.
+- [x] Desempenho formal controlado de imagem, link e feedback local do Telegram.
 - [x] Bootstrap e análise qualitativa de erros no desenvolvimento.
 - [x] Revisão técnica LGPD/ética e direitos humanos.
 - [ ] Definição institucional de papéis, base legal, canal do titular e CEP/CONEP quando aplicável.
@@ -273,5 +273,17 @@ BGE-M3 + auditor v2 foi executada uma única vez nos 64 itens de teste e vincula
 ao commit `52ab0bd`. Obteve macro-F1 0,416 (IC 95% 0,308–0,507), acurácia 0,469,
 recall de abstenção 0,750, recall zero de `MISLEADING`, mediana 9,43 s, P95 12,42 s
 e zero falhas técnicas. Não haverá ajuste pós-teste. O resultado permite concluir
-a prova de conceito, mas não sustenta implantação pública; faltam desempenho
-multimodal, pendências institucionais LGPD/ética e ensaio final de demonstração.
+a prova de conceito, mas não sustenta implantação pública. Naquele momento ainda
+faltavam desempenho multimodal, pendências institucionais LGPD/ética e ensaio final
+de demonstração; o primeiro item foi concluído no registro seguinte.
+
+Desempenho operacional de 18/09/2026: o protocolo foi publicado no commit
+`b80828a` antes de 90 medições controladas. Imagem e link tiveram 30 execuções
+completas cada, sem falhas; os P95 foram 10,29 s e 9,07 s, respectivamente. O
+feedback local do adaptador Telegram teve P95 de 0,015 ms em 30 execuções. O pico
+conservador do sistema inteiro foi 20,28 GiB de RAM e 6,83 GiB de VRAM. As metas
+foram atendidas no laboratório. Link e Telegram não incluíram rede externa, e as
+imagens foram tipográficas; por isso o resultado não caracteriza internet, Bot API
+ou fotos difíceis. O relatório está em
+`evaluation/results/performance/OPERATIONAL_PERFORMANCE_REPORT.md`. Permanecem como
+gates humanos a definição institucional LGPD/CEP e o ensaio final de apresentação.
