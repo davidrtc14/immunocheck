@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "purpose": "automated_local_demo_rehearsal_not_quality_evaluation",
+  "executed_at": "2026-09-18T21:20:31.431977+00:00",
+  "current_commit": "ffc338c936f44d72f3b3b4cfd7cc6bd3420f2b7b",
+  "final_quality_candidate_commit": "52ab0bdef6b9c8649c8e1ee2b56996d24d0f0ac3",
+  "post_test_tuning_performed": false,
+  "live_telegram_used": false,
+  "external_network_used": false,
+  "synthetic_inputs_only": true,
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "model": "qwen3:8b"
+  },
+  "cases": [
+    {
+      "case": "text",
+      "passed": true,
+      "elapsed_ms": 7545.475099992473,
+      "feedback_seconds": 1.200009137392044e-06,
+      "message_count": 2,
+      "checks": {
+        "accepted_for_analysis": true,
+        "processing_feedback_first": true,
+        "response_sections_present": true,
+        "response_within_telegram_chunk_limit": true,
+        "feedback_before_download_or_result": true
+      }
+    },
+    {
+      "case": "image",
+      "passed": true,
+      "elapsed_ms": 7798.1641000078525,
+      "feedback_seconds": 6.00004568696022e-07,
+      "message_count": 2,
+      "checks": {
+        "accepted_for_analysis": true,
+        "processing_feedback_first": true,
+        "response_sections_present": true,
+        "response_within_telegram_chunk_limit": true,
+        "feedback_before_download_or_result": true
+      }
+    },
+    {
+      "case": "link_controlled",
+      "passed": true,
+      "elapsed_ms": 7755.470100004459,
+      "feedback_seconds": 8.00006091594696e-07,
+      "message_count": 2,
+      "checks": {
+        "accepted_for_analysis": true,
+        "processing_feedback_first": true,
+        "response_sections_present": true,
+        "response_within_telegram_chunk_limit": true,
+        "feedback_before_download_or_result": true
+      }
+    },
+    {
+      "case": "unsupported_video",
+      "passed": true,
+      "elapsed_ms": 0.011399999493733048,
+      "feedback_seconds": null,
+      "message_count": 1,
+      "checks": {
+        "not_accepted_for_analysis": true,
+        "single_transparent_response": true
+      }
+    }
+  ],
+  "all_passed": true,
+  "limitations": [
+    "O cliente Telegram e o recurso HTTPS foram substituídos por objetos em memória.",
+    "O ensaio não mede rede, Bot API, projeção, fala ou tempo total da apresentação.",
+    "As saídas não foram avaliadas contra gabarito e não orientam ajustes pós-teste."
+  ]
+}

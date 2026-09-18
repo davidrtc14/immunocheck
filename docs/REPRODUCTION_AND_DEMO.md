@@ -134,6 +134,20 @@ processamento local; a demonstração deve usar somente alegações sintéticas.
 7. **Resultados (1–2 min):** apresentar macro-F1 0,416, recall zero de
    `MISLEADING`, intervalos e v3 descartada; não afirmar desempenho em notícias reais.
 
+## Evidência do ensaio local
+
+O executor `scripts/rehearse_demo.py` aprovou texto, imagem, link controlado e recusa
+de vídeo pelo adaptador em memória. O relatório está em
+`evaluation/results/demo/AUTOMATED_REHEARSAL_REPORT.md`. Para repetir sem sobrescrever
+o registro original:
+
+```powershell
+python scripts/rehearse_demo.py `
+  --output evaluation/results/demo/automated_rehearsal_replica.json
+```
+
+Essa automação não substitui a passagem ao vivo com o bot e o ambiente da banca.
+
 ## Checklist anterior à banca
 
 - [ ] Commit e branch anotados; `git status` limpo.
@@ -148,7 +162,8 @@ processamento local; a demonstração deve usar somente alegações sintéticas.
 
 ## Critério de conclusão deste documento
 
-O roteiro, os comandos e o ensaio operacional controlado estão concluídos. Ainda é
-necessário executar uma passagem ensaiada da apresentação no ambiente e com o bot
-que serão usados pela banca; isso é validação de demonstração, não novo experimento
-nem oportunidade de ajustar a configuração a partir do teste congelado.
+O roteiro, os comandos, o ensaio operacional controlado e o ensaio automatizado do
+fluxo público estão concluídos. Ainda é necessário executar uma passagem da
+apresentação no ambiente e com o bot que serão usados pela banca; isso é validação
+de demonstração, não novo experimento nem oportunidade de ajustar a configuração a
+partir do teste congelado.

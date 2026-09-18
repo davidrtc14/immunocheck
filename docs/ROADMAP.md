@@ -232,6 +232,8 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 - [x] Revisão técnica LGPD/ética e direitos humanos.
 - [ ] Definição institucional de papéis, base legal, canal do titular e CEP/CONEP quando aplicável.
 - [x] Documentação de reprodução e roteiro de demonstração.
+- [x] Ensaio automatizado local do roteiro de demonstração.
+- [ ] Ensaio ao vivo com o bot e o ambiente que serão usados na apresentação.
 
 **Aceite:** resultados reproduzíveis, limitações explícitas e versão estável em
 `main` pronta para apresentação.
@@ -287,3 +289,10 @@ imagens foram tipográficas; por isso o resultado não caracteriza internet, Bot
 ou fotos difíceis. O relatório está em
 `evaluation/results/performance/OPERATIONAL_PERFORMANCE_REPORT.md`. Permanecem como
 gates humanos a definição institucional LGPD/CEP e o ensaio final de apresentação.
+
+Ensaio automatizado de 18/09/2026: texto, imagem, link controlado e recusa de vídeo
+passaram pelo adaptador de Telegram em memória. Os três fluxos aceitos enviaram o
+feedback antes da pipeline, preservaram todas as seções da resposta e respeitaram o
+limite de mensagem; duraram entre 7,55 s e 7,80 s. O registro está em
+`evaluation/results/demo/AUTOMATED_REHEARSAL_REPORT.md`. A execução ao vivo com a
+Bot API, o token e a apresentação falada permanece como tarefa humana anterior à banca.

@@ -18,10 +18,12 @@ de 20,28 GiB de RAM e 6,83 GiB de VRAM. Link e Telegram não incluíram rede ext
 as imagens eram tipográficas. Consulte
 `evaluation/results/performance/OPERATIONAL_PERFORMANCE_REPORT.md`.
 
-A parte técnica da Fase 6 está concluída. Antes do marco estável em `main`, ainda
-faltam a definição institucional de controlador/operador, base legal, canal do
-titular e aplicabilidade de CEP/CONEP, além de um ensaio final do roteiro de banca.
-Essas são decisões humanas/institucionais; não devem ser inventadas pelo software.
+A parte técnica da Fase 6 está concluída, incluindo um ensaio automatizado aprovado
+de texto, imagem, link controlado e recusa de vídeo. Antes do marco estável em
+`main`, ainda faltam a definição institucional de controlador/operador, base legal,
+canal do titular e aplicabilidade de CEP/CONEP, além da passagem ao vivo com o bot e
+o ambiente da banca. Essas são decisões humanas/institucionais ou operacionais; não
+devem ser inventadas pelo software.
 
 ## Histórico — congelamento e adjudicação
 
