@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import platform
+import shutil
 import subprocess
 import sys
 import time
@@ -224,7 +225,11 @@ def _check_demo() -> tuple[bool, str]:
 
 
 def _check_ollama() -> tuple[bool, str]:
-    result = _run(("ollama", "list"), timeout=20)
+    executable = _resolve_executable(
+        "ollama",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs/Ollama/ollama.exe",
+    )
+    result = _run((executable, "list"), timeout=20)
     passed = result.returncode == 0 and "qwen3:8b" in result.stdout.lower()
     return passed, "qwen3:8b disponível localmente" if passed else "qwen3:8b não detectado"
 
@@ -237,20 +242,34 @@ def _check_tesseract() -> tuple[bool, str]:
 
 
 def _check_docker() -> tuple[bool, str]:
-    result = _run(("docker", "version", "--format", "{{.Server.Version}}"), timeout=20)
+    executable = _docker_executable()
+    result = _run((executable, "version", "--format", "{{.Server.Version}}"), timeout=20)
     version = result.stdout.strip().splitlines()[0] if result.stdout.strip() else "indisponível"
     return result.returncode == 0, f"Docker Server {version}"
 
 
 def _check_compose() -> tuple[bool, str]:
-    result = _run(("docker", "compose", "version", "--short"), timeout=20)
+    executable = _docker_executable()
+    result = _run((executable, "compose", "version", "--short"), timeout=20)
     version = result.stdout.strip().splitlines()[0] if result.stdout.strip() else "indisponível"
     return result.returncode == 0, f"Docker Compose {version}"
 
 
 def _check_postgres() -> tuple[bool, str]:
+    executable = _docker_executable()
     result = _run(
-        ("docker", "compose", "exec", "-T", "postgres", "pg_isready", "-U", "immunocheck", "-d", "immunocheck"),
+        (
+            executable,
+            "compose",
+            "exec",
+            "-T",
+            "postgres",
+            "pg_isready",
+            "-U",
+            "immunocheck",
+            "-d",
+            "immunocheck",
+        ),
         timeout=20,
     )
     return result.returncode == 0, "PostgreSQL respondeu pg_isready" if result.returncode == 0 else "PostgreSQL indisponível"
@@ -292,6 +311,29 @@ def _read_json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise TypeError("Artefato JSON inválido.")
     return value
+
+
+def _docker_executable() -> str:
+    return _resolve_executable(
+        "docker",
+        Path(os.environ.get("LOCALAPPDATA", ""))
+        / "Programs/DockerDesktop/resources/bin/docker.exe",
+        Path(os.environ.get("ProgramFiles", r"C:\Program Files"))
+        / "Docker/Docker/resources/bin/docker.exe",
+    )
+
+
+def _resolve_executable(name: str, *candidates: Path) -> str:
+    discovered = shutil.which(name)
+    if discovered:
+        return discovered
+    for candidate in candidates:
+        try:
+            if candidate.is_file():
+                return str(candidate)
+        except OSError:
+            continue
+    raise FileNotFoundError(f"Executável {name} não encontrado.")
 
 
 def _git(*arguments: str) -> str:
