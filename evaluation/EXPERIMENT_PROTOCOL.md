@@ -177,3 +177,26 @@ abstenção, mudanças item a item e bootstrap pareado por família com 2.000
 reamostragens. Se os gates falharem, não haverá nova variante orientada pelos
 mesmos 96 itens: o teste permanecerá fechado até uma decisão metodológica
 explícita.
+
+## Configuração definitiva e autorização do teste
+
+Data: 18/09/2026. Após a falha da v3, o autor declarou que o orientador está
+ciente e aprovou a escolha de segurança BGE-M3 + auditor v2, bem como a execução
+única nos 64 itens de teste. A confirmação está registrada na conversa do projeto.
+
+Configuração congelada antes de carregar a partição:
+
+- BGE-M3 denso, top 6, sem RRF e sem reranker;
+- extrator v2 com guarda de integridade de alegações curtas;
+- Qwen3-8B local, temperatura 0 e seed 42 para geração e auditoria;
+- prompt do auditor v2, restaurado após o descarte da v3;
+- corpus, índice, freeze e código vinculados por hashes/commit no relatório;
+- uma condição final, sem comparação ou seleção posterior no teste.
+
+O executor gravará checkpoint atômico para tolerar interrupção. Retomar o mesmo
+checkpoint não constitui nova execução; apagar, substituir ou executar novamente
+os itens para escolher a melhor saída é proibido. Serão relatados macro-F1,
+balanced accuracy, acurácia, métricas por classe, matriz de confusão, abstenção,
+citação relevante, auditor, falhas, latência e intervalos bootstrap de famílias.
+Depois de produzido o relatório, nenhum resultado do teste poderá alterar prompt,
+modelo, retrieval, top-k, auditor, regra ou limiar desta versão.

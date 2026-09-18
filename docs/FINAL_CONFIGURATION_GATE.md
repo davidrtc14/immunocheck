@@ -51,14 +51,14 @@ início e exigiria substituir a ADR-014 antes do teste.
 
 ## Aprovação necessária
 
-- [ ] Orientador ciente do trade-off entre macro-F1, `MISLEADING` e abstenção.
-- [ ] Configuração BGE-M3 + auditor v2 aceita como escolha de segurança.
-- [ ] Autorizada a execução única nos 64 itens de teste.
-- [ ] Confirmado que resultados do teste não provocarão novo ajuste nesta versão.
+- [x] Orientador ciente do trade-off entre macro-F1, `MISLEADING` e abstenção.
+- [x] Configuração BGE-M3 + auditor v2 aceita como escolha de segurança.
+- [x] Autorizada a execução única nos 64 itens de teste.
+- [x] Confirmado que resultados do teste não provocarão novo ajuste nesta versão.
 
-Registro da decisão: ________________________________________________
+Registro da decisão: confirmação explícita do autor na conversa do projeto.
 
-Data e responsável: _________________________________________________
+Data e responsável: 18/09/2026 — autor do projeto, após ciência do orientador.
 
 Sem esse aceite, é permitido continuar testes automatizados, documentação e ensaio
 de demonstração com dados sintéticos, mas não abrir o conjunto de teste.
