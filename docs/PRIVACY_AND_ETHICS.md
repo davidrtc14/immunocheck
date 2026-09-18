@@ -1,62 +1,134 @@
-# Privacidade, ética e direitos humanos
+# Revisão de privacidade, ética e direitos humanos
 
-## Princípios
+Revisão técnica concluída em 18/09/2026. Este documento registra decisões de
+engenharia e questões que exigem validação institucional. Ele não é parecer
+jurídico nem declara conformidade integral com a LGPD.
 
-- Minimização de dados por arquitetura.
-- Transparência sobre automação, limitações e fontes.
-- Abstenção diante de incerteza.
-- Supervisão humana na construção do dataset e interpretação dos resultados.
-- Não discriminação e análise de erros por tema, vacina e tipo de alegação.
-- Direito à informação: o usuário recebe fundamentos verificáveis, não apenas rótulo.
+Referências oficiais consultadas:
 
-## Dados de usuários
+- [Lei nº 13.709/2018 — LGPD](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm);
+- [Guia da ANPD sobre agentes de tratamento e encarregado](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-para-definicoes-dos-agentes-de-tratamento-de-dados-pessoais-e-do-encarregado);
+- [Guia da ANPD sobre segurança da informação](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/processo-guia-orientativo-sobre-seguranca-da-informacao-para-agentes-de-tratamento-de-pequeno-porte.pdf);
+- [Resolução CNS nº 510/2016](https://www.gov.br/conselho-nacional-de-saude/pt-br/atos-normativos/resolucoes/2016/resolucao-no-510.pdf/view).
 
-Em produção, o sistema não persiste mensagens, imagens, URLs, identificadores do
-Telegram, vereditos ou histórico. Arquivos temporários são eliminados ao final da
-requisição. Logs contêm apenas eventos técnicos agregados, códigos de erro e tempos,
-sem conteúdo ou IDs.
+## Escopo desta revisão
 
-O caminho de imagem e link da v1 não cria arquivos temporários: download, validação,
-pré-processamento, OCR e extração ocorrem em memória. A URL ainda é necessariamente
-revelada ao servidor acessado, e imagens já transitaram pelo Telegram antes de chegarem ao
-processamento local; essas fronteiras devem constar no aviso ao usuário.
+O protótipo é executado localmente para demonstração acadêmica. Não há piloto
+público, cadastro, memória conversacional, perfil de usuário nem uso de mensagens
+reais no dataset. A avaliação offline usa documentos públicos e alegações
+sintéticas curadas. Qualquer estudo futuro com participantes ou mensagens reais é
+uma nova operação de tratamento e não está autorizado por este documento.
 
-O aviso de privacidade deverá informar:
+## Inventário e fluxo de dados
 
-- finalidade exclusiva de checagem de alegações sobre vacinação;
-- que o Telegram processa a mensagem para entregá-la ao bot;
-- que o conteúdo é processado localmente pelo ImmunoCheck;
-- ausência de memória entre mensagens;
-- proibição de enviar dados médicos pessoais desnecessários;
-- limitações e canal institucional de contato.
+| Dado | Finalidade | Local/processador | Retenção local | Observação |
+|---|---|---|---|---|
+| Texto, imagem ou URL enviados | Executar uma checagem | Telegram → memória do computador | Nenhuma | Pode conter dado pessoal ou dado sensível de saúde mesmo sem solicitação. |
+| `chat_id`, `file_id` e metadados da atualização | Receber arquivo e devolver resposta | Telegram e memória do adaptador | Nenhuma | São identificadores pessoais; não entram nos logs. |
+| Texto extraído, embeddings da consulta e resposta | RAG, geração e auditoria | Tesseract, BGE-M3 e Qwen3 locais | Nenhuma | Não são enviados a LLM ou embedding externo. |
+| URL informada | Baixar conteúdo público | Computador e servidor do endereço | Nenhuma | O servidor acessado observa a requisição; URL pode conter identificadores. |
+| Eventos técnicos e tempos | Operação e diagnóstico | Log local | Conforme política do operador | Mensagem, URL, resposta e identificadores são excluídos por desenho. |
+| Corpus e benchmark | Conhecimento e avaliação offline | Arquivos/PG local e Git quando permitido | Versionada | Documentos públicos; alegações sintéticas sem perfis de autores. |
+| Token do bot e senhas locais | Autenticação operacional | Variáveis de ambiente | Não versionada | Devem ser rotacionados em caso de exposição. |
 
-## Dados de pesquisa
+O tratamento transitório ainda é tratamento de dados; ausência de persistência não
+elimina obrigações. Além disso, o Telegram recebe o conteúdo antes do ImmunoCheck e
+aplica suas próprias políticas, infraestrutura e prazos de retenção.
 
-O corpus é documental. O dataset de avaliação usa alegações públicas reescritas e
-curadas, sem perfis ou identificadores de autores. Logs experimentais contêm apenas
-IDs dos itens curados, configurações, resultados e métricas.
+## Princípios aplicados por desenho
 
-Antes de testes com participantes ou coleta de mensagens reais, o projeto deve
-consultar formalmente o orientador e a instância ética competente da UNIPÊ. Nenhum
-teste com pessoas será iniciado apenas por decisão técnica.
+- **Finalidade e adequação:** somente checagem de alegações sobre vacinação humana.
+- **Necessidade:** sem conta própria, histórico, cache conversacional ou telemetria
+  de conteúdo; uma alegação principal por requisição.
+- **Transparência:** `/start` e `/privacidade` explicam processamento local,
+  participação do Telegram, ausência de memória e proibição de dados médicos
+  pessoais desnecessários.
+- **Segurança e prevenção:** segredos fora do Git, SSRF bloqueado, limites de
+  download, conteúdo externo não confiável, logs sanitizados e modelos locais.
+- **Não discriminação:** resultados devem ser analisados por classe, tema e tipo de
+  entrada quando houver amostra; atributos pessoais não são inferidos.
+- **Prestação de contas:** decisões, corpus, hashes, falhas e resultados negativos
+  são versionados; a v3 descartada foi preservada em vez de ocultada.
 
-## Riscos e controles
+## Papéis e base legal: decisão institucional pendente
 
-| Risco | Controle mínimo |
-|---|---|
-| Confundir falta de evidência com falsidade | Classe `INSUFFICIENT_EVIDENCE` e limiar de suficiência. |
-| Censura ou autoridade indevida | Critérios públicos, fontes visíveis e análise de conflitos. |
-| Alucinação | Geração restrita às evidências, IDs válidos e auditoria pós-geração. |
-| Conselho médico | Filtros de entrada/saída e respostas fixas de redirecionamento. |
-| Prompt injection | Conteúdo externo tratado como dado, nunca como instrução. |
-| Vazamento de dados | Processamento local, ausência de logs de conteúdo e segredos fora do Git. |
-| SSRF e download malicioso | HTTPS, bloqueio de redes privadas, limites, timeout e tipos permitidos. |
-| Viés do corpus | Diversidade de fontes, documentação de cobertura e análise de erros. |
-| Falsa precisão | Confiança qualitativa apenas quando calibrada; apresentar limitações. |
+O código não pode definir quem é controlador, operador ou encarregado. Antes de
+qualquer piloto aberto, UNIPÊ, orientação e autor devem registrar quem decide a
+finalidade e os meios do tratamento, quem opera o sistema e qual canal atenderá os
+titulares. Também devem determinar a base legal aplicável ao uso pretendido,
+inclusive para dado sensível de saúde eventualmente enviado espontaneamente.
 
-## Direito de contestação
+Não se presume consentimento nem se presume automaticamente a hipótese de estudos
+por órgão de pesquisa. A aplicabilidade dessas bases depende do responsável
+institucional e do desenho real do piloto. Até essa decisão, a demonstração deve
+usar somente entradas sintéticas e não identificáveis.
 
-O sistema não se apresenta como árbitro definitivo. A resposta deve convidar à
-consulta das fontes e explicar como uma conclusão pode mudar com novas evidências.
-Erros identificados no conjunto de avaliação devem ser corrigidos de forma
-versionada, preservando histórico e justificativa.
+## Direitos dos titulares e contestação
+
+Como o ImmunoCheck não retém interações, normalmente não haverá conteúdo local para
+acessar, corrigir ou eliminar após a resposta. Ainda assim, um piloto público deve
+oferecer canal institucional para perguntas, oposição e relato de incidente, além
+de explicar separadamente como exercer direitos perante o Telegram.
+
+No plano ético, o usuário pode contestar um veredito e verificar as fontes. O
+sistema não remove conteúdo, pune autores nem se apresenta como árbitro definitivo.
+Correções no corpus ou benchmark são versionadas com justificativa e histórico.
+
+## Direitos humanos e riscos de IA
+
+| Risco | Controle existente | Limitação residual |
+|---|---|---|
+| Censura ou autoridade indevida | Fontes visíveis, quatro classes e linguagem não punitiva | Seleção institucional do corpus influencia o enquadramento. |
+| Confundir ausência de evidência com falsidade | Classe `INSUFFICIENT_EVIDENCE` | Auditor atual apresenta falsos positivos de abstenção. |
+| Desinformação produzida pelo sistema | RAG local, IDs válidos, schema e auditor | Gerador e auditor usam o mesmo modelo; erros são correlacionados. |
+| Conselho médico individual | Prompt, guarda determinística e aviso | Formulações indiretas podem escapar; não substitui profissional. |
+| Viés geográfico/institucional | Proveniência e cobertura temática documentadas | Corpus prioriza português e instituições oficiais; validade externa é limitada. |
+| Exclusão por acessibilidade | Chat textual, linguagem curta e fontes legíveis | Telegram, OCR e links ainda criam barreiras; não houve teste com participantes. |
+| Mudança temporal de recomendações | Datas, versões e atualização manual do corpus | Não há atualização automática; respostas podem envelhecer. |
+| Falsa precisão | Abstenção e publicação de métricas/intervalos | Benchmark sintético tem atalhos lexicais e amostra pequena. |
+
+O direito à saúde e à informação exige não só combater alegações incorretas, mas
+também evitar segurança excessiva, ocultação de incerteza e aconselhamento pessoal.
+Uma resposta sempre deve permitir inspeção das referências e informar que novas
+evidências podem mudar a conclusão.
+
+## Pesquisa com participantes
+
+O benchmark atual não contém mensagens de usuários nem dados coletados de
+participantes. Antes de teste de usabilidade, entrevista, observação de pessoas ou
+coleta de mensagens reais, o autor deve apresentar o protocolo ao orientador e
+consultar a instância ética competente da UNIPÊ. A Resolução CNS nº 510/2016 cobre
+pesquisas em Ciências Humanas e Sociais com dados obtidos diretamente de
+participantes, informações identificáveis ou riscos superiores aos cotidianos; a
+instituição, não o software, decide o enquadramento e a tramitação aplicáveis.
+
+## Resposta a incidente
+
+1. Interromper o bot e preservar somente evidência técnica necessária, sem copiar
+   conteúdo de usuários para o relatório.
+2. Revogar token do Telegram e credenciais afetadas; isolar a máquina se necessário.
+3. Registrar natureza, alcance, dados potencialmente afetados, controles e ações.
+4. Comunicar imediatamente o responsável institucional definido para avaliar
+   risco, titulares afetados e eventual comunicação à ANPD.
+5. Corrigir a causa, testar a correção e documentar a retomada.
+
+## Evidências técnicas verificadas
+
+- Adaptador sem repositório de interações; estado de fila e offset só em memória.
+- Logs usam mensagens fixas e não interpolam conteúdo, URL, `chat_id` ou `file_id`.
+- Imagem, HTML e PDF são processados em memória.
+- Testes automatizados cobrem ausência de conteúdo/identificadores nos logs,
+  rejeição de tipos e tamanhos, SSRF, prompt injection e orientação médica direta.
+- `.gitignore` exclui `.env`, corpus bruto, modelos, bancos e artefatos locais.
+
+## Pendências antes de piloto público
+
+- [ ] Identificar formalmente controlador, operador e contato de privacidade.
+- [ ] Registrar finalidade operacional, base legal e prazo dos logs técnicos.
+- [ ] Avaliar transferência e riscos do Telegram com o responsável institucional.
+- [ ] Decidir com orientador/instância ética se o protocolo exige CEP/CONEP.
+- [ ] Definir procedimento institucional de incidente e exercício de direitos.
+- [ ] Fazer teste de acessibilidade/usabilidade somente após a decisão ética.
+
+Enquanto essas pendências estiverem abertas, o uso autorizado é demonstração local
+com dados sintéticos, não serviço público de saúde nem estudo com participantes.

@@ -228,8 +228,9 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 - [x] Experimentos fim a fim no desenvolvimento.
 - [ ] Métricas de qualidade, segurança e desempenho.
 - [x] Bootstrap e análise qualitativa de erros no desenvolvimento.
-- [ ] Revisão LGPD/ética e consulta institucional quando aplicável.
-- [ ] Documentação de reprodução e roteiro de demonstração.
+- [x] Revisão técnica LGPD/ética e direitos humanos.
+- [ ] Definição institucional de papéis, base legal, canal do titular e CEP/CONEP quando aplicável.
+- [x] Documentação de reprodução e roteiro de demonstração.
 
 **Aceite:** resultados reproduzíveis, limitações explícitas e versão estável em
 `main` pronta para apresentação.

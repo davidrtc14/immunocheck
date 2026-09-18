@@ -93,6 +93,7 @@ entregue ao bot.
 - `docs/ARCHITECTURE_DECISIONS.md` — decisões e justificativas.
 - `docs/RESEARCH_PROTOCOL.md` — corpus, dataset e avaliação.
 - `docs/PRIVACY_AND_ETHICS.md` — LGPD, ética e direitos humanos.
+- `docs/REPRODUCTION_AND_DEMO.md` — instalação limpa, reprodução e roteiro de banca.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.

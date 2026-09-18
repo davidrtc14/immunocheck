@@ -14,13 +14,9 @@ Normalização por modalidade
    ↓
 Filtro de escopo e extração da alegação principal
    ↓
-Retrieval híbrido sobre corpus versionado
-   ├── dense retrieval com BGE-M3
-   └── BM25 lexical
+Retrieval denso BGE-M3 sobre corpus versionado
    ↓
-Reciprocal Rank Fusion + deduplicação
-   ↓
-Reranker opcional, se validado experimentalmente
+Top 6 chunks deduplicados
    ↓
 Teste de suficiência e conflito da evidência
    ↓
@@ -31,9 +27,10 @@ Validação de schema, citações, fidelidade e linguagem médica
 Resposta acessível + fontes verificáveis ou abstenção
 ```
 
-O BM25 isolado foi o baseline da Fase 1. Após a comparação piloto da Fase 2, o caminho
-online passou a usar BGE-M3 em CPU e BM25 com RRF; o modo lexical isolado permanece
-disponível para ablação e diagnóstico. O reranker continua desligado por padrão.
+O BM25 isolado foi o baseline da Fase 1. A avaliação formal da Fase 6 escolheu BGE-M3
+isolado para o caminho online. BM25, RRF e reranker permanecem disponíveis somente
+para ablação e diagnóstico; o reranker não converteu seu ganho de ranking em melhora
+fim a fim e duplicou a latência.
 
 ## Pipeline de ingestão
 
