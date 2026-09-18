@@ -262,3 +262,7 @@ O candidato foi descartado, o auditor v2 foi restaurado provisoriamente e nenhum
 quarta variante será ajustada nos mesmos 96 itens. Antes do teste único, falta uma
 decisão metodológica apoiada por validação externa ou por um conjunto de calibração
 novo, além dos demais itens de qualidade, LGPD/ética e reprodução desta fase.
+
+A matriz de decisão e a recomendação de segurança estão em
+`docs/FINAL_CONFIGURATION_GATE.md`. Ela recomenda BGE-M3 + auditor v2, mas exige
+ciência do orientador e autorização explícita antes da abertura irreversível do teste.
