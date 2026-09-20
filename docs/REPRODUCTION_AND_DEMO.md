@@ -38,10 +38,11 @@ python scripts/migrate_database.py
 ollama pull qwen3:8b
 ```
 
-O `.env` é local e nunca deve ser commitado; o protótipo não o carrega
-automaticamente, por isso as variáveis necessárias são definidas na sessão. O valor
-padrão da senha do Compose é somente para desenvolvimento em `127.0.0.1`; use outro
-segredo se a porta puder ser acessada por terceiros.
+O `.env` é local e nunca deve ser commitado. O inicializador
+`scripts/run_telegram_local.py` lê somente a lista explícita de chaves necessárias
+ao bot; os demais comandos continuam recebendo variáveis pela sessão. O valor padrão
+da senha do Compose é somente para desenvolvimento em `127.0.0.1`; use outro segredo
+se a porta puder ser acessada por terceiros.
 
 ## Corpus e índice
 
@@ -110,8 +111,9 @@ apresentação.
 ## Telegram
 
 ```powershell
-$env:TELEGRAM_BOT_TOKEN = Read-Host "Token do bot" -MaskInput
-python -m immunocheck.telegram
+Copy-Item .env.example .env  # somente se o .env local ainda não existir
+# Preencha TELEGRAM_BOT_TOKEN no .env local, que é ignorado pelo Git.
+python scripts/run_telegram_local.py
 ```
 
 Use uma conta e um bot de demonstração. Não projete o token, terminal com variáveis,

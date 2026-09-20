@@ -16,8 +16,9 @@ em arquivo ou banco. O offset de long polling também vive apenas em memória.
 2. No PowerShell, dentro do ambiente virtual, defina o token sem incluí-lo no comando:
 
 ```powershell
-$env:TELEGRAM_BOT_TOKEN = Read-Host "Token do bot" -MaskInput
-python -m immunocheck.telegram
+Copy-Item .env.example .env  # somente se o .env local ainda não existir
+# Edite apenas o arquivo local e preencha TELEGRAM_BOT_TOKEN.
+python scripts/run_telegram_local.py
 ```
 
 O corpus processado, o Ollama e o modelo configurado em `OLLAMA_MODEL` precisam estar

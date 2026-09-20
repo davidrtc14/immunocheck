@@ -79,8 +79,9 @@ Depois de criar um bot com o BotFather, defina o token apenas na sessão local e
 o long polling:
 
 ```powershell
-$env:TELEGRAM_BOT_TOKEN = Read-Host "Token do bot" -MaskInput
-python -m immunocheck.telegram
+Copy-Item .env.example .env  # somente se o .env local ainda não existir
+# Preencha TELEGRAM_BOT_TOKEN no .env local, sem aspas ou com aspas simples/duplas.
+python scripts/run_telegram_local.py
 ```
 
 Consulte `docs/TELEGRAM.md` antes do teste operacional. O conteúdo é processado
