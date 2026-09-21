@@ -21,11 +21,17 @@ públicos e alegações sintéticas. Não houve recrutamento, entrevistas, obser
 participantes, coleta de mensagens reais nem uso de interações do Telegram como
 dataset.
 
-A demonstração prevista é restrita, executada pelo próprio autor e usa somente
-entradas sintéticas. O Telegram atua como canal de transporte; o computador processa
-o conteúdo localmente e não grava mensagens, imagens, URLs, respostas, `chat_id` ou
-`file_id`. O bot permanecerá desligado fora da demonstração e esta versão não será
-oferecida como serviço público de saúde.
+A demonstração prevista é restrita: somente o autor insere entradas sintéticas de um
+roteiro previamente definido. Membros da banca e terceiros não devem improvisar ou
+enviar entradas ao bot. O Telegram atua como canal de transporte; o computador
+processa o conteúdo localmente e não grava mensagens, imagens, URLs, respostas,
+`chat_id` ou `file_id`. O bot permanecerá desligado fora da demonstração e esta
+versão não será oferecida como serviço público de saúde.
+
+A política pública do Telegram descreve infraestrutura em diferentes jurisdições e
+não oferece, para este projeto, garantia de processamento exclusivamente no Brasil.
+Por isso, o uso do canal pode envolver transferência internacional e deve ser
+avaliado pela instituição também à luz do art. 33 da LGPD.
 
 Peço a confirmação das decisões abaixo:
 
@@ -44,11 +50,19 @@ Peço a confirmação das decisões abaixo:
 6. Qual canal institucional de privacidade/encarregado deve constar no aviso ao
    usuário?
 7. A instituição aceita o Telegram como canal apenas para a demonstração restrita,
-   considerando que a plataforma recebe o conteúdo antes do processamento local?
-8. Confirma-se ausência de arquivo de log e encerramento do terminal sem exportação?
-9. Qual função ou canal institucional deve receber comunicação imediata de eventual
-   incidente?
-10. Há alguma salvaguarda adicional obrigatória antes da apresentação?
+   considerando que a plataforma recebe o conteúdo antes do processamento local e
+   que isso pode envolver transferência internacional? Qual fundamento, mecanismo ou
+   salvaguarda deve ser registrado para o art. 33 da LGPD?
+8. Confirma-se a regra de que somente o autor poderá inserir as entradas sintéticas
+   do roteiro, sem improviso ou participação interativa da banca e de terceiros?
+9. O controle atual para envio acidental de dado sensível é suficiente? Atualmente
+   há aviso prévio, processamento transitório em memória e descarte sem log, mas não
+   há segunda tela de confirmação nem detecção de dado sensível antes da análise. Se
+   não for suficiente, qual salvaguarda deve ser implementada?
+10. Confirma-se ausência de arquivo de log e encerramento do terminal sem exportação?
+11. Qual função ou canal institucional deve receber comunicação imediata de eventual
+    incidente?
+12. Há alguma salvaguarda adicional obrigatória antes da apresentação?
 
 As recomendações técnicas, o inventário de dados, os controles implementados e as
 referências oficiais estão no pacote institucional do projeto. Uma resposta por
@@ -67,12 +81,15 @@ substitui a confirmação institucional dos campos marcados como pendentes.
 |---|---|---|
 | Escopo | Demonstração restrita, pelo autor, somente com entradas sintéticas | Recomendada e implementada |
 | Participantes | Não recrutar, observar, entrevistar ou coletar mensagens de terceiros | Recomendada e implementada |
+| Operação da banca | Somente o autor insere fixtures sintéticas pré-definidas; sem improviso de terceiros | Regra operacional documentada |
 | Dataset | Corpus público e benchmark sintético; nenhuma interação vira dado de pesquisa | Implementada |
 | Disponibilização | Manter bot desligado fora da apresentação; não oferecer serviço público | Recomendada |
 | Persistência | Não gravar conteúdo, respostas, URLs ou identificadores | Implementada e testada |
 | LLM e embeddings | Processamento local; nenhum conteúdo enviado a modelos externos | Implementada |
 | Logs | Somente eventos e tempos, sem conteúdo ou identificadores; não exportar terminal | Implementada |
 | Incidente | Parar bot, revogar token e comunicar o responsável institucional | Implementada parcialmente; falta canal institucional |
+| Dado sensível acidental | Processar somente em memória e descartar sem log; parar a demonstração e não reproduzir/exportar o conteúdo | Parcialmente implementada; não há confirmação prévia nem detecção automática |
+| Transferência internacional | Tratar o Telegram como terceiro que pode processar dados em outras jurisdições | Pendente de fundamento/salvaguarda institucional |
 | CEP/CONEP | Solicitar classificação escrita; não presumir dispensa | Pendente de orientador/CEP |
 | Controlador e operador | Registrar a posição da instituição | Pendente institucional |
 | Base legal | Registrar a hipótese indicada pela instituição para o desenho efetivo | Pendente institucional |
@@ -86,7 +103,7 @@ assinatura usando o formato abaixo:
 ```text
 Data da decisão: AAAA-MM-DD
 Instâncias consultadas: [funções, sem nomes pessoais]
-Commit analisado: 8ebd0d2 ou posterior
+Commit analisado: [hash do commit efetivamente encaminhado]
 Escopo restrito confirmado: SIM/NÃO
 Ausência de participantes e coleta de interações confirmada: SIM/NÃO
 Enquadramento CEP/CONEP: NÃO REQUER / CONSULTA / SUBMISSÃO
@@ -97,6 +114,9 @@ Base legal para dados comuns: [posição institucional]
 Base legal para eventual dado sensível: [posição institucional]
 Canal institucional do titular: [descrição ou URL pública]
 Telegram aceito para demonstração restrita: SIM/NÃO/COM CONDIÇÕES
+Transferência internacional avaliada: SIM/NÃO — fundamento/salvaguarda: [preencher]
+Somente o autor pode inserir fixtures do roteiro: SIM/NÃO
+Controle de dado sensível acidental aceito: SIM/NÃO/EXIGE SALVAGUARDA
 Ausência de logs persistentes confirmada: SIM/NÃO
 Canal/função de incidente: [posição institucional]
 Salvaguardas adicionais: [nenhuma ou descrição]
@@ -111,7 +131,19 @@ original no canal institucional adequado e publicar apenas a síntese necessári
 - [Lei nº 13.709/2018 — LGPD](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
 - [Guia da ANPD para fins acadêmicos e pesquisas](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-tratamento-de-dados-pessoais-para-fins-academicos-e-para-a-realizacao-de-estudos-e-pesquisas)
 - [Resolução CNS nº 510/2016](https://www.gov.br/conselho-nacional-de-saude/pt-br/atos-normativos/resolucoes/2016/resolucao-no-510.pdf/view)
+- [Resolução CNS nº 674/2022](https://www.gov.br/conselho-nacional-de-saude/pt-br/acesso-a-informacao/atos-normativos/resolucoes/2022/resolucao-no-674.pdf/view)
+- [Ofício Circular CONEP nº 17/2022](https://www.gov.br/conselho-nacional-de-saude/pt-br/acesso-a-informacao/camaras-tecnicas-e-comissoes/conep/legislacao/oficios-circulares/oficio-circular-no-17-de-5-de-julho-de-2022.pdf)
+- [Política de Privacidade do Telegram](https://telegram.org/privacy)
 - [Orientações do CEP/UNIPÊ para submissão](https://www.unipe.edu.br/comite-de-etica-em-humanos/como-submeter-o-projeto/)
 
 Este material é apoio técnico para decisão institucional; não é parecer jurídico nem
 declara, por si só, dispensa ou aprovação ética.
+
+## Prazo de encaminhamento
+
+Encaminhar imediatamente e, sempre que possível, com pelo menos quatro semanas de
+antecedência. Esse intervalo não é garantia: a Resolução CNS nº 674/2022 prevê até
+sete dias para checagem documental e, conforme a tramitação, até 15, 21, 30 ou 45
+dias para emissão do parecer; resposta a pendência reinicia a contagem. Se a defesa
+já estiver próxima, informar a data ao orientador/CEP sem solicitar redução de rigor
+ou presumir aprovação tácita.

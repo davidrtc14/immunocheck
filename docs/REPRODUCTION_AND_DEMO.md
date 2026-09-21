@@ -118,7 +118,10 @@ python scripts/run_telegram_local.py
 
 Use uma conta e um bot de demonstração. Não projete o token, terminal com variáveis,
 conversas pessoais ou notificações. O Telegram recebe a mensagem antes do
-processamento local; a demonstração deve usar somente alegações sintéticas.
+processamento local; a demonstração deve usar somente alegações sintéticas. Somente
+o autor envia as fixtures pré-definidas. Não aceitar exemplos improvisados da banca
+ou de terceiros. Se alguém enviar conteúdo não previsto, interromper a passagem e
+seguir o protocolo de `docs/PRIVACY_AND_ETHICS.md`.
 
 ## Roteiro de 8–10 minutos
 
@@ -157,6 +160,7 @@ Essa automação não substitui a passagem ao vivo com o bot e o ambiente da ban
 - [ ] Modelo aquecido e latência fria identificada separadamente.
 - [ ] Token e dados pessoais fora da tela e dos slides.
 - [ ] Três entradas sintéticas preparadas: texto, imagem e falha segura.
+- [ ] Regra anunciada: somente o autor envia fixtures; não haverá improviso externo.
 - [ ] Links das fontes abertos em abas, caso a rede da apresentação falhe.
 - [ ] Plano B por CLI preparado se o Telegram estiver indisponível.
 - [ ] Capturas de execução rotuladas como demonstração, não como experimento.
@@ -173,8 +177,8 @@ python scripts/release_preflight.py --with-tests `
 
 ## Critério de conclusão deste documento
 
-O roteiro, os comandos, o ensaio operacional controlado e o ensaio automatizado do
-fluxo público estão concluídos. Ainda é necessário executar uma passagem da
-apresentação no ambiente e com o bot que serão usados pela banca; isso é validação
-de demonstração, não novo experimento nem oportunidade de ajustar a configuração a
-partir do teste congelado.
+O roteiro, os comandos, o ensaio automatizado e a passagem ao vivo com o bot real
+estão concluídos. Antes da banca, cabe apenas uma checagem informal de conectividade,
+sem transformá-la em novo experimento nem ajustar a configuração a partir do teste
+congelado. A apresentação depende ainda do gate institucional registrado em
+`docs/INSTITUTIONAL_GATE_PACKAGE.md`.

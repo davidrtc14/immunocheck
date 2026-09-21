@@ -11,6 +11,9 @@ Referências oficiais consultadas:
 - [Guia da ANPD sobre agentes de tratamento e encarregado](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-para-definicoes-dos-agentes-de-tratamento-de-dados-pessoais-e-do-encarregado);
 - [Guia da ANPD sobre segurança da informação](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/processo-guia-orientativo-sobre-seguranca-da-informacao-para-agentes-de-tratamento-de-pequeno-porte.pdf);
 - [Resolução CNS nº 510/2016](https://www.gov.br/conselho-nacional-de-saude/pt-br/atos-normativos/resolucoes/2016/resolucao-no-510.pdf/view).
+- [Resolução CNS nº 674/2022](https://www.gov.br/conselho-nacional-de-saude/pt-br/acesso-a-informacao/atos-normativos/resolucoes/2022/resolucao-no-674.pdf/view).
+- [Ofício Circular CONEP nº 17/2022](https://www.gov.br/conselho-nacional-de-saude/pt-br/acesso-a-informacao/camaras-tecnicas-e-comissoes/conep/legislacao/oficios-circulares/oficio-circular-no-17-de-5-de-julho-de-2022.pdf).
+- [Política de Privacidade do Telegram](https://telegram.org/privacy).
 
 ## Escopo desta revisão
 
@@ -34,7 +37,26 @@ uma nova operação de tratamento e não está autorizado por este documento.
 
 O tratamento transitório ainda é tratamento de dados; ausência de persistência não
 elimina obrigações. Além disso, o Telegram recebe o conteúdo antes do ImmunoCheck e
-aplica suas próprias políticas, infraestrutura e prazos de retenção.
+aplica suas próprias políticas, infraestrutura e prazos de retenção. Sua política
+pública descreve infraestrutura em diferentes jurisdições e não garante ao projeto
+processamento exclusivo no Brasil; o possível enquadramento como transferência
+internacional deve ser avaliado institucionalmente segundo o art. 33 da LGPD.
+
+## Regra operacional da demonstração
+
+Somente o autor pode enviar as fixtures sintéticas do roteiro previamente definido.
+Membros da banca e terceiros não devem digitar exemplos, encaminhar mensagens ou
+improvisar testes. O bot fica ligado apenas durante a passagem controlada e é
+encerrado ao final.
+
+Se, apesar dessa regra, chegar conteúdo possivelmente pessoal ou sensível, o autor
+deve interromper a demonstração, não ler, reproduzir, capturar ou exportar a mensagem
+e encerrar o bot. O adaptador não grava conteúdo nem identificadores e descarta as
+referências em memória ao término do processo, mas não existe confirmação anterior
+ao processamento nem classificador automático de dado sensível. O Telegram pode
+conservar sua própria cópia; por isso a exclusão local não equivale a eliminação na
+plataforma. A instituição deve decidir se o aviso e a restrição operacional bastam ou
+se uma confirmação adicional é condição para a apresentação.
 
 ## Princípios aplicados por desenho
 
@@ -135,3 +157,8 @@ Enquanto essas pendências estiverem abertas, o uso autorizado é demonstração
 com dados sintéticos, não serviço público de saúde nem estudo com participantes.
 O formulário de decisão para orientador, encarregado e CEP está consolidado em
 `docs/INSTITUTIONAL_GATE_PACKAGE.md`.
+
+Além da Resolução CNS nº 510/2016, a decisão deve considerar a Resolução CNS nº
+674/2022 e o Ofício Circular CONEP nº 17/2022. Essas referências não autorizam uma
+autodeclaração de dispensa: o enquadramento integral do protocolo deve ser confirmado
+pela instância institucional competente.

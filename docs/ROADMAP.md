@@ -334,3 +334,11 @@ técnicas possíveis, separa os campos que dependem da instituição e fornece u
 desidentificado para registrar o retorno. Isso não fecha o gate: continuam
 necessárias as respostas institucionais sobre CEP/CONEP, agentes de tratamento, base
 legal, canal do titular e incidente.
+
+Revisão externa incorporada em 21/09/2026: o pacote passou a tratar explicitamente
+possível transferência internacional pelo Telegram, operação exclusiva pelo autor
+com fixtures pré-definidas, resposta a dado sensível acidental e prazo institucional.
+Também foram incluídos a Resolução CNS nº 674/2022 e o Ofício Circular CONEP nº
+17/2022, preservando a formulação correta: TCC não recebe dispensa apenas por ser
+atividade de ensino, mas o enquadramento integral nas hipóteses normativas continua
+dependendo de confirmação institucional. O gate permanece aberto.
