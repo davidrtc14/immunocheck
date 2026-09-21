@@ -8,6 +8,10 @@ encarregado de dados e o CEP/UNIPÊ. Ele não é parecer jurídico e não autori
 público. A engenharia já adotou minimização e processamento local, mas o código não
 pode escolher papéis legais ou dispensar avaliação ética.
 
+Para encaminhamento imediato ao orientador, com mensagem pronta, recomendações
+pré-preenchidas e bloco de retorno desidentificado, usar
+`docs/INSTITUTIONAL_DECISION_REQUEST.md`.
+
 ## Resumo para encaminhamento
 
 O ImmunoCheck é um TCC de Ciência da Computação que executa localmente uma pipeline
@@ -94,7 +98,7 @@ O gate fecha somente quando as dez respostas estiverem documentadas e eventuais
 salvaguardas tiverem sido implementadas. Até lá, o estado autorizado permanece:
 desenvolvimento local e demonstração pelo próprio autor com conteúdo sintético.
 
-## Referências oficiais consultadas em 18/09/2026
+## Referências oficiais consultadas em 18/09/2026 e revalidadas em 21/09/2026
 
 - [Lei nº 13.709/2018 — LGPD](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
 - [Guia da ANPD para fins acadêmicos e pesquisas](https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia-orientativo-tratamento-de-dados-pessoais-para-fins-academicos-e-para-a-realizacao-de-estudos-e-pesquisas)

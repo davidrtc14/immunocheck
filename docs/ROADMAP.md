@@ -326,3 +326,11 @@ verificações técnicas obrigatórias, com Ruff aprovado e 333 testes aprovados
 classificação permaneceu `release_candidate_blocked_by_human_gates`, agora somente
 por `institutional_lgpd_cep_decision`. Nenhum teste final de qualidade foi
 reexecutado.
+
+Preparação institucional de 21/09/2026: as fontes oficiais foram revalidadas e uma
+solicitação pronta para encaminhamento ao orientador foi criada em
+`docs/INSTITUTIONAL_DECISION_REQUEST.md`. O documento antecipa todas as decisões
+técnicas possíveis, separa os campos que dependem da instituição e fornece um bloco
+desidentificado para registrar o retorno. Isso não fecha o gate: continuam
+necessárias as respostas institucionais sobre CEP/CONEP, agentes de tratamento, base
+legal, canal do titular e incidente.
