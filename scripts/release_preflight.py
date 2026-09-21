@@ -49,7 +49,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--with-tests", action="store_true")
     args = parser.parse_args()
-    if args.output.exists():
+    output_path = _resolve_output_path(args.output)
+    if output_path.exists():
         parser.error("O preflight original já existe; use outro caminho para uma réplica.")
 
     checks = [
@@ -116,14 +117,23 @@ def main() -> None:
         "summary": summary,
         "promotion_performed": False,
     }
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open("w", encoding="utf-8", newline="\n") as output:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8", newline="\n") as output:
         json.dump(result, output, ensure_ascii=False, indent=2)
         output.write("\n")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-    print(f"Preflight salvo em {args.output.relative_to(REPOSITORY)}")
+    displayed_path = (
+        output_path.relative_to(REPOSITORY)
+        if output_path.is_relative_to(REPOSITORY)
+        else output_path
+    )
+    print(f"Preflight salvo em {displayed_path}")
     if not summary["technical_ready"]:
         raise SystemExit(1)
+
+
+def _resolve_output_path(path: Path) -> Path:
+    return path if path.is_absolute() else REPOSITORY / path
 
 
 def _timed_check(name: str, required: bool, function: Any) -> Check:
