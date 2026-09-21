@@ -9,12 +9,14 @@ from PIL import Image
 from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult, Verdict
 from immunocheck.telegram import (
     BUSY_MESSAGE,
+    FEEDBACK_TARGET_SECONDS,
     PRIVACY_MESSAGE,
     PROCESSING_MESSAGE,
     START_MESSAGE,
     UNEXPECTED_ERROR_MESSAGE,
     UNSUPPORTED_INPUT_MESSAGE,
     TelegramUpdateHandler,
+    _log_feedback_latency,
     _split_message,
 )
 
@@ -94,6 +96,20 @@ def test_sends_processing_feedback_before_running_pipeline() -> None:
     assert outcome.accepted_for_analysis is True
     assert outcome.feedback_seconds == 1.5
     assert pipeline.submissions[0].text == "Vacinas alteram o DNA?"
+
+
+def test_logs_feedback_latency_without_content_or_identifiers(caplog) -> None:
+    with caplog.at_level(logging.INFO, logger="immunocheck.telegram"):
+        _log_feedback_latency(1.25)
+        _log_feedback_latency(2.75)
+
+    assert FEEDBACK_TARGET_SECONDS == 2.0
+    assert "1.250 s" in caplog.text
+    assert "2.750 s" in caplog.text
+    assert "objetivo de até 2.0 s atendido" in caplog.text
+    assert "objetivo de até 2.0 s excedido" in caplog.text
+    assert "chat_id" not in caplog.text
+    assert "file_id" not in caplog.text
 
 
 def test_commands_are_handled_without_calling_pipeline() -> None:

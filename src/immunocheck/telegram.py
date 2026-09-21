@@ -25,6 +25,7 @@ from immunocheck.presentation import format_result
 from immunocheck.retrieval.pilot_corpus import CorpusLoadError
 
 LOGGER = logging.getLogger("immunocheck.telegram")
+FEEDBACK_TARGET_SECONDS = 2.0
 PROCESSING_MESSAGE = "Recebi o conteúdo. A análise local foi iniciada e pode levar alguns minutos."
 UNAVAILABLE_MESSAGE = (
     "Não foi possível concluir a análise agora porque um componente local está indisponível. "
@@ -254,10 +255,7 @@ class TelegramLongPoller:
                         continue
                     if pending is None:
                         continue
-                    if pending.feedback_seconds > 2.0:
-                        LOGGER.warning(
-                            "Feedback de processamento excedeu o objetivo de 2 segundos."
-                        )
+                    _log_feedback_latency(pending.feedback_seconds)
                     future = executor.submit(self._process_safely, pending)
                     pending_futures.add(future)
         finally:
@@ -297,6 +295,21 @@ def _command_name(text: str) -> str | None:
     if not first_token.startswith("/"):
         return None
     return first_token.split("@", maxsplit=1)[0].lower()
+
+
+def _log_feedback_latency(feedback_seconds: float) -> None:
+    if feedback_seconds > FEEDBACK_TARGET_SECONDS:
+        LOGGER.warning(
+            "Feedback de processamento enviado em %.3f s; objetivo de até %.1f s excedido.",
+            feedback_seconds,
+            FEEDBACK_TARGET_SECONDS,
+        )
+        return
+    LOGGER.info(
+        "Feedback de processamento enviado em %.3f s; objetivo de até %.1f s atendido.",
+        feedback_seconds,
+        FEEDBACK_TARGET_SECONDS,
+    )
 
 
 def _looks_like_standalone_url(text: str) -> bool:
