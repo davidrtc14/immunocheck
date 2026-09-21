@@ -306,3 +306,13 @@ Qwen3-8B, Tesseract, Docker, Compose, PostgreSQL, Ruff e a suíte com 327 testes
 aprovados. A classificação formal é `release_candidate_blocked_by_human_gates`:
 tecnicamente pronto, mas sem promoção a `main` até decisão institucional e ensaio ao
 vivo. O relatório está em `evaluation/results/release/RELEASE_CANDIDATE_STATUS.md`.
+
+Ensaio ao vivo de 20–21/09/2026: os quatro fluxos funcionais foram exercitados pela
+Bot API real no computador de referência. Texto, imagem tipográfica controlada e
+link produziram respostas completas; vídeo recebeu recusa clara. Uma imagem com
+título e rodapé metalinguísticos falhou na extração da alegação e ficou registrada
+como limitação. Duas confirmações de processamento excederam o objetivo de dois
+segundos, além de uma indisponibilidade transitória recuperada pelo backoff. Assim,
+a funcionalidade ao vivo está aprovada, mas o gate continua aberto até uma repetição
+única da meta temporal. O registro desidentificado está em
+`evaluation/results/demo/LIVE_TELEGRAM_REHEARSAL_REPORT.md`.
