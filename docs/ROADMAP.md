@@ -235,7 +235,7 @@ ou congelado. A Fase 5 segue aberta para adjudicação, auditoria e congelamento
 - [x] Documentação de reprodução e roteiro de demonstração.
 - [x] Ensaio automatizado local do roteiro de demonstração.
 - [x] Preflight técnico completo do release candidate.
-- [ ] Ensaio ao vivo com o bot e o ambiente que serão usados na apresentação.
+- [x] Ensaio ao vivo com o bot e o ambiente que serão usados na apresentação.
 
 **Aceite:** resultados reproduzíveis, limitações explícitas e versão estável em
 `main` pronta para apresentação.
@@ -312,7 +312,10 @@ Bot API real no computador de referência. Texto, imagem tipográfica controlada
 link produziram respostas completas; vídeo recebeu recusa clara. Uma imagem com
 título e rodapé metalinguísticos falhou na extração da alegação e ficou registrada
 como limitação. Duas confirmações de processamento excederam o objetivo de dois
-segundos, além de uma indisponibilidade transitória recuperada pelo backoff. Assim,
-a funcionalidade ao vivo está aprovada, mas o gate continua aberto até uma repetição
-única da meta temporal. O registro desidentificado está em
+segundos, além de uma indisponibilidade transitória recuperada pelo backoff. Na
+repetição instrumentada do commit `33b5dfa`, texto, imagem e link receberam feedback
+em 2,743 s, 0,712 s e 0,699 s, sempre antes da pipeline. Como dois segundos é um
+objetivo operacional e não um SLA sobre a API externa, a extrapolação isolada de
+0,743 s foi aceita como ressalva não bloqueante. O gate ao vivo está fechado, sem
+promessa de latência de rede. O registro desidentificado está em
 `evaluation/results/demo/LIVE_TELEGRAM_REHEARSAL_REPORT.md`.

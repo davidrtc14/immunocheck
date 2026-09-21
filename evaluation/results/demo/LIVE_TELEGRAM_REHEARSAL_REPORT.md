@@ -3,7 +3,8 @@
 ## Identificação e escopo
 
 - Data: 20–21/09/2026.
-- Commit executado: `cc880e6` em `develop`.
+- Commits executados: `cc880e6` no ensaio funcional e `33b5dfa` na repetição
+  instrumentada, ambos em `develop`.
 - Ambiente: computador de referência e Telegram Bot API real por long polling.
 - Dados: somente alegações sintéticas e uma página pública do Ministério da Saúde.
 - Privacidade: nenhum conteúdo, identificador, `file_id` ou token foi gravado no
@@ -35,20 +36,30 @@ excedeu o objetivo de dois segundos, associadas aos fluxos de imagem controlada 
 link. Também houve uma indisponibilidade transitória da Bot API, recuperada pelo
 backoff previsto. Nenhuma dessas ocorrências impediu a resposta final.
 
-Como o checklist pré-registrado exige feedback em até dois segundos, o ensaio fica
-classificado como **concluído com pendência operacional**, e não como aprovação final
-do gate. A parte funcional obteve 4/4; a conformidade temporal precisa de uma
-repetição única em conexão estável antes da promoção para `main`.
+Uma repetição instrumentada foi executada em 21/09/2026 com texto, imagem controlada
+e link. As confirmações foram enviadas, sempre antes da pipeline, em `2,743 s`,
+`0,712 s` e `0,699 s`. A mediana foi `0,712 s`; duas de três medições atenderam ao
+objetivo, e a maior o excedeu em `0,743 s`. Houve nova indisponibilidade transitória
+da Bot API, recuperada pelo backoff.
 
-## Próxima verificação
+O limite de dois segundos é descrito no roadmap como objetivo operacional, não como
+garantia de SLA sobre uma API externa. Como não ocorreu falha funcional, inversão da
+ordem do feedback ou atraso local da pipeline antes da confirmação, a variação é
+aceita como ressalva não bloqueante. Os números não sustentam alegação de que o tempo
+será sempre inferior a dois segundos.
+
+## Condições para a apresentação
 
 1. Usar a imagem tipográfica controlada, sem cabeçalho ou rodapé metalinguístico.
-2. Repetir texto, imagem e link uma vez com o ambiente da apresentação.
-3. Confirmar feedback em até dois segundos nos três casos aceitos.
+2. Fazer uma passagem informal de conectividade antes da banca, sem convertê-la em
+   novo experimento ou escolher resultados favoráveis.
+3. Manter como limitação explícita a variabilidade da Bot API e não prometer SLA.
 4. Manter como limitação explícita a sensibilidade a texto decorativo em imagens.
 5. Não reexecutar nem usar o conjunto final de qualidade para qualquer ajuste.
 
 ## Veredito
 
-**Funcionalidade ao vivo: aprovada. Gate de ensaio ao vivo: pendente apenas da
-repetição da meta temporal.** A pendência institucional LGPD/CEP permanece separada.
+**Gate de ensaio ao vivo: aprovado com ressalva operacional não bloqueante.** A
+funcionalidade obteve 4/4; a extrapolação isolada do objetivo temporal e a limitação
+da imagem decorada permanecem explícitas. A pendência institucional LGPD/CEP continua
+separada.

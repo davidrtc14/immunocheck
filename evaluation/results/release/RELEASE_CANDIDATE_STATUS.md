@@ -4,9 +4,9 @@
 
 O commit `1b56d22` em `develop` passou nas 18 verificações técnicas obrigatórias do
 preflight em 18/09/2026. O projeto está **tecnicamente pronto como release
-candidate**, mas ainda **não está autorizado para promoção a `main`**. A parte
-funcional do ensaio ao vivo foi aprovada posteriormente; permanecem a repetição da
-meta temporal desse ensaio e o gate institucional.
+candidate**, mas ainda **não está autorizado para promoção a `main`**. O ensaio ao
+vivo foi aprovado posteriormente com ressalva operacional; resta somente o gate
+institucional.
 
 ## Verificações aprovadas
 
@@ -24,19 +24,19 @@ meta temporal desse ensaio e o gate institucional.
   exclusiva de teste. A saúde do PostgreSQL foi verificada separadamente por
   `pg_isready`.
 
-## Gates ainda abertos
+## Gate ainda aberto
 
 1. **Decisão institucional LGPD/CEP:** preencher e obter o registro indicado em
    `docs/INSTITUTIONAL_GATE_PACKAGE.md`.
-2. **Meta temporal do ensaio ao vivo:** a Bot API real processou os quatro fluxos
-   funcionais em 20–21/09/2026, mas duas confirmações excederam o objetivo de dois
-   segundos. Repetir texto, imagem controlada e link uma vez em conexão estável.
 
-Esses gates não são falhas do software. Eles existem para impedir que uma validação
-automatizada substitua decisão institucional ou uma passagem real pela rede e pela
-Bot API. Até seu fechamento, não criar tag estável nem mesclar `develop` em `main`.
+Esse gate não é uma falha do software. Ele impede que uma validação técnica substitua
+a decisão institucional necessária. Até seu fechamento, não criar tag estável nem
+mesclar `develop` em `main`.
 
-O relatório desidentificado do ensaio real está em
+O ensaio ao vivo está fechado com 4/4 fluxos funcionais. Na repetição instrumentada,
+as confirmações levaram 2,743 s, 0,712 s e 0,699 s. A extrapolação isolada de 0,743 s
+foi aceita como ressalva não bloqueante de uma API externa; não constitui promessa de
+SLA. O relatório desidentificado do ensaio real está em
 `evaluation/results/demo/LIVE_TELEGRAM_REHEARSAL_REPORT.md`. Ele registra também a
 limitação observada em uma imagem com título e rodapé metalinguísticos, sem alterar
 a configuração congelada nem reexecutar o teste final.
