@@ -319,3 +319,10 @@ objetivo operacional e não um SLA sobre a API externa, a extrapolação isolada
 0,743 s foi aceita como ressalva não bloqueante. O gate ao vivo está fechado, sem
 promessa de latência de rede. O registro desidentificado está em
 `evaluation/results/demo/LIVE_TELEGRAM_REHEARSAL_REPORT.md`.
+
+Preflight final de 21/09/2026: após o fechamento do ensaio e a correção do caminho
+relativo da própria CLI de auditoria, o commit `b3754b8` passou novamente nas 18
+verificações técnicas obrigatórias, com Ruff aprovado e 333 testes aprovados. A
+classificação permaneceu `release_candidate_blocked_by_human_gates`, agora somente
+por `institutional_lgpd_cep_decision`. Nenhum teste final de qualidade foi
+reexecutado.

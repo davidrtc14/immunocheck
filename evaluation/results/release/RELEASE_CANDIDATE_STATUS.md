@@ -50,3 +50,15 @@ python scripts/release_preflight.py --with-tests `
 
 O registro estruturado original está em `release_preflight.json`. Réplicas devem
 usar outro caminho e não substituir a evidência inicial.
+
+## Réplica final após o ensaio ao vivo
+
+Em 21/09/2026, o commit `b3754b8` passou novamente nas 18 verificações técnicas,
+incluindo Ruff e 333 testes aprovados; uma integração PostgreSQL foi ignorada por
+ausência da variável exclusiva de teste, enquanto a saúde do serviço continuou
+verificada separadamente. A réplica local retornou `technical_ready: true` e
+identificou somente `institutional_lgpd_cep_decision` como gate humano aberto.
+
+O arquivo `output/final-release-preflight-b3754b8.json` é uma réplica operacional
+local e permanece ignorado pelo Git. Esta atualização documental posterior não
+altera o código verificado nesse commit.
