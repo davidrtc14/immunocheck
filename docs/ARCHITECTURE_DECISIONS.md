@@ -29,6 +29,8 @@
 | ADR-025 | BGE-M3 + auditor v2 como candidata de segurança | Não promovida | Embora eleve o recall de abstenção para 0,625, tem macro-F1 0,528 e recall `MISLEADING` 0,158; permanece no código somente como opção conservadora provisória. |
 | ADR-026 | Auditor restrito à fidelidade factual | Descartada | A v3 obteve macro-F1 0,405, recall zero de `MISLEADING` e delta pareado negativo contra a v2; falhou os gates pré-registrados. |
 | ADR-027 | BGE-M3 + auditor v2 como configuração definitiva da v1 | Aceita com limitação crítica | No teste único obteve macro-F1 0,416, recall de abstenção 0,750 e recall zero de `MISLEADING`; congela a prova de conceito, mas impede recomendação de implantação pública. |
+| ADR-028 | Congelar a v1 e abrir linha experimental v2 com dados novos | Aceita | Evita ajuste pós-teste: os 64 itens finais e os 96 itens já calibrados permanecem históricos; a v2 exige nova calibração e novo holdout. |
+| ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Em validação | No desenvolvimento antigo, o auditor corrigiu 12 decisões e degradou 19; a separação será testada em dados novos antes de qualquer promoção. |
 
 ## Histórico de alterações
 
@@ -82,6 +84,14 @@
   A mediana foi 9,43 s, o P95 12,42 s e não houve falha técnica. A versão fica
   congelada como protótipo acadêmico demonstrável; nenhum ajuste pós-teste é
   permitido e os resultados não sustentam serviço público de verificação em saúde.
+- **22/09/2026 — ADR-028/029:** iniciou-se uma linha experimental independente para
+  refinar acurácia sem reutilizar o teste final ou recalibrar nos 96 itens antigos.
+  A auditoria diagnóstica desses 96 registros atribuiu 19 regressões e 12 recuperações
+  ao auditor, encontrou taxa de erro de 84,2% em `MISLEADING` e seis riscos de
+  integridade na extração. Esses números motivam, mas não calibram, a hipótese de
+  separar suficiência da evidência, classificação e fidelidade. O protocolo exige
+  pelo menos 48 itens novos de calibração e 32 de holdout, com famílias separadas.
+  Nenhum registro do teste final foi carregado nessa auditoria.
 
 ## Política de alteração
 

@@ -342,3 +342,31 @@ Também foram incluídos a Resolução CNS nº 674/2022 e o Ofício Circular CON
 17/2022, preservando a formulação correta: TCC não recebe dispensa apenas por ser
 atividade de ensino, mas o enquadramento integral nas hipóteses normativas continua
 dependendo de confirmação institucional. O gate permanece aberto.
+
+## Fase 7 — Refinamento de acurácia v2
+
+- [x] Congelamento metodológico da v1 preservado, sem reabrir o teste final.
+- [x] Hipótese e gates da nova linha experimental pré-registrados.
+- [x] Diagnóstico automatizado por estágio sobre o desenvolvimento histórico.
+- [ ] Construção e revisão do novo conjunto de calibração (mínimo de 48 itens).
+- [ ] Implementação do gate separado de suficiência da evidência.
+- [ ] Implementação da classificação separada da auditoria de fidelidade.
+- [ ] Comparação controlada com a configuração v1 no novo conjunto.
+- [ ] Congelamento da candidata e do novo holdout independente (mínimo de 32 itens).
+- [ ] Execução confirmatória única e relatório de promoção ou rejeição.
+
+**Aceite:** candidata avaliada em dados novos, com macro-F1 pelo menos 0,08 acima da
+v1 no mesmo conjunto de calibração, recall de `MISLEADING` de pelo menos 0,40,
+precisão de abstenção de pelo menos 0,45 e taxa de citação relevante de pelo menos
+0,60, sem regressão de recall por classe superior a 0,05. O protocolo completo está
+em `evaluation/REFINEMENT_V2_PROTOCOL.md`.
+
+**Estado em 22/09/2026:** a auditoria dos 96 registros históricos encontrou 19
+regressões e 12 recuperações produzidas pelo auditor. A classe `MISLEADING` teve 16
+erros em 19 itens (84,2%), e seis extrações apresentaram recall lexical abaixo de
+0,8. A interseção entre citações e evidências anotadas esteve presente em 39 dos 72
+itens conclusivos. O diagnóstico não carregou registros do teste e não autoriza nova
+calibração nos dados antigos. A próxima unidade de trabalho é construir o conjunto
+novo de calibração antes de alterar a pipeline. O gate institucional da Fase 6
+continua aberto para disponibilização pública e promoção a `main`, mas não impede
+pesquisa técnica local, desidentificada e sem participantes externos.

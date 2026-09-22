@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "scope": "development_outputs_only_no_test_predictions_loaded",
+  "condition": "dense_with_auditor",
+  "draft_condition": "dense_no_auditor",
+  "item_count": 96,
+  "accuracy": 0.5625,
+  "error_count": 42,
+  "primary_stage_counts": {
+    "auditor_regression": 19,
+    "classification_error_with_relevant_evidence": 3,
+    "correct": 50,
+    "evidence_grounding_miss": 2,
+    "extraction_integrity_risk": 6,
+    "false_conclusion_on_insufficient_evidence": 7,
+    "over_abstention_with_evidence": 5,
+    "over_abstention_without_evidence": 3,
+    "technical_failure": 1
+  },
+  "primary_stage_rates": {
+    "auditor_regression": 0.19791666666666666,
+    "classification_error_with_relevant_evidence": 0.03125,
+    "correct": 0.5208333333333334,
+    "evidence_grounding_miss": 0.020833333333333332,
+    "extraction_integrity_risk": 0.0625,
+    "false_conclusion_on_insufficient_evidence": 0.07291666666666667,
+    "over_abstention_with_evidence": 0.052083333333333336,
+    "over_abstention_without_evidence": 0.03125,
+    "technical_failure": 0.010416666666666666
+  },
+  "item_ids_by_primary_stage": {
+    "auditor_regression": [
+      "e2e-0005",
+      "e2e-0014",
+      "e2e-0018",
+      "e2e-0020",
+      "e2e-0021",
+      "e2e-0026",
+      "e2e-0037",
+      "e2e-0038",
+      "e2e-0039",
+      "e2e-0040",
+      "e2e-0050",
+      "e2e-0056",
+      "e2e-0064",
+      "e2e-0065",
+      "e2e-0067",
+      "e2e-0069",
+      "e2e-0080",
+      "e2e-0081",
+      "e2e-0156"
+    ],
+    "classification_error_with_relevant_evidence": [
+      "e2e-0009",
+      "e2e-0043",
+      "e2e-0075"
+    ],
+    "correct": [
+      "e2e-0001",
+      "e2e-0003",
+      "e2e-0004",
+      "e2e-0006",
+      "e2e-0007",
+      "e2e-0008",
+      "e2e-0015",
+      "e2e-0016",
+      "e2e-0017",
+      "e2e-0019",
+      "e2e-0022",
+      "e2e-0025",
+      "e2e-0027",
+      "e2e-0028",
+      "e2e-0029",
+      "e2e-0030",
+      "e2e-0031",
+      "e2e-0034",
+      "e2e-0035",
+      "e2e-0036",
+      "e2e-0041",
+      "e2e-0046",
+      "e2e-0048",
+      "e2e-0049",
+      "e2e-0052",
+      "e2e-0053",
+      "e2e-0058",
+      "e2e-0059",
+      "e2e-0061",
+      "e2e-0063",
+      "e2e-0066",
+      "e2e-0071",
+      "e2e-0073",
+      "e2e-0074",
+      "e2e-0076",
+      "e2e-0077",
+      "e2e-0078",
+      "e2e-0083",
+      "e2e-0085",
+      "e2e-0086",
+      "e2e-0087",
+      "e2e-0088",
+      "e2e-0089",
+      "e2e-0090",
+      "e2e-0092",
+      "e2e-0093",
+      "e2e-0094",
+      "e2e-0096",
+      "e2e-0152",
+      "e2e-0160"
+    ],
+    "evidence_grounding_miss": [
+      "e2e-0091",
+      "e2e-0148"
+    ],
+    "extraction_integrity_risk": [
+      "e2e-0002",
+      "e2e-0011",
+      "e2e-0023",
+      "e2e-0042",
+      "e2e-0047",
+      "e2e-0070"
+    ],
+    "false_conclusion_on_insufficient_evidence": [
+      "e2e-0010",
+      "e2e-0012",
+      "e2e-0024",
+      "e2e-0072",
+      "e2e-0082",
+      "e2e-0084",
+      "e2e-0095"
+    ],
+    "over_abstention_with_evidence": [
+      "e2e-0032",
+      "e2e-0045",
+      "e2e-0055",
+      "e2e-0068",
+      "e2e-0079"
+    ],
+    "over_abstention_without_evidence": [
+      "e2e-0033",
+      "e2e-0044",
+      "e2e-0062"
+    ],
+    "technical_failure": [
+      "e2e-0013"
+    ]
+  },
+  "errors_by_expected_label": {
+    "INSUFFICIENT_EVIDENCE": {
+      "errors": 9,
+      "total": 24,
+      "error_rate": 0.375
+    },
+    "MISLEADING": {
+      "errors": 16,
+      "total": 19,
+      "error_rate": 0.8421052631578947
+    },
+    "REFUTED": {
+      "errors": 7,
+      "total": 29,
+      "error_rate": 0.2413793103448276
+    },
+    "SUPPORTED": {
+      "errors": 10,
+      "total": 24,
+      "error_rate": 0.4166666666666667
+    }
+  },
+  "extraction": {
+    "exact_original": 75,
+    "low_token_recall_below_0_8": 6,
+    "material_marker_loss": 0,
+    "mean_token_recall": 0.9667844506845733
+  },
+  "evidence_grounding_on_conclusive_items": {
+    "items": 72,
+    "citation_hit": 39,
+    "citation_miss": 33,
+    "accuracy_when_hit": 0.5897435897435898,
+    "accuracy_when_miss": 0.48484848484848486
+  },
+  "auditor_transitions": {
+    "auditor_recovery": 12,
+    "auditor_regression": 19,
+    "changed_still_wrong": 8,
+    "unchanged_correct": 42,
+    "unchanged_wrong": 15
+  },
+  "latency_ms": {
+    "median": 9046.151400005328,
+    "p95": 11313.950000003388,
+    "samples": 96
+  },
+  "interpretation_limits": [
+    "Citação sem interseção com a evidência anotada não distingue falha de retrieval de falha de seleção ou citação do gerador.",
+    "A atribuição é diagnóstica e usa somente a iteração v2 do desenvolvimento já encerrado.",
+    "Nenhum resultado desta auditoria autoriza ajuste adicional nos 96 itens antigos ou reabertura do teste congelado."
+  ],
+  "inputs": {
+    "dataset": "evaluation\\end_to_end\\items.jsonl",
+    "dataset_sha256": "5caabdab9347c13dd270e6a335599dc5e213f5ad814312f6bcdf45731a67a5bf",
+    "records": "evaluation\\results\\development\\end_to_end_v2_records.jsonl",
+    "records_sha256": "208f6195a2477dd2139cb5b2b4066bb07f1cbc9c12a04e9ba20af51aa8be90f1",
+    "test_records_loaded": 0
+  }
+}
