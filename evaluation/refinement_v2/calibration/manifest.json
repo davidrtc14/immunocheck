@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "purpose": "refinement_v2_calibration_candidates",
+  "prepared_at": "2026-09-22",
+  "status": "draft_pending_primary_human_review",
+  "test_v1_predictions_loaded": 0,
+  "holdout_v2_created": false,
+  "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
+  "item_count": 48,
+  "family_count": 12,
+  "class_counts": {
+    "SUPPORTED": 12,
+    "REFUTED": 12,
+    "MISLEADING": 12,
+    "INSUFFICIENT_EVIDENCE": 12
+  },
+  "candidate_sha256": "661dd1ab478572b5115e45d0849fcd36923b7f9fea9f963fb75011f13f2eb49b",
+  "frozen_test_families_sha256": "c743ef319c5ea35cdd3afeff19888cc4f09da2df8078cf7c35b713ad1e6cd29e",
+  "corpus_chunks_sha256": "401bed2cad62142b30e2879b6f91e6f05098ab9ac86191316ba65685af36b19a",
+  "limitations": [
+    "Os rótulos são propostas do agente e ainda não são anotações humanas.",
+    "A matriz sintética por família pode criar atalhos de redação.",
+    "A validação automática não comprova pertinência semântica da evidência.",
+    "O pacote de holdout v2 ainda não existe por desenho."
+  ]
+}

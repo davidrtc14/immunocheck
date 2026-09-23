@@ -348,7 +348,8 @@ dependendo de confirmação institucional. O gate permanece aberto.
 - [x] Congelamento metodológico da v1 preservado, sem reabrir o teste final.
 - [x] Hipótese e gates da nova linha experimental pré-registrados.
 - [x] Diagnóstico automatizado por estágio sobre o desenvolvimento histórico.
-- [ ] Construção e revisão do novo conjunto de calibração (mínimo de 48 itens).
+- [x] Construção do novo conjunto de calibração (48 propostas em 12 famílias).
+- [ ] Revisão humana primária dos 48 itens e segunda revisão cega de ao menos 15.
 - [ ] Implementação do gate separado de suficiência da evidência.
 - [ ] Implementação da classificação separada da auditoria de fidelidade.
 - [ ] Comparação controlada com a configuração v1 no novo conjunto.
@@ -370,3 +371,12 @@ calibração nos dados antigos. A próxima unidade de trabalho é construir o co
 novo de calibração antes de alterar a pipeline. O gate institucional da Fase 6
 continua aberto para disponibilização pública e promoção a `main`, mas não impede
 pesquisa técnica local, desidentificada e sem participantes externos.
+
+Preparação de 22/09/2026: o novo pacote de calibração contém 48 propostas em
+rascunho, com 12 itens por classe, 12 famílias ausentes do teste v1 e 24 chunks de
+evidência rastreáveis em 12 documentos. Cada família contém um caso de cada classe
+para testar distinções semânticas dentro do mesmo tema. O validador confirmou
+estrutura, equilíbrio, novidade nominal das famílias e existência das referências no
+corpus. Isso ainda não é dado de avaliação: falta a revisão humana primária integral
+e uma segunda revisão cega de ao menos 15 itens. O holdout v2 não foi criado, para
+que seu conteúdo não influencie a implementação da candidata.
