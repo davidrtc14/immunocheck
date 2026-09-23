@@ -158,20 +158,29 @@ registre julgamento próprio. Não use LLM para substituir esse julgamento.
 2. Registre uma justificativa e as URLs/partes consultadas. Para insuficiência,
    descreva o que falta e a busca realizada.
 3. Não tente reproduzir uma distribuição de classes. Divergências são legítimas.
-4. Use um código interno sem nome, e-mail ou outro dado pessoal; registre a data.
-5. Preencha `ANNOTATIONS.md` ou `tasks.jsonl`, nunca os dois. Devolva apenas a
-   pasta `participant`.
+4. Marque as três declarações no início de `ANNOTATIONS.md`, use um código interno
+   sem nome, e-mail ou outro dado pessoal e registre a data.
+5. Preencha e devolva `ANNOTATIONS.md`. Os campos vazios ou uma declaração não
+   marcada impedem que o arquivo conte como segunda anotação humana.
 
 `MISLEADING` exige uma parte factual relevante, mas com contexto, alcance ou
 inferência materialmente distorcidos. Ausência de menção não equivale a refutação.
 O material é sintético e serve a avaliação acadêmica, não aconselhamento médico.
 """
     annotations = "# Formulário de segunda anotação cega\n\n"
+    annotations += "## Declaração do segundo revisor\n\n"
+    annotations += (
+        "- [ ] Sou uma pessoa e realizei esta anotação por julgamento próprio.\n"
+        "- [ ] Sou diferente do primeiro revisor e não consultei seus rótulos.\n"
+        "- [ ] Não usei LLM ou outro sistema automático para substituir meu julgamento.\n"
+        "- Código interno do revisor:\n"
+        "- Data da revisão:\n\n"
+    )
     for task in tasks:
         annotations += (
             f"## {task['task_id']}\n\n{task['claim']}\n\n"
             "- Rótulo:\n- Justificativa:\n- Fontes e trechos/páginas consultados:\n"
-            "- Dúvidas ou ambiguidade:\n- Código interno do revisor:\n- Data:\n\n"
+            "- Dúvidas ou ambiguidade:\n\n"
         )
     catalog = "# Catálogo completo e não ranqueado\n\n"
     catalog += "As fontes não estão associadas a tarefas específicas.\n\n"
@@ -210,9 +219,6 @@ O material é sintético e serve a avaliação acadêmica, não aconselhamento m
         "participant/README.md": readme,
         "participant/ANNOTATIONS.md": annotations,
         "participant/SOURCES.md": catalog,
-        "participant/tasks.jsonl": "".join(
-            json.dumps(task, ensure_ascii=False) + "\n" for task in tasks
-        ),
         "selection_manifest.json": json.dumps(
             selection_manifest, ensure_ascii=False, indent=2
         )
@@ -273,8 +279,14 @@ def main() -> int:
         ),
         "structural_only_family_count": 0,
     }
+    previous_second_review = manifest.get("second_review", {})
+    attempts = previous_second_review.get("attempts", [])
     manifest["second_review"] = {
-        "status": "package_prepared_pending_human_annotation",
+        "status": (
+            "package_regenerated_pending_distinct_human_annotation"
+            if attempts
+            else "package_prepared_pending_human_annotation"
+        ),
         "selected_items": len(json.loads(package["selection_manifest.json"])["mapping"]),
         "selected_class_counts": json.loads(package["selection_manifest.json"])[
             "selected_class_counts"
@@ -283,6 +295,8 @@ def main() -> int:
             "selected_family_count"
         ],
     }
+    if attempts:
+        manifest["second_review"]["attempts"] = attempts
     manifest["limitations"] = [
         "A identidade declarada do revisor não é certificada pelo software.",
         "A consulta direta às 12 fontes e o papel do revisor são declarações documentais, não certificações do software.",

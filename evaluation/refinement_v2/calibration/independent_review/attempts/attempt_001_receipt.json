@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "received_at": "2026-09-23",
+  "source_normalized_sha256": "c1770d898eaab9ddd17b266df9bc9742a3c4de37ecf6543d807e2a8e19fbd8ef",
+  "raw_return_versioned": false,
+  "parsed_response_count": 16,
+  "provenance_as_clarified_by_author": {
+    "judgment_origin": "human_primary_reviewer",
+    "editorial_assistance": "ai_copyediting_and_fault_search",
+    "clarified_at": "2026-09-23",
+    "software_independently_verified_provenance": false
+  },
+  "agreement_with_primary_labels": {
+    "agreement_count": 16,
+    "disagreement_count": 0,
+    "observed_agreement": 1.0,
+    "cohens_kappa": 1.0,
+    "interpretation": "descriptive_same_reviewer_consistency_only"
+  },
+  "accepted_as_independent_second_annotation": false,
+  "gate_reason": "O julgamento foi atribuído ao mesmo orientador registrado na primeira revisão; não demonstra revisão por pessoa distinta.",
+  "dataset_changed": false,
+  "next_action": "obtain_blind_annotation_from_distinct_human"
+}

@@ -402,3 +402,11 @@ modelagem, e que a correspondência direta cobre 36 rótulos conclusivos; os 12 
 insuficientes dependem da ausência de contexto individual. Uma seleção cega de 16
 itens, quatro por classe e cobrindo as 12 famílias, está pronta para uma pessoa
 distinta. Nenhuma inferência foi executada e o holdout v2 continua inexistente.
+
+Tentativa de segunda anotação recebida em 23/09/2026: as 16 respostas coincidiram
+com os rótulos primários (concordância 1,0; kappa 1,0). O autor esclareceu que os
+julgamentos eram do orientador e que uma IA apenas revisou a redação e procurou
+falhas. O resultado foi preservado por hash como consistência do mesmo revisor, não
+como concordância interavaliadores: a primeira revisão também foi atribuída ao
+orientador e o protocolo exige pessoa distinta. Nenhum rótulo foi incorporado. O
+pacote foi regenerado com declaração explícita de humanidade e independência.

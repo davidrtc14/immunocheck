@@ -116,12 +116,9 @@ def test_published_second_review_package_is_blind_and_bound_to_final_return() ->
     manifest = json.loads(
         (INDEPENDENT_REVIEW / "selection_manifest.json").read_text(encoding="utf-8")
     )
-    tasks = [
-        json.loads(line)
-        for line in (INDEPENDENT_REVIEW / "participant" / "tasks.jsonl")
-        .read_text(encoding="utf-8")
-        .splitlines()
-    ]
+    annotations = (INDEPENDENT_REVIEW / "participant" / "ANNOTATIONS.md").read_text(
+        encoding="utf-8"
+    )
     receipt = json.loads(
         (REVIEWS / "primary_review_receipt.json").read_text(encoding="utf-8")
     )
@@ -132,15 +129,15 @@ def test_published_second_review_package_is_blind_and_bound_to_final_return() ->
         .replace("\r", "\n")
     )
 
-    assert manifest["selected"] == len(tasks) == 16
+    assert manifest["selected"] == annotations.count("## ref2-annotation-") == 16
     assert manifest["selected_family_count"] == manifest["target_family_count"] == 12
     assert set(manifest["selected_class_counts"].values()) == {4}
     assert receipt["returned_review_normalized_sha256"] == hashlib.sha256(
         returned.encode("utf-8")
     ).hexdigest()
-    for task in tasks:
-        assert task["second_label"] is task["rationale"] is task["reviewer_id"] is None
-        assert task["source_urls"] == [] and task["reviewed_at"] is None
+    assert annotations.count("- Rótulo:\n") == 16
+    assert "- [ ] Sou uma pessoa" in annotations
+    assert "- Código interno do revisor:\n" in annotations
     participant_text = "".join(
         path.read_text(encoding="utf-8")
         for path in sorted((INDEPENDENT_REVIEW / "participant").iterdir())

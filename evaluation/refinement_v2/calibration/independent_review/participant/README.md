@@ -17,9 +17,10 @@ registre julgamento próprio. Não use LLM para substituir esse julgamento.
 2. Registre uma justificativa e as URLs/partes consultadas. Para insuficiência,
    descreva o que falta e a busca realizada.
 3. Não tente reproduzir uma distribuição de classes. Divergências são legítimas.
-4. Use um código interno sem nome, e-mail ou outro dado pessoal; registre a data.
-5. Preencha `ANNOTATIONS.md` ou `tasks.jsonl`, nunca os dois. Devolva apenas a
-   pasta `participant`.
+4. Marque as três declarações no início de `ANNOTATIONS.md`, use um código interno
+   sem nome, e-mail ou outro dado pessoal e registre a data.
+5. Preencha e devolva `ANNOTATIONS.md`. Os campos vazios ou uma declaração não
+   marcada impedem que o arquivo conte como segunda anotação humana.
 
 `MISLEADING` exige uma parte factual relevante, mas com contexto, alcance ou
 inferência materialmente distorcidos. Ausência de menção não equivale a refutação.

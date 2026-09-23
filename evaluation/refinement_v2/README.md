@@ -17,8 +17,8 @@ resultados.
 - o retorno final declara conferência direta das fontes nas 12 famílias; essa
   declaração e o papel informado do revisor são preservados, mas não certificados
   pelo software;
-- uma segunda anotação cega balanceada de 16 itens foi preparada, mas ainda não
-  foi preenchida;
+- uma segunda anotação cega balanceada de 16 itens foi preparada e permanece
+  pendente de uma pessoa distinta;
 - nenhum holdout v2 foi criado ou aberto.
 
 O desenho em matriz por família testa distinções difíceis dentro do mesmo assunto.
@@ -49,6 +49,12 @@ conclusivos dos 12 casos cuja insuficiência decorre da ausência de contexto
 individual. Um segundo humano distinto deve receber **somente** a pasta
 `calibration/independent_review/participant/`; o manifesto de seleção contém o mapa
 de auditoria e não pode ser compartilhado antes da devolução.
+
+Uma primeira devolução das 16 tarefas apresentou concordância total, mas o autor
+esclareceu que os julgamentos também eram do orientador que realizou a revisão
+primária; a IA apenas revisou a redação. O resultado foi registrado como consistência
+do mesmo revisor e não fecha o gate de independência. O pacote regenerado exige uma
+declaração explícita e continua pendente de outra pessoa.
 
 O holdout de 32 itens só será construído depois que a candidata for escolhida e
 congelada. Criá-lo agora permitiria que seu conteúdo influenciasse a implementação.

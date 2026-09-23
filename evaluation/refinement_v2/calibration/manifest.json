@@ -36,7 +36,7 @@
     "structural_only_family_count": 0
   },
   "second_review": {
-    "status": "package_prepared_pending_human_annotation",
+    "status": "package_regenerated_pending_distinct_human_annotation",
     "selected_items": 16,
     "selected_class_counts": {
       "INSUFFICIENT_EVIDENCE": 4,
@@ -44,6 +44,18 @@
       "REFUTED": 4,
       "SUPPORTED": 4
     },
-    "selected_family_count": 12
+    "selected_family_count": 12,
+    "attempts": [
+      {
+        "attempt_id": "attempt_001",
+        "received_at": "2026-09-23",
+        "source_normalized_sha256": "c1770d898eaab9ddd17b266df9bc9742a3c4de37ecf6543d807e2a8e19fbd8ef",
+        "provenance": "human_primary_reviewer_with_ai_copyediting_user_attested",
+        "agreement_count": 16,
+        "disagreement_count": 0,
+        "accepted_as_independent": false,
+        "reason": "same_primary_reviewer_not_independent"
+      }
+    ]
   }
 }
