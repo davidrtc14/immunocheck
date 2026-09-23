@@ -9,6 +9,7 @@ from immunocheck.domain.models import (
     ContentSubmission,
     DraftVerdict,
     Evidence,
+    EvidenceSufficiencyAssessment,
     ExtractedClaim,
     Verdict,
     VerificationReport,
@@ -53,9 +54,29 @@ class StubRetriever:
 @dataclass
 class StubGenerator:
     draft: DraftVerdict
+    calls: int = 0
+    evidence_batches: list[tuple[Evidence, ...]] = field(default_factory=list)
 
     def generate(self, claim: ExtractedClaim, evidence: Sequence[Evidence]) -> DraftVerdict:
+        del claim
+        self.calls += 1
+        self.evidence_batches.append(tuple(evidence))
         return self.draft
+
+
+@dataclass
+class StubSufficiencyAssessor:
+    assessment: EvidenceSufficiencyAssessment
+    calls: int = 0
+
+    def assess(
+        self,
+        claim: ExtractedClaim,
+        evidence: Sequence[Evidence],
+    ) -> EvidenceSufficiencyAssessment:
+        del claim, evidence
+        self.calls += 1
+        return self.assessment
 
 
 @dataclass
@@ -83,6 +104,7 @@ def build_pipeline(
     source_ids: tuple[str, ...] = ("chunk-1",),
     supported: bool = True,
     verdict: Verdict = Verdict.SUPPORTED,
+    assessment: EvidenceSufficiencyAssessment | None = None,
 ) -> tuple[FactCheckPipeline, StubRetriever]:
     retriever = StubRetriever(evidence)
     pipeline = FactCheckPipeline(
@@ -97,6 +119,9 @@ def build_pipeline(
             )
         ),
         verifier=StubVerifier(VerificationReport(all_supported=supported)),
+        sufficiency_assessor=(
+            StubSufficiencyAssessor(assessment) if assessment is not None else None
+        ),
     )
     return pipeline, retriever
 
@@ -193,3 +218,61 @@ def test_propagates_multiple_claims_notice_to_result() -> None:
     result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="Várias alegações"))
 
     assert result.multiple_claims_detected is True
+
+
+def test_separated_gate_abstains_before_classification_and_keeps_partial_source() -> None:
+    pipeline, _ = build_pipeline(
+        assessment=EvidenceSufficiencyAssessment(
+            sufficient=False,
+            explanation="O trecho cobre o tema, mas não o caso individual.",
+            source_ids=("chunk-1",),
+        )
+    )
+    generator = pipeline.generator
+    assert isinstance(generator, StubGenerator)
+
+    result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
+
+    assert result.verdict is Verdict.INSUFFICIENT_EVIDENCE
+    assert result.sources[0].chunk_id == "chunk-1"
+    assert generator.calls == 0
+
+
+def test_separated_gate_passes_only_relevant_evidence_to_classifier() -> None:
+    other = Evidence(
+        chunk_id="chunk-2",
+        text="Trecho apenas tematicamente próximo.",
+        source_name="Anvisa",
+        document_title="Outro documento",
+        url="https://example.gov.br/outro",
+    )
+    pipeline, _ = build_pipeline(
+        evidence=(EVIDENCE, other),
+        assessment=EvidenceSufficiencyAssessment(
+            sufficient=True,
+            explanation="O trecho responde diretamente à alegação.",
+            source_ids=("chunk-1",),
+        ),
+    )
+    generator = pipeline.generator
+    assert isinstance(generator, StubGenerator)
+
+    result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
+
+    assert result.verdict is Verdict.SUPPORTED
+    assert generator.evidence_batches == [(EVIDENCE,)]
+
+
+def test_separated_gate_fails_closed_on_unknown_source() -> None:
+    pipeline, _ = build_pipeline(
+        assessment=EvidenceSufficiencyAssessment(
+            sufficient=True,
+            explanation="Há cobertura direta.",
+            source_ids=("invented-chunk",),
+        )
+    )
+
+    result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text="É verdade?"))
+
+    assert result.verdict is Verdict.INSUFFICIENT_EVIDENCE
+    assert "suficiência" in result.explanation

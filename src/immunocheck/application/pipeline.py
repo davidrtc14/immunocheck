@@ -6,6 +6,7 @@ from immunocheck.application.ports import (
     ClaimExtractor,
     ContentNormalizer,
     EvidenceRetriever,
+    EvidenceSufficiencyAssessor,
     FaithfulnessVerifier,
     VerdictGenerator,
 )
@@ -20,6 +21,7 @@ class FactCheckPipeline:
     retriever: EvidenceRetriever
     generator: VerdictGenerator
     verifier: FaithfulnessVerifier
+    sufficiency_assessor: EvidenceSufficiencyAssessor | None = None
     input_limits: InputLimits = field(default_factory=InputLimits)
 
     def run(self, submission: ContentSubmission) -> FactCheckResult:
@@ -40,8 +42,39 @@ class FactCheckPipeline:
                 multiple_claims_detected=claim.multiple_claims_detected,
             )
 
-        draft = self.generator.generate(claim, evidence)
         evidence_by_id = {item.chunk_id: item for item in evidence}
+        if self.sufficiency_assessor is not None:
+            assessment = self.sufficiency_assessor.assess(claim, evidence)
+            assessed_source_ids = tuple(dict.fromkeys(assessment.source_ids))
+            if any(source_id not in evidence_by_id for source_id in assessed_source_ids):
+                return FactCheckResult.insufficient(
+                    "A avaliação de suficiência não apresentou fontes válidas e verificáveis.",
+                    claim=claim.text,
+                    multiple_claims_detected=claim.multiple_claims_detected,
+                )
+            assessed_evidence = tuple(
+                evidence_by_id[source_id] for source_id in assessed_source_ids
+            )
+            assessed_sources = tuple(
+                SourceReference.from_evidence(item) for item in assessed_evidence
+            )
+            if not assessment.sufficient:
+                return FactCheckResult.insufficient(
+                    assessment.explanation,
+                    claim=claim.text,
+                    sources=assessed_sources,
+                    multiple_claims_detected=claim.multiple_claims_detected,
+                )
+            if not assessed_evidence:
+                return FactCheckResult.insufficient(
+                    "As fontes disponíveis não fornecem evidência suficiente para concluir.",
+                    claim=claim.text,
+                    multiple_claims_detected=claim.multiple_claims_detected,
+                )
+            evidence = assessed_evidence
+            evidence_by_id = {item.chunk_id: item for item in evidence}
+
+        draft = self.generator.generate(claim, evidence)
         cited_source_ids = tuple(dict.fromkeys(draft.source_ids))
         if any(source_id not in evidence_by_id for source_id in cited_source_ids):
             return FactCheckResult.insufficient(

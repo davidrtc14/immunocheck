@@ -7,6 +7,7 @@ from immunocheck.domain.models import (
     ContentSubmission,
     DraftVerdict,
     Evidence,
+    EvidenceSufficiencyAssessment,
     ExtractedClaim,
     VerificationReport,
 )
@@ -22,6 +23,14 @@ class ClaimExtractor(Protocol):
 
 class EvidenceRetriever(Protocol):
     def retrieve(self, claim: ExtractedClaim) -> Sequence[Evidence]: ...
+
+
+class EvidenceSufficiencyAssessor(Protocol):
+    def assess(
+        self,
+        claim: ExtractedClaim,
+        evidence: Sequence[Evidence],
+    ) -> EvidenceSufficiencyAssessment: ...
 
 
 class VerdictGenerator(Protocol):

@@ -92,6 +92,12 @@
   separar suficiência da evidência, classificação e fidelidade. O protocolo exige
   pelo menos 48 itens novos de calibração e 32 de holdout, com famílias separadas.
   Nenhum registro do teste final foi carregado nessa auditoria.
+- **22/09/2026 — implementação da ADR-029:** a candidata opt-in passou a ter gate de
+  suficiência, classificador restrito a `SUPPORTED`, `REFUTED` e `MISLEADING`, e
+  auditor limitado à fidelidade factual. O gate filtra as evidências entregues ao
+  classificador e falha de forma segura diante de IDs inválidos. Os builders da v1
+  permanecem inalterados. A decisão continua em validação porque não houve execução
+  sobre o novo conjunto nem demonstração de ganho.
 
 ## Política de alteração
 

@@ -63,6 +63,21 @@ class DraftVerdict:
 
 
 @dataclass(frozen=True, slots=True)
+class EvidenceSufficiencyAssessment:
+    sufficient: bool
+    explanation: str
+    source_ids: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        if not self.explanation.strip():
+            raise ValueError("A avaliação de suficiência precisa de explicação.")
+        if len(set(self.source_ids)) != len(self.source_ids):
+            raise ValueError("A avaliação de suficiência contém fontes duplicadas.")
+        if self.sufficient and not self.source_ids:
+            raise ValueError("Evidência suficiente exige ao menos uma fonte relevante.")
+
+
+@dataclass(frozen=True, slots=True)
 class VerificationReport:
     all_supported: bool
     unsupported_sentences: tuple[str, ...] = ()

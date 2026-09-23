@@ -7,6 +7,12 @@ import numpy as np
 import pytest
 
 from immunocheck import bootstrap
+from immunocheck.application.text_components import (
+    GuardedFaithfulnessVerifier,
+    LLMConclusiveVerdictGenerator,
+    LLMEvidenceSufficiencyAssessor,
+    LLMVerdictGenerator,
+)
 from immunocheck.domain.models import ExtractedClaim
 from immunocheck.retrieval.dense import DenseIndex, DenseRetriever
 from immunocheck.retrieval.rrf import HybridRetriever
@@ -108,3 +114,20 @@ def test_rejects_unknown_retrieval_mode(tmp_path: Path) -> None:
             top_k=1,
             retrieval_mode="unknown",
         )
+
+
+def test_refinement_decision_components_are_separate_and_opt_in() -> None:
+    client = object()
+
+    legacy_gate, legacy_generator, _ = bootstrap._build_decision_components(
+        client, separated_decision=False
+    )
+    gate, generator, verifier = bootstrap._build_decision_components(
+        client, separated_decision=True
+    )
+
+    assert legacy_gate is None
+    assert isinstance(legacy_generator, LLMVerdictGenerator)
+    assert isinstance(gate, LLMEvidenceSufficiencyAssessor)
+    assert isinstance(generator, LLMConclusiveVerdictGenerator)
+    assert isinstance(verifier, GuardedFaithfulnessVerifier)

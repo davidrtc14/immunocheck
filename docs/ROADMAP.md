@@ -350,8 +350,8 @@ dependendo de confirmação institucional. O gate permanece aberto.
 - [x] Diagnóstico automatizado por estágio sobre o desenvolvimento histórico.
 - [x] Construção do novo conjunto de calibração (48 propostas em 12 famílias).
 - [ ] Revisão humana primária dos 48 itens e segunda revisão cega de ao menos 15.
-- [ ] Implementação do gate separado de suficiência da evidência.
-- [ ] Implementação da classificação separada da auditoria de fidelidade.
+- [x] Implementação opt-in do gate separado de suficiência da evidência.
+- [x] Implementação opt-in da classificação separada da auditoria de fidelidade.
 - [ ] Comparação controlada com a configuração v1 no novo conjunto.
 - [ ] Congelamento da candidata e do novo holdout independente (mínimo de 32 itens).
 - [ ] Execução confirmatória única e relatório de promoção ou rejeição.
@@ -380,3 +380,12 @@ estrutura, equilíbrio, novidade nominal das famílias e existência das referê
 corpus. Isso ainda não é dado de avaliação: falta a revisão humana primária integral
 e uma segunda revisão cega de ao menos 15 itens. O holdout v2 não foi criado, para
 que seu conteúdo não influencie a implementação da candidata.
+
+Implementação estrutural de 22/09/2026: a candidata experimental agora separa
+suficiência, classificação conclusiva e fidelidade. Um gate insuficiente encerra o
+fluxo antes do classificador; quando suficiente, somente os chunks pertinentes seguem
+para a classificação em três classes. IDs desconhecidos e decisões suficientes sem
+fontes falham de forma segura. O auditor factual não recebe autoridade para trocar o
+rótulo. A configuração é acessível apenas por builders de refinamento e não alterou o
+bot nem a v1. Nenhuma inferência foi executada nos 48 rascunhos; a revisão humana
+continua sendo o próximo gate antes da calibração.

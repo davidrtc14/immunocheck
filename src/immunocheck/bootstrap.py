@@ -7,8 +7,11 @@ from immunocheck.application.content_normalizer import MultimodalNormalizer
 from immunocheck.application.pipeline import FactCheckPipeline
 from immunocheck.application.ports import ContentNormalizer
 from immunocheck.application.text_components import (
+    FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
     GuardedFaithfulnessVerifier,
     LLMClaimExtractor,
+    LLMConclusiveVerdictGenerator,
+    LLMEvidenceSufficiencyAssessor,
     LLMFaithfulnessVerifier,
     LLMVerdictGenerator,
     TextNormalizer,
@@ -51,6 +54,7 @@ def build_text_pipeline(
         base_url=base_url,
         top_k=top_k,
         retrieval_mode=retrieval_mode,
+        separated_decision=False,
     )
 
 
@@ -72,6 +76,50 @@ def build_multimodal_pipeline(
         base_url=base_url,
         top_k=top_k,
         retrieval_mode=retrieval_mode,
+        separated_decision=False,
+    )
+
+
+def build_refinement_text_pipeline(
+    *,
+    corpus_path: Path = DEFAULT_CORPUS_PATH,
+    model: str | None = None,
+    base_url: str | None = None,
+    top_k: int = 6,
+    retrieval_mode: str | None = None,
+) -> FactCheckPipeline:
+    """Monta a candidata v2 sem alterar a configuração de produção da v1."""
+    return _build_pipeline(
+        normalizer=TextNormalizer(),
+        corpus_path=corpus_path,
+        model=model,
+        base_url=base_url,
+        top_k=top_k,
+        retrieval_mode=retrieval_mode,
+        separated_decision=True,
+    )
+
+
+def build_refinement_multimodal_pipeline(
+    *,
+    corpus_path: Path = DEFAULT_CORPUS_PATH,
+    model: str | None = None,
+    base_url: str | None = None,
+    top_k: int = 6,
+    retrieval_mode: str | None = None,
+) -> FactCheckPipeline:
+    """Monta a candidata multimodal v2, ainda sem promovê-la ao bot."""
+    return _build_pipeline(
+        normalizer=MultimodalNormalizer(
+            image_extractor=TesseractOCR.from_environment(),
+            link_extractor=SafeLinkTextExtractor(),
+        ),
+        corpus_path=corpus_path,
+        model=model,
+        base_url=base_url,
+        top_k=top_k,
+        retrieval_mode=retrieval_mode,
+        separated_decision=True,
     )
 
 
@@ -83,10 +131,14 @@ def _build_pipeline(
     base_url: str | None,
     top_k: int,
     retrieval_mode: str | None,
+    separated_decision: bool,
 ) -> FactCheckPipeline:
     client = OllamaStructuredClient(
         model=model or os.getenv("OLLAMA_MODEL", "qwen3:8b"),
         base_url=base_url or os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
+    )
+    sufficiency_assessor, generator, verifier = _build_decision_components(
+        client, separated_decision=separated_decision
     )
     return FactCheckPipeline(
         normalizer=normalizer,
@@ -96,8 +148,29 @@ def _build_pipeline(
             top_k=top_k,
             retrieval_mode=retrieval_mode or os.getenv("RETRIEVAL_MODE", "dense"),
         ),
-        generator=LLMVerdictGenerator(client),
-        verifier=GuardedFaithfulnessVerifier(LLMFaithfulnessVerifier(client)),
+        generator=generator,
+        verifier=verifier,
+        sufficiency_assessor=sufficiency_assessor,
+    )
+
+
+def _build_decision_components(client, *, separated_decision: bool):
+    if not separated_decision:
+        return (
+            None,
+            LLMVerdictGenerator(client),
+            GuardedFaithfulnessVerifier(LLMFaithfulnessVerifier(client)),
+        )
+    return (
+        LLMEvidenceSufficiencyAssessor(client),
+        LLMConclusiveVerdictGenerator(client),
+        GuardedFaithfulnessVerifier(
+            LLMFaithfulnessVerifier(
+                client,
+                system_prompt=FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
+                map_nonliteral_to_full_draft=True,
+            )
+        ),
     )
 
 

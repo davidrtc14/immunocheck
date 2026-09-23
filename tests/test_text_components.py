@@ -10,6 +10,8 @@ from immunocheck.application.text_components import (
     FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
     GuardedFaithfulnessVerifier,
     LLMClaimExtractor,
+    LLMConclusiveVerdictGenerator,
+    LLMEvidenceSufficiencyAssessor,
     LLMFaithfulnessVerifier,
     LLMVerdictGenerator,
     ModelOutputError,
@@ -169,6 +171,40 @@ def test_claim_extractor_preserves_material_negation_in_short_claim() -> None:
     assert LLMClaimExtractor(client).extract(original) == ExtractedClaim(original, 0.9)
 
 
+def test_sufficiency_gate_returns_typed_assessment_and_replaces_source_id() -> None:
+    client = ScriptedClient(
+        [
+            {
+                "sufficient": True,
+                "explanation": "O trecho official:p1:c1 responde à alegação.",
+                "source_ids": ["official:p1:c1"],
+            }
+        ]
+    )
+
+    assessment = LLMEvidenceSufficiencyAssessor(client).assess(
+        ExtractedClaim("A vacina está indicada.", 0.9),
+        (EVIDENCE,),
+    )
+
+    assert assessment.sufficient
+    assert assessment.source_ids == ("official:p1:c1",)
+    assert "official:p1:c1" not in assessment.explanation
+    assert "Calendário Nacional" in assessment.explanation
+
+
+def test_sufficiency_gate_rejects_positive_decision_without_source() -> None:
+    client = ScriptedClient(
+        [{"sufficient": True, "explanation": "Há cobertura.", "source_ids": []}]
+    )
+
+    with pytest.raises(ModelOutputError, match="inconsistentes"):
+        LLMEvidenceSufficiencyAssessor(client).assess(
+            ExtractedClaim("A vacina está indicada.", 0.9),
+            (EVIDENCE,),
+        )
+
+
 def test_verdict_generator_builds_typed_draft() -> None:
     client = ScriptedClient(
         [
@@ -246,6 +282,26 @@ def test_insufficient_verdict_can_reference_partial_sources() -> None:
 
     assert draft.verdict is Verdict.INSUFFICIENT_EVIDENCE
     assert draft.source_ids == ("official:p1:c1",)
+
+
+def test_conclusive_classifier_refuses_to_reopen_sufficiency_gate() -> None:
+    client = ScriptedClient(
+        [
+            {
+                "verdict": "INSUFFICIENT_EVIDENCE",
+                "explanation": "Não é possível concluir.",
+                "source_ids": [],
+                "correct_fact": None,
+                "omitted_or_distorted": None,
+            }
+        ]
+    )
+
+    with pytest.raises(ModelOutputError, match="reabrir o gate"):
+        LLMConclusiveVerdictGenerator(client).generate(
+            ExtractedClaim("Alegação", 0.9),
+            (EVIDENCE,),
+        )
 
 
 def test_faithfulness_verifier_rejects_inconsistent_fields() -> None:
