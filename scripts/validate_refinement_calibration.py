@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from immunocheck.evaluation.end_to_end import load_end_to_end_items
+from immunocheck.evaluation.end_to_end import DatasetStatus, load_end_to_end_items
 from immunocheck.evaluation.refinement_calibration import (
     load_family_ids,
     validate_refinement_calibration,
@@ -17,9 +17,14 @@ CORPUS = ROOT / "corpus" / "processed" / "chunks.jsonl"
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Valida a calibração candidata da v2.")
+    parser = argparse.ArgumentParser(description="Valida um estágio da calibração v2.")
     parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET)
     parser.add_argument("--frozen-test-families", type=Path, default=DEFAULT_FAMILIES)
+    parser.add_argument(
+        "--status",
+        choices=tuple(status.value for status in DatasetStatus),
+        default=DatasetStatus.DRAFT.value,
+    )
     args = parser.parse_args()
 
     evidence = load_evidence_jsonl(CORPUS)
@@ -29,14 +34,22 @@ def main() -> int:
         require_reviewed=False,
     )
     families = load_family_ids(args.frozen_test_families.read_text(encoding="utf-8").splitlines())
-    summary = validate_refinement_calibration(items, frozen_test_families=families)
+    expected_status = DatasetStatus(args.status)
+    summary = validate_refinement_calibration(
+        items,
+        frozen_test_families=families,
+        expected_status=expected_status,
+    )
 
-    print(f"Itens candidatos: {summary.total}")
+    print(f"Itens: {summary.total}")
     print(f"Famílias inéditas: {summary.families}")
     print(f"Chunks de evidência: {summary.evidence_chunks}")
     print("Classes:", summary.labels)
     print("Temas:", summary.topics)
-    print("Estado: rascunho; revisão humana ainda não realizada")
+    if expected_status is DatasetStatus.DRAFT:
+        print("Estado: rascunho; revisão humana ainda não incorporada")
+    else:
+        print("Estado: primeira revisão incorporada; segunda revisão ainda pendente")
     return 0
 
 

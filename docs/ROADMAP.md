@@ -349,7 +349,8 @@ dependendo de confirmação institucional. O gate permanece aberto.
 - [x] Hipótese e gates da nova linha experimental pré-registrados.
 - [x] Diagnóstico automatizado por estágio sobre o desenvolvimento histórico.
 - [x] Construção do novo conjunto de calibração (48 propostas em 12 famílias).
-- [ ] Revisão humana primária dos 48 itens e segunda revisão cega de ao menos 15.
+- [x] Revisão humana primária assistida dos 48 itens incorporada sem exceções.
+- [ ] Segunda revisão cega de 16 itens por pessoa distinta.
 - [x] Implementação opt-in do gate separado de suficiência da evidência.
 - [x] Implementação opt-in da classificação separada da auditoria de fidelidade.
 - [ ] Comparação controlada com a configuração v1 no novo conjunto.
@@ -388,4 +389,16 @@ para a classificação em três classes. IDs desconhecidos e decisões suficient
 fontes falham de forma segura. O auditor factual não recebe autoridade para trocar o
 rótulo. A configuração é acessível apenas por builders de refinamento e não alterou o
 bot nem a v1. Nenhuma inferência foi executada nos 48 rascunhos; a revisão humana
-continua sendo o próximo gate antes da calibração.
+era o próximo gate antes da calibração naquele marco.
+
+Revisão primária incorporada em 22/09/2026: o retorno final apresentado aprovou as
+12 famílias e os 48 itens sem exceções e declara consulta direta às 12 fontes. A
+proposta original foi preservada, e um snapshot revisado separado registra rótulo
+primário, justificativa, código do papel revisor e data. O comprovante e seu hash
+preservam a declaração, sem tratar identidade ou leitura como certificadas pelo
+software. Uma reconciliação técnica registra que a família 10 trata de crença ou
+endosso da desinformação, que a fonte da família 12 combina revisão sistemática e
+modelagem, e que a correspondência direta cobre 36 rótulos conclusivos; os 12 itens
+insuficientes dependem da ausência de contexto individual. Uma seleção cega de 16
+itens, quatro por classe e cobrindo as 12 famílias, está pronta para uma pessoa
+distinta. Nenhuma inferência foi executada e o holdout v2 continua inexistente.

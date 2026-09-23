@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "purpose": "refinement_v2_blind_second_annotation",
+  "prepared_at": "2026-09-22",
+  "annotation_completed": false,
+  "test_frozen": false,
+  "algorithm": "target families; 16 items; 4 per class; deterministic shuffle",
+  "seed": 20260922,
+  "reviewed_dataset_sha256": "d6b3836001b32cc01b4fcc346fad5c78dc31eaca70f3877f952657cadd43c7f5",
+  "total_dataset": 48,
+  "selected": 16,
+  "selected_class_counts": {
+    "INSUFFICIENT_EVIDENCE": 4,
+    "MISLEADING": 4,
+    "REFUTED": 4,
+    "SUPPORTED": 4
+  },
+  "target_family_count": 12,
+  "selected_family_count": 12,
+  "share_with_participant": "participant/ only",
+  "mapping": [
+    {
+      "task_id": "ref2-annotation-001",
+      "item_id": "ref2-cal-0018",
+      "primary_label": "REFUTED",
+      "claim_family": "meningococcal_conjugate_impact"
+    },
+    {
+      "task_id": "ref2-annotation-002",
+      "item_id": "ref2-cal-0022",
+      "primary_label": "REFUTED",
+      "claim_family": "adult_pneumococcal_vaccine_type_outcomes"
+    },
+    {
+      "task_id": "ref2-annotation-003",
+      "item_id": "ref2-cal-0007",
+      "primary_label": "MISLEADING",
+      "claim_family": "mpox_notification_severity"
+    },
+    {
+      "task_id": "ref2-annotation-004",
+      "item_id": "ref2-cal-0027",
+      "primary_label": "MISLEADING",
+      "claim_family": "enhanced_influenza_evidence_certainty"
+    },
+    {
+      "task_id": "ref2-annotation-005",
+      "item_id": "ref2-cal-0033",
+      "primary_label": "SUPPORTED",
+      "claim_family": "covid_pregnancy_evidence_certainty"
+    },
+    {
+      "task_id": "ref2-annotation-006",
+      "item_id": "ref2-cal-0030",
+      "primary_label": "REFUTED",
+      "claim_family": "vaccination_autoimmune_pooled_association"
+    },
+    {
+      "task_id": "ref2-annotation-007",
+      "item_id": "ref2-cal-0046",
+      "primary_label": "REFUTED",
+      "claim_family": "acellular_pertussis_waning"
+    },
+    {
+      "task_id": "ref2-annotation-008",
+      "item_id": "ref2-cal-0037",
+      "primary_label": "SUPPORTED",
+      "claim_family": "vaccine_misinformation_scare_tactics"
+    },
+    {
+      "task_id": "ref2-annotation-009",
+      "item_id": "ref2-cal-0043",
+      "primary_label": "MISLEADING",
+      "claim_family": "adjuvant_mechanism_delivery"
+    },
+    {
+      "task_id": "ref2-annotation-010",
+      "item_id": "ref2-cal-0008",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "claim_family": "mpox_notification_severity"
+    },
+    {
+      "task_id": "ref2-annotation-011",
+      "item_id": "ref2-cal-0003",
+      "primary_label": "MISLEADING",
+      "claim_family": "dengue_postmarketing_signal"
+    },
+    {
+      "task_id": "ref2-annotation-012",
+      "item_id": "ref2-cal-0048",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "claim_family": "acellular_pertussis_waning"
+    },
+    {
+      "task_id": "ref2-annotation-013",
+      "item_id": "ref2-cal-0040",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "claim_family": "vaccine_misinformation_scare_tactics"
+    },
+    {
+      "task_id": "ref2-annotation-014",
+      "item_id": "ref2-cal-0044",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "claim_family": "adjuvant_mechanism_delivery"
+    },
+    {
+      "task_id": "ref2-annotation-015",
+      "item_id": "ref2-cal-0013",
+      "primary_label": "SUPPORTED",
+      "claim_family": "hpv_single_dose_scope"
+    },
+    {
+      "task_id": "ref2-annotation-016",
+      "item_id": "ref2-cal-0009",
+      "primary_label": "SUPPORTED",
+      "claim_family": "measles_first_dose_age_response"
+    }
+  ]
+}

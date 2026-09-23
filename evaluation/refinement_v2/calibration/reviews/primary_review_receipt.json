@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-22",
+  "review_type": "assisted_primary_review",
+  "declared_reviewer_role": "Professor Orientador",
+  "reviewer_code_in_dataset": "primary_reviewer_001",
+  "identity_independently_verified_by_software": false,
+  "decision": "approved_all_without_exceptions",
+  "reviewed_item_count": 48,
+  "returned_review_normalized_sha256": "f6a497f009a0e62a8f8eae99a96429e33b2e40e9109a438902123c5c9dd95640",
+  "reviewed_dataset_sha256": "d6b3836001b32cc01b4fcc346fad5c78dc31eaca70f3877f952657cadd43c7f5",
+  "declared_direct_source_verification_families": [
+    "acellular_pertussis_waning",
+    "adjuvant_mechanism_delivery",
+    "adult_pneumococcal_vaccine_type_outcomes",
+    "covid_pregnancy_evidence_certainty",
+    "dengue_postmarketing_signal",
+    "enhanced_influenza_evidence_certainty",
+    "hpv_single_dose_scope",
+    "measles_first_dose_age_response",
+    "meningococcal_conjugate_impact",
+    "mpox_notification_severity",
+    "vaccination_autoimmune_pooled_association",
+    "vaccine_misinformation_scare_tactics"
+  ],
+  "structural_coherence_only_families": [],
+  "limitation": "A consulta às 12 fontes e o papel do revisor são declarações documentais; o software não certifica a identidade nem a leitura realizada.",
+  "technical_reconciliation": [
+    "Família 10: 'adesão' é interpretada como crença ou endosso da desinformação, não como cobertura vacinal.",
+    "Família 12: a fonte é um artigo com revisão sistemática e modelagem.",
+    "A correspondência direta às fontes refere-se aos 36 rótulos conclusivos; os 12 itens insuficientes decorrem da falta de contexto individual para causalidade."
+  ],
+  "next_gate": "blind_second_annotation_of_16_items"
+}
