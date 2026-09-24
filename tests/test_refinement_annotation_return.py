@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -81,6 +82,17 @@ def test_explicit_ai_return_cannot_close_human_gate() -> None:
     assert inspection.agreement["valid_for_interhuman_agreement"] is False
 
 
+def test_checkbox_spacing_and_brazilian_date_are_normalized() -> None:
+    text = _complete_human_return().replace("- [x]", "- [ x ]").replace(
+        "- Data da revisão: 2026-09-22", "- Data da revisão:23/09/2026"
+    )
+
+    inspection = inspect_refinement_annotation_return(text, expected_tasks=_expected_tasks())
+
+    assert inspection.eligible_for_human_gate is True
+    assert inspection.reviewed_at == "2026-09-23"
+
+
 def test_changed_claim_invalidates_mapping_and_agreement() -> None:
     text = _complete_human_return().replace(
         "A revisão não encontrou impacto nem efetividade",
@@ -92,4 +104,24 @@ def test_changed_claim_invalidates_mapping_and_agreement() -> None:
 
     assert inspection.eligible_for_human_gate is False
     assert "changed_claim:ref2-annotation-001" in inspection.rejection_reasons
-    assert inspection.agreement is None
+    assert inspection.agreement is not None
+    assert inspection.agreement["valid_for_interhuman_agreement"] is False
+
+
+def test_published_attempt_002_is_bound_and_pending_only_claim_correction() -> None:
+    attempts = BASE / "independent_review" / "attempts"
+    receipt = json.loads((attempts / "attempt_002_receipt.json").read_text(encoding="utf-8"))
+    raw = (attempts / receipt["raw_return_path"]).read_text(encoding="utf-8-sig")
+    normalized = raw.replace("\r\n", "\n").replace("\r", "\n")
+
+    inspection = inspect_refinement_annotation_return(raw, expected_tasks=_expected_tasks())
+
+    assert hashlib.sha256(normalized.encode("utf-8")).hexdigest() == receipt[
+        "source_normalized_sha256"
+    ]
+    assert inspection.reviewer == "rv0067"
+    assert inspection.reviewed_at == "2026-09-23"
+    assert inspection.rejection_reasons == ("changed_claim:ref2-annotation-010",)
+    assert inspection.agreement is not None
+    assert inspection.agreement["agreement_count"] == 12
+    assert inspection.agreement["cohens_kappa"] == 2 / 3

@@ -48,7 +48,13 @@ def inspect_refinement_annotation_return(
     """Inspeciona o formulário sem promover rótulos nem certificar identidade humana."""
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     reasons: list[str] = []
-    if not all(f"- [x] {statement}" in normalized for statement in HUMAN_ATTESTATIONS):
+    if not all(
+        re.search(
+            rf"(?mi)^- \[\s*x\s*\]\s+{re.escape(statement)}\s*$",
+            normalized,
+        )
+        for statement in HUMAN_ATTESTATIONS
+    ):
         reasons.append("missing_human_attestation")
     if re.search(r"não é anotação humana|\bia[- ]assistente\b", normalized, re.IGNORECASE):
         reasons.append("explicit_nonhuman_reviewer")
@@ -92,8 +98,7 @@ def inspect_refinement_annotation_return(
         reasons.append("missing_review_date")
     else:
         try:
-            if date.fromisoformat(reviewed_at).isoformat() != reviewed_at:
-                reasons.append("invalid_review_date")
+            reviewed_at = _normalize_date(reviewed_at)
         except ValueError:
             reasons.append("invalid_review_date")
 
@@ -151,10 +156,15 @@ def _header_field(text: str, label: str) -> str | None:
 
 
 def _mapping_errors(reasons: list[str]) -> bool:
-    return any(
-        reason == "incomplete_or_duplicate_task_set" or reason.startswith("changed_claim:")
-        for reason in reasons
-    )
+    return "incomplete_or_duplicate_task_set" in reasons
+
+
+def _normalize_date(value: str) -> str:
+    try:
+        return date.fromisoformat(value).isoformat()
+    except ValueError:
+        day, month, year = value.split("/")
+        return date(int(year), int(month), int(day)).isoformat()
 
 
 def _agreement(

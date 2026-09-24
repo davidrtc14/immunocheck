@@ -410,3 +410,11 @@ falhas. O resultado foi preservado por hash como consistência do mesmo revisor,
 como concordância interavaliadores: a primeira revisão também foi atribuída ao
 orientador e o protocolo exige pessoa distinta. Nenhum rótulo foi incorporado. O
 pacote foi regenerado com declaração explícita de humanidade e independência.
+
+Segunda devolução recebida em 23/09/2026: o código desidentificado `rv0067` declarou
+ser pessoa distinta, não ter consultado os rótulos primários e não ter substituído o
+julgamento por LLM. As 16 tarefas foram preenchidas, com resultado provisório de 12
+concordâncias e quatro divergências (75%; kappa 0,667). A tarefa 010, contudo, teve
+a alegação modificada durante o preenchimento. Para não assumir equivalência
+semântica nem enviesar o rótulo, o retorno ainda não foi incorporado; foi emitida uma
+correção pontual apenas para o texto original dessa tarefa.

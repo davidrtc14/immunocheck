@@ -56,5 +56,12 @@ primária; a IA apenas revisou a redação. O resultado foi registrado como cons
 do mesmo revisor e não fecha o gate de independência. O pacote regenerado exige uma
 declaração explícita e continua pendente de outra pessoa.
 
+A devolução seguinte veio de uma pessoa distinta (`rv0067`) e trouxe 16 respostas,
+mas alterou o texto da tarefa 010. As variações de espaçamento nas caixas e a data
+brasileira foram normalizadas sem perda semântica. O resultado provisório é 12/16
+concordâncias (75%; kappa 0,667), ainda não reportável como medida final. As outras
+15 respostas foram preservadas por hash; somente a tarefa 010 precisa ser confirmada
+com a alegação original.
+
 O holdout de 32 itens só será construído depois que a candidata for escolhida e
 congelada. Criá-lo agora permitiria que seu conteúdo influenciasse a implementação.

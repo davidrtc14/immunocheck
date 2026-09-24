@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "received_at": "2026-09-23",
+  "source_normalized_sha256": "506cc428a9622f84278b5930a17723763a6c531d8848540e20f968e5022e862f",
+  "raw_return_versioned": true,
+  "raw_return_path": "ATTEMPT_002_RETURN.md",
+  "reviewer_code": "rv0067",
+  "reviewed_at_normalized": "2026-09-23",
+  "human_attestation": "accepted_as_declared_not_software_certified",
+  "parsed_response_count": 16,
+  "claim_integrity": {
+    "unchanged": 15,
+    "changed_task_ids": [
+      "ref2-annotation-010"
+    ]
+  },
+  "provisional_agreement": {
+    "agreement_count": 12,
+    "disagreement_count": 4,
+    "disagreement_task_ids": [
+      "ref2-annotation-003",
+      "ref2-annotation-010",
+      "ref2-annotation-011",
+      "ref2-annotation-012"
+    ],
+    "observed_agreement": 0.75,
+    "cohens_kappa": 0.6666666666666666,
+    "valid_for_final_reporting": false
+  },
+  "accepted_as_independent_second_annotation": false,
+  "gate_reason": "Uma alegação foi alterada na devolução; é necessária confirmação sobre o texto original.",
+  "dataset_changed": false,
+  "next_action": "complete_ATTEMPT_002_CORRECTION.md"
+}

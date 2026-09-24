@@ -282,10 +282,8 @@ def main() -> int:
     previous_second_review = manifest.get("second_review", {})
     attempts = previous_second_review.get("attempts", [])
     manifest["second_review"] = {
-        "status": (
-            "package_regenerated_pending_distinct_human_annotation"
-            if attempts
-            else "package_prepared_pending_human_annotation"
+        "status": previous_second_review.get(
+            "status", "package_prepared_pending_human_annotation"
         ),
         "selected_items": len(json.loads(package["selection_manifest.json"])["mapping"]),
         "selected_class_counts": json.loads(package["selection_manifest.json"])[

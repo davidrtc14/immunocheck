@@ -36,7 +36,7 @@
     "structural_only_family_count": 0
   },
   "second_review": {
-    "status": "package_regenerated_pending_distinct_human_annotation",
+    "status": "distinct_human_return_pending_claim_correction",
     "selected_items": 16,
     "selected_class_counts": {
       "INSUFFICIENT_EVIDENCE": 4,
@@ -55,6 +55,22 @@
         "disagreement_count": 0,
         "accepted_as_independent": false,
         "reason": "same_primary_reviewer_not_independent"
+      },
+      {
+        "attempt_id": "attempt_002",
+        "received_at": "2026-09-23",
+        "source_normalized_sha256": "506cc428a9622f84278b5930a17723763a6c531d8848540e20f968e5022e862f",
+        "reviewer_code": "rv0067",
+        "human_attestation": "accepted_as_declared_not_software_certified",
+        "parsed_response_count": 16,
+        "unchanged_claim_count": 15,
+        "changed_claim_task_ids": [
+          "ref2-annotation-010"
+        ],
+        "provisional_agreement_count": 12,
+        "provisional_disagreement_count": 4,
+        "accepted_as_independent": false,
+        "reason": "claim_change_requires_same_reviewer_correction"
       }
     ]
   }
