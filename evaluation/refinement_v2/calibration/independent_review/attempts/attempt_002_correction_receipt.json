@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "received_at": "2026-09-24",
+  "source_normalized_sha256": "fca749d1efebad4cc908dd343aefd97eaab5a300ea4b119d31bc6414e79b6c4b",
+  "raw_return_versioned": true,
+  "raw_return_path": "ATTEMPT_002_CORRECTION_RETURN.md",
+  "reviewer_code": "rv0067",
+  "corrected_task_id": "ref2-annotation-010",
+  "claim_integrity": "exact_match",
+  "second_label": "INSUFFICIENT_EVIDENCE",
+  "accepted": true,
+  "base_return_normalized_sha256": "506cc428a9622f84278b5930a17723763a6c531d8848540e20f968e5022e862f"
+}

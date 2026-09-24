@@ -305,7 +305,10 @@ def _confirmed_chunk_ids(sources: str) -> list[str]:
 def _markdown_values(
     text: str, *, expected_claims: Mapping[str, str] | None = None
 ) -> list[dict[str, object]]:
-    sections = re.split(r"(?m)^## (annotation-\d{3}) — (e2e-\d{4})\s*$", text)
+    sections = re.split(
+        r"(?m)^## ((?:ref2-)?annotation-\d{3}) — ((?:e2e-|ref2-cal-)\d{4})\s*$",
+        text,
+    )
     values = []
     for index in range(1, len(sections), 3):
         task_id, item_id, body = sections[index : index + 3]

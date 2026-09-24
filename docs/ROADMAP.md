@@ -426,3 +426,10 @@ universal (tarefas 003 e 011) e `INSUFFICIENT_EVIDENCE` no caso individual de
 coqueluche sem investigação (tarefa 012). Não houve decisão humana final, alteração
 de rótulo ou inferência da pipeline. A tarefa 010 continua isolada até a correção do
 segundo revisor; depois será produzido um único pacote de adjudicação.
+
+Correção e consolidação em 24/09/2026: `rv0067` classificou novamente a tarefa 010
+usando o texto original exato e escolheu `INSUFFICIENT_EVIDENCE`, em concordância
+com o primeiro rótulo. A segunda anotação independente foi aceita e arquivada por
+hash. A concordância final antes da adjudicação é 13/16 (81,25%), com kappa de Cohen
+0,75; restam apenas as divergências 003, 011 e 012. Um pacote único com as três
+decisões foi preparado, sem executar a pipeline, alterar o snapshot ou criar holdout.

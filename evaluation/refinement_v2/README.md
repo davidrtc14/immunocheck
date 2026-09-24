@@ -17,8 +17,10 @@ resultados.
 - o retorno final declara conferência direta das fontes nas 12 famílias; essa
   declaração e o papel informado do revisor são preservados, mas não certificados
   pelo software;
-- uma segunda anotação cega balanceada de 16 itens foi preparada e permanece
-  pendente de uma pessoa distinta;
+- a segunda anotação cega balanceada de 16 itens foi aceita após uma correção
+  pontual do texto original da tarefa 010;
+- a concordância pré-adjudicação foi 13/16 (81,25%), com kappa de Cohen 0,75;
+- três divergências estão reunidas em um único pacote de adjudicação humana;
 - nenhum holdout v2 foi criado ou aberto.
 
 O desenho em matriz por família testa distinções difíceis dentro do mesmo assunto.
@@ -57,17 +59,15 @@ do mesmo revisor e não fecha o gate de independência. O pacote regenerado exig
 declaração explícita e continua pendente de outra pessoa.
 
 A devolução seguinte veio de uma pessoa distinta (`rv0067`) e trouxe 16 respostas,
-mas alterou o texto da tarefa 010. As variações de espaçamento nas caixas e a data
-brasileira foram normalizadas sem perda semântica. O resultado provisório é 12/16
-concordâncias (75%; kappa 0,667), ainda não reportável como medida final. As outras
-15 respostas foram preservadas por hash; somente a tarefa 010 precisa ser confirmada
-com a alegação original.
+mas alterou o texto da tarefa 010. As outras 15 respostas foram preservadas por hash.
+Em 24/09/2026, o mesmo revisor classificou o texto original exato da tarefa 010 como
+`INSUFFICIENT_EVIDENCE`, em concordância com o primeiro rótulo. A rodada foi então
+aceita com 13/16 concordâncias (81,25%; kappa 0,75) e três divergências.
 
-Enquanto a correção está pendente, os três desacordos com alegação íntegra receberam
-uma auditoria técnica em `calibration/independent_review/adjudication/`. As
-recomendações favorecem `MISLEADING` nas tarefas 003 e 011 e
-`INSUFFICIENT_EVIDENCE` na tarefa 012. Elas não são decisões humanas finais, não
-alteraram o dataset e não foram apresentadas ao segundo revisor.
+As três divergências receberam auditoria técnica e estão reunidas em
+`calibration/independent_review/adjudication/TASKS.md`. As recomendações favorecem
+`MISLEADING` nas tarefas 003 e 011 e `INSUFFICIENT_EVIDENCE` na tarefa 012. Elas não
+são decisões humanas finais e ainda não alteraram o snapshot de calibração.
 
 O holdout de 32 itens só será construído depois que a candidata for escolhida e
 congelada. Criá-lo agora permitiria que seu conteúdo influenciasse a implementação.

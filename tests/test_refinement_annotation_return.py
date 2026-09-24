@@ -4,10 +4,20 @@ import hashlib
 import json
 from pathlib import Path
 
+from immunocheck.evaluation.adjudication import (
+    load_adjudication_decisions,
+    pending_decision_ids,
+)
+from immunocheck.evaluation.annotation_agreement import (
+    compute_annotation_agreement,
+    load_annotation_responses,
+)
 from immunocheck.evaluation.end_to_end import load_end_to_end_items
 from immunocheck.evaluation.refinement_annotation_return import (
     HUMAN_ATTESTATIONS,
     inspect_refinement_annotation_return,
+    inspect_refinement_correction,
+    merge_refinement_correction,
 )
 
 ROOT = Path(__file__).parents[1]
@@ -31,7 +41,9 @@ def _complete_human_return() -> str:
     )
     for statement in HUMAN_ATTESTATIONS:
         text = text.replace(f"- [ ] {statement}", f"- [x] {statement}")
-    text = text.replace("- Código interno do revisor:\n", "- Código interno do revisor: second_human_001\n")
+    text = text.replace(
+        "- Código interno do revisor:\n", "- Código interno do revisor: second_human_001\n"
+    )
     text = text.replace("- Data da revisão:\n", "- Data da revisão: 2026-09-22\n")
     for item in _expected_tasks().values():
         assert item.primary_label is not None
@@ -83,8 +95,10 @@ def test_explicit_ai_return_cannot_close_human_gate() -> None:
 
 
 def test_checkbox_spacing_and_brazilian_date_are_normalized() -> None:
-    text = _complete_human_return().replace("- [x]", "- [ x ]").replace(
-        "- Data da revisão: 2026-09-22", "- Data da revisão:23/09/2026"
+    text = (
+        _complete_human_return()
+        .replace("- [x]", "- [ x ]")
+        .replace("- Data da revisão: 2026-09-22", "- Data da revisão:23/09/2026")
     )
 
     inspection = inspect_refinement_annotation_return(text, expected_tasks=_expected_tasks())
@@ -116,9 +130,10 @@ def test_published_attempt_002_is_bound_and_pending_only_claim_correction() -> N
 
     inspection = inspect_refinement_annotation_return(raw, expected_tasks=_expected_tasks())
 
-    assert hashlib.sha256(normalized.encode("utf-8")).hexdigest() == receipt[
-        "source_normalized_sha256"
-    ]
+    assert (
+        hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+        == receipt["source_normalized_sha256"]
+    )
     assert inspection.reviewer == "rv0067"
     assert inspection.reviewed_at == "2026-09-23"
     assert inspection.rejection_reasons == ("changed_claim:ref2-annotation-010",)
@@ -127,7 +142,7 @@ def test_published_attempt_002_is_bound_and_pending_only_claim_correction() -> N
     assert inspection.agreement["cohens_kappa"] == 2 / 3
 
 
-def test_technical_dossier_covers_only_intact_disagreements_without_decisions() -> None:
+def test_technical_dossier_covers_final_disagreements_without_decisions() -> None:
     independent = BASE / "independent_review"
     receipt = json.loads(
         (independent / "attempts" / "attempt_002_receipt.json").read_text(encoding="utf-8")
@@ -135,9 +150,7 @@ def test_technical_dossier_covers_only_intact_disagreements_without_decisions() 
     audit = json.loads(
         (independent / "adjudication" / "technical_audit.json").read_text(encoding="utf-8")
     )
-    manifest = json.loads(
-        (independent / "selection_manifest.json").read_text(encoding="utf-8")
-    )
+    manifest = json.loads((independent / "selection_manifest.json").read_text(encoding="utf-8"))
     mapping = {entry["task_id"]: entry for entry in manifest["mapping"]}
 
     assert audit["source_return_sha256"] == receipt["source_normalized_sha256"]
@@ -146,10 +159,91 @@ def test_technical_dossier_covers_only_intact_disagreements_without_decisions() 
         "ref2-annotation-011",
         "ref2-annotation-012",
     }
-    assert audit["pending_task_ids"] == ["ref2-annotation-010"]
+    correction_receipt = json.loads(
+        (independent / "attempts" / "attempt_002_correction_receipt.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert audit["source_correction_sha256"] == correction_receipt["source_normalized_sha256"]
+    assert audit["pending_task_ids"] == []
+    assert audit["pre_adjudication_agreement"]["cohens_kappa"] == 0.75
     assert audit["human_final_decisions"] == audit["pipeline_predictions_loaded"] == 0
     assert audit["dataset_changed"] is False
     for recommendation in audit["recommendations"]:
         selected = mapping[recommendation["task_id"]]
         assert recommendation["item_id"] == selected["item_id"]
         assert recommendation["primary_label"] == selected["primary_label"]
+
+
+def test_published_correction_closes_claim_integrity_and_finalizes_agreement() -> None:
+    independent = BASE / "independent_review"
+    attempts = independent / "attempts"
+    original = inspect_refinement_annotation_return(
+        (attempts / "ATTEMPT_002_RETURN.md").read_text(encoding="utf-8-sig"),
+        expected_tasks=_expected_tasks(),
+    )
+    correction_path = attempts / "ATTEMPT_002_CORRECTION_RETURN.md"
+    correction = inspect_refinement_correction(
+        correction_path.read_text(encoding="utf-8-sig"),
+        expected_task_id="ref2-annotation-010",
+        expected_task=_expected_tasks()["ref2-annotation-010"],
+        expected_reviewer="rv0067",
+    )
+    merged = merge_refinement_correction(original, correction, expected_tasks=_expected_tasks())
+
+    assert correction.eligible_for_merge is True
+    assert correction.corrected_at == "2026-09-24"
+    assert correction.response is not None
+    assert correction.response.second_label.value == "INSUFFICIENT_EVIDENCE"
+    assert merged.eligible_for_human_gate is True
+    assert merged.agreement == {
+        "total": 16,
+        "agreement_count": 13,
+        "disagreement_count": 3,
+        "disagreement_task_ids": [
+            "ref2-annotation-003",
+            "ref2-annotation-011",
+            "ref2-annotation-012",
+        ],
+        "observed_agreement": 0.8125,
+        "cohens_kappa": 0.75,
+        "valid_for_interhuman_agreement": True,
+    }
+
+
+def test_published_accepted_round_and_adjudication_package_are_bound() -> None:
+    independent = BASE / "independent_review"
+    receipt = json.loads((independent / "review_receipt.json").read_text(encoding="utf-8"))
+    agreement = json.loads(
+        (independent / "returns" / "agreement_round_001.json").read_text(encoding="utf-8")
+    )
+    tasks = (independent / "adjudication" / "TASKS.md").read_text(encoding="utf-8")
+
+    assert receipt["secondary_annotation_accepted"] is True
+    assert receipt["adjudication_completed"] is False
+    assert receipt["adjudication_task_ids"] == agreement["disagreement_task_ids"]
+    assert agreement["agreement_count"] == 13
+    assert agreement["cohens_kappa"] == 0.75
+    assert tasks.count("### Decisão humana a preencher") == 3
+    assert "## ref2-annotation-010" not in tasks
+    expected = _expected_tasks()
+    responses = load_annotation_responses(
+        independent / "returns" / "round_001.jsonl", expected_tasks=expected
+    )
+    computed = compute_annotation_agreement(
+        {task_id: item.primary_label for task_id, item in expected.items()}, responses
+    )
+    assert computed == agreement
+    adjudication_tasks = {
+        task_id: expected[task_id].item_id for task_id in receipt["adjudication_task_ids"]
+    }
+    decisions = load_adjudication_decisions(
+        independent / "adjudication" / "TASKS.md",
+        expected_tasks=adjudication_tasks,
+        expected_claims={task_id: expected[task_id].claim for task_id in adjudication_tasks},
+    )
+    assert pending_decision_ids(decisions) == tuple(receipt["adjudication_task_ids"])
+    for entry in receipt["files"]:
+        path = independent / entry["path"]
+        normalized = path.read_bytes().replace(b"\r\n", b"\n")
+        assert hashlib.sha256(normalized).hexdigest() == entry["sha256"]

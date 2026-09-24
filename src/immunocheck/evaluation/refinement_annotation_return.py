@@ -16,6 +16,12 @@ HUMAN_ATTESTATIONS = (
     "Não usei LLM ou outro sistema automático para substituir meu julgamento.",
 )
 
+CORRECTION_ATTESTATIONS = (
+    "Sou a mesma pessoa identificada pelo código `{reviewer}` na devolução anterior.",
+    "Avaliei o texto original abaixo por julgamento próprio.",
+    "Não consultei os rótulos do primeiro revisor.",
+)
+
 
 @dataclass(frozen=True, slots=True)
 class RefinementAnnotationResponse:
@@ -37,6 +43,18 @@ class RefinementReturnInspection:
 
     @property
     def eligible_for_human_gate(self) -> bool:
+        return not self.rejection_reasons
+
+
+@dataclass(frozen=True, slots=True)
+class RefinementCorrectionInspection:
+    reviewer: str | None
+    corrected_at: str | None
+    response: RefinementAnnotationResponse | None
+    rejection_reasons: tuple[str, ...]
+
+    @property
+    def eligible_for_merge(self) -> bool:
         return not self.rejection_reasons
 
 
@@ -125,6 +143,97 @@ def inspect_refinement_annotation_return(
         reviewed_at=reviewed_at,
         responses=tuple(sorted(responses, key=lambda response: response.task_id)),
         rejection_reasons=tuple(dict.fromkeys(reasons)),
+        agreement=agreement,
+    )
+
+
+def inspect_refinement_correction(
+    text: str,
+    *,
+    expected_task_id: str,
+    expected_task: EndToEndItem,
+    expected_reviewer: str,
+) -> RefinementCorrectionInspection:
+    """Valida uma correção pontual sem apagar nem reescrever a devolução original."""
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    reasons: list[str] = []
+    attestations = tuple(
+        statement.format(reviewer=expected_reviewer) for statement in CORRECTION_ATTESTATIONS
+    )
+    if not all(
+        re.search(rf"(?mi)^- \[\s*x\s*\]\s+{re.escape(statement)}\s*$", normalized)
+        for statement in attestations
+    ):
+        reasons.append("missing_correction_attestation")
+
+    reviewer = _header_field(normalized, "Código interno do revisor")
+    corrected_at = _header_field(normalized, "Data da correção")
+    if reviewer != expected_reviewer:
+        reasons.append("unexpected_reviewer_code")
+    if not corrected_at:
+        reasons.append("missing_correction_date")
+    else:
+        try:
+            corrected_at = _normalize_date(corrected_at)
+        except ValueError:
+            reasons.append("invalid_correction_date")
+
+    sections = re.split(r"(?m)^## (ref2-annotation-\d{3})\s*$", normalized)
+    response = None
+    if len(sections) != 3 or sections[1] != expected_task_id:
+        reasons.append("unexpected_correction_task_set")
+    else:
+        try:
+            claim, fields = _parse_task_body(sections[2].strip())
+            response = RefinementAnnotationResponse(
+                task_id=sections[1],
+                claim=claim,
+                second_label=Verdict(fields["Rótulo"]),
+                rationale=fields["Justificativa"],
+                sources_consulted=fields["Fontes e trechos/páginas consultados"],
+                uncertainty=fields["Dúvidas ou ambiguidade"],
+            )
+            if claim != expected_task.claim:
+                reasons.append(f"changed_claim:{expected_task_id}")
+        except (KeyError, ValueError):
+            reasons.append(f"invalid_or_incomplete_task:{expected_task_id}")
+
+    return RefinementCorrectionInspection(
+        reviewer=reviewer,
+        corrected_at=corrected_at,
+        response=response,
+        rejection_reasons=tuple(dict.fromkeys(reasons)),
+    )
+
+
+def merge_refinement_correction(
+    original: RefinementReturnInspection,
+    correction: RefinementCorrectionInspection,
+    *,
+    expected_tasks: Mapping[str, EndToEndItem],
+) -> RefinementReturnInspection:
+    """Substitui somente a tarefa corrigida e recalcula a concordância pré-adjudicação."""
+    if not correction.eligible_for_merge or correction.response is None:
+        raise ValueError("Correção pontual inválida.")
+    task_id = correction.response.task_id
+    if original.reviewer != correction.reviewer:
+        raise ValueError("A correção precisa vir do mesmo segundo revisor.")
+    if set(original.rejection_reasons) != {f"changed_claim:{task_id}"}:
+        raise ValueError("A devolução original não possui uma única pendência corrigível.")
+    if {response.task_id for response in original.responses} != set(expected_tasks):
+        raise ValueError("A devolução original não cobre o pacote completo.")
+
+    responses = tuple(
+        correction.response if response.task_id == task_id else response
+        for response in original.responses
+    )
+    agreement = _agreement(list(responses), expected_tasks)
+    agreement["valid_for_interhuman_agreement"] = True
+    return RefinementReturnInspection(
+        reviewer=original.reviewer,
+        reviewed_at=correction.corrected_at,
+        responses=tuple(sorted(responses, key=lambda response: response.task_id)),
+        rejection_reasons=(),
         agreement=agreement,
     )
 

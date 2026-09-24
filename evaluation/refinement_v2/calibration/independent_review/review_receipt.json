@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "purpose": "refinement_v2_independent_annotation_pending_adjudication",
+  "reviewer": "rv0067",
+  "reviewer_identity_certified": false,
+  "independence": "self_declared",
+  "round_id": "ref2-round-001",
+  "original_reviewed_at": "2026-09-23",
+  "correction_reviewed_at": "2026-09-24",
+  "secondary_annotation_accepted": true,
+  "response_count": 16,
+  "agreement_count": 13,
+  "observed_agreement": 0.8125,
+  "cohens_kappa": 0.75,
+  "adjudication_completed": false,
+  "adjudication_task_ids": [
+    "ref2-annotation-003",
+    "ref2-annotation-011",
+    "ref2-annotation-012"
+  ],
+  "dataset_changed": false,
+  "pipeline_predictions_loaded": 0,
+  "hash_normalization": "UTF-8, CRLF normalized to LF, no BOM",
+  "files": [
+    {
+      "path": "attempts/ATTEMPT_002_RETURN.md",
+      "sha256": "506cc428a9622f84278b5930a17723763a6c531d8848540e20f968e5022e862f"
+    },
+    {
+      "path": "attempts/ATTEMPT_002_CORRECTION_RETURN.md",
+      "sha256": "fca749d1efebad4cc908dd343aefd97eaab5a300ea4b119d31bc6414e79b6c4b"
+    },
+    {
+      "path": "attempts/attempt_002_correction_receipt.json",
+      "sha256": "e43ac6815288b98cb786f3ed6465a2389f108fa5de98771f29e313216e44c413"
+    },
+    {
+      "path": "returns/round_001.jsonl",
+      "sha256": "38426e4223bdb824ee4a697848d58f25815944c0d51ac9d1ac348889e54fb791"
+    },
+    {
+      "path": "returns/agreement_round_001.json",
+      "sha256": "20fd422b6caa72154754ed6dff93526a70473ce4c1344ef0bcd1bfe69395d25b"
+    },
+    {
+      "path": "adjudication/TASKS.md",
+      "sha256": "f55afee38a9ba3f2e80a570660f54f40447816133809e81664729ba7c2fe3385"
+    }
+  ]
+}

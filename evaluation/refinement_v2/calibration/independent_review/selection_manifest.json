@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_blind_second_annotation",
   "prepared_at": "2026-09-22",
-  "annotation_completed": false,
+  "annotation_completed": true,
   "test_frozen": false,
   "algorithm": "target families; 16 items; 4 per class; deterministic shuffle",
   "seed": 20260922,
@@ -18,6 +18,12 @@
   "target_family_count": 12,
   "selected_family_count": 12,
   "share_with_participant": "participant/ only",
+  "accepted_round_id": "ref2-round-001",
+  "accepted_reviewer_code": "rv0067",
+  "accepted_response_count": 16,
+  "pre_adjudication_agreement": 0.8125,
+  "pre_adjudication_cohens_kappa": 0.75,
+  "adjudication_completed": false,
   "mapping": [
     {
       "task_id": "ref2-annotation-001",

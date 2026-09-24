@@ -1,0 +1,52 @@
+{
+  "total": 16,
+  "agreement_count": 13,
+  "disagreement_count": 3,
+  "disagreement_task_ids": [
+    "ref2-annotation-003",
+    "ref2-annotation-011",
+    "ref2-annotation-012"
+  ],
+  "observed_agreement": 0.8125,
+  "expected_agreement": 0.25,
+  "cohens_kappa": 0.75,
+  "primary_counts": {
+    "SUPPORTED": 4,
+    "REFUTED": 4,
+    "MISLEADING": 4,
+    "INSUFFICIENT_EVIDENCE": 4
+  },
+  "second_counts": {
+    "SUPPORTED": 4,
+    "REFUTED": 6,
+    "MISLEADING": 3,
+    "INSUFFICIENT_EVIDENCE": 3
+  },
+  "matrix_primary_rows_second_columns": {
+    "SUPPORTED": {
+      "SUPPORTED": 4,
+      "REFUTED": 0,
+      "MISLEADING": 0,
+      "INSUFFICIENT_EVIDENCE": 0
+    },
+    "REFUTED": {
+      "SUPPORTED": 0,
+      "REFUTED": 4,
+      "MISLEADING": 0,
+      "INSUFFICIENT_EVIDENCE": 0
+    },
+    "MISLEADING": {
+      "SUPPORTED": 0,
+      "REFUTED": 2,
+      "MISLEADING": 2,
+      "INSUFFICIENT_EVIDENCE": 0
+    },
+    "INSUFFICIENT_EVIDENCE": {
+      "SUPPORTED": 0,
+      "REFUTED": 0,
+      "MISLEADING": 1,
+      "INSUFFICIENT_EVIDENCE": 3
+    }
+  },
+  "adjudication_applied": false
+}

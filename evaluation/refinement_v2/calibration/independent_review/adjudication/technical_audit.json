@@ -1,16 +1,21 @@
 {
   "schema_version": 1,
-  "prepared_at": "2026-09-23",
-  "status": "technical_recommendations_not_human_adjudication",
+  "prepared_at": "2026-09-24",
+  "status": "package_prepared_pending_human_decisions",
   "source_return_sha256": "506cc428a9622f84278b5930a17723763a6c531d8848540e20f968e5022e862f",
+  "source_correction_sha256": "fca749d1efebad4cc908dd343aefd97eaab5a300ea4b119d31bc6414e79b6c4b",
+  "pre_adjudication_agreement": {
+    "agreement_count": 13,
+    "total": 16,
+    "observed_agreement": 0.8125,
+    "cohens_kappa": 0.75
+  },
   "ready_task_ids": [
     "ref2-annotation-003",
     "ref2-annotation-011",
     "ref2-annotation-012"
   ],
-  "pending_task_ids": [
-    "ref2-annotation-010"
-  ],
+  "pending_task_ids": [],
   "recommendations": [
     {
       "task_id": "ref2-annotation-003",

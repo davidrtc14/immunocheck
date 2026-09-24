@@ -1,11 +1,11 @@
 # Dossiê técnico pré-adjudicação
 
-Estado: **rascunho técnico, sem decisão humana final**.
+Estado: **pacote técnico completo, sem decisão humana final**.
 
-Este documento analisa somente os três desacordos cuja alegação permaneceu idêntica
-na devolução de `rv0067`. A tarefa 010 continua fora deste dossiê até o mesmo revisor
-classificar o texto original. Este arquivo não deve ser mostrado a `rv0067` antes da
-correção, pois contém o rótulo primário.
+Este documento analisa os três desacordos remanescentes da devolução de `rv0067`.
+A correção da tarefa 010 preservou o texto original e passou a concordar com o
+rótulo primário (`INSUFFICIENT_EVIDENCE`), portanto ela não exige adjudicação. O
+resultado pré-adjudicação final é 13/16 (81,25%), com kappa de Cohen 0,75.
 
 ## Critério de classes aplicado
 
@@ -62,12 +62,13 @@ reforço aplicada nele não produziu imunidade.
   Classificar como enganoso presumiria como verdadeira uma parte factual do caso que
   não foi documentada.
 
-## Decisão humana futura
+## Decisão humana pendente
 
-Após a correção da tarefa 010, um pacote único deve apresentar os desacordos, as
-fontes e estas recomendações a um adjudicador humano. O adjudicador poderá manter um
-dos rótulos ou escolher outro, mas deverá justificar cada decisão. Até lá:
+O pacote único `TASKS.md` apresenta estes desacordos, fontes e recomendações a um
+adjudicador humano. O adjudicador poderá manter um dos rótulos ou escolher outro,
+mas deverá justificar cada decisão. Até lá:
 
 - decisões finais: 0;
+- respostas secundárias arquivadas: 16;
 - itens incorporados ao snapshot: 0;
 - inferências da pipeline na calibração: 0.

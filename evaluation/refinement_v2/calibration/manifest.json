@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "primary_review_complete_second_review_pending",
+  "status": "second_review_complete_adjudication_pending",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -20,7 +20,8 @@
   "limitations": [
     "A identidade declarada do revisor não é certificada pelo software.",
     "A consulta direta às 12 fontes e o papel do revisor são declarações documentais, não certificações do software.",
-    "A segunda anotação cega foi preparada, mas ainda não foi realizada.",
+    "A independência e a identidade declaradas do segundo revisor não são certificadas pelo software.",
+    "Três divergências aguardam decisão humana antes da incorporação ao snapshot.",
     "A matriz sintética por família pode criar atalhos de redação.",
     "O pacote de holdout v2 ainda não existe por desenho."
   ],
@@ -36,7 +37,7 @@
     "structural_only_family_count": 0
   },
   "second_review": {
-    "status": "distinct_human_return_pending_claim_correction",
+    "status": "accepted_pending_adjudication",
     "selected_items": 16,
     "selected_class_counts": {
       "INSUFFICIENT_EVIDENCE": 4,
@@ -71,19 +72,33 @@
         "provisional_disagreement_count": 4,
         "accepted_as_independent": false,
         "reason": "claim_change_requires_same_reviewer_correction"
+      },
+      {
+        "attempt_id": "attempt_002_correction",
+        "received_at": "2026-09-24",
+        "source_normalized_sha256": "fca749d1efebad4cc908dd343aefd97eaab5a300ea4b119d31bc6414e79b6c4b",
+        "reviewer_code": "rv0067",
+        "corrected_task_id": "ref2-annotation-010",
+        "claim_integrity": "exact_match",
+        "second_label": "INSUFFICIENT_EVIDENCE",
+        "accepted": true
       }
-    ]
+    ],
+    "accepted_round_id": "ref2-round-001",
+    "accepted_response_count": 16,
+    "agreement_count": 13,
+    "disagreement_count": 3,
+    "observed_agreement": 0.8125,
+    "cohens_kappa": 0.75
   },
   "adjudication": {
-    "status": "technical_dossier_prepared_waiting_task_010_correction",
+    "status": "package_prepared_pending_human_decisions",
     "ready_disagreement_task_ids": [
       "ref2-annotation-003",
       "ref2-annotation-011",
       "ref2-annotation-012"
     ],
-    "pending_disagreement_task_ids": [
-      "ref2-annotation-010"
-    ],
+    "pending_disagreement_task_ids": [],
     "technical_recommendation_count": 3,
     "human_final_decision_count": 0,
     "dataset_changed": false
