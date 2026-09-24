@@ -418,3 +418,11 @@ concordâncias e quatro divergências (75%; kappa 0,667). A tarefa 010, contudo,
 a alegação modificada durante o preenchimento. Para não assumir equivalência
 semântica nem enviesar o rótulo, o retorno ainda não foi incorporado; foi emitida uma
 correção pontual apenas para o texto original dessa tarefa.
+
+Preparação da adjudicação em 23/09/2026: os três desacordos com alegações intactas
+foram auditados contra os chunks vinculados. A recomendação técnica preserva
+`MISLEADING` nos itens em que uma premissa real foi usada para afirmar causalidade
+universal (tarefas 003 e 011) e `INSUFFICIENT_EVIDENCE` no caso individual de
+coqueluche sem investigação (tarefa 012). Não houve decisão humana final, alteração
+de rótulo ou inferência da pipeline. A tarefa 010 continua isolada até a correção do
+segundo revisor; depois será produzido um único pacote de adjudicação.

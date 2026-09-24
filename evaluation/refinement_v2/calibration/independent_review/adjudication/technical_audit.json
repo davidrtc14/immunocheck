@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-09-23",
+  "status": "technical_recommendations_not_human_adjudication",
+  "source_return_sha256": "506cc428a9622f84278b5930a17723763a6c531d8848540e20f968e5022e862f",
+  "ready_task_ids": [
+    "ref2-annotation-003",
+    "ref2-annotation-011",
+    "ref2-annotation-012"
+  ],
+  "pending_task_ids": [
+    "ref2-annotation-010"
+  ],
+  "recommendations": [
+    {
+      "task_id": "ref2-annotation-003",
+      "item_id": "ref2-cal-0007",
+      "primary_label": "MISLEADING",
+      "secondary_label": "REFUTED",
+      "recommended_label": "MISLEADING",
+      "basis": "supported_event_and_temporality_with_indeterminate_causality"
+    },
+    {
+      "task_id": "ref2-annotation-011",
+      "item_id": "ref2-cal-0003",
+      "primary_label": "MISLEADING",
+      "secondary_label": "REFUTED",
+      "recommended_label": "MISLEADING",
+      "basis": "supported_notification_signal_with_universal_causal_extrapolation"
+    },
+    {
+      "task_id": "ref2-annotation-012",
+      "item_id": "ref2-cal-0048",
+      "primary_label": "INSUFFICIENT_EVIDENCE",
+      "secondary_label": "MISLEADING",
+      "recommended_label": "INSUFFICIENT_EVIDENCE",
+      "basis": "undocumented_individual_case_without_causal_investigation"
+    }
+  ],
+  "human_final_decisions": 0,
+  "dataset_changed": false,
+  "pipeline_predictions_loaded": 0
+}

@@ -1,0 +1,73 @@
+# Dossiê técnico pré-adjudicação
+
+Estado: **rascunho técnico, sem decisão humana final**.
+
+Este documento analisa somente os três desacordos cuja alegação permaneceu idêntica
+na devolução de `rv0067`. A tarefa 010 continua fora deste dossiê até o mesmo revisor
+classificar o texto original. Este arquivo não deve ser mostrado a `rv0067` antes da
+correção, pois contém o rótulo primário.
+
+## Critério de classes aplicado
+
+- `REFUTED`: a proposição central é diretamente contradita pela evidência, sem parte
+  factual relevante que precise ser preservada.
+- `MISLEADING`: existe uma parte factual relevante sustentada, mas contexto, alcance
+  ou inferência foram materialmente distorcidos.
+- `INSUFFICIENT_EVIDENCE`: faltam informações para sustentar ou contradizer com
+  segurança o caso específico; não equivale a falso.
+
+## ref2-annotation-003 / ref2-cal-0007
+
+**Alegação:** O registro de uma convulsão após a vacina mpox confirmou que a vacina
+foi a causa do evento.
+
+- Rótulo primário: `MISLEADING`.
+- Rótulo secundário: `REFUTED`.
+- Evidência decisiva: `ms_mpox_seguranca_2025:p2:c3:0adbf3f2c967`.
+- Achado sustentado: a convulsão ocorreu 48 horas após a vacina.
+- Limite causal: o caso foi classificado como B2/indeterminado, com diagnósticos
+  diferenciais não investigados e descartados.
+- Recomendação técnica: **`MISLEADING`**. A alegação preserva um evento e uma relação
+  temporal reais, mas converte causalidade indeterminada em confirmação. Rotulá-la
+  apenas como refutada apagaria a parte factual sustentada.
+
+## ref2-annotation-011 / ref2-cal-0003
+
+**Alegação:** Como aumentaram as notificações de hipersensibilidade após a vacina
+contra dengue, ficou provado que toda reação notificada foi causada pelo imunizante.
+
+- Rótulo primário: `MISLEADING`.
+- Rótulo secundário: `REFUTED`.
+- Evidências decisivas: `ms_dengue_seguranca_2025:p2:c1:e817446a7a7a` e
+  `ms_dengue_seguranca_2025:p2:c3:f0d46e38fe04`.
+- Achado sustentado: houve aumento das notificações de hipersensibilidade e anafilaxia.
+- Limite causal: Esavi é ocorrência temporalmente associada e não possui
+  necessariamente relação causal; uma notificação pode gerar múltiplos pares.
+- Recomendação técnica: **`MISLEADING`**. A premissa sobre o sinal de notificação é
+  verdadeira, enquanto “toda reação” e causalidade comprovada são generalizações
+  indevidas.
+
+## ref2-annotation-012 / ref2-cal-0048
+
+**Alegação:** A coqueluche de um adolescente vacinado ocorreu porque a dose de
+reforço aplicada nele não produziu imunidade.
+
+- Rótulo primário: `INSUFFICIENT_EVIDENCE`.
+- Rótulo secundário: `MISLEADING`.
+- Evidência conclusiva associada: nenhuma; o item é um cenário sintético individual.
+- Informação ausente: confirmação diagnóstica, histórico vacinal, intervalo desde a
+  dose, resposta imune e investigação de causas alternativas.
+- Recomendação técnica: **`INSUFFICIENT_EVIDENCE`**. O estudo populacional sobre
+  queda de efetividade não prova nem contradiz o mecanismo causal deste indivíduo.
+  Classificar como enganoso presumiria como verdadeira uma parte factual do caso que
+  não foi documentada.
+
+## Decisão humana futura
+
+Após a correção da tarefa 010, um pacote único deve apresentar os desacordos, as
+fontes e estas recomendações a um adjudicador humano. O adjudicador poderá manter um
+dos rótulos ou escolher outro, mas deverá justificar cada decisão. Até lá:
+
+- decisões finais: 0;
+- itens incorporados ao snapshot: 0;
+- inferências da pipeline na calibração: 0.

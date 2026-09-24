@@ -125,3 +125,31 @@ def test_published_attempt_002_is_bound_and_pending_only_claim_correction() -> N
     assert inspection.agreement is not None
     assert inspection.agreement["agreement_count"] == 12
     assert inspection.agreement["cohens_kappa"] == 2 / 3
+
+
+def test_technical_dossier_covers_only_intact_disagreements_without_decisions() -> None:
+    independent = BASE / "independent_review"
+    receipt = json.loads(
+        (independent / "attempts" / "attempt_002_receipt.json").read_text(encoding="utf-8")
+    )
+    audit = json.loads(
+        (independent / "adjudication" / "technical_audit.json").read_text(encoding="utf-8")
+    )
+    manifest = json.loads(
+        (independent / "selection_manifest.json").read_text(encoding="utf-8")
+    )
+    mapping = {entry["task_id"]: entry for entry in manifest["mapping"]}
+
+    assert audit["source_return_sha256"] == receipt["source_normalized_sha256"]
+    assert set(audit["ready_task_ids"]) == {
+        "ref2-annotation-003",
+        "ref2-annotation-011",
+        "ref2-annotation-012",
+    }
+    assert audit["pending_task_ids"] == ["ref2-annotation-010"]
+    assert audit["human_final_decisions"] == audit["pipeline_predictions_loaded"] == 0
+    assert audit["dataset_changed"] is False
+    for recommendation in audit["recommendations"]:
+        selected = mapping[recommendation["task_id"]]
+        assert recommendation["item_id"] == selected["item_id"]
+        assert recommendation["primary_label"] == selected["primary_label"]

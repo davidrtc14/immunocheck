@@ -63,5 +63,11 @@ concordâncias (75%; kappa 0,667), ainda não reportável como medida final. As 
 15 respostas foram preservadas por hash; somente a tarefa 010 precisa ser confirmada
 com a alegação original.
 
+Enquanto a correção está pendente, os três desacordos com alegação íntegra receberam
+uma auditoria técnica em `calibration/independent_review/adjudication/`. As
+recomendações favorecem `MISLEADING` nas tarefas 003 e 011 e
+`INSUFFICIENT_EVIDENCE` na tarefa 012. Elas não são decisões humanas finais, não
+alteraram o dataset e não foram apresentadas ao segundo revisor.
+
 O holdout de 32 itens só será construído depois que a candidata for escolhida e
 congelada. Criá-lo agora permitiria que seu conteúdo influenciasse a implementação.

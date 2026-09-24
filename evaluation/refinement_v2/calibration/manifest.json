@@ -73,5 +73,19 @@
         "reason": "claim_change_requires_same_reviewer_correction"
       }
     ]
+  },
+  "adjudication": {
+    "status": "technical_dossier_prepared_waiting_task_010_correction",
+    "ready_disagreement_task_ids": [
+      "ref2-annotation-003",
+      "ref2-annotation-011",
+      "ref2-annotation-012"
+    ],
+    "pending_disagreement_task_ids": [
+      "ref2-annotation-010"
+    ],
+    "technical_recommendation_count": 3,
+    "human_final_decision_count": 0,
+    "dataset_changed": false
   }
 }
