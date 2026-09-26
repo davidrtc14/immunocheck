@@ -343,7 +343,7 @@ Também foram incluídos a Resolução CNS nº 674/2022 e o Ofício Circular CON
 atividade de ensino, mas o enquadramento integral nas hipóteses normativas continua
 dependendo de confirmação institucional. O gate permanece aberto.
 
-## Fase 7 — Refinamento de acurácia v2
+## Fase 7 — Refinamento de acurácia v2 (encerrada sem promoção)
 
 - [x] Congelamento metodológico da v1 preservado, sem reabrir o teste final.
 - [x] Hipótese e gates da nova linha experimental pré-registrados.
@@ -356,6 +356,7 @@ dependendo de confirmação institucional. O gate permanece aberto.
 - [x] Comparação controlada com a configuração v1 no novo conjunto.
 - [ ] Congelamento da candidata e do novo holdout independente (mínimo de 32 itens).
 - [ ] Execução confirmatória única e relatório de promoção ou rejeição.
+- [x] Encerramento negativo consolidado após nenhuma candidata satisfazer os gates.
 
 **Aceite:** candidata avaliada em dados novos, com macro-F1 pelo menos 0,08 acima da
 v1 no mesmo conjunto de calibração, recall de `MISLEADING` de pelo menos 0,40,
@@ -494,3 +495,10 @@ ao classificador ou auditor foi feita. O gate não foi promovido, e novos ajuste
 prompt sobre esta mesma calibração ficam suspensos para limitar sobreajuste. A v1
 congelada continua sendo o único protótipo demonstrável, com suas limitações já
 documentadas.
+
+Encerramento em 26/09/2026: nenhuma condição passou todos os critérios de promoção.
+Os dois itens não marcados acima não são pendências operacionais: eram etapas
+condicionais que não foram autorizadas pelos resultados. Criar o holdout ou executar
+uma confirmação apesar da falha nos gates violaria o protocolo. A ADR-034 encerra a
+linha sem promoção, preserva a v1 congelada e direciona o trabalho para consolidação
+acadêmica. Consulte `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.

@@ -39,17 +39,22 @@ teve o melhor equilíbrio fim a fim no desenvolvimento. O reranker melhorou rank
 mas não a classificação completa e duplicou a latência; permanece apenas como
 ablação. A calibração factual do auditor falhou e a configuração conservadora v2 foi
 avaliada uma única vez no teste: macro-F1 0,416 e recall zero de `MISLEADING`. O
-resultado limita o projeto a protótipo acadêmico, sem implantação pública. O corpus possui manifesto,
-proveniência e atualização incremental manual. A persistência PostgreSQL+pgvector,
-suas migrations, importação e busca exata foram validadas no Docker local. Consulte
-`docs/ROADMAP.md`.
+resultado limita o projeto a protótipo acadêmico, sem implantação pública. O corpus
+possui manifesto, proveniência e atualização incremental manual. A persistência
+PostgreSQL+pgvector, suas migrations, importação e busca exata foram validadas no
+Docker local. Consulte `docs/ROADMAP.md`.
+
+A linha independente de refinamento v2 foi encerrada sem promoção: nenhuma das
+configurações testadas satisfez todos os gates pré-registrados. O holdout v2 não foi
+criado, evitando seu uso indevido na seleção de arquitetura. A comparação e o
+critério de parada estão em `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.
 
 O adaptador Telegram foi testado com um bot real. Texto, imagem textual e link HTTPS
 convergem para a mesma pipeline; OCR, download com proteção contra SSRF e extração de
 HTML/PDF foram validados na Fase 4. O caminho real usa BGE-M3 e informa
 quando analisa somente a alegação principal ou quando as fontes exibidas são parciais.
-A parte técnica da Fase 5 está concluída e os experimentos de desenvolvimento da
-Fase 6 estão em andamento. Consulte `docs/ROADMAP.md`.
+As partes técnicas das Fases 5 e 6 foram concluídas, e a linha de refinamento da
+Fase 7 foi encerrada sem promoção. Consulte `docs/ROADMAP.md`.
 
 ## Executar o protótipo textual
 
@@ -98,6 +103,7 @@ entregue ao bot.
 - `docs/REPRODUCTION_AND_DEMO.md` — instalação limpa, reprodução e roteiro de banca.
 - `docs/FINAL_CONFIGURATION_GATE.md` — decisão registrada antes da abertura do teste.
 - `evaluation/results/test/FINAL_TEST_REPORT.md` — resultado definitivo e limitações.
+- `evaluation/refinement_v2/CONSOLIDATION_REPORT.md` — síntese e encerramento do refinamento v2.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.

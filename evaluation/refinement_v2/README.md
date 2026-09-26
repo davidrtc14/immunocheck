@@ -23,6 +23,10 @@ resultados.
 - as três divergências foram adjudicadas em lote, preservando os rótulos primários;
 - o snapshot `calibration/adjudicated_items.jsonl` foi executado na fase A;
 - a candidata separada falhou cinco dos sete gates e não foi promovida;
+- as variações top 20, MMR, decisão direta e gate de suficiência v2 também falharam
+  seus gates pré-registrados;
+- a linha experimental foi encerrada sem promoção para evitar novos ajustes sobre
+  a mesma calibração;
 - nenhum holdout v2 foi criado ou aberto.
 
 O desenho em matriz por família testa distinções difíceis dentro do mesmo assunto.
@@ -83,3 +87,14 @@ separada sem auditor. A v2 teve macro-F1 0,373 contra 0,430, recall zero de
 ganho de macro-F1, `MISLEADING`, precisão de abstenção, citações e preservação de
 recall. A fase B com auditor factual não foi executada. Consulte
 `CALIBRATION_PHASE_A_RESULTS.md` para métricas e hashes.
+
+## Encerramento da linha experimental
+
+As iterações posteriores delimitaram dois extremos: a arquitetura separada abstém
+em excesso, enquanto a decisão direta conclui em excesso. A recuperação top 20 não
+converteu maior cobertura em melhor resultado e o MMR piorou a cobertura no top 6.
+O gate de suficiência revisado aceitou todos os casos, inclusive os insuficientes.
+
+Nenhuma condição passou todos os critérios de promoção. Por isso, não houve
+congelamento de candidata nem criação do holdout v2. O estado final, a comparação
+consolidada e os limites de interpretação estão em `CONSOLIDATION_REPORT.md`.

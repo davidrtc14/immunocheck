@@ -35,6 +35,7 @@
 | ADR-031 | Selecionar seis trechos do top 20 por MMR | Descartada na triagem | Hit@6 caiu de 21/36 para 12/36, sem nenhum ganho de cobertura e com nove perdas; só o gate de latência passou, portanto não houve inferência fim a fim. |
 | ADR-032 | Testar decisão direta em quatro classes, denso top 6 e sem auditor | Não promovida | Macro-F1 subiu para 0,472 e houve ganho em classes conclusivas, mas apenas 1/12 abstenções foi reconhecida; quatro dos sete gates falharam. |
 | ADR-033 | Triar gate de suficiência v2 com aliases curtos e regra explícita para extrapolações | Descartada na triagem | O gate marcou os 48 itens como suficientes: recuperou todos os conclusivos, mas nenhuma das 12 abstenções; quatro dos seis gates passaram. |
+| ADR-034 | Encerrar o refinamento v2 sem promover candidata nem criar holdout | Aceita | Nenhuma condição passou todos os gates; novos ajustes nos mesmos 48 itens elevariam o risco de sobreajuste e o holdout não pode ser usado para selecionar arquitetura. |
 
 ## Histórico de alterações
 
@@ -151,6 +152,13 @@
   gates passaram; conforme o plano, classificador e auditor não foram executados.
   Novas alterações de prompt nos mesmos 48 itens ficam suspensas para evitar
   sobreajuste da calibração.
+- **26/09/2026 — ADR-034:** a linha experimental foi encerrada sem promoção. Entre
+  as condições fim a fim, a melhor estimativa foi a decisão direta top 6, com
+  macro-F1 0,472, mas o delta de +0,042 ficou abaixo do gate, o intervalo por
+  família incluiu regressão e 11/12 casos insuficientes receberam conclusão. MMR e
+  o gate de suficiência v2 também falharam suas triagens. Como nenhuma candidata se
+  tornou elegível, o holdout v2 não foi criado. A v1 segue congelada como protótipo
+  acadêmico limitado, e o próximo marco é consolidar a entrega do TCC.
 
 ## Política de alteração
 
