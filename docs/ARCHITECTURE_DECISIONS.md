@@ -37,7 +37,7 @@
 | ADR-033 | Triar gate de suficiência v2 com aliases curtos e regra explícita para extrapolações | Descartada na triagem | O gate marcou os 48 itens como suficientes: recuperou todos os conclusivos, mas nenhuma das 12 abstenções; quatro dos seis gates passaram. |
 | ADR-034 | Encerrar o refinamento v2 sem promover candidata nem criar holdout | Aceita | Nenhuma condição passou todos os gates; novos ajustes nos mesmos 48 itens elevariam o risco de sobreajuste e o holdout não pode ser usado para selecionar arquitetura. |
 | ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Não promovida | Recuperou `MISLEADING` e abstenção, mas zerou o recall de `REFUTED`; quatro dos sete gates passaram. |
-| ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Em avaliação | Explora a complementaridade medida entre os decisores direto e relacional sem combinar resultados por rótulo esperado. |
+| ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Não promovida por citação | Macro-F1 0,725 e seis de sete gates passaram; citação relevante ficou em 0,444, abaixo do mínimo de 0,60. |
 
 ## Histórico de alterações
 
@@ -178,6 +178,12 @@
   para premissa-conclusão e abstenção para evento específico sem âncora. As saídas
   dos especialistas serão reutilizadas e a latência do roteador será contabilizada.
   Os sete gates permanecem inalterados e qualquer sucesso exige confirmação nova.
+- **26/09/2026 — resultado da ADR-036:** a candidata roteada alcançou macro-F1
+  0,725, delta +0,295 com IC por família de +0,165 a +0,469, recall 0,417 de
+  `MISLEADING` e precisão de abstenção 0,750. Não houve regressão de recall, falha
+  técnica ou estouro de latência. A citação relevante foi 0,444; por isso seis de
+  sete gates passaram e a candidata não foi promovida. A próxima alteração fica
+  restrita à seleção de citações, sem mudar os vereditos registrados.
 
 ## Política de alteração
 
