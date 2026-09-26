@@ -36,7 +36,7 @@
 | ADR-032 | Testar decisão direta em quatro classes, denso top 6 e sem auditor | Não promovida | Macro-F1 subiu para 0,472 e houve ganho em classes conclusivas, mas apenas 1/12 abstenções foi reconhecida; quatro dos sete gates falharam. |
 | ADR-033 | Triar gate de suficiência v2 com aliases curtos e regra explícita para extrapolações | Descartada na triagem | O gate marcou os 48 itens como suficientes: recuperou todos os conclusivos, mas nenhuma das 12 abstenções; quatro dos seis gates passaram. |
 | ADR-034 | Encerrar o refinamento v2 sem promover candidata nem criar holdout | Aceita | Nenhuma condição passou todos os gates; novos ajustes nos mesmos 48 itens elevariam o risco de sobreajuste e o holdout não pode ser usado para selecionar arquitetura. |
-| ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Em avaliação | Ataca os dois erros semânticos dominantes com invariantes gerais; reutiliza a calibração apenas como exploração e exige confirmação em dados novos antes de promoção. |
+| ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Não promovida | Recuperou `MISLEADING` e abstenção, mas zerou o recall de `REFUTED`; quatro dos sete gates passaram. |
 
 ## Histórico de alterações
 
@@ -166,6 +166,12 @@
   extrapolação material. Serão enviados 15 dos 20 resultados densos, profundidade
   fixada antes da execução e com cobertura anotada máxima de 25/36. A calibração
   reutilizada serve apenas para triagem; eventual promoção exige dados novos.
+- **26/09/2026 — resultado da ADR-035:** a candidata relacional obteve macro-F1
+  0,469, recall 0,833 de `MISLEADING` e precisão de abstenção 0,692, mas classificou
+  incorretamente todos os 12 casos `REFUTED`. O delta sobre a baseline foi +0,039
+  (IC por família de −0,081 a +0,175), a citação ficou em 0,556 e quatro de sete
+  gates passaram. A condição não foi promovida. A complementaridade observada
+  autoriza estudar roteamento por forma da alegação, ainda apenas como exploração.
 
 ## Política de alteração
 

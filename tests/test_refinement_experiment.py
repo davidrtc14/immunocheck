@@ -268,5 +268,33 @@ def test_published_direct_top6_report_is_bound_and_reproducible() -> None:
     assert experiment["report_sha256"] == _normalized_sha256(report_path)
 
 
+def test_published_relation_v3_report_is_bound_and_reproducible() -> None:
+    results = ROOT / "evaluation" / "results" / "refinement_v3"
+    calibration = ROOT / "evaluation" / "refinement_v2" / "calibration"
+    checkpoint_path = results / "calibration_relation_top15.jsonl"
+    report_path = results / "calibration_relation_top15.json"
+    dataset_path = calibration / "adjudicated_items.jsonl"
+    manifest = json.loads((calibration / "manifest.json").read_text("utf-8"))
+    report = json.loads(report_path.read_text("utf-8"))
+    items = load_end_to_end_items(dataset_path, require_reviewed=True)
+    records = load_refinement_checkpoint(checkpoint_path)
+    conditions = ("v1_dense_with_auditor", "v3_relation_dense_top15_no_auditor")
+    recomputed = summarize_refinement_records(
+        records,
+        items,
+        bootstrap_resamples=2000,
+        seed=20260926,
+        conditions=conditions,
+    )
+
+    assert report["summary"] == recomputed
+    assert report["v1_test_items_loaded"] == report["holdout_v2_items_loaded"] == 0
+    assert sum(gate["passed"] for gate in report["summary"]["promotion_gates"].values()) == 4
+    experiment = manifest["experiment_relation_v3"]
+    assert experiment["candidate_promoted"] is False
+    assert experiment["checkpoint_sha256"] == _normalized_sha256(checkpoint_path)
+    assert experiment["report_sha256"] == _normalized_sha256(report_path)
+
+
 def _normalized_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
