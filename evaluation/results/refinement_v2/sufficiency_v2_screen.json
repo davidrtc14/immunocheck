@@ -1,0 +1,69 @@
+{
+  "item_count": 48,
+  "metrics": {
+    "sufficient_recall": 1.0,
+    "insufficient_recall": 0.0,
+    "misleading_sufficient_recall": 1.0,
+    "annotated_selection_hits": 18,
+    "annotated_selection_hit_rate": 0.5,
+    "technical_failure_rate": 0.0,
+    "latency_ms": {
+      "median": 3945.77319995733,
+      "p95": 4673.6609999788925,
+      "samples": 48
+    }
+  },
+  "gates": {
+    "sufficient_recall": {
+      "value": 1.0,
+      "threshold": 0.7,
+      "direction": "minimum",
+      "passed": true
+    },
+    "insufficient_recall": {
+      "value": 0.0,
+      "threshold": 0.67,
+      "direction": "minimum",
+      "passed": false
+    },
+    "misleading_sufficient_recall": {
+      "value": 1.0,
+      "threshold": 0.67,
+      "direction": "minimum",
+      "passed": true
+    },
+    "annotated_selection_hit_rate": {
+      "value": 0.5,
+      "threshold": 0.6,
+      "direction": "minimum",
+      "passed": false
+    },
+    "technical_failure_rate": {
+      "value": 0.0,
+      "threshold": 0.02,
+      "direction": "maximum",
+      "passed": true
+    },
+    "p95_seconds": {
+      "value": 4.6736609999788925,
+      "threshold": 8.0,
+      "direction": "maximum",
+      "passed": true
+    }
+  },
+  "eligible_for_end_to_end": false,
+  "schema_version": 1,
+  "experiment": "refinement_v2_sufficiency_gate_screen",
+  "executed_at": "2026-09-26T13:27:11.431562+00:00",
+  "dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+  "phase_a_checkpoint_sha256": "6735a67e361c3e83cace85610275221f658c98db52877c333fb5df8dc041ce6b",
+  "plan_sha256": "ac49ebe59f4ac9a8b0d2f9e673113567e60e079585a44d8c07c55a111e69db37",
+  "checkpoint_sha256": "4cfb055a657de64266667b833323eeed68066a100fea56c4a066bd1afb38c6ca",
+  "model": "qwen3:8b",
+  "temperature": 0,
+  "seed": 42,
+  "classifier_calls": 0,
+  "auditor_calls": 0,
+  "v1_test_items_loaded": 0,
+  "holdout_v2_items_loaded": 0
+}

@@ -485,3 +485,12 @@ abstido corretamente. O delta sobre a baseline foi +0,042 (IC percentil por fam�
 −0,090 a +0,190), e apenas três de sete gates passaram. A candidata não foi
 promovida e o holdout não foi criado. A calibração agora delimitou os dois extremos:
 gate separado excessivamente conservador e gerador direto excessivamente conclusivo.
+
+Triagem do gate de suficiência v2 em 26/09/2026: aliases curtos eliminaram falhas
+estruturais e a regra para extrapolações reconheceu como suficientes todos os 36
+casos conclusivos, mas também todos os 12 casos que exigiam abstenção. A seleção de
+evidência anotada permaneceu em 50%; quatro de seis gates passaram. Nenhuma chamada
+ao classificador ou auditor foi feita. O gate não foi promovido, e novos ajustes de
+prompt sobre esta mesma calibração ficam suspensos para limitar sobreajuste. A v1
+congelada continua sendo o único protótipo demonstrável, com suas limitações já
+documentadas.

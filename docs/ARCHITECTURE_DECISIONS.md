@@ -34,7 +34,7 @@
 | ADR-030 | Testar BGE-M3 denso top 20 como única mudança da v2.1 | Não promovida | Macro-F1 subiu apenas 0,003 sobre top 6, ficou 0,054 abaixo da baseline, manteve recall zero de `MISLEADING` e causou quatro falhas de IDs; só um dos sete gates passou. |
 | ADR-031 | Selecionar seis trechos do top 20 por MMR | Descartada na triagem | Hit@6 caiu de 21/36 para 12/36, sem nenhum ganho de cobertura e com nove perdas; só o gate de latência passou, portanto não houve inferência fim a fim. |
 | ADR-032 | Testar decisão direta em quatro classes, denso top 6 e sem auditor | Não promovida | Macro-F1 subiu para 0,472 e houve ganho em classes conclusivas, mas apenas 1/12 abstenções foi reconhecida; quatro dos sete gates falharam. |
-| ADR-033 | Triar gate de suficiência v2 com aliases curtos e regra explícita para extrapolações | Em validação | O gate v1 preservou segurança, mas bloqueou `MISLEADING`; a triagem binária ocorrerá antes de qualquer nova classificação fim a fim. |
+| ADR-033 | Triar gate de suficiência v2 com aliases curtos e regra explícita para extrapolações | Descartada na triagem | O gate marcou os 48 itens como suficientes: recuperou todos os conclusivos, mas nenhuma das 12 abstenções; quatro dos seis gates passaram. |
 
 ## Histórico de alterações
 
@@ -144,6 +144,13 @@
   de −0,090 a +0,190), abaixo do gate. Três de sete gates passaram. A candidata não
   foi promovida: o experimento delimita um extremo excessivamente conclusivo, em
   contraste com o gate separado excessivamente conservador.
+- **26/09/2026 — resultado da ADR-033:** aliases `E1`–`E6` eliminaram falhas de ID
+  e a regra explícita recuperou suficiência nos 36/36 casos conclusivos, inclusive
+  12/12 `MISLEADING`. Porém o gate também declarou suficientes os 12/12 casos que
+  exigiam abstenção e manteve a seleção de chunks anotados em 50%. Quatro de seis
+  gates passaram; conforme o plano, classificador e auditor não foram executados.
+  Novas alterações de prompt nos mesmos 48 itens ficam suspensas para evitar
+  sobreajuste da calibração.
 
 ## Política de alteração
 

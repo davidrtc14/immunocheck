@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "direct_top6_failed_gates",
+  "status": "sufficiency_v2_screen_failed_gates",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -210,5 +210,29 @@
     "candidate_promoted": false,
     "holdout_creation_authorized": false,
     "next_hypothesis": "calibrate_sufficiency_between_strict_gate_and_direct_generator"
+  },
+  "sufficiency_v2_screen": {
+    "completed_at": "2026-09-26",
+    "pre_experiment_commit": "7802366",
+    "plan_sha256": "ac49ebe59f4ac9a8b0d2f9e673113567e60e079585a44d8c07c55a111e69db37",
+    "checkpoint_sha256": "4cfb055a657de64266667b833323eeed68066a100fea56c4a066bd1afb38c6ca",
+    "report_sha256": "39cb02096589b121ddc0a2e04ff975f05c71c6b11dea547e01712417e7a3ecb3",
+    "items": 48,
+    "classifier_calls": 0,
+    "auditor_calls": 0,
+    "v1_test_items_loaded": 0,
+    "holdout_v2_items_loaded": 0,
+    "predicted_sufficient": 48,
+    "predicted_insufficient": 0,
+    "sufficient_recall": 1.0,
+    "insufficient_recall": 0.0,
+    "misleading_sufficient_recall": 1.0,
+    "annotated_selection_hit_rate": 0.5,
+    "technical_failures": 0,
+    "passed_gates": 4,
+    "total_gates": 6,
+    "eligible_for_end_to_end": false,
+    "candidate_promoted": false,
+    "next_action": "stop_prompt_tuning_on_current_calibration"
   }
 }
