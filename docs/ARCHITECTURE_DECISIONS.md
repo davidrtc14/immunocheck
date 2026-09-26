@@ -33,7 +33,7 @@
 | ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Não promovida | Na calibração nova, a candidata teve macro-F1 0,373, delta de −0,057 contra a v1, recall zero de `MISLEADING` e 38/48 abstenções; falhou cinco dos sete gates. |
 | ADR-030 | Testar BGE-M3 denso top 20 como única mudança da v2.1 | Não promovida | Macro-F1 subiu apenas 0,003 sobre top 6, ficou 0,054 abaixo da baseline, manteve recall zero de `MISLEADING` e causou quatro falhas de IDs; só um dos sete gates passou. |
 | ADR-031 | Selecionar seis trechos do top 20 por MMR | Descartada na triagem | Hit@6 caiu de 21/36 para 12/36, sem nenhum ganho de cobertura e com nove perdas; só o gate de latência passou, portanto não houve inferência fim a fim. |
-| ADR-032 | Testar decisão direta em quatro classes, denso top 6 e sem auditor | Em validação | Na calibração, o gate separado descartou todos os chunks anotados dos 12 casos `MISLEADING`; o caminho direto será comparado à v1 auditada sem alterar extração, retrieval, modelo ou prompt já existente. |
+| ADR-032 | Testar decisão direta em quatro classes, denso top 6 e sem auditor | Não promovida | Macro-F1 subiu para 0,472 e houve ganho em classes conclusivas, mas apenas 1/12 abstenções foi reconhecida; quatro dos sete gates falharam. |
 
 ## Histórico de alterações
 
@@ -136,6 +136,13 @@
   o melhor ponto estimado no desenvolvimento histórico, a próxima iteração remove
   somente gate e auditor, reutiliza o top 6 da fase A e permanece submetida aos
   mesmos sete gates contra a baseline v1 auditada.
+- **26/09/2026 — resultado da ADR-032:** a decisão direta alcançou macro-F1 0,472,
+  recall 0,917 de `SUPPORTED`, 0,833 de `REFUTED` e 0,250 de `MISLEADING`, com P95
+  de 10,12 s e nenhuma falha técnica. Entretanto, reconheceu somente 1/12 casos de
+  evidência insuficiente e o delta de macro-F1 foi +0,042 (IC percentil por família
+  de −0,090 a +0,190), abaixo do gate. Três de sete gates passaram. A candidata não
+  foi promovida: o experimento delimita um extremo excessivamente conclusivo, em
+  contraste com o gate separado excessivamente conservador.
 
 ## Política de alteração
 

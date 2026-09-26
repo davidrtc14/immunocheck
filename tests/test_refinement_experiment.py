@@ -236,3 +236,37 @@ def test_published_top20_report_is_bound_and_reproducible() -> None:
         experiment["report_sha256"]
         == hashlib.sha256(report_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
     )
+
+
+def test_published_direct_top6_report_is_bound_and_reproducible() -> None:
+    results = ROOT / "evaluation" / "results" / "refinement_v2"
+    calibration = ROOT / "evaluation" / "refinement_v2" / "calibration"
+    checkpoint_path = results / "calibration_direct_top6.jsonl"
+    report_path = results / "calibration_direct_top6.json"
+    dataset_path = calibration / "adjudicated_items.jsonl"
+    manifest = json.loads((calibration / "manifest.json").read_text("utf-8"))
+    report = json.loads(report_path.read_text("utf-8"))
+    items = load_end_to_end_items(dataset_path, require_reviewed=True)
+    records = load_refinement_checkpoint(checkpoint_path)
+    conditions = ("v1_dense_with_auditor", "v2_direct_dense_top6_no_auditor")
+    recomputed = summarize_refinement_records(
+        records,
+        items,
+        bootstrap_resamples=2000,
+        seed=20260926,
+        conditions=conditions,
+    )
+
+    assert report["summary"] == recomputed
+    assert report["single_changed_component_from_baseline"] == "remove_faithfulness_auditor"
+    assert report["v1_test_items_loaded"] == report["holdout_v2_items_loaded"] == 0
+    assert report["factual_auditor_executed"] is False
+    assert sum(gate["passed"] for gate in report["summary"]["promotion_gates"].values()) == 3
+    experiment = manifest["experiment_direct_top6"]
+    assert experiment["candidate_promoted"] is experiment["holdout_creation_authorized"] is False
+    assert experiment["checkpoint_sha256"] == _normalized_sha256(checkpoint_path)
+    assert experiment["report_sha256"] == _normalized_sha256(report_path)
+
+
+def _normalized_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()

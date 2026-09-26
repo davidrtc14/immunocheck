@@ -477,3 +477,11 @@ itens antes cobertos foram perdidos. Apenas um de cinco gates passou; por isso a
 hipótese foi descartada antes de qualquer chamada de LLM. Teste e holdout seguiram
 fechados. O resultado reforça que diversidade vetorial não equivale a pertinência
 factual para as alegações do benchmark.
+
+Decisão direta top 6 executada em 26/09/2026: retirar gate e auditor elevou o
+macro-F1 para 0,472 e recuperou 11/12 `SUPPORTED`, 10/12 `REFUTED` e 3/12
+`MISLEADING`, com P95 de 10,12 s. Em contrapartida, só 1/12 casos insuficientes foi
+abstido corretamente. O delta sobre a baseline foi +0,042 (IC percentil por família
+−0,090 a +0,190), e apenas três de sete gates passaram. A candidata não foi
+promovida e o holdout não foi criado. A calibração agora delimitou os dois extremos:
+gate separado excessivamente conservador e gerador direto excessivamente conclusivo.

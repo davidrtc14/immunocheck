@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "experiment": "refinement_v2_direct_dense_top6_no_auditor",
+  "executed_at": "2026-09-26T13:06:55.811482+00:00",
+  "protocol_sha256": "541610af5e33db35d0c1c75285172c16be7fe4fec71e4b5987d977b69b802bc2",
+  "plan_sha256": "26846d6e48f8dcd801ab52913c8818187dc78c02d74c67c6e9142428b8219cb9",
+  "dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+  "phase_a_checkpoint_sha256": "6735a67e361c3e83cace85610275221f658c98db52877c333fb5df8dc041ce6b",
+  "partition": "calibration_development_only",
+  "v1_test_items_loaded": 0,
+  "holdout_v2_items_loaded": 0,
+  "model": "qwen3:8b",
+  "ollama_base_url": "http://127.0.0.1:11434",
+  "temperature": 0,
+  "seed": 42,
+  "extraction": "reused_from_phase_a_without_new_llm_call",
+  "retrieval": "reused_phase_a_bge_m3_dense_top_6",
+  "single_changed_component_from_baseline": "remove_faithfulness_auditor",
+  "conditions": [
+    "v1_dense_with_auditor",
+    "v2_direct_dense_top6_no_auditor"
+  ],
+  "factual_auditor_executed": false,
+  "descriptive_candidate_macro_f1": {
+    "separated_top6": 0.37274725274725273,
+    "separated_top20": 0.37587719298245614,
+    "direct_top6": 0.4720334490071332
+  },
+  "checkpoint_sha256": "ec69fcef4dab7d81373f3829b09cfe748be4911bbe4bcbad47a3aa52dbf3cc42",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "summary": {
+    "item_count": 48,
+    "family_count": 12,
+    "systems": {
+      "v1_dense_with_auditor": {
+        "accuracy": 0.4583333333333333,
+        "balanced_accuracy": 0.45833333333333337,
+        "macro_f1": 0.43004385964912284,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 1.0,
+            "recall": 0.5833333333333334,
+            "f1": 0.7368421052631579,
+            "support": 12
+          },
+          "REFUTED": {
+            "precision": 0.5833333333333334,
+            "recall": 0.5833333333333334,
+            "f1": 0.5833333333333334,
+            "support": 12
+          },
+          "MISLEADING": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 12
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.2857142857142857,
+            "recall": 0.6666666666666666,
+            "f1": 0.4,
+            "support": 12
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            7,
+            0,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            0,
+            5
+          ],
+          [
+            0,
+            2,
+            0,
+            10
+          ],
+          [
+            0,
+            3,
+            1,
+            8
+          ]
+        ],
+        "abstention": {
+          "precision": 0.2857142857142857,
+          "recall": 0.6666666666666666,
+          "f1": 0.4
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.5,
+        "technical_failure_rate": 0.0,
+        "latency_ms": {
+          "median": 9168.645100027788,
+          "p95": 12412.637499975972,
+          "samples": 48
+        }
+      },
+      "v2_direct_dense_top6_no_auditor": {
+        "accuracy": 0.5208333333333334,
+        "balanced_accuracy": 0.5208333333333334,
+        "macro_f1": 0.4720334490071332,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.9166666666666666,
+            "recall": 0.9166666666666666,
+            "f1": 0.9166666666666666,
+            "support": 12
+          },
+          "REFUTED": {
+            "precision": 0.37037037037037035,
+            "recall": 0.8333333333333334,
+            "f1": 0.5128205128205128,
+            "support": 12
+          },
+          "MISLEADING": {
+            "precision": 0.42857142857142855,
+            "recall": 0.25,
+            "f1": 0.3157894736842105,
+            "support": 12
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.5,
+            "recall": 0.08333333333333333,
+            "f1": 0.14285714285714285,
+            "support": 12
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            11,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            10,
+            1,
+            1
+          ],
+          [
+            0,
+            9,
+            3,
+            0
+          ],
+          [
+            1,
+            7,
+            3,
+            1
+          ]
+        ],
+        "abstention": {
+          "precision": 0.5,
+          "recall": 0.08333333333333333,
+          "f1": 0.14285714285714285
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.4722222222222222,
+        "technical_failure_rate": 0.0,
+        "latency_ms": {
+          "median": 7512.828399951104,
+          "p95": 10116.282199975103,
+          "samples": 48
+        }
+      }
+    },
+    "paired_bootstrap": {
+      "unit": "claim_family",
+      "resamples": 2000,
+      "seed": 20260926,
+      "candidate_minus_baseline_macro_f1_95_percentile_interval": {
+        "lower": -0.08983014805583808,
+        "median": 0.03789340266410782,
+        "upper": 0.1897899187416326
+      }
+    },
+    "promotion_gates": {
+      "macro_f1_delta": {
+        "value": 0.04198958935801034,
+        "threshold": 0.08,
+        "direction": "minimum",
+        "passed": false
+      },
+      "misleading_recall": {
+        "value": 0.25,
+        "threshold": 0.4,
+        "direction": "minimum",
+        "passed": false
+      },
+      "abstention_precision": {
+        "value": 0.5,
+        "threshold": 0.45,
+        "direction": "minimum",
+        "passed": true
+      },
+      "citation_hit_rate": {
+        "value": 0.4722222222222222,
+        "threshold": 0.6,
+        "direction": "minimum",
+        "passed": false
+      },
+      "maximum_class_recall_drop": {
+        "value": 0.5833333333333333,
+        "threshold": 0.05,
+        "direction": "maximum",
+        "passed": false,
+        "per_class": {
+          "SUPPORTED": -0.33333333333333326,
+          "REFUTED": -0.25,
+          "MISLEADING": -0.25,
+          "INSUFFICIENT_EVIDENCE": 0.5833333333333333
+        }
+      },
+      "technical_failure_rate": {
+        "value": 0.0,
+        "threshold": 0.02,
+        "direction": "maximum",
+        "passed": true
+      },
+      "textual_p95_seconds": {
+        "value": 10.116282199975103,
+        "threshold": 20.0,
+        "direction": "maximum",
+        "passed": true
+      }
+    },
+    "factual_auditor_condition_eligible": false,
+    "extraction": {
+      "in_scope_rate": 1.0,
+      "technical_failure_rate": 0.0,
+      "latency_ms": {
+        "median": 1736.3824499771,
+        "p95": 2171.714000054635,
+        "samples": 48
+      }
+    }
+  }
+}
