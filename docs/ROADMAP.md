@@ -469,3 +469,11 @@ baseline (IC percentil por família −0,184 a +0,079). Apenas o gate de P95 pas
 A candidata não foi promovida, o auditor não foi executado e o holdout v2 permanece
 inexistente. A próxima hipótese deverá combinar recuperação ampla com seleção de
 contexto compacto, sem voltar a enviar 20 trechos diretamente à LLM.
+
+Triagem MMR de 26/09/2026: a seleção determinística de seis entre 20 candidatos
+densos teve P95 inferior a 0,5 ms, mas derrubou Hit@6 global de 21/36 para 12/36 e
+a cobertura de `MISLEADING` de 6/12 para 3/12. Não houve nenhum novo hit e nove
+itens antes cobertos foram perdidos. Apenas um de cinco gates passou; por isso a
+hipótese foi descartada antes de qualquer chamada de LLM. Teste e holdout seguiram
+fechados. O resultado reforça que diversidade vetorial não equivale a pertinência
+factual para as alegações do benchmark.

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "calibration_top20_failed_gates",
+  "status": "mmr_selector_screen_failed_gates",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -167,5 +167,26 @@
     "factual_auditor_executed": false,
     "candidate_promoted": false,
     "next_hypothesis": "wide_retrieval_with_context_selection"
+  },
+  "mmr_selector_screen": {
+    "completed_at": "2026-09-26",
+    "pre_experiment_commit": "e7c2299",
+    "plan_sha256": "3c743df667f5b84bf472c55e0b4b033d241a744eb09ba1d56c174a3bf3bc853c",
+    "report_sha256": "d14c2dbcca1690f8d99bdfcb1fd785bac90de0541c53a07e248ffd58826ac13b",
+    "markdown_sha256": "cfb4c78c4152ac88fffc0611a6cc92eb9d9d1cb26eb195829686dd0aeda12d71",
+    "conclusive_items": 36,
+    "llm_calls": 0,
+    "v1_test_items_loaded": 0,
+    "holdout_v2_items_loaded": 0,
+    "dense_top6_hits": 21,
+    "mmr_top6_hits": 12,
+    "dense_top6_misleading_hits": 6,
+    "mmr_top6_misleading_hits": 3,
+    "gained_hits": 0,
+    "lost_hits": 9,
+    "passed_gates": 1,
+    "total_gates": 5,
+    "eligible_for_end_to_end": false,
+    "candidate_promoted": false
   }
 }

@@ -32,6 +32,7 @@
 | ADR-028 | Congelar a v1 e abrir linha experimental v2 com dados novos | Aceita | Evita ajuste pós-teste: os 64 itens finais e os 96 itens já calibrados permanecem históricos; a v2 exige nova calibração e novo holdout. |
 | ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Não promovida | Na calibração nova, a candidata teve macro-F1 0,373, delta de −0,057 contra a v1, recall zero de `MISLEADING` e 38/48 abstenções; falhou cinco dos sete gates. |
 | ADR-030 | Testar BGE-M3 denso top 20 como única mudança da v2.1 | Não promovida | Macro-F1 subiu apenas 0,003 sobre top 6, ficou 0,054 abaixo da baseline, manteve recall zero de `MISLEADING` e causou quatro falhas de IDs; só um dos sete gates passou. |
+| ADR-031 | Selecionar seis trechos do top 20 por MMR | Descartada na triagem | Hit@6 caiu de 21/36 para 12/36, sem nenhum ganho de cobertura e com nove perdas; só o gate de latência passou, portanto não houve inferência fim a fim. |
 
 ## Histórico de alterações
 
@@ -121,6 +122,13 @@
   auditor factual não foi executado. O próximo estudo deve separar recuperação
   ampla da seleção compacta de contexto, em vez de enviar mais trechos diretamente
   à LLM.
+- **26/09/2026 — triagem da ADR-031:** MMR com peso de relevância 0,70 selecionou
+  seis trechos entre os 20 densos em menos de 0,5 ms no P95, mas reduziu Hit@6 de
+  21/36 para 12/36 e a cobertura de `MISLEADING` de 6/12 para 3/12. Não ganhou
+  nenhum hit e perdeu nove; um de cinco gates passou. A hipótese foi encerrada sem
+  chamada de LLM, sem teste e sem holdout. O incidente pré-experimental de uma
+  execução sem persistência foi registrado no próprio plano e limita a triagem a
+  diagnóstico de desenvolvimento.
 
 ## Política de alteração
 

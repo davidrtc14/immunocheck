@@ -1,0 +1,779 @@
+{
+  "schema_version": 1,
+  "experiment": "refinement_v2_mmr_selector_screen",
+  "executed_at": "2026-09-26T12:56:50.726047+00:00",
+  "scope": "calibration_conclusive_only_no_llm",
+  "dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+  "phase_a_checkpoint_sha256": "6735a67e361c3e83cace85610275221f658c98db52877c333fb5df8dc041ce6b",
+  "plan_sha256": "3c743df667f5b84bf472c55e0b4b033d241a744eb09ba1d56c174a3bf3bc853c",
+  "corpus_sha256": "401bed2cad62142b30e2879b6f91e6f05098ab9ac86191316ba65685af36b19a",
+  "v1_test_items_loaded": 0,
+  "holdout_v2_items_loaded": 0,
+  "llm_calls": 0,
+  "candidate_depth": 20,
+  "output_depth": 6,
+  "relevance_weight": 0.7,
+  "systems": {
+    "dense_top6": {
+      "hits": 21,
+      "items": 36,
+      "hit_at_6": 0.5833333333333334,
+      "mrr_at_6": 0.3449074074074074,
+      "per_class": {
+        "SUPPORTED": {
+          "hits": 8,
+          "items": 12,
+          "rate": 0.6666666666666666
+        },
+        "REFUTED": {
+          "hits": 7,
+          "items": 12,
+          "rate": 0.5833333333333334
+        },
+        "MISLEADING": {
+          "hits": 6,
+          "items": 12,
+          "rate": 0.5
+        }
+      },
+      "hit_by_item": {
+        "ref2-cal-0001": true,
+        "ref2-cal-0002": true,
+        "ref2-cal-0003": true,
+        "ref2-cal-0005": true,
+        "ref2-cal-0006": true,
+        "ref2-cal-0007": true,
+        "ref2-cal-0009": false,
+        "ref2-cal-0010": false,
+        "ref2-cal-0011": false,
+        "ref2-cal-0013": true,
+        "ref2-cal-0014": true,
+        "ref2-cal-0015": true,
+        "ref2-cal-0017": true,
+        "ref2-cal-0018": true,
+        "ref2-cal-0019": true,
+        "ref2-cal-0021": false,
+        "ref2-cal-0022": false,
+        "ref2-cal-0023": true,
+        "ref2-cal-0025": false,
+        "ref2-cal-0026": false,
+        "ref2-cal-0027": false,
+        "ref2-cal-0029": true,
+        "ref2-cal-0030": true,
+        "ref2-cal-0031": false,
+        "ref2-cal-0033": true,
+        "ref2-cal-0034": false,
+        "ref2-cal-0035": true,
+        "ref2-cal-0037": true,
+        "ref2-cal-0038": true,
+        "ref2-cal-0039": false,
+        "ref2-cal-0041": true,
+        "ref2-cal-0042": true,
+        "ref2-cal-0043": false,
+        "ref2-cal-0045": false,
+        "ref2-cal-0046": false,
+        "ref2-cal-0047": false
+      }
+    },
+    "dense20_mmr6": {
+      "hits": 12,
+      "items": 36,
+      "hit_at_6": 0.3333333333333333,
+      "mrr_at_6": 0.2546296296296296,
+      "per_class": {
+        "SUPPORTED": {
+          "hits": 5,
+          "items": 12,
+          "rate": 0.4166666666666667
+        },
+        "REFUTED": {
+          "hits": 4,
+          "items": 12,
+          "rate": 0.3333333333333333
+        },
+        "MISLEADING": {
+          "hits": 3,
+          "items": 12,
+          "rate": 0.25
+        }
+      },
+      "hit_by_item": {
+        "ref2-cal-0001": true,
+        "ref2-cal-0002": true,
+        "ref2-cal-0003": false,
+        "ref2-cal-0005": true,
+        "ref2-cal-0006": true,
+        "ref2-cal-0007": true,
+        "ref2-cal-0009": false,
+        "ref2-cal-0010": false,
+        "ref2-cal-0011": false,
+        "ref2-cal-0013": true,
+        "ref2-cal-0014": false,
+        "ref2-cal-0015": true,
+        "ref2-cal-0017": true,
+        "ref2-cal-0018": false,
+        "ref2-cal-0019": true,
+        "ref2-cal-0021": false,
+        "ref2-cal-0022": false,
+        "ref2-cal-0023": false,
+        "ref2-cal-0025": false,
+        "ref2-cal-0026": false,
+        "ref2-cal-0027": false,
+        "ref2-cal-0029": true,
+        "ref2-cal-0030": true,
+        "ref2-cal-0031": false,
+        "ref2-cal-0033": false,
+        "ref2-cal-0034": false,
+        "ref2-cal-0035": false,
+        "ref2-cal-0037": false,
+        "ref2-cal-0038": false,
+        "ref2-cal-0039": false,
+        "ref2-cal-0041": false,
+        "ref2-cal-0042": true,
+        "ref2-cal-0043": false,
+        "ref2-cal-0045": false,
+        "ref2-cal-0046": false,
+        "ref2-cal-0047": false
+      },
+      "gained_item_ids": [],
+      "lost_item_ids": [
+        "ref2-cal-0003",
+        "ref2-cal-0014",
+        "ref2-cal-0018",
+        "ref2-cal-0023",
+        "ref2-cal-0033",
+        "ref2-cal-0035",
+        "ref2-cal-0037",
+        "ref2-cal-0038",
+        "ref2-cal-0041"
+      ]
+    }
+  },
+  "latency_ms": {
+    "dense_retrieval": {
+      "median": 128.0428500031121,
+      "p95": 161.4827000303194,
+      "samples": 36
+    },
+    "mmr_selection": {
+      "median": 0.29265001649037004,
+      "p95": 0.416700029745698,
+      "samples": 36
+    }
+  },
+  "gates": {
+    "global_hit_at_6": {
+      "value": 12,
+      "threshold": 24,
+      "direction": "minimum",
+      "passed": false
+    },
+    "misleading_hit_at_6": {
+      "value": 3,
+      "threshold": 8,
+      "direction": "minimum",
+      "passed": false
+    },
+    "supported_no_hit_loss": {
+      "value": -3,
+      "threshold": 0,
+      "direction": "minimum",
+      "passed": false
+    },
+    "refuted_no_hit_loss": {
+      "value": -3,
+      "threshold": 0,
+      "direction": "minimum",
+      "passed": false
+    },
+    "selection_p95_ms": {
+      "value": 0.416700029745698,
+      "threshold": 100.0,
+      "direction": "maximum",
+      "passed": true
+    }
+  },
+  "eligible_for_end_to_end": false,
+  "rankings": {
+    "dense_top6": {
+      "ref2-cal-0001": [
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "ms_dengue_seguranca_2025:p17:c1:39f5d1e99944",
+        "ms_dengue_seguranca_2025:p2:c1:e817446a7a7a",
+        "ms_covid_esavi:p36:c1:f96bbbf2ca9b",
+        "ms_guia_dengue_butantan_2026:p20:c1:4ba26a1a50c7",
+        "ms_dengue_seguranca_2025:p9:c3:a90ace9ee174"
+      ],
+      "ref2-cal-0002": [
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "ms_dengue_seguranca_2025:p17:c1:39f5d1e99944",
+        "conitec_dengue_871_2023:p34:c2:28f16dea933b",
+        "ms_guia_dengue_butantan_2026:p21:c1:0f2fc5dfee5a",
+        "ms_dengue_seguranca_2025:p9:c1:384353893c20",
+        "ms_guia_dengue_butantan_2026:p16:c2:8fb440a59835"
+      ],
+      "ref2-cal-0003": [
+        "ms_dengue_seguranca_2025:p7:c1:263c307fc8fd",
+        "ms_dengue_seguranca_2025:p7:c2:b314bd1b0862",
+        "ms_dengue_seguranca_2025:p7:c3:be9b6eaa762f",
+        "ms_calendario_2026:p51:c1:24a5ef217af6",
+        "ms_esavi_4ed:p182:c2:94fed64966db",
+        "ms_dengue_seguranca_2025:p2:c1:e817446a7a7a"
+      ],
+      "ref2-cal-0005": [
+        "ms_mpox_seguranca_2025:p2:c2:d1a1378ab756",
+        "ms_mpox_seguranca_2025:p3:c1:198a86d0c93c",
+        "ms_esavi_4ed:p50:c1:9aa9b4f433af",
+        "ms_mpox_seguranca_2025:p2:c1:894d4f88419f",
+        "ms_esavi_4ed:p172:c1:0954a27b382c",
+        "ms_covid_esavi:p36:c1:f96bbbf2ca9b"
+      ],
+      "ref2-cal-0006": [
+        "ms_mpox_seguranca_2025:p2:c2:d1a1378ab756",
+        "ms_mpox_seguranca_2025:p3:c1:198a86d0c93c",
+        "ms_mpox_seguranca_2025:p1:c1:66c7ce3da7c0",
+        "ms_esavi_4ed:p168:c1:e0035f7d91b4",
+        "ms_dengue_seguranca_2025:p17:c1:39f5d1e99944",
+        "ms_esavi_4ed:p137:c1:963a1201b379"
+      ],
+      "ref2-cal-0007": [
+        "ms_esavi_4ed:p84:c3:4c0c4d33fe2f",
+        "ms_esavi_4ed:p182:c1:e4517a173ee2",
+        "ms_esavi_4ed:p104:c2:de404bb6bcde",
+        "ms_esavi_4ed:p61:c2:8815aa023745",
+        "ms_esavi_4ed:p58:c1:1a8d454f7d1d",
+        "ms_mpox_seguranca_2025:p2:c3:0adbf3f2c967"
+      ],
+      "ref2-cal-0009": [
+        "ms_manual_normas_2024:p98:c3:588ad1212a93",
+        "ms_esavi_4ed:p66:c3:3449aa1f864a",
+        "ms_calendario_2026:p51:c4:0a786774cba5",
+        "ms_calendario_2026:p38:c1:8ffa8d2e79c5",
+        "ms_esavi_4ed:p66:c2:fab10492f133",
+        "ms_crie_2023:p35:c2:5ffe87115673"
+      ],
+      "ref2-cal-0010": [
+        "ms_nt21_sarampo_dose_zero_2026:p1:c3:574876a22273",
+        "ms_nt21_sarampo_dose_zero_2026:p1:c2:496d98b1bd82",
+        "ms_esavi_4ed:p73:c1:780028309a69",
+        "ms_crie_2023:p145:c3:0ef56678799e",
+        "ms_calendario_2026:p39:c2:1353b7c442dd",
+        "ms_manual_normas_2024:p99:c1:bdc2e7457659"
+      ],
+      "ref2-cal-0011": [
+        "ms_manual_normas_2024:p98:c3:588ad1212a93",
+        "anvisa_pfizer_5_11_ppam_2021:p51:c2:9e175d516e82",
+        "ms_esavi_4ed:p228:c3:a88d94ee8fbd",
+        "ms_esavi_4ed:p72:c3:3a25e735e2e4",
+        "ms_calendario_2026:p39:c1:ccc7c2c45987",
+        "ms_manual_normas_2024:p99:c1:bdc2e7457659"
+      ],
+      "ref2-cal-0013": [
+        "jvacx_hpv_one_dose_review_2024:p1:c3:c4d75a582746",
+        "jvacx_hpv_one_dose_review_2024:p1:c47:88e49539f47e",
+        "jvacx_hpv_one_dose_review_2024:p1:c6:43f417304539",
+        "jvacx_hpv_one_dose_review_2024:p1:c1:304d9d4a8ac0",
+        "jvacx_hpv_one_dose_review_2024:p1:c31:586edee1c5b5",
+        "jvacx_hpv_one_dose_review_2024:p1:c51:0cf090a030b5"
+      ],
+      "ref2-cal-0014": [
+        "jvacx_hpv_one_dose_review_2024:p1:c48:e069a030587f",
+        "jvacx_hpv_one_dose_review_2024:p1:c3:c4d75a582746",
+        "jvacx_hpv_one_dose_review_2024:p1:c1:304d9d4a8ac0",
+        "jvacx_hpv_one_dose_review_2024:p1:c6:43f417304539",
+        "jvacx_hpv_one_dose_review_2024:p1:c47:88e49539f47e",
+        "jvacx_hpv_one_dose_review_2024:p1:c51:0cf090a030b5"
+      ],
+      "ref2-cal-0015": [
+        "jvacx_hpv_one_dose_review_2024:p1:c3:c4d75a582746",
+        "jvacx_hpv_one_dose_review_2024:p1:c6:43f417304539",
+        "jvacx_hpv_one_dose_review_2024:p1:c48:e069a030587f",
+        "ms_crie_2023:p113:c2:0221febc18e2",
+        "jvacx_hpv_one_dose_review_2024:p1:c47:88e49539f47e",
+        "jvacx_hpv_one_dose_review_2024:p1:c1:304d9d4a8ac0"
+      ],
+      "ref2-cal-0017": [
+        "paho_meningococcal_impact_review_2017:p1:c4:e0edfedc93b4",
+        "paho_meningococcal_impact_review_2017:p1:c6:a47cbee13391",
+        "ms_crie_2023:p34:c1:a857c21400c4",
+        "ms_crie_2023:p130:c3:26a15d5fe767",
+        "paho_meningococcal_impact_review_2017:p1:c21:0597ea403a31",
+        "paho_meningococcal_impact_review_2017:p1:c20:4dce91e5dadb"
+      ],
+      "ref2-cal-0018": [
+        "paho_meningococcal_impact_review_2017:p1:c20:4dce91e5dadb",
+        "paho_meningococcal_impact_review_2017:p1:c5:5847df94e9df",
+        "paho_meningococcal_impact_review_2017:p1:c6:a47cbee13391",
+        "bmj_aluminium_adjuvants_2026:p1:c47:b15627b4c1d0",
+        "paho_meningococcal_impact_review_2017:p1:c4:e0edfedc93b4",
+        "paho_meningococcal_impact_review_2017:p1:c1:b608a6576f37"
+      ],
+      "ref2-cal-0019": [
+        "paho_meningococcal_impact_review_2017:p1:c4:e0edfedc93b4",
+        "paho_meningococcal_impact_review_2017:p1:c2:95c4ac863616",
+        "paho_meningococcal_impact_review_2017:p1:c6:a47cbee13391",
+        "paho_meningococcal_impact_review_2017:p1:c20:4dce91e5dadb",
+        "paho_meningococcal_impact_review_2017:p1:c5:5847df94e9df",
+        "paho_meningococcal_impact_review_2017:p1:c21:0597ea403a31"
+      ],
+      "ref2-cal-0021": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c35:0f775d5dce8d",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c4:cf667c3c43db",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c33:7aa75ef177d7",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c37:9fd4e5f52916",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c36:667a160c3ecd"
+      ],
+      "ref2-cal-0022": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c37:9fd4e5f52916",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c35:0f775d5dce8d",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c33:7aa75ef177d7",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c4:cf667c3c43db",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c36:667a160c3ecd"
+      ],
+      "ref2-cal-0023": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c37:9fd4e5f52916",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c35:0f775d5dce8d",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c4:cf667c3c43db",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c33:7aa75ef177d7",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c2:3ddf3b8257e8"
+      ],
+      "ref2-cal-0025": [
+        "rmv_influenza_enhanced_review_2025:p1:c43:e9b888005771",
+        "rmv_influenza_enhanced_review_2025:p1:c37:d14eed7228b2",
+        "rmv_influenza_enhanced_review_2025:p1:c33:ca58d301e61a",
+        "ms_guia_dengue_butantan_2026:p20:c3:9a7a34edee0f",
+        "rmv_influenza_enhanced_review_2025:p1:c38:cf0189296ad0",
+        "rmv_influenza_enhanced_review_2025:p1:c31:961a4c65474d"
+      ],
+      "ref2-cal-0026": [
+        "rmv_influenza_enhanced_review_2025:p1:c37:d14eed7228b2",
+        "rmv_influenza_enhanced_review_2025:p1:c43:e9b888005771",
+        "rmv_influenza_enhanced_review_2025:p1:c33:ca58d301e61a",
+        "rmv_influenza_enhanced_review_2025:p1:c8:2a897eff6de1",
+        "rmv_influenza_enhanced_review_2025:p1:c22:c43f6ba31602",
+        "ms_esavi_4ed:p179:c1:9a054e89e76d"
+      ],
+      "ref2-cal-0027": [
+        "lancet_repeated_influenza_meta_2022:p1:c31:6925587593bd",
+        "rmv_influenza_enhanced_review_2025:p1:c43:e9b888005771",
+        "rmv_influenza_enhanced_review_2025:p1:c4:9cc0357eedf9",
+        "lancet_repeated_influenza_meta_2022:p1:c30:45bb21907383",
+        "lancet_repeated_influenza_meta_2022:p1:c7:c955748f61e6",
+        "lancet_repeated_influenza_meta_2022:p1:c32:282d82302532"
+      ],
+      "ref2-cal-0029": [
+        "vaccines_autoimmune_disorders_meta_2021:p1:c2:aab20eccd228",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c1:b0b52ad04895",
+        "vaccines_hpv_autoimmune_meta_2025:p9:c5:a026c1dbf592",
+        "vaccines_hpv_autoimmune_meta_2025:p11:c3:a18f06a83806",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c4:af1c4091d936",
+        "vaccines_hpv_autoimmune_meta_2025:p9:c3:d6ac30f99240"
+      ],
+      "ref2-cal-0030": [
+        "vaccines_autoimmune_disorders_meta_2021:p1:c2:aab20eccd228",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c1:b0b52ad04895",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c4:af1c4091d936",
+        "vaccines_hpv_autoimmune_meta_2025:p11:c3:a18f06a83806",
+        "vaccines_hpv_autoimmune_meta_2025:p9:c5:a026c1dbf592",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c19:783645f6b31e"
+      ],
+      "ref2-cal-0031": [
+        "vaccines_hpv_autoimmune_meta_2025:p10:c5:316ff09b4d01",
+        "ms_guia_dengue_butantan_2026:p20:c3:9a7a34edee0f",
+        "ms_crie_2023:p33:c4:69235a7c16cd",
+        "ms_esavi_4ed:p105:c3:f5451adff024",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c20:972cb9b03826",
+        "vaccines_hpv_autoimmune_meta_2025:p11:c3:a18f06a83806"
+      ],
+      "ref2-cal-0033": [
+        "springer_covid_pregnancy_lsr_2024:p1:c1:e584551e7164",
+        "springer_covid_pregnancy_lsr_2024:p15:c4:9b55657846bb",
+        "springer_covid_pregnancy_lsr_2024:p1:c4:47941c48cc39",
+        "springer_covid_pregnancy_lsr_2024:p17:c1:09b3e3b5ae58",
+        "springer_covid_pregnancy_lsr_2024:p19:c7:a00bcf8dce93",
+        "springer_covid_pregnancy_lsr_2024:p19:c1:ed3ae4b80e05"
+      ],
+      "ref2-cal-0034": [
+        "springer_covid_pregnancy_lsr_2024:p19:c6:4f001920ca63",
+        "springer_covid_pregnancy_lsr_2024:p12:c6:d6b8cc609c29",
+        "ms_covid_esavi:p34:c3:a5866432e654",
+        "springer_covid_pregnancy_lsr_2024:p19:c1:ed3ae4b80e05",
+        "springer_covid_pregnancy_lsr_2024:p2:c1:6dc6dc7b4a23",
+        "springer_covid_pregnancy_lsr_2024:p19:c2:cc55decfdb69"
+      ],
+      "ref2-cal-0035": [
+        "bmjgh_maternal_vaccines_rct_review_2023:p1:c5:348277be8ed7",
+        "springer_covid_pregnancy_lsr_2024:p15:c6:a09a49de1eb3",
+        "vaccines_pertussis_pregnancy_meta_2025:p1:c20:408c427ee8f1",
+        "ms_calendario_2026:p54:c3:1f5e09e4b79c",
+        "springer_covid_pregnancy_lsr_2024:p15:c5:05d9bafeee92",
+        "springer_covid_pregnancy_lsr_2024:p1:c3:f6ccfe01ff61"
+      ],
+      "ref2-cal-0037": [
+        "vaccine_misinformation_communication_review_2023:p1:c58:650b0427266c",
+        "vaccine_misinformation_communication_review_2023:p1:c50:86ee8d0fed6a",
+        "vaccine_misinformation_communication_review_2023:p1:c54:25efde957e81",
+        "vaccine_misinformation_communication_review_2023:p1:c3:4362a218aa19",
+        "vaccine_misinformation_communication_review_2023:p1:c7:ce9f63c7b577",
+        "vaccine_misinformation_communication_review_2023:p1:c66:ee1ebc3fae6d"
+      ],
+      "ref2-cal-0038": [
+        "vaccine_misinformation_communication_review_2023:p1:c58:650b0427266c",
+        "vaccine_misinformation_communication_review_2023:p1:c7:ce9f63c7b577",
+        "vaccine_misinformation_communication_review_2023:p1:c3:4362a218aa19",
+        "who_autism_evidence_review_2026:p15:c1:598d2a764146",
+        "vaccine_misinformation_communication_review_2023:p1:c55:d8cf6428eb21",
+        "vaccine_misinformation_communication_review_2023:p1:c6:90d68b779ba1"
+      ],
+      "ref2-cal-0039": [
+        "vaccine_misinformation_communication_review_2023:p1:c53:3e58573fefd4",
+        "vaccine_misinformation_communication_review_2023:p1:c37:43240d5682f9",
+        "vaccine_misinformation_communication_review_2023:p1:c61:1cc5357e7df1",
+        "vaccine_misinformation_communication_review_2023:p1:c49:4bb2a224bc20",
+        "ms_microplanejamento_2025:p47:c4:be5ba6b4c51f",
+        "vaccine_misinformation_communication_review_2023:p1:c51:39dc4625c717"
+      ],
+      "ref2-cal-0041": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c93:8b286d9f6333",
+        "sttt_vaccine_adjuvants_review_2023:p1:c2:296f777a96e1",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2",
+        "sttt_vaccine_adjuvants_review_2023:p1:c6:e4af4f6221a3",
+        "ms_manual_normas_2024:p271:c1:1a2d9ef3f5ce",
+        "ms_esavi_4ed:p333:c1:e8264b773fe2"
+      ],
+      "ref2-cal-0042": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c50:245211190e23",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2",
+        "ms_crie_2023:p170:c1:9b643752d03c",
+        "ms_esavi_4ed:p333:c1:e8264b773fe2",
+        "sttt_vaccine_adjuvants_review_2023:p1:c6:e4af4f6221a3",
+        "sttt_vaccine_adjuvants_review_2023:p1:c5:b9666c7bab46"
+      ],
+      "ref2-cal-0043": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c6:e4af4f6221a3",
+        "sttt_vaccine_adjuvants_review_2023:p1:c50:245211190e23",
+        "sttt_vaccine_adjuvants_review_2023:p1:c93:8b286d9f6333",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2",
+        "sttt_vaccine_adjuvants_review_2023:p1:c5:b9666c7bab46",
+        "npj_aluminum_adjuvants_review_2018:p1:c52:3771aa036af6"
+      ],
+      "ref2-cal-0045": [
+        "plos_pertussis_waning_meta_2018:p1:c26:c3ae40abeb88",
+        "ms_crie_2023:p88:c3:70300a332233",
+        "ms_calendario_2026:p2:c1:2c4dbc1a0fe6",
+        "plos_pertussis_waning_meta_2018:p1:c22:0b1f842b5824",
+        "ms_calendario_2026:p15:c1:4671c41d0401",
+        "ms_crie_2023:p87:c2:fe515dbff548"
+      ],
+      "ref2-cal-0046": [
+        "ms_crie_2023:p88:c3:70300a332233",
+        "ms_calendario_2026:p2:c1:2c4dbc1a0fe6",
+        "ms_crie_2023:p145:c4:cf6fe2f67ae2",
+        "jkms_varicella_effectiveness_meta_2025:p1:c21:eba8ee6495b4",
+        "ms_calendario_2026:p15:c1:4671c41d0401",
+        "ms_esavi_4ed:p48:c3:11ba6ff536d8"
+      ],
+      "ref2-cal-0047": [
+        "ms_operacao_gota_2026:p13:c3:9483b9ba0024",
+        "ms_manual_normas_2024:p189:c2:3676f07b9e3a",
+        "ms_manual_normas_2024:p217:c3:e545ea121f01",
+        "ms_manual_normas_2024:p193:c3:6972e94b3249",
+        "ms_calendario_2026:p13:c3:2f0031408543",
+        "ms_calendario_2026:p15:c1:4671c41d0401"
+      ]
+    },
+    "dense20_mmr6": {
+      "ref2-cal-0001": [
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "ms_esavi_4ed:p182:c1:e4517a173ee2",
+        "ms_esavi_4ed:p55:c3:0254b1611cd6",
+        "ms_dengue_seguranca_2025:p17:c1:39f5d1e99944",
+        "ms_covid_esavi:p14:c2:e6d7529202f5",
+        "ms_dengue_seguranca_2025:p9:c3:a90ace9ee174"
+      ],
+      "ref2-cal-0002": [
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "ms_esavi_4ed:p88:c1:792dffe4571b",
+        "conitec_dengue_871_2023:p34:c2:28f16dea933b",
+        "ms_esavi_4ed:p50:c1:9aa9b4f433af",
+        "ms_guia_dengue_butantan_2026:p16:c2:8fb440a59835",
+        "ms_dengue_seguranca_2025:p17:c1:39f5d1e99944"
+      ],
+      "ref2-cal-0003": [
+        "ms_dengue_seguranca_2025:p7:c1:263c307fc8fd",
+        "conitec_dengue_871_2023:p64:c1:f7022f8ae330",
+        "ms_esavi_4ed:p182:c2:94fed64966db",
+        "ms_guia_dengue_butantan_2026:p22:c2:db1e2290f33d",
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "ms_dengue_seguranca_2025:p10:c1:7c9d9ba02afa"
+      ],
+      "ref2-cal-0005": [
+        "ms_mpox_seguranca_2025:p2:c2:d1a1378ab756",
+        "ms_esavi_4ed:p136:c2:f8f8c73bf8a8",
+        "ms_mpox_seguranca_2025:p1:c1:66c7ce3da7c0",
+        "ms_esavi_4ed:p50:c1:9aa9b4f433af",
+        "ms_esavi_4ed:p172:c1:0954a27b382c",
+        "ms_dengue_seguranca_2025:p8:c3:5657b27cb089"
+      ],
+      "ref2-cal-0006": [
+        "ms_mpox_seguranca_2025:p2:c2:d1a1378ab756",
+        "ms_mpox_seguranca_2025:p1:c1:66c7ce3da7c0",
+        "ms_dengue_seguranca_2025:p17:c1:39f5d1e99944",
+        "anvisa_pfizer_5_11_ppam_2021:p37:c2:145f165ae700",
+        "ms_esavi_4ed:p6:c3:85f59c960b1e",
+        "ms_esavi_4ed:p168:c1:e0035f7d91b4"
+      ],
+      "ref2-cal-0007": [
+        "ms_esavi_4ed:p84:c3:4c0c4d33fe2f",
+        "ms_mpox_seguranca_2025:p2:c3:0adbf3f2c967",
+        "ms_esavi_4ed:p182:c1:e4517a173ee2",
+        "ms_esavi_4ed:p58:c1:1a8d454f7d1d",
+        "ms_esavi_4ed:p61:c2:8815aa023745",
+        "ms_esavi_4ed:p92:c3:2d39b426f788"
+      ],
+      "ref2-cal-0009": [
+        "ms_manual_normas_2024:p98:c3:588ad1212a93",
+        "ms_esavi_4ed:p260:c4:71e4ea562ce5",
+        "ms_esavi_4ed:p67:c3:df4ac784d136",
+        "ms_calendario_2026:p51:c4:0a786774cba5",
+        "ms_crie_2023:p35:c2:5ffe87115673",
+        "ms_crie_2023:p132:c2:d4b9b3b7666a"
+      ],
+      "ref2-cal-0010": [
+        "ms_nt21_sarampo_dose_zero_2026:p1:c3:574876a22273",
+        "ms_crie_2023:p145:c3:0ef56678799e",
+        "anvisa_vacinas_nao_experimentais_2026:p1:c1:6a180ce787eb",
+        "measles_age_effect_meta_2020:p1:c1:d2e84df26f6d",
+        "rmdopen_aiird_vaccination_review_2019:p1:c34:42c2305f3c97",
+        "ms_esavi_4ed:p73:c1:780028309a69"
+      ],
+      "ref2-cal-0011": [
+        "ms_manual_normas_2024:p98:c3:588ad1212a93",
+        "ms_esavi_4ed:p228:c3:a88d94ee8fbd",
+        "anvisa_pfizer_5_11_ppam_2021:p51:c2:9e175d516e82",
+        "ms_calendario_2026:p39:c1:ccc7c2c45987",
+        "ms_manual_normas_2024:p72:c3:e9886c5d1fd0",
+        "conitec_vsr_975_2025:p24:c1:981247f62568"
+      ],
+      "ref2-cal-0013": [
+        "jvacx_hpv_one_dose_review_2024:p1:c3:c4d75a582746",
+        "ms_escolas_2025:p9:c1:e1ad7608d529",
+        "anvisa_pfizer_5_11_ppam_2021:p28:c3:d6131e8e4912",
+        "jvacx_hpv_one_dose_review_2024:p1:c31:586edee1c5b5",
+        "ms_manual_normas_2024:p216:c2:ce19a33ff1e5",
+        "jvacx_hpv_one_dose_review_2024:p1:c47:88e49539f47e"
+      ],
+      "ref2-cal-0014": [
+        "jvacx_hpv_one_dose_review_2024:p1:c48:e069a030587f",
+        "jvacx_hpv_one_dose_review_2024:p1:c51:0cf090a030b5",
+        "jvacx_hpv_one_dose_review_2024:p1:c55:9d33a72fe449",
+        "ms_calendario_2026:p47:c1:89ad71a76812",
+        "jvacx_hpv_one_dose_review_2024:p1:c1:304d9d4a8ac0",
+        "jvacx_hpv_one_dose_review_2024:p1:c54:13cd6e793dba"
+      ],
+      "ref2-cal-0015": [
+        "jvacx_hpv_one_dose_review_2024:p1:c3:c4d75a582746",
+        "ms_crie_2023:p113:c2:0221febc18e2",
+        "ms_hpv:p1:c8:3897b20062b0",
+        "vaccines_hpv_autoimmune_meta_2025:p10:c5:316ff09b4d01",
+        "rmdopen_aiird_vaccination_review_2019:p1:c100:eb2a7e01b439",
+        "ms_hpv:p1:c5:d2c96edbaf75"
+      ],
+      "ref2-cal-0017": [
+        "paho_meningococcal_impact_review_2017:p1:c4:e0edfedc93b4",
+        "ms_crie_2023:p34:c1:a857c21400c4",
+        "ms_crie_2023:p130:c3:26a15d5fe767",
+        "paho_meningococcal_impact_review_2017:p1:c6:a47cbee13391",
+        "ms_crie_2023:p126:c4:620c53502f76",
+        "paho_meningococcal_impact_review_2017:p1:c21:0597ea403a31"
+      ],
+      "ref2-cal-0018": [
+        "paho_meningococcal_impact_review_2017:p1:c20:4dce91e5dadb",
+        "bmj_aluminium_adjuvants_2026:p1:c47:b15627b4c1d0",
+        "rmv_influenza_enhanced_review_2025:p1:c37:d14eed7228b2",
+        "ms_esavi_4ed:p185:c2:37a785e16b8a",
+        "paho_meningococcal_impact_review_2017:p1:c1:b608a6576f37",
+        "ms_crie_2023:p132:c3:9ee488a2e35c"
+      ],
+      "ref2-cal-0019": [
+        "paho_meningococcal_impact_review_2017:p1:c4:e0edfedc93b4",
+        "ms_manual_normas_2024:p93:c3:10a899624891",
+        "paho_meningococcal_impact_review_2017:p1:c44:6a9d55ded7f7",
+        "ms_crie_2023:p126:c4:620c53502f76",
+        "who_como_vacinas_funcionam:p1:c6:a5cdd716d308",
+        "paho_meningococcal_impact_review_2017:p1:c2:95c4ac863616"
+      ],
+      "ref2-cal-0021": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c35:0f775d5dce8d",
+        "ms_crie_2023:p132:c4:5bae9a0218c5",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c4:cf667c3c43db",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c37:9fd4e5f52916",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b",
+        "ms_crie_2023:p131:c2:70d81a7c826b"
+      ],
+      "ref2-cal-0022": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c37:9fd4e5f52916",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c4:cf667c3c43db",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c26:c9446c3d8504",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c36:667a160c3ecd",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c32:150dea0c0fd6"
+      ],
+      "ref2-cal-0023": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c37:9fd4e5f52916",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c35:0f775d5dce8d",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c4:cf667c3c43db",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c33:7aa75ef177d7",
+        "rmdopen_aiird_vaccination_review_2019:p1:c37:58b7477aecf0",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b"
+      ],
+      "ref2-cal-0025": [
+        "rmv_influenza_enhanced_review_2025:p1:c43:e9b888005771",
+        "ms_guia_dengue_butantan_2026:p20:c3:9a7a34edee0f",
+        "ms_esavi_4ed:p179:c1:9a054e89e76d",
+        "rmv_influenza_enhanced_review_2025:p1:c37:d14eed7228b2",
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "rmv_influenza_enhanced_review_2025:p1:c27:c75ed69ecea0"
+      ],
+      "ref2-cal-0026": [
+        "rmv_influenza_enhanced_review_2025:p1:c37:d14eed7228b2",
+        "ms_esavi_4ed:p184:c2:1e6c028ee9b3",
+        "ms_crie_2023:p13:c2:1c44fcdde2a1",
+        "rmv_influenza_enhanced_review_2025:p1:c8:2a897eff6de1",
+        "rmv_influenza_enhanced_review_2025:p1:c22:c43f6ba31602",
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94"
+      ],
+      "ref2-cal-0027": [
+        "lancet_repeated_influenza_meta_2022:p1:c31:6925587593bd",
+        "rmv_influenza_enhanced_review_2025:p1:c43:e9b888005771",
+        "ms_crie_2023:p121:c4:a402eb8d12ae",
+        "lancet_repeated_influenza_meta_2022:p1:c7:c955748f61e6",
+        "rmv_influenza_enhanced_review_2025:p1:c4:9cc0357eedf9",
+        "lancet_repeated_influenza_meta_2022:p1:c45:07ce7583bee3"
+      ],
+      "ref2-cal-0029": [
+        "vaccines_autoimmune_disorders_meta_2021:p1:c2:aab20eccd228",
+        "who_como_vacinas_funcionam:p1:c6:a5cdd716d308",
+        "vaccines_hpv_autoimmune_meta_2025:p9:c5:a026c1dbf592",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c26:c213912ae914",
+        "bmjopen_mrna_myocarditis_meta_2023:p1:c41:0aabffa4f1ad",
+        "springer_covid_pregnancy_lsr_2024:p3:c6:876b122a06e1"
+      ],
+      "ref2-cal-0030": [
+        "vaccines_autoimmune_disorders_meta_2021:p1:c2:aab20eccd228",
+        "who_como_vacinas_funcionam:p1:c5:d6ebab3149f2",
+        "einstein_measles_amazon_spatiotemporal_2024:p1:c13:8c157404e8b8",
+        "vaccines_hpv_autoimmune_meta_2025:p10:c5:316ff09b4d01",
+        "vaccines_hpv_autoimmune_meta_2025:p11:c3:a18f06a83806",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c19:783645f6b31e"
+      ],
+      "ref2-cal-0031": [
+        "vaccines_hpv_autoimmune_meta_2025:p10:c5:316ff09b4d01",
+        "ms_manual_normas_2024:p212:c3:921b477c61fb",
+        "ms_crie_2023:p33:c4:69235a7c16cd",
+        "ms_guia_dengue_butantan_2026:p20:c3:9a7a34edee0f",
+        "bmj_aluminium_adjuvants_2026:p1:c47:b15627b4c1d0",
+        "ms_esavi_4ed:p164:c1:6d35921cdf3c"
+      ],
+      "ref2-cal-0033": [
+        "springer_covid_pregnancy_lsr_2024:p1:c1:e584551e7164",
+        "ms_esavi_4ed:p136:c2:f8f8c73bf8a8",
+        "springer_covid_pregnancy_lsr_2024:p15:c2:084f2fc41af4",
+        "springer_covid_pregnancy_lsr_2024:p15:c4:9b55657846bb",
+        "springer_covid_pregnancy_lsr_2024:p15:c6:a09a49de1eb3",
+        "springer_covid_pregnancy_lsr_2024:p16:c6:8f0868fc0702"
+      ],
+      "ref2-cal-0034": [
+        "springer_covid_pregnancy_lsr_2024:p19:c6:4f001920ca63",
+        "ms_manual_normas_2024:p144:c1:04b5ec32d9f7",
+        "ms_dengue_seguranca_2025:p13:c5:0279a00812a4",
+        "ms_covid_esavi:p34:c3:a5866432e654",
+        "springer_covid_pregnancy_lsr_2024:p12:c6:d6b8cc609c29",
+        "vaccine_covid_fertility_meta_2022:p1:c24:16506938c908"
+      ],
+      "ref2-cal-0035": [
+        "bmjgh_maternal_vaccines_rct_review_2023:p1:c5:348277be8ed7",
+        "ms_calendario_2026:p54:c4:68fa590cd1a5",
+        "springer_covid_pregnancy_lsr_2024:p15:c6:a09a49de1eb3",
+        "springer_covid_pregnancy_lsr_2024:p12:c1:194a299acdf0",
+        "vaccines_pertussis_pregnancy_meta_2025:p1:c20:408c427ee8f1",
+        "conitec_vsr_975_2025:p32:c1:143b27d0c2d8"
+      ],
+      "ref2-cal-0037": [
+        "vaccine_misinformation_communication_review_2023:p1:c58:650b0427266c",
+        "vaccine_misinformation_communication_review_2023:p1:c50:86ee8d0fed6a",
+        "vaccine_misinformation_communication_review_2023:p1:c54:25efde957e81",
+        "vaccine_misinformation_communication_review_2023:p1:c61:1cc5357e7df1",
+        "ms_microplanejamento_2025:p47:c4:be5ba6b4c51f",
+        "vaccine_misinformation_communication_review_2023:p1:c6:90d68b779ba1"
+      ],
+      "ref2-cal-0038": [
+        "vaccine_misinformation_communication_review_2023:p1:c58:650b0427266c",
+        "ms_manual_normas_2024:p73:c1:92e779fe7511",
+        "ms_escolas_2025:p13:c1:0a44967f5095",
+        "who_autism_evidence_review_2026:p15:c1:598d2a764146",
+        "ms_operacao_gota_2026:p39:c1:bb389b73784a",
+        "vaccine_misinformation_communication_review_2023:p1:c49:4bb2a224bc20"
+      ],
+      "ref2-cal-0039": [
+        "vaccine_misinformation_communication_review_2023:p1:c53:3e58573fefd4",
+        "ms_multivacinacao_2026:p21:c3:091a02adfada",
+        "vaccine_misinformation_communication_review_2023:p1:c16:ba808c953b4c",
+        "vaccine_misinformation_communication_review_2023:p1:c63:f3ec72c97175",
+        "vaccine_misinformation_communication_review_2023:p1:c37:43240d5682f9",
+        "ms_microplanejamento_2025:p47:c4:be5ba6b4c51f"
+      ],
+      "ref2-cal-0041": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c93:8b286d9f6333",
+        "ms_manual_normas_2024:p271:c1:1a2d9ef3f5ce",
+        "npj_aluminum_adjuvants_review_2018:p1:c68:c3ff09381aef",
+        "ms_esavi_4ed:p333:c1:e8264b773fe2",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2",
+        "sttt_vaccine_adjuvants_review_2023:p1:c24:9ec6362670af"
+      ],
+      "ref2-cal-0042": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c50:245211190e23",
+        "ms_crie_2023:p170:c1:9b643752d03c",
+        "ms_esavi_4ed:p66:c2:fab10492f133",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2",
+        "ms_covid_esavi:p31:c1:7e6a53ed28e3",
+        "ms_esavi_4ed:p333:c1:e8264b773fe2"
+      ],
+      "ref2-cal-0043": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c6:e4af4f6221a3",
+        "sttt_vaccine_adjuvants_review_2023:p1:c50:245211190e23",
+        "npj_aluminum_adjuvants_review_2018:p1:c52:3771aa036af6",
+        "npj_aluminum_adjuvants_review_2018:p1:c37:9dea43a54756",
+        "ms_esavi_4ed:p333:c1:e8264b773fe2",
+        "npj_aluminum_adjuvants_review_2018:p1:c3:87e8b0022b8a"
+      ],
+      "ref2-cal-0045": [
+        "plos_pertussis_waning_meta_2018:p1:c26:c3ae40abeb88",
+        "ms_calendario_2026:p15:c1:4671c41d0401",
+        "ms_manual_normas_2024:p44:c3:bacd8c5579ba",
+        "ms_crie_2023:p87:c2:fe515dbff548",
+        "ms_crie_2023:p121:c4:a402eb8d12ae",
+        "ms_operacao_gota_2026:p13:c3:9483b9ba0024"
+      ],
+      "ref2-cal-0046": [
+        "ms_crie_2023:p88:c3:70300a332233",
+        "ms_crie_2023:p145:c4:cf6fe2f67ae2",
+        "ms_calendario_2026:p15:c1:4671c41d0401",
+        "plos_pertussis_waning_meta_2018:p1:c26:c3ae40abeb88",
+        "jkms_varicella_effectiveness_meta_2025:p1:c21:eba8ee6495b4",
+        "paho_meningococcal_impact_review_2017:p1:c41:1c364d78e417"
+      ],
+      "ref2-cal-0047": [
+        "ms_operacao_gota_2026:p13:c3:9483b9ba0024",
+        "ms_manual_normas_2024:p193:c3:6972e94b3249",
+        "plos_pertussis_waning_meta_2018:p1:c6:5ef45c5cf84e",
+        "cid_yellow_fever_duration_meta_2022:p1:c22:d3ef00d95db4",
+        "anvisa_pfizer_5_11_ppam_2021:p38:c4:68a6ddc26248",
+        "ms_manual_normas_2024:p217:c3:e545ea121f01"
+      ]
+    }
+  }
+}
