@@ -49,6 +49,13 @@ configurações testadas satisfez todos os gates pré-registrados. O holdout v2 
 criado, evitando seu uso indevido na seleção de arquitetura. A comparação e o
 critério de parada estão em `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.
 
+Uma linha v3 posterior combinou roteamento por forma da alegação e seleção
+hierárquica de citações. Na calibração exploratória nova, a candidata obteve
+macro-F1 0,725, recall `MISLEADING` 0,417, precisão de abstenção 0,750 e citação
+exata 0,722, passando os sete gates. A configuração está congelada, mas ainda não
+foi confirmada em dados independentes e não substitui a v1 no bot. Consulte
+`evaluation/refinement_v3/README.md`.
+
 O adaptador Telegram foi testado com um bot real. Texto, imagem textual e link HTTPS
 convergem para a mesma pipeline; OCR, download com proteção contra SSRF e extração de
 HTML/PDF foram validados na Fase 4. O caminho real usa BGE-M3 e informa
@@ -104,6 +111,7 @@ entregue ao bot.
 - `docs/FINAL_CONFIGURATION_GATE.md` — decisão registrada antes da abertura do teste.
 - `evaluation/results/test/FINAL_TEST_REPORT.md` — resultado definitivo e limitações.
 - `evaluation/refinement_v2/CONSOLIDATION_REPORT.md` — síntese e encerramento do refinamento v2.
+- `evaluation/refinement_v3/README.md` — candidata v3, resultados e limite confirmatório.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.
