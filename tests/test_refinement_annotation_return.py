@@ -12,7 +12,10 @@ from immunocheck.evaluation.annotation_agreement import (
     compute_annotation_agreement,
     load_annotation_responses,
 )
-from immunocheck.evaluation.end_to_end import load_end_to_end_items
+from immunocheck.evaluation.end_to_end import (
+    load_end_to_end_items,
+    serialize_end_to_end_items,
+)
 from immunocheck.evaluation.refinement_annotation_return import (
     HUMAN_ATTESTATIONS,
     inspect_refinement_annotation_return,
@@ -142,7 +145,7 @@ def test_published_attempt_002_is_bound_and_pending_only_claim_correction() -> N
     assert inspection.agreement["cohens_kappa"] == 2 / 3
 
 
-def test_technical_dossier_covers_final_disagreements_without_decisions() -> None:
+def test_technical_dossier_records_completed_human_decisions() -> None:
     independent = BASE / "independent_review"
     receipt = json.loads(
         (independent / "attempts" / "attempt_002_receipt.json").read_text(encoding="utf-8")
@@ -167,8 +170,10 @@ def test_technical_dossier_covers_final_disagreements_without_decisions() -> Non
     assert audit["source_correction_sha256"] == correction_receipt["source_normalized_sha256"]
     assert audit["pending_task_ids"] == []
     assert audit["pre_adjudication_agreement"]["cohens_kappa"] == 0.75
-    assert audit["human_final_decisions"] == audit["pipeline_predictions_loaded"] == 0
-    assert audit["dataset_changed"] is False
+    assert audit["human_final_decisions"] == 3
+    assert audit["pipeline_predictions_loaded"] == 0
+    assert audit["primary_snapshot_changed"] is False
+    assert audit["adjudicated_snapshot_created"] is True
     for recommendation in audit["recommendations"]:
         selected = mapping[recommendation["task_id"]]
         assert recommendation["item_id"] == selected["item_id"]
@@ -247,3 +252,29 @@ def test_published_accepted_round_and_adjudication_package_are_bound() -> None:
         path = independent / entry["path"]
         normalized = path.read_bytes().replace(b"\r\n", b"\n")
         assert hashlib.sha256(normalized).hexdigest() == entry["sha256"]
+
+
+def test_published_adjudication_snapshot_preserves_primary_and_applies_ledger() -> None:
+    independent = BASE / "independent_review"
+    receipt = json.loads(
+        (independent / "adjudication" / "adjudication_receipt.json").read_text(encoding="utf-8")
+    )
+    primary = load_end_to_end_items(BASE / "reviewed_items.jsonl", require_reviewed=True)
+    adjudicated = load_end_to_end_items(BASE / "adjudicated_items.jsonl", require_reviewed=True)
+    primary_by_id = {item.item_id: item for item in primary}
+
+    assert len(adjudicated) == 48
+    assert sum(item.second_reviewer is not None for item in adjudicated) == 16
+    assert sum(item.adjudicator is not None for item in adjudicated) == 3
+    assert {item.adjudicator for item in adjudicated if item.adjudicator} == {"project_author"}
+    assert all(item.label is primary_by_id[item.item_id].label for item in adjudicated)
+    assert all(item.claim == primary_by_id[item.item_id].claim for item in adjudicated)
+    assert receipt["primary_snapshot_changed"] is False
+    assert receipt["excluded_item_ids"] == []
+    assert (
+        receipt["adjudicated_snapshot_sha256"]
+        == hashlib.sha256(serialize_end_to_end_items(adjudicated).encode("utf-8")).hexdigest()
+    )
+    decision_path = independent / receipt["decision_file"]
+    normalized = decision_path.read_bytes().replace(b"\r\n", b"\n")
+    assert receipt["decision_file_sha256"] == hashlib.sha256(normalized).hexdigest()

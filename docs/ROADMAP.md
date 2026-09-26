@@ -433,3 +433,10 @@ com o primeiro rótulo. A segunda anotação independente foi aceita e arquivada
 hash. A concordância final antes da adjudicação é 13/16 (81,25%), com kappa de Cohen
 0,75; restam apenas as divergências 003, 011 e 012. Um pacote único com as três
 decisões foi preparado, sem executar a pipeline, alterar o snapshot ou criar holdout.
+
+Adjudicação concluída em 26/09/2026: o autor aprovou em lote as três recomendações
+do pacote técnico. As tarefas 003 e 011 permaneceram `MISLEADING`, e a tarefa 012
+permaneceu `INSUFFICIENT_EVIDENCE`; nenhum rótulo primário foi alterado. Um snapshot
+separado registra as 16 segundas anotações e as três decisões, mantendo o snapshot
+primário intacto. A calibração v2 está pronta para as três condições pré-registradas;
+o holdout continua inexistente e nenhuma inferência havia sido executada nesse marco.

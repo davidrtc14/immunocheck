@@ -20,7 +20,8 @@ resultados.
 - a segunda anotação cega balanceada de 16 itens foi aceita após uma correção
   pontual do texto original da tarefa 010;
 - a concordância pré-adjudicação foi 13/16 (81,25%), com kappa de Cohen 0,75;
-- três divergências estão reunidas em um único pacote de adjudicação humana;
+- as três divergências foram adjudicadas em lote, preservando os rótulos primários;
+- o snapshot `calibration/adjudicated_items.jsonl` está pronto para o experimento;
 - nenhum holdout v2 foi criado ou aberto.
 
 O desenho em matriz por família testa distinções difíceis dentro do mesmo assunto.
@@ -64,10 +65,11 @@ Em 24/09/2026, o mesmo revisor classificou o texto original exato da tarefa 010 
 `INSUFFICIENT_EVIDENCE`, em concordância com o primeiro rótulo. A rodada foi então
 aceita com 13/16 concordâncias (81,25%; kappa 0,75) e três divergências.
 
-As três divergências receberam auditoria técnica e estão reunidas em
-`calibration/independent_review/adjudication/TASKS.md`. As recomendações favorecem
-`MISLEADING` nas tarefas 003 e 011 e `INSUFFICIENT_EVIDENCE` na tarefa 012. Elas não
-são decisões humanas finais e ainda não alteraram o snapshot de calibração.
+As três divergências receberam auditoria técnica e foram aprovadas em lote pelo
+autor em 26/09/2026. A decisão final manteve `MISLEADING` nas tarefas 003 e 011 e
+`INSUFFICIENT_EVIDENCE` na tarefa 012. O snapshot adjudicado preserva os 48 rótulos
+primários, registra 16 segundas anotações e três decisões de adjudicação. Nenhuma
+inferência da pipeline foi executada até esse marco.
 
 O holdout de 32 itens só será construído depois que a candidata for escolhida e
 congelada. Criá-lo agora permitiria que seu conteúdo influenciasse a implementação.

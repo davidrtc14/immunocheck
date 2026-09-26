@@ -23,7 +23,9 @@
   "accepted_response_count": 16,
   "pre_adjudication_agreement": 0.8125,
   "pre_adjudication_cohens_kappa": 0.75,
-  "adjudication_completed": false,
+  "adjudication_completed": true,
+  "adjudication_completed_at": "2026-09-26",
+  "adjudicated_snapshot_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
   "mapping": [
     {
       "task_id": "ref2-annotation-001",

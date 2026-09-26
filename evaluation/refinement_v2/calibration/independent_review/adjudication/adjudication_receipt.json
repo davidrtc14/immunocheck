@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "purpose": "refinement_v2_completed_human_adjudication",
+  "completed_at": "2026-09-26",
+  "approval_source": "explicit_project_author_approval",
+  "adjudicator_codes": [
+    "project_author"
+  ],
+  "decision_count": 3,
+  "decision_file": "adjudication/DECISIONS_2026-09-26.md",
+  "decision_file_sha256": "f95fe3165c0a020bd06863c02d55e794d2b30dc781c530bfa7e3ee89cced6db5",
+  "primary_snapshot_sha256": "d6b3836001b32cc01b4fcc346fad5c78dc31eaca70f3877f952657cadd43c7f5",
+  "adjudicated_snapshot_path": "adjudicated_items.jsonl",
+  "adjudicated_snapshot_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+  "secondary_reviewed_items": 16,
+  "adjudicated_items": 3,
+  "pre_adjudication_agreement": {
+    "total": 16,
+    "agreement_count": 13,
+    "disagreement_count": 3,
+    "disagreement_task_ids": [
+      "ref2-annotation-003",
+      "ref2-annotation-011",
+      "ref2-annotation-012"
+    ],
+    "observed_agreement": 0.8125,
+    "expected_agreement": 0.25,
+    "cohens_kappa": 0.75,
+    "primary_counts": {
+      "SUPPORTED": 4,
+      "REFUTED": 4,
+      "MISLEADING": 4,
+      "INSUFFICIENT_EVIDENCE": 4
+    },
+    "second_counts": {
+      "SUPPORTED": 4,
+      "REFUTED": 6,
+      "MISLEADING": 3,
+      "INSUFFICIENT_EVIDENCE": 3
+    },
+    "matrix_primary_rows_second_columns": {
+      "SUPPORTED": {
+        "SUPPORTED": 4,
+        "REFUTED": 0,
+        "MISLEADING": 0,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "REFUTED": {
+        "SUPPORTED": 0,
+        "REFUTED": 4,
+        "MISLEADING": 0,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "MISLEADING": {
+        "SUPPORTED": 0,
+        "REFUTED": 2,
+        "MISLEADING": 2,
+        "INSUFFICIENT_EVIDENCE": 0
+      },
+      "INSUFFICIENT_EVIDENCE": {
+        "SUPPORTED": 0,
+        "REFUTED": 0,
+        "MISLEADING": 1,
+        "INSUFFICIENT_EVIDENCE": 3
+      }
+    },
+    "adjudication_applied": false
+  },
+  "final_labels": {
+    "ref2-annotation-003": "MISLEADING",
+    "ref2-annotation-011": "MISLEADING",
+    "ref2-annotation-012": "INSUFFICIENT_EVIDENCE"
+  },
+  "excluded_item_ids": [],
+  "primary_snapshot_changed": false,
+  "holdout_created": false,
+  "pipeline_predictions_loaded": 0
+}

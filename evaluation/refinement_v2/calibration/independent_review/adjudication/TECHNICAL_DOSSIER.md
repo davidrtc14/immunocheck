@@ -1,6 +1,6 @@
 # Dossiê técnico pré-adjudicação
 
-Estado: **pacote técnico completo, sem decisão humana final**.
+Estado: **adjudicação humana concluída em 26/09/2026**.
 
 Este documento analisa os três desacordos remanescentes da devolução de `rv0067`.
 A correção da tarefa 010 preservou o texto original e passou a concordar com o
@@ -62,13 +62,14 @@ reforço aplicada nele não produziu imunidade.
   Classificar como enganoso presumiria como verdadeira uma parte factual do caso que
   não foi documentada.
 
-## Decisão humana pendente
+## Decisão humana registrada
 
-O pacote único `TASKS.md` apresenta estes desacordos, fontes e recomendações a um
-adjudicador humano. O adjudicador poderá manter um dos rótulos ou escolher outro,
-mas deverá justificar cada decisão. Até lá:
+O autor do projeto aprovou expressamente as três recomendações em lote. As decisões
+e justificativas estão preservadas em `DECISIONS_2026-09-26.md`, com o código interno
+`project_author`. O formulário original vazio permanece histórico. Resultado:
 
-- decisões finais: 0;
+- decisões finais: 3;
 - respostas secundárias arquivadas: 16;
-- itens incorporados ao snapshot: 0;
+- itens incorporados ao snapshot adjudicado: 16;
+- rótulos finais alterados em relação ao primário: 0;
 - inferências da pipeline na calibração: 0.

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "second_review_complete_adjudication_pending",
+  "status": "calibration_ready_experiment_pending",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -21,7 +21,7 @@
     "A identidade declarada do revisor não é certificada pelo software.",
     "A consulta direta às 12 fontes e o papel do revisor são declarações documentais, não certificações do software.",
     "A independência e a identidade declaradas do segundo revisor não são certificadas pelo software.",
-    "Três divergências aguardam decisão humana antes da incorporação ao snapshot.",
+    "A adjudicação foi aprovada pelo autor do projeto; competência e conferência declaradas não são certificadas pelo software.",
     "A matriz sintética por família pode criar atalhos de redação.",
     "O pacote de holdout v2 ainda não existe por desenho."
   ],
@@ -37,7 +37,7 @@
     "structural_only_family_count": 0
   },
   "second_review": {
-    "status": "accepted_pending_adjudication",
+    "status": "completed",
     "selected_items": 16,
     "selected_class_counts": {
       "INSUFFICIENT_EVIDENCE": 4,
@@ -92,7 +92,7 @@
     "cohens_kappa": 0.75
   },
   "adjudication": {
-    "status": "package_prepared_pending_human_decisions",
+    "status": "completed",
     "ready_disagreement_task_ids": [
       "ref2-annotation-003",
       "ref2-annotation-011",
@@ -100,7 +100,16 @@
     ],
     "pending_disagreement_task_ids": [],
     "technical_recommendation_count": 3,
-    "human_final_decision_count": 0,
-    "dataset_changed": false
-  }
+    "human_final_decision_count": 3,
+    "adjudicator_code": "project_author",
+    "completed_at": "2026-09-26",
+    "final_labels": {
+      "ref2-annotation-003": "MISLEADING",
+      "ref2-annotation-011": "MISLEADING",
+      "ref2-annotation-012": "INSUFFICIENT_EVIDENCE"
+    },
+    "primary_snapshot_changed": false,
+    "adjudicated_snapshot_created": true
+  },
+  "adjudicated_dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8"
 }

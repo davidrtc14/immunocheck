@@ -49,7 +49,15 @@ def main() -> int:
     if expected_status is DatasetStatus.DRAFT:
         print("Estado: rascunho; revisão humana ainda não incorporada")
     else:
-        print("Estado: primeira revisão incorporada; segunda revisão ainda pendente")
+        second_reviewed = sum(item.second_reviewer is not None for item in items)
+        adjudicated = sum(item.adjudicator is not None for item in items)
+        if second_reviewed:
+            print(
+                "Estado: revisão humana concluída; "
+                f"segunda revisão em {second_reviewed} itens e {adjudicated} adjudicações"
+            )
+        else:
+            print("Estado: primeira revisão incorporada; segunda revisão ainda pendente")
     return 0
 
 

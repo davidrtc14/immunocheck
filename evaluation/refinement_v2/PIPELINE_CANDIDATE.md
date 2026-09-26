@@ -39,8 +39,9 @@ citações e orientação médica individual, sem atuar como segundo classificad
 
 ## Estado experimental
 
-Esta implementação ainda não foi executada sobre os 48 itens candidatos. Os rótulos
-continuam sendo propostas do agente, pendentes de revisão humana. Não há alegação de
+Esta implementação ainda não foi executada sobre os 48 itens. A revisão humana da
+calibração foi concluída em 26/09/2026: todos têm revisão primária, 16 têm segunda
+anotação independente e as três divergências foram adjudicadas. Não há alegação de
 ganho de acurácia e a v1 não foi promovida, substituída ou reavaliada.
 
 O novo gate acrescenta uma chamada à LLM e pode elevar a latência. Qualidade,

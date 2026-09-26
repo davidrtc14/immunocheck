@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "prepared_at": "2026-09-24",
-  "status": "package_prepared_pending_human_decisions",
+  "status": "human_adjudication_completed",
   "source_return_sha256": "506cc428a9622f84278b5930a17723763a6c531d8848540e20f968e5022e862f",
   "source_correction_sha256": "fca749d1efebad4cc908dd343aefd97eaab5a300ea4b119d31bc6414e79b6c4b",
   "pre_adjudication_agreement": {
@@ -42,7 +42,11 @@
       "basis": "undocumented_individual_case_without_causal_investigation"
     }
   ],
-  "human_final_decisions": 0,
-  "dataset_changed": false,
+  "human_final_decisions": 3,
+  "adjudicator_code": "project_author",
+  "adjudicated_at": "2026-09-26",
+  "adjudicated_snapshot_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+  "primary_snapshot_changed": false,
+  "adjudicated_snapshot_created": true,
   "pipeline_predictions_loaded": 0
 }
