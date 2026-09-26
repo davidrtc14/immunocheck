@@ -39,13 +39,12 @@ citações e orientação médica individual, sem atuar como segundo classificad
 
 ## Estado experimental
 
-Esta implementação ainda não foi executada sobre os 48 itens. A revisão humana da
-calibração foi concluída em 26/09/2026: todos têm revisão primária, 16 têm segunda
-anotação independente e as três divergências foram adjudicadas. Não há alegação de
-ganho de acurácia e a v1 não foi promovida, substituída ou reavaliada.
+Esta implementação foi executada nos 48 itens adjudicados em 26/09/2026. A candidata
+sem auditor obteve macro-F1 0,373 contra 0,430 da v1, recall zero de `MISLEADING` e
+38 abstenções. Cinco dos sete gates falharam; por isso o auditor factual não foi
+executado e a candidata não foi promovida.
 
-O novo gate acrescenta uma chamada à LLM e pode elevar a latência. Qualidade,
-abstenção, regressões e custo só serão medidos depois da revisão do conjunto de
-calibração, sob os gates pré-registrados. O auditor factual já falhou quando testado
-isoladamente na v1; sua presença aqui é uma hipótese condicionada à separação dos
-estágios, não evidência de melhoria.
+O novo gate acrescentou uma chamada à LLM e elevou o P95 para 14,74 s, ainda dentro
+do limite de 20 s. Seu problema dominante foi semântico, não operacional: tratou
+como insuficientes 38 dos 48 itens e reduziu o recall de `REFUTED` em 0,50. Os
+artefatos completos estão em `evaluation/results/refinement_v2/`.

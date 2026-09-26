@@ -30,7 +30,7 @@
 | ADR-026 | Auditor restrito à fidelidade factual | Descartada | A v3 obteve macro-F1 0,405, recall zero de `MISLEADING` e delta pareado negativo contra a v2; falhou os gates pré-registrados. |
 | ADR-027 | BGE-M3 + auditor v2 como configuração definitiva da v1 | Aceita com limitação crítica | No teste único obteve macro-F1 0,416, recall de abstenção 0,750 e recall zero de `MISLEADING`; congela a prova de conceito, mas impede recomendação de implantação pública. |
 | ADR-028 | Congelar a v1 e abrir linha experimental v2 com dados novos | Aceita | Evita ajuste pós-teste: os 64 itens finais e os 96 itens já calibrados permanecem históricos; a v2 exige nova calibração e novo holdout. |
-| ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Em validação | No desenvolvimento antigo, o auditor corrigiu 12 decisões e degradou 19; a separação será testada em dados novos antes de qualquer promoção. |
+| ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Não promovida | Na calibração nova, a candidata teve macro-F1 0,373, delta de −0,057 contra a v1, recall zero de `MISLEADING` e 38/48 abstenções; falhou cinco dos sete gates. |
 
 ## Histórico de alterações
 
@@ -98,6 +98,13 @@
   classificador e falha de forma segura diante de IDs inválidos. Os builders da v1
   permanecem inalterados. A decisão continua em validação porque não houve execução
   sobre o novo conjunto nem demonstração de ganho.
+- **26/09/2026 — resultado da ADR-029:** após revisão primária, segunda anotação
+  independente e adjudicação, as condições foram executadas nos 48 itens novos. A
+  v1 obteve macro-F1 0,430 e a candidata separada sem auditor, 0,373. O delta
+  pareado foi −0,057 (IC percentil por família de −0,157 a +0,053); a candidata
+  teve recall zero de `MISLEADING`, recall 0,083 de `REFUTED` e 38 abstenções.
+  Somente falha técnica e P95 passaram. A fase B com auditor factual não foi
+  executada e a candidata não será promovida.
 
 ## Política de alteração
 

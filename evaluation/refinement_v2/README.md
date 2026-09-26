@@ -21,7 +21,8 @@ resultados.
   pontual do texto original da tarefa 010;
 - a concordância pré-adjudicação foi 13/16 (81,25%), com kappa de Cohen 0,75;
 - as três divergências foram adjudicadas em lote, preservando os rótulos primários;
-- o snapshot `calibration/adjudicated_items.jsonl` está pronto para o experimento;
+- o snapshot `calibration/adjudicated_items.jsonl` foi executado na fase A;
+- a candidata separada falhou cinco dos sete gates e não foi promovida;
 - nenhum holdout v2 foi criado ou aberto.
 
 O desenho em matriz por família testa distinções difíceis dentro do mesmo assunto.
@@ -73,3 +74,12 @@ inferência da pipeline foi executada até esse marco.
 
 O holdout de 32 itens só será construído depois que a candidata for escolhida e
 congelada. Criá-lo agora permitiria que seu conteúdo influenciasse a implementação.
+
+## Resultado experimental da fase A
+
+A execução pareada de 26/09/2026 comparou a v1 densa com auditor e a candidata
+separada sem auditor. A v2 teve macro-F1 0,373 contra 0,430, recall zero de
+`MISLEADING`, recall 0,083 de `REFUTED` e 38/48 abstenções. Falharam os gates de
+ganho de macro-F1, `MISLEADING`, precisão de abstenção, citações e preservação de
+recall. A fase B com auditor factual não foi executada. Consulte
+`CALIBRATION_PHASE_A_RESULTS.md` para métricas e hashes.

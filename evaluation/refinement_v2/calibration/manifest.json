@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "calibration_ready_experiment_pending",
+  "status": "calibration_phase_a_failed_gates",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -111,5 +111,21 @@
     "primary_snapshot_changed": false,
     "adjudicated_snapshot_created": true
   },
-  "adjudicated_dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8"
+  "adjudicated_dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+  "experiment_phase_a": {
+    "completed_at": "2026-09-26",
+    "checkpoint_sha256": "6735a67e361c3e83cace85610275221f658c98db52877c333fb5df8dc041ce6b",
+    "report_sha256": "c047c2b5e0443e417ce6ede6668acbd5d4160421a5b994ac0aab9c90e8b2e3a3",
+    "items": 48,
+    "v1_test_items_loaded": 0,
+    "holdout_v2_items_loaded": 0,
+    "baseline_macro_f1": 0.43004385964912284,
+    "candidate_macro_f1": 0.37274725274725273,
+    "macro_f1_delta": -0.057296606901870106,
+    "candidate_misleading_recall": 0.0,
+    "passed_gates": 2,
+    "total_gates": 7,
+    "factual_auditor_executed": false,
+    "candidate_promoted": false
+  }
 }

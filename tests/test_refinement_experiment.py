@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -10,12 +13,16 @@ from immunocheck.evaluation.end_to_end import (
     DatasetStatus,
     EndToEndDatasetError,
     EndToEndItem,
+    load_end_to_end_items,
 )
 from immunocheck.evaluation.refinement_experiment import (
     REFINEMENT_CONDITIONS,
+    load_refinement_checkpoint,
     summarize_refinement_records,
     validate_refinement_checkpoint,
 )
+
+ROOT = Path(__file__).parents[1]
 
 
 def _items() -> tuple[EndToEndItem, ...]:
@@ -131,3 +138,37 @@ def test_checkpoint_rejects_changed_mapping_or_test_item() -> None:
     bad_record = {**records[0], "item_id": "outro"}
     with pytest.raises(EndToEndDatasetError, match="não corresponde"):
         validate_refinement_checkpoint((bad_record, *records[1:]), items)
+
+
+def test_published_phase_a_report_is_bound_and_reproducible() -> None:
+    results = ROOT / "evaluation" / "results" / "refinement_v2"
+    calibration = ROOT / "evaluation" / "refinement_v2" / "calibration"
+    checkpoint_path = results / "calibration_phase_a.jsonl"
+    report_path = results / "calibration_phase_a.json"
+    dataset_path = calibration / "adjudicated_items.jsonl"
+    manifest = json.loads((calibration / "manifest.json").read_text("utf-8"))
+    report = json.loads(report_path.read_text("utf-8"))
+    items = load_end_to_end_items(dataset_path, require_reviewed=True)
+    records = load_refinement_checkpoint(checkpoint_path)
+    recomputed = summarize_refinement_records(
+        records,
+        items,
+        bootstrap_resamples=2000,
+        seed=20260926,
+    )
+
+    assert report["summary"] == recomputed
+    assert report["v1_test_items_loaded"] == report["holdout_v2_items_loaded"] == 0
+    assert report["factual_auditor_executed"] is False
+    assert report["factual_auditor_next_step"] == "not_eligible_under_preregistered_gates"
+    assert sum(gate["passed"] for gate in report["summary"]["promotion_gates"].values()) == 2
+    phase = manifest["experiment_phase_a"]
+    assert phase["candidate_promoted"] is phase["factual_auditor_executed"] is False
+    assert (
+        phase["checkpoint_sha256"]
+        == hashlib.sha256(checkpoint_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    )
+    assert (
+        phase["report_sha256"]
+        == hashlib.sha256(report_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    )

@@ -446,3 +446,10 @@ da v1 e a candidata separada sem auditor serão comparadas nos mesmos 48 itens, 
 extração e retrieval denso top 6 compartilhados. O auditor factual só será executado
 se todos os sete gates já documentados forem satisfeitos. O script usa checkpoint
 incremental, bootstrap por família e bloqueia o teste v1 e o holdout v2.
+
+Fase A executada em 26/09/2026: a v1 obteve macro-F1 0,430 e a candidata separada
+sem auditor, 0,373 (delta −0,057; IC percentil por família −0,157 a +0,053). A
+candidata teve recall zero de `MISLEADING`, recall 0,083 de `REFUTED` e 38/48
+abstenções. Falhou cinco dos sete gates; apenas falha técnica zero e P95 de 14,74 s
+passaram. Conforme o plano congelado, a fase B com auditor factual não foi executada,
+o holdout continuou fechado e a candidata não foi promovida.
