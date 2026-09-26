@@ -128,6 +128,33 @@ def test_summary_blocks_auditor_when_candidate_does_not_improve() -> None:
     assert summary["factual_auditor_condition_eligible"] is False
 
 
+def test_summary_accepts_explicit_condition_pair() -> None:
+    items = _items()
+    conditions = ("baseline", "dense_top20")
+    records = tuple(
+        {
+            **record,
+            "conditions": {
+                conditions[0]: record["conditions"][REFINEMENT_CONDITIONS[0]],
+                conditions[1]: record["conditions"][REFINEMENT_CONDITIONS[1]],
+            },
+        }
+        for record in _records(items, perfect_candidate=True)
+    )
+
+    summary = summarize_refinement_records(
+        records,
+        items,
+        bootstrap_resamples=20,
+        seed=7,
+        conditions=conditions,
+    )
+
+    assert tuple(summary["systems"]) == conditions
+    assert summary["systems"][conditions[1]]["macro_f1"] == 1.0
+    assert summary["factual_auditor_condition_eligible"] is True
+
+
 def test_checkpoint_rejects_changed_mapping_or_test_item() -> None:
     items = _items()
     records = _records(items, perfect_candidate=True)

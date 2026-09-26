@@ -37,7 +37,10 @@ def load_refinement_checkpoint(path: Path) -> tuple[dict[str, object], ...]:
 
 
 def validate_refinement_checkpoint(
-    records: Sequence[Mapping[str, object]], items: Sequence[EndToEndItem]
+    records: Sequence[Mapping[str, object]],
+    items: Sequence[EndToEndItem],
+    *,
+    conditions: tuple[str, str] = REFINEMENT_CONDITIONS,
 ) -> None:
     if any(item.split is not DatasetSplit.DEVELOPMENT for item in items):
         raise EndToEndDatasetError("A calibração v2 aceita somente itens de desenvolvimento.")
@@ -50,10 +53,10 @@ def validate_refinement_checkpoint(
             or record.get("expected_label") != item.label.value
         ):
             raise EndToEndDatasetError("Checkpoint não corresponde à calibração adjudicada.")
-        conditions = record.get("conditions")
-        if not isinstance(conditions, dict) or tuple(conditions) != REFINEMENT_CONDITIONS:
+        conditions_value = record.get("conditions")
+        if not isinstance(conditions_value, dict) or tuple(conditions_value) != conditions:
             raise EndToEndDatasetError("Condições do checkpoint estão ausentes ou reordenadas.")
-        for condition in REFINEMENT_CONDITIONS:
+        for condition in conditions:
             _condition_record(record, condition)
 
 
@@ -63,8 +66,9 @@ def summarize_refinement_records(
     *,
     bootstrap_resamples: int = REFINEMENT_BOOTSTRAP_RESAMPLES,
     seed: int = REFINEMENT_BOOTSTRAP_SEED,
+    conditions: tuple[str, str] = REFINEMENT_CONDITIONS,
 ) -> dict[str, object]:
-    validate_refinement_checkpoint(records, items)
+    validate_refinement_checkpoint(records, items, conditions=conditions)
     if len(records) != len(items):
         raise EndToEndDatasetError("O resumo exige os 48 itens da calibração.")
     if bootstrap_resamples <= 0:
@@ -74,7 +78,7 @@ def summarize_refinement_records(
     item_by_id = {item.item_id: item for item in items}
     systems: dict[str, dict[str, object]] = {}
     predictions: dict[str, list[str]] = {}
-    for condition in REFINEMENT_CONDITIONS:
+    for condition in conditions:
         condition_records = [_condition_record(record, condition) for record in records]
         predicted = [str(record["verdict"]) for record in condition_records]
         predictions[condition] = predicted
@@ -89,10 +93,11 @@ def summarize_refinement_records(
         expected,
         predictions,
         families,
+        conditions=conditions,
         resamples=bootstrap_resamples,
         seed=seed,
     )
-    gates = _promotion_gates(systems)
+    gates = _promotion_gates(systems, conditions=conditions)
     extraction = [record.get("extraction") for record in records]
     if any(not isinstance(record, dict) for record in extraction):
         raise EndToEndDatasetError("Registro de extração ausente.")
@@ -116,9 +121,11 @@ def summarize_refinement_records(
     }
 
 
-def _promotion_gates(systems: Mapping[str, Mapping[str, object]]) -> dict[str, dict[str, object]]:
-    baseline = systems[REFINEMENT_CONDITIONS[0]]
-    candidate = systems[REFINEMENT_CONDITIONS[1]]
+def _promotion_gates(
+    systems: Mapping[str, Mapping[str, object]], *, conditions: tuple[str, str]
+) -> dict[str, dict[str, object]]:
+    baseline = systems[conditions[0]]
+    candidate = systems[conditions[1]]
     base_class = baseline["per_class"]
     candidate_class = candidate["per_class"]
     assert isinstance(base_class, dict) and isinstance(candidate_class, dict)
@@ -222,7 +229,7 @@ def _metrics(expected, predicted, records, items) -> dict[str, object]:
     }
 
 
-def _family_bootstrap(expected, predictions, families, *, resamples, seed):
+def _family_bootstrap(expected, predictions, families, *, conditions, resamples, seed):
     grouped: defaultdict[str, list[int]] = defaultdict(list)
     for index, family in enumerate(families):
         grouped[family].append(index)
@@ -235,8 +242,8 @@ def _family_bootstrap(expected, predictions, families, *, resamples, seed):
             index for family in rng.choices(unique, k=len(unique)) for index in grouped[family]
         ]
         reference = [expected[index] for index in indices]
-        baseline = [predictions[REFINEMENT_CONDITIONS[0]][index] for index in indices]
-        candidate = [predictions[REFINEMENT_CONDITIONS[1]][index] for index in indices]
+        baseline = [predictions[conditions[0]][index] for index in indices]
+        candidate = [predictions[conditions[1]][index] for index in indices]
         deltas.append(
             float(
                 f1_score(reference, candidate, labels=labels, average="macro", zero_division=0)
