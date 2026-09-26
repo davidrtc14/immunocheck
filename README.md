@@ -54,7 +54,8 @@ hierárquica de citações. Depois de passar os sete gates de calibração, a co
 foi congelada e executada uma única vez em 32 itens de oito famílias novas. Obteve
 macro-F1 0,846 contra 0,482 da v1, recall `MISLEADING` 0,625, precisão de abstenção
 1,000, citação exata 0,833, falha zero e P95 19,35 s, passando os oito gates. A v3
-está aprovada para integração controlada, mas ainda não substitui a v1 no bot. O
+foi integrada ao protótipo e agora é o padrão local do bot e da CLI. A v1 continua
+selecionável como reversão e comparação histórica. O
 gabarito teve curadoria do pesquisador com apoio de IA, sem validação clínica
 independente. Consulte `evaluation/refinement_v3/README.md`.
 
@@ -77,6 +78,9 @@ python scripts/build_dense_index.py --offline
 ollama pull qwen3:8b
 python -m immunocheck.cli "A alegação sobre vacinação que será verificada"
 ```
+
+O comando usa a v3. Para reproduzir o caminho histórico, acrescente
+`--pipeline-version v1` ou configure `PIPELINE_VERSION=v1` no `.env` local.
 
 O primeiro uso após carregar o computador é mais lento porque o modelo precisa ser
 levado à memória. Nenhuma entrada é persistida pelo protótipo nem enviada a uma LLM
@@ -114,6 +118,7 @@ entregue ao bot.
 - `evaluation/results/test/FINAL_TEST_REPORT.md` — resultado definitivo e limitações.
 - `evaluation/refinement_v2/CONSOLIDATION_REPORT.md` — síntese e encerramento do refinamento v2.
 - `evaluation/refinement_v3/README.md` — candidata v3 e confirmação documental.
+- `docs/V3_INTEGRATION.md` — integração, ensaio multimodal e limites de reprodução.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.

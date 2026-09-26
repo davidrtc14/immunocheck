@@ -16,13 +16,18 @@ Filtro de escopo e extração da alegação principal
    ↓
 Retrieval denso BGE-M3 sobre corpus versionado
    ↓
-Top 6 chunks deduplicados
+Top 15 chunks deduplicados
    ↓
-Teste de suficiência e conflito da evidência
+Roteamento pela forma da alegação
+   ├── proposição simples → decisão direta no top 6
+   ├── premissa-conclusão → decisão relacional no top 15
+   └── evento específico sem âncora → abstenção
    ↓
-Qwen3-8B local gera veredito estruturado
+Qwen3-8B local gera veredito estruturado em quatro classes
    ↓
-Validação de schema, citações, fidelidade e linguagem médica
+Seleção inicial de citações → expansão no documento → seleção final
+   ↓
+Validação de schema, IDs de fonte e linguagem médica
    ↓
 Resposta acessível + fontes verificáveis ou abstenção
 ```
@@ -31,6 +36,10 @@ O BM25 isolado foi o baseline da Fase 1. A avaliação formal da Fase 6 escolheu
 isolado para o caminho online. BM25, RRF e reranker permanecem disponíveis somente
 para ablação e diagnóstico; o reranker não converteu seu ganho de ranking em melhora
 fim a fim e duplicou a latência.
+
+Esse é o caminho v3 padrão. A pipeline v1 congelada, com top 6 e auditor de
+fidelidade, permanece selecionável para reprodução e reversão por
+`PIPELINE_VERSION=v1`; ela não é silenciosamente reescrita pela integração.
 
 ## Pipeline de ingestão
 
@@ -63,7 +72,7 @@ Documento aprovado
 - Ingestão: loaders, limpeza, chunking e catálogo do corpus.
 - Retrieval online: BGE-M3 denso. BM25, RRF e reranker permanecem disponíveis
   somente para reprodução e ablações offline.
-- Verificação: extração de alegação, suficiência, geração e fidelidade.
+- Verificação: extração, roteamento, geração especializada e citações hierárquicas.
 - Avaliação: datasets congelados, métricas, latência e relatórios.
 - Persistência: documentos, chunks, embeddings e dados experimentais curados.
 

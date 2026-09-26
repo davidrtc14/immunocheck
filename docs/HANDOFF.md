@@ -3,7 +3,7 @@
 Atualizado em 26/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
-## Ponto atual — v3 confirmada, integração ao protótipo ainda pendente
+## Ponto atual — v3 integrada ao protótipo local
 
 A Fase 8 foi concluída. A candidata v3 congelada combina retrieval BGE-M3 top 15,
 roteamento estrutural, especialistas direto/relacional e seleção hierárquica de
@@ -17,10 +17,12 @@ evidência documental, sem validação clínica independente. Não ajustar a can
 confirmada a partir dos cinco erros desse conjunto. Resultado completo em
 `evaluation/refinement_v3/confirmatory/RESULTS.md`.
 
-A próxima ação é a Fase 9: expor a v3 por builder opt-in, executar regressões de
-privacidade/formatação e medir texto, imagem e link no caminho real antes de mudar o
-bot. A v1 permanece ativa até essa integração; a aprovação experimental não é uma
-implantação pública.
+A Fase 9 foi concluída: a v3 é o padrão local do bot e da CLI, com a v1 preservada
+por `PIPELINE_VERSION=v1` ou `--pipeline-version v1`. A regressão teve 404 testes
+aprovados e um teste PostgreSQL opcional ignorado. O ensaio controlado aprovou texto,
+imagem, link e rejeição de vídeo; detalhes e limites estão em
+`docs/V3_INTEGRATION.md`. Ainda falta preencher o checklist ao vivo no ambiente da
+apresentação. A aprovação experimental não autoriza implantação pública.
 
 ## Histórico — prova de conceito v1
 

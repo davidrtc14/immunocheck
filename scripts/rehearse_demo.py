@@ -17,7 +17,7 @@ from typing import Any
 from PIL import Image, ImageDraw, ImageFont
 
 from immunocheck.application.content_normalizer import MultimodalNormalizer
-from immunocheck.bootstrap import build_multimodal_pipeline
+from immunocheck.bootstrap import build_configured_multimodal_pipeline
 from immunocheck.infrastructure.ocr import TesseractOCR
 from immunocheck.infrastructure.web_content import FetchedResource, SafeLinkTextExtractor
 from immunocheck.telegram import (
@@ -74,12 +74,15 @@ class DemoFetcher:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Ensaio local automatizado da demonstração.")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--pipeline-version", choices=("v1", "v3"), default="v1")
     args = parser.parse_args()
-    if args.output.exists():
+    output_path = args.output.resolve()
+    if output_path.exists():
         parser.error("O ensaio registrado já existe; use outro caminho para uma réplica.")
 
     final_test = json.loads(FINAL_TEST.read_text("utf-8"))
-    pipeline = build_multimodal_pipeline(
+    pipeline = build_configured_multimodal_pipeline(
+        pipeline_version=args.pipeline_version,
         model=str(final_test["model"]),
         top_k=int(final_test["configuration"]["top_k"]),
         retrieval_mode="dense",
@@ -158,6 +161,7 @@ def main() -> None:
     report = {
         "schema_version": 1,
         "purpose": "automated_local_demo_rehearsal_not_quality_evaluation",
+        "pipeline_version": args.pipeline_version,
         "executed_at": datetime.now(UTC).isoformat(),
         "current_commit": _git_head(),
         "final_quality_candidate_commit": final_test["candidate_commit"],
@@ -178,13 +182,13 @@ def main() -> None:
             "As saídas não foram avaliadas contra gabarito e não orientam ajustes pós-teste.",
         ],
     }
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open("w", encoding="utf-8", newline="\n") as output:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8", newline="\n") as output:
         json.dump(report, output, ensure_ascii=False, indent=2)
         output.write("\n")
     if not report["all_passed"]:
         raise SystemExit("O ensaio local encontrou uma falha estrutural.")
-    print(f"Ensaio aprovado e salvo em {args.output.relative_to(REPOSITORY)}")
+    print(f"Ensaio aprovado e salvo em {output_path.relative_to(REPOSITORY)}")
 
 
 def _run_case(

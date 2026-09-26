@@ -1,3 +1,5 @@
+import pytest
+
 from immunocheck.domain.models import FactCheckResult, SourceReference, Verdict
 from immunocheck.presentation import MEDICAL_DISCLAIMER, format_result
 
@@ -47,3 +49,26 @@ def test_formats_scope_notice_and_non_conclusive_sources() -> None:
 
     assert "ESCOPO: O conteúdo contém múltiplas alegações" in output
     assert "FONTES CONSULTADAS (não conclusivas):" in output
+
+
+@pytest.mark.parametrize(
+    ("verdict", "label"),
+    (
+        (Verdict.SUPPORTED, "SUSTENTADA"),
+        (Verdict.REFUTED, "REFUTADA"),
+        (Verdict.MISLEADING, "ENGANOSA"),
+        (Verdict.INSUFFICIENT_EVIDENCE, "EVIDÊNCIA INSUFICIENTE"),
+    ),
+)
+def test_formats_every_verdict_class(verdict: Verdict, label: str) -> None:
+    result = FactCheckResult(
+        verdict=verdict,
+        explanation="Explicação documental.",
+        claim="Alegação.",
+    )
+
+    output = format_result(result, elapsed_seconds=1.0)
+
+    assert f"VEREDITO: {label}" in output
+    assert "AVISO:" in output
+    assert "TEMPO TOTAL:" in output

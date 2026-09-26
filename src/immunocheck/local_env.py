@@ -10,6 +10,7 @@ ALLOWED_LOCAL_KEYS = frozenset(
         "TESSERACT_CMD",
         "OLLAMA_BASE_URL",
         "OLLAMA_MODEL",
+        "PIPELINE_VERSION",
         "RETRIEVAL_MODE",
         "LOG_LEVEL",
     }

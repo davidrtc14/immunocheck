@@ -11,7 +11,7 @@ from typing import Any, Protocol
 
 from immunocheck.application.content_normalizer import ContentExtractionError
 from immunocheck.application.text_components import ModelOutputError
-from immunocheck.bootstrap import build_multimodal_pipeline
+from immunocheck.bootstrap import build_configured_multimodal_pipeline
 from immunocheck.domain.input_policy import InputLimits, InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult
 from immunocheck.infrastructure.ocr import inspect_image
@@ -273,7 +273,7 @@ def main() -> int:
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     try:
         client = TelegramBotAPI(token=token, request_timeout_seconds=2.0)
-        pipeline = build_multimodal_pipeline()
+        pipeline = build_configured_multimodal_pipeline()
     except (ValueError, CorpusLoadError) as exc:
         print(f"Configuração inválida: {exc}", file=sys.stderr)
         return 2

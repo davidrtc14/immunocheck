@@ -43,6 +43,7 @@
 | ADR-039 | Congelar a candidata hierárquica v3 antes de construir dados confirmatórios | Aceita | Preserva código, prompts, modelo, corpus, índices e hashes após 7/7 gates, impedindo ajuste orientado pelo conjunto confirmatório. |
 | ADR-040 | Usar gabarito documental com curadoria do pesquisador apoiada por IA na confirmação v3 | Aceita com limitação declarada | Elimina a dependência inviável de revisor externo no prazo do TCC; rótulos e evidências são congelados antes da execução, sem alegar validação clínica, independência ou concordância entre anotadores. |
 | ADR-041 | Promover a candidata v3 para integração controlada ao protótipo | Aceita | Na confirmação nova, obteve macro-F1 0,846, ganho de 0,364 sobre a v1, recall `MISLEADING` 0,625, citação exata 0,833, falha zero e P95 19,35 s; passou 8/8 gates, sem abrir o teste histórico da v1. |
+| ADR-042 | Integrar a v3 por seleção explícita de versão, preservando a v1 | Aceita | A integração reutiliza sem alteração os componentes congelados, adiciona uma camada de orquestração testável e mantém `PIPELINE_VERSION=v1` como reversão; a v3 só se torna padrão do bot após regressão e ensaio multimodal local. |
 
 ## Histórico de alterações
 
@@ -228,6 +229,20 @@
   oito gates passaram. A configuração torna-se a referência para integração ao
   bot, mas a v1 em execução não é alterada por esta decisão e o resultado não
   sustenta implantação pública ou validação clínica.
+- **26/09/2026 — ADR-042:** a integração da candidata confirmada será feita por uma
+  nova camada de orquestração, sem editar os componentes e prompts congelados. O
+  caminho terá seleção explícita `v1`/`v3`, falha fechada para IDs de fonte inválidos
+  e referências sempre construídas a partir do corpus local. A v3 somente será
+  adotada como padrão do bot e da CLI depois de testes das quatro classes, controles
+  de privacidade e ensaio real de texto, imagem e link; a v1 continuará disponível
+  como reversão e comparação histórica.
+- **26/09/2026 — resultado da ADR-042:** a suíte geral aprovou 404 testes, e o
+  ensaio controlado aprovou texto, imagem, link e rejeição de vídeo. A v3 passa a ser
+  o padrão do bot e da CLI; a seleção explícita da v1 permanece disponível. As 32
+  consultas confirmatórias reproduziram exatamente o ranking top 15 registrado. A
+  divergência de serialização dos arquivos locais ignorados do índice está declarada
+  em `docs/V3_INTEGRATION.md` e impede alegação de identidade byte a byte, mas não
+  alterou os rankings observados nem motivou recalibração.
 
 ## Política de alteração
 

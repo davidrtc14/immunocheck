@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 
 from immunocheck.application.text_components import ModelOutputError
-from immunocheck.bootstrap import DEFAULT_CORPUS_PATH, build_text_pipeline
+from immunocheck.bootstrap import DEFAULT_CORPUS_PATH, build_configured_text_pipeline
 from immunocheck.domain.input_policy import InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission
 from immunocheck.infrastructure.ollama import OllamaError
@@ -23,7 +23,8 @@ def main(argv: list[str] | None = None) -> int:
 
     started_at = time.perf_counter()
     try:
-        pipeline = build_text_pipeline(
+        pipeline = build_configured_text_pipeline(
+            pipeline_version=args.pipeline_version,
             corpus_path=args.corpus,
             model=args.model,
             base_url=args.ollama_url,
@@ -49,6 +50,12 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("text", nargs="*", help="alegação textual a verificar")
     parser.add_argument("--model", default=None, help="modelo local configurado no Ollama")
     parser.add_argument(
+        "--pipeline-version",
+        choices=("v1", "v3"),
+        default=None,
+        help="pipeline local (padrão: PIPELINE_VERSION ou v3)",
+    )
+    parser.add_argument(
         "--ollama-url",
         default=None,
         help="URL local do Ollama (localhost ou endereço de loopback)",
@@ -59,7 +66,12 @@ def _build_parser() -> argparse.ArgumentParser:
         default=DEFAULT_CORPUS_PATH,
         help="arquivo JSONL produzido pela construção do corpus",
     )
-    parser.add_argument("--top-k", type=int, default=6, help="quantidade de evidências recuperadas")
+    parser.add_argument(
+        "--top-k",
+        type=int,
+        default=6,
+        help="quantidade de evidências recuperadas pela pipeline v1",
+    )
     return parser
 
 

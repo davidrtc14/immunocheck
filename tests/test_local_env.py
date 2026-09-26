@@ -13,6 +13,7 @@ def test_reads_only_allowed_values_without_expansion(tmp_path: Path) -> None:
         "# local\n"
         "TELEGRAM_BOT_TOKEN='123:token-seguro'\n"
         "OLLAMA_MODEL=qwen3:8b\n"
+        "PIPELINE_VERSION=v3\n"
         "UNKNOWN=$(comando-nao-executado)\n",
         "utf-8",
     )
@@ -22,6 +23,7 @@ def test_reads_only_allowed_values_without_expansion(tmp_path: Path) -> None:
     assert values == {
         "TELEGRAM_BOT_TOKEN": "123:token-seguro",
         "OLLAMA_MODEL": "qwen3:8b",
+        "PIPELINE_VERSION": "v3",
     }
 
 

@@ -524,10 +524,14 @@ revisão clínica independente. Essa limitação deve acompanhar qualquer result
 
 ## Fase 9 — Integração controlada da v3 ao protótipo
 
-- [ ] Expor a pipeline v3 por builder opt-in, preservando a v1 para comparação.
-- [ ] Executar testes de regressão, privacidade e formatação das quatro classes.
-- [ ] Medir texto, imagem e link no caminho real sem reutilizar o conjunto confirmatório.
-- [ ] Atualizar o bot local e o roteiro de demonstração somente após o preflight.
+- [x] Expor a pipeline v3 por builder opt-in, preservando a v1 para comparação.
+- [x] Executar testes de regressão, privacidade e formatação das quatro classes.
+- [x] Medir texto, imagem e link no caminho real sem reutilizar o conjunto confirmatório.
+- [x] Atualizar o bot local e o roteiro de demonstração somente após o preflight.
 
-**Ponto de partida:** a qualidade da v3 já foi confirmada e seus componentes estão
-congelados. A próxima fase é integração de software, não nova calibração.
+**Concluída em 26/09/2026:** a v3 foi integrada sem alterar os componentes
+congelados, passou a ser o padrão local e mantém a v1 como reversão explícita. A
+suíte teve 404 aprovações e uma integração PostgreSQL opcional ignorada; o ensaio
+controlado aprovou texto, imagem, link e rejeição de vídeo. Consulte
+`docs/V3_INTEGRATION.md`. O teste ao vivo com o bot real permanece uma preparação
+manual para a apresentação, não uma fase de desenvolvimento nem fonte de calibração.

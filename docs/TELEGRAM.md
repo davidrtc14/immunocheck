@@ -25,6 +25,10 @@ O corpus processado, o Ollama e o modelo configurado em `OLLAMA_MODEL` precisam 
 disponíveis antes da inicialização. O token nunca deve ser colocado em `.env.example`,
 commits, capturas de tela ou relatórios.
 
+`PIPELINE_VERSION=v3` é o padrão local confirmado. Use `PIPELINE_VERSION=v1`
+somente para reproduzir ou reverter temporariamente ao caminho histórico; a seleção
+não muda o corpus nem persiste interações.
+
 ## Comportamento
 
 - `/start`: apresenta finalidade, limite e aviso de privacidade;
@@ -57,6 +61,11 @@ logs.
 Os testes automatizados cobrem long polling, offset em memória, limite de mensagem,
 confirmação anterior à pipeline, comandos, imagem, link, sanitização de falhas e ausência
 do conteúdo em logs de erro.
+
+Em 26/09/2026, o ensaio controlado da v3 aprovou texto, imagem com OCR real, link
+extraído em memória e recusa de vídeo. Os tempos observados foram, respectivamente,
+19,29 s, 15,71 s, 13,03 s e menos de 1 ms para a recusa; esses valores não incluem a
+rede real do Telegram.
 
 O aceite operacional exige ainda um teste de fumaça com um bot real:
 

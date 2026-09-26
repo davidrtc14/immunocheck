@@ -7,6 +7,7 @@ import numpy as np
 import pytest
 
 from immunocheck import bootstrap
+from immunocheck.application.routed_pipeline import RoutedFactCheckPipeline
 from immunocheck.application.text_components import (
     GuardedFaithfulnessVerifier,
     LLMConclusiveVerdictGenerator,
@@ -131,3 +132,49 @@ def test_refinement_decision_components_are_separate_and_opt_in() -> None:
     assert isinstance(gate, LLMEvidenceSufficiencyAssessor)
     assert isinstance(generator, LLMConclusiveVerdictGenerator)
     assert isinstance(verifier, GuardedFaithfulnessVerifier)
+
+
+def test_pipeline_version_is_explicit_and_rejects_unknown_value(monkeypatch) -> None:
+    monkeypatch.setenv("PIPELINE_VERSION", "v3")
+
+    assert bootstrap._pipeline_version(None) == "v3"
+    assert bootstrap._pipeline_version("V1") == "v1"
+    with pytest.raises(ValueError, match="PIPELINE_VERSION"):
+        bootstrap._pipeline_version("experimental")
+
+
+def test_v3_is_default_but_v1_remains_available(monkeypatch) -> None:
+    monkeypatch.delenv("PIPELINE_VERSION", raising=False)
+
+    assert bootstrap._pipeline_version(None) == "v3"
+    assert bootstrap._pipeline_version("v1") == "v1"
+
+
+def test_configured_builder_dispatches_without_changing_legacy_builder(monkeypatch) -> None:
+    legacy = object()
+    routed = object()
+    monkeypatch.setattr(bootstrap, "build_text_pipeline", lambda **kwargs: legacy)
+    monkeypatch.setattr(bootstrap, "build_routed_text_pipeline", lambda **kwargs: routed)
+
+    assert bootstrap.build_configured_text_pipeline(pipeline_version="v1") is legacy
+    assert bootstrap.build_configured_text_pipeline(pipeline_version="v3") is routed
+
+
+def test_routed_builder_freezes_dense_top_fifteen(tmp_path: Path, monkeypatch) -> None:
+    corpus_path = tmp_path / "chunks.jsonl"
+    write_corpus(corpus_path)
+    captured: dict[str, object] = {}
+    retriever = object()
+
+    def fake_build_retriever(**kwargs):
+        captured.update(kwargs)
+        return retriever
+
+    monkeypatch.setattr(bootstrap, "_build_retriever", fake_build_retriever)
+
+    pipeline = bootstrap.build_routed_text_pipeline(corpus_path=corpus_path)
+
+    assert isinstance(pipeline, RoutedFactCheckPipeline)
+    assert pipeline.retriever is retriever
+    assert captured["top_k"] == 15
+    assert captured["retrieval_mode"] == "dense"

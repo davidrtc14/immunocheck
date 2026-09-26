@@ -25,6 +25,7 @@ falha sem copiar o conteúdo da mensagem ou identificadores.
 
 - [ ] Notificações pessoais ocultadas.
 - [ ] Ollama e `qwen3:8b` disponíveis.
+- [ ] `PIPELINE_VERSION=v3` ativo; `v1` conhecido como plano de reversão.
 - [ ] Tesseract disponível.
 - [ ] Terminal sem impressão do token.
 - [ ] Bot iniciado por `python -m immunocheck.telegram`.
