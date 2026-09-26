@@ -15,6 +15,7 @@ from immunocheck.application.text_components import (
     LLMConclusiveVerdictGenerator,
     LLMEvidenceSufficiencyAssessor,
     LLMFaithfulnessVerifier,
+    LLMRelationVerdictGenerator,
     LLMVerdictGenerator,
     ModelOutputError,
     TextNormalizer,
@@ -331,6 +332,87 @@ def test_conclusive_classifier_refuses_to_reopen_sufficiency_gate() -> None:
     with pytest.raises(ModelOutputError, match="reabrir o gate"):
         LLMConclusiveVerdictGenerator(client).generate(
             ExtractedClaim("Alegação", 0.9),
+            (EVIDENCE,),
+        )
+
+
+def test_relation_generator_abstains_for_uninvestigated_specific_event() -> None:
+    client = ScriptedClient(
+        [
+            {
+                "claim_scope": "SPECIFIC_EVENT",
+                "specific_event_investigated": False,
+                "premise_supported": False,
+                "material_overstatement": False,
+                "relation": "CONTRADICTED",
+                "explanation": "O trecho descreve apenas conhecimento geral.",
+                "source_refs": ["E1"],
+                "correct_fact": "O resultado geral é diferente.",
+                "omitted_or_distorted": None,
+            }
+        ]
+    )
+
+    draft = LLMRelationVerdictGenerator(client).generate(
+        ExtractedClaim("Uma pessoa teve reação causada pela vacina.", 0.9),
+        (EVIDENCE,),
+    )
+
+    assert draft.verdict is Verdict.INSUFFICIENT_EVIDENCE
+    assert draft.source_ids == (EVIDENCE.chunk_id,)
+    assert draft.correct_fact is None
+
+
+def test_relation_generator_preserves_partial_truth_as_misleading() -> None:
+    client = ScriptedClient(
+        [
+            {
+                "claim_scope": "GENERAL",
+                "specific_event_investigated": False,
+                "premise_supported": True,
+                "material_overstatement": True,
+                "relation": "CONTRADICTED",
+                "explanation": "Uma premissa correta foi generalizada além do recorte.",
+                "source_refs": ["E1"],
+                "correct_fact": "O trecho possui escopo restrito.",
+                "omitted_or_distorted": "O recorte restrito foi apresentado como universal.",
+            }
+        ]
+    )
+
+    draft = LLMRelationVerdictGenerator(client).generate(
+        ExtractedClaim("O resultado restrito vale para todos.", 0.9),
+        (EVIDENCE,),
+    )
+
+    assert draft.verdict is Verdict.MISLEADING
+    assert draft.correct_fact is None
+    assert draft.omitted_or_distorted is not None
+    prompt = json.loads(client.user_prompts[0])
+    assert prompt["evidence"][0]["ref"] == "E1"
+    assert EVIDENCE.chunk_id not in client.user_prompts[0]
+
+
+def test_relation_generator_rejects_unknown_reference() -> None:
+    client = ScriptedClient(
+        [
+            {
+                "claim_scope": "GENERAL",
+                "specific_event_investigated": False,
+                "premise_supported": False,
+                "material_overstatement": False,
+                "relation": "SUPPORTED",
+                "explanation": "A alegação é sustentada.",
+                "source_refs": ["E2"],
+                "correct_fact": None,
+                "omitted_or_distorted": None,
+            }
+        ]
+    )
+
+    with pytest.raises(ModelOutputError, match="não fornecida"):
+        LLMRelationVerdictGenerator(client).generate(
+            ExtractedClaim("A vacina está indicada.", 0.9),
             (EVIDENCE,),
         )
 
