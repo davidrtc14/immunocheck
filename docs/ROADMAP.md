@@ -510,7 +510,7 @@ acadêmica. Consulte `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.
 - [x] Seleção dedicada e expansão hierárquica de citações avaliadas.
 - [x] Sete gates de calibração satisfeitos sem abrir teste ou holdout.
 - [x] Congelamento formal de código, prompts, corpus e hashes da candidata.
-- [ ] Construção e revisão humana de conjunto confirmatório com famílias novas.
+- [x] Construção e curadoria documental de conjunto confirmatório com famílias novas.
 - [ ] Execução confirmatória única e decisão de promoção ou rejeição.
 
 **Estado em 26/09/2026:** a candidata roteada com citações hierárquicas obteve
@@ -519,3 +519,6 @@ exata 0,722, falha zero e P95 18,72 s nos 48 itens de calibração. Os sete gate
 passaram, mas o resultado é exploratório porque a arquitetura foi desenvolvida a
 partir dos erros desse conjunto. A candidata não substitui a v1 até uma confirmação
 única em dados novos, preparada somente após o congelamento formal.
+Por decisão metodológica proporcional ao prazo do TCC, a curadoria confirmatória é
+feita pelo pesquisador com apoio de IA e evidência rastreável, sem alegação de
+revisão clínica independente. Essa limitação deve acompanhar qualquer resultado.

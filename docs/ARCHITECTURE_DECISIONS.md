@@ -41,6 +41,7 @@
 | ADR-037 | Selecionar citações em estágio dedicado sem alterar o veredito roteado | Não promovida | Melhorou citação exata somente de 0,444 para 0,472 e elevou P95 para 16,47 s; o gate de 0,60 continuou falhando. |
 | ADR-038 | Expandir passagens nos documentos selecionados antes da citação final | Aprovada na calibração | Elevou citação exata para 0,722, preservou macro-F1 0,725 e completou 7/7 gates; ainda exige confirmação independente. |
 | ADR-039 | Congelar a candidata hierárquica v3 antes de construir dados confirmatórios | Aceita | Preserva código, prompts, modelo, corpus, índices e hashes após 7/7 gates, impedindo ajuste orientado pelo conjunto confirmatório. |
+| ADR-040 | Usar gabarito documental com curadoria do pesquisador apoiada por IA na confirmação v3 | Aceita com limitação declarada | Elimina a dependência inviável de revisor externo no prazo do TCC; rótulos e evidências são congelados antes da execução, sem alegar validação clínica, independência ou concordância entre anotadores. |
 
 ## Histórico de alterações
 
@@ -212,6 +213,13 @@
   hashes de código, corpus, índice e digest do Qwen3-8B. Ela permanece opt-in e fora
   do bot. A partir deste marco, qualquer alteração nesses componentes invalida sua
   elegibilidade para o conjunto confirmatório v3 e exige nova versão.
+- **26/09/2026 — ADR-040:** a exigência operacional de revisão humana externa do
+  conjunto confirmatório foi substituída por curadoria documental do pesquisador
+  com apoio de IA. Os 32 itens mantêm famílias inéditas, equilíbrio entre classes,
+  justificativa e IDs exatos de evidência definidos antes da execução. A opção reduz
+  atraso e é proporcional ao protótipo de graduação, mas deverá constar como
+  limitação: o conjunto não possui validação clínica independente nem medida de
+  concordância entre anotadores.
 
 ## Política de alteração
 

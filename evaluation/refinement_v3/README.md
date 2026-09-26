@@ -4,8 +4,8 @@
 
 A candidata roteada com seleção hierárquica de citações passou os sete gates de
 calibração em 26/09/2026 e foi formalmente congelada. Ela permanece experimental e
-fora do bot até uma avaliação confirmatória única em famílias novas e revisadas por
-humanos.
+fora do bot até uma avaliação confirmatória única em famílias novas com gabarito
+documental congelado.
 
 Resultado de calibração:
 
@@ -44,6 +44,7 @@ tentativa bem-sucedida.
 
 O valor 0,725 não é resultado final nem estimativa de uso público. A arquitetura foi
 desenvolvida observando erros dos 48 itens de calibração, cuja matriz sintética por
-família também pode favorecer o roteamento. A confirmação precisa usar pelo menos 32
-itens, oito por classe, famílias ausentes da calibração e do teste v1, revisão humana
-integral e execução única após o congelamento.
+família também pode favorecer o roteamento. A confirmação usa 32 itens, oito por
+classe, famílias ausentes da calibração e do teste v1 e execução única após o
+congelamento. O gabarito foi curado pelo pesquisador com apoio de IA e evidências do
+corpus; não possui validação clínica independente nem concordância entre anotadores.

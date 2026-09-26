@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "confirmatory_ready_frozen_unexecuted",
+  "created_at": "2026-09-26",
+  "candidate_source_commit": "38e8da91074a5dc3642f2ced92abce88e2b21feb",
+  "dataset": "evaluation/refinement_v3/confirmatory/items.jsonl",
+  "dataset_sha256": "23267ee36a2dd976a2c312941839d364ec149a96a2a8826ef3f4bd7ead0ac812",
+  "protocol": "evaluation/refinement_v3/confirmatory/PROTOCOL.md",
+  "protocol_sha256": "68d8b97af087ff9ebf002d992d9b029bc0d16e14e5733aa538a924b92a4343b0",
+  "candidate_freeze": "evaluation/refinement_v3/CANDIDATE_FREEZE.md",
+  "candidate_freeze_sha256": "f40bfe04dfedca679108b5194ba4f3a9f881bf118f933326085997264fc4c251",
+  "item_count": 32,
+  "family_count": 8,
+  "items_per_label": 8,
+  "curation": "project_researcher_ai_assisted",
+  "external_human_review_claimed": false,
+  "v1_final_test_loaded": false,
+  "inference_executed": false
+}
