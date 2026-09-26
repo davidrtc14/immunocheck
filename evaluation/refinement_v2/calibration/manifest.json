@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "calibration_phase_a_failed_gates",
+  "status": "calibration_top20_failed_gates",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -145,5 +145,27 @@
     "v1_test_records_loaded": 0,
     "holdout_v2_records_loaded": 0,
     "next_hypothesis": "dense_top_20_only"
+  },
+  "experiment_top20": {
+    "completed_at": "2026-09-26",
+    "pre_experiment_commit": "3439f60",
+    "checkpoint_sha256": "8f196abcece368be644c835b41d0def0b9f618e7583bca4c82f1f0325ef7e0a1",
+    "report_sha256": "f6e6ca293d947bfeea2c4c58e85b9c9522b96aa803ecb1d715114166037d708e",
+    "items": 48,
+    "v1_test_items_loaded": 0,
+    "holdout_v2_items_loaded": 0,
+    "baseline_macro_f1": 0.43004385964912284,
+    "top6_candidate_macro_f1": 0.37274725274725273,
+    "top20_candidate_macro_f1": 0.37587719298245614,
+    "top20_minus_top6_macro_f1": 0.00312994023520341,
+    "top20_minus_baseline_macro_f1": -0.054166666666666696,
+    "candidate_misleading_recall": 0.0,
+    "candidate_refuted_recall": 0.4166666666666667,
+    "technical_failures": 4,
+    "passed_gates": 1,
+    "total_gates": 7,
+    "factual_auditor_executed": false,
+    "candidate_promoted": false,
+    "next_hypothesis": "wide_retrieval_with_context_selection"
   }
 }

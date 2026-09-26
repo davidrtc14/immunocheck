@@ -350,10 +350,10 @@ dependendo de confirmação institucional. O gate permanece aberto.
 - [x] Diagnóstico automatizado por estágio sobre o desenvolvimento histórico.
 - [x] Construção do novo conjunto de calibração (48 propostas em 12 famílias).
 - [x] Revisão humana primária assistida dos 48 itens incorporada sem exceções.
-- [ ] Segunda revisão cega de 16 itens por pessoa distinta.
+- [x] Segunda revisão cega de 16 itens por pessoa distinta.
 - [x] Implementação opt-in do gate separado de suficiência da evidência.
 - [x] Implementação opt-in da classificação separada da auditoria de fidelidade.
-- [ ] Comparação controlada com a configuração v1 no novo conjunto.
+- [x] Comparação controlada com a configuração v1 no novo conjunto.
 - [ ] Congelamento da candidata e do novo holdout independente (mínimo de 32 itens).
 - [ ] Execução confirmatória única e relatório de promoção ou rejeição.
 
@@ -460,3 +460,12 @@ oito rejeições do gate apesar de evidência anotada, duas seleções inadequad
 riscos de extração. BGE-M3 denso top 20 elevou a cobertura para 72,2%, superando BM25
 (25,0%) e híbrido RRF (63,9%). A ADR-030 registra como próxima iteração a mudança
 isolada de top 6 para top 20, sem alterar prompts nem executar auditor.
+
+Iteração top 20 executada em 26/09/2026: a mudança isolada elevou o recall de
+`REFUTED` para 0,417, mas manteve recall zero de `MISLEADING`, reduziu balanced
+accuracy para 0,396 e produziu quatro IDs inválidos no gate, todos contidos pelo
+guardrail. O macro-F1 foi 0,376: +0,003 sobre a candidata top 6 e −0,054 contra a
+baseline (IC percentil por família −0,184 a +0,079). Apenas o gate de P95 passou.
+A candidata não foi promovida, o auditor não foi executado e o holdout v2 permanece
+inexistente. A próxima hipótese deverá combinar recuperação ampla com seleção de
+contexto compacto, sem voltar a enviar 20 trechos diretamente à LLM.

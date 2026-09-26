@@ -31,7 +31,7 @@
 | ADR-027 | BGE-M3 + auditor v2 como configuração definitiva da v1 | Aceita com limitação crítica | No teste único obteve macro-F1 0,416, recall de abstenção 0,750 e recall zero de `MISLEADING`; congela a prova de conceito, mas impede recomendação de implantação pública. |
 | ADR-028 | Congelar a v1 e abrir linha experimental v2 com dados novos | Aceita | Evita ajuste pós-teste: os 64 itens finais e os 96 itens já calibrados permanecem históricos; a v2 exige nova calibração e novo holdout. |
 | ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Não promovida | Na calibração nova, a candidata teve macro-F1 0,373, delta de −0,057 contra a v1, recall zero de `MISLEADING` e 38/48 abstenções; falhou cinco dos sete gates. |
-| ADR-030 | Testar BGE-M3 denso top 20 como única mudança da v2.1 | Em validação | Na calibração, Hit@20 foi 72,2% contra Hit@6 de 58,3%; BM25 e híbrido ficaram abaixo do denso. Prompts e demais componentes permanecem congelados. |
+| ADR-030 | Testar BGE-M3 denso top 20 como única mudança da v2.1 | Não promovida | Macro-F1 subiu apenas 0,003 sobre top 6, ficou 0,054 abaixo da baseline, manteve recall zero de `MISLEADING` e causou quatro falhas de IDs; só um dos sete gates passou. |
 
 ## Histórico de alterações
 
@@ -112,6 +112,15 @@
   densa para 20 eleva a cobertura anotada de 58,3% para 72,2%; BM25 e híbrido RRF
   foram inferiores. A próxima iteração muda somente top-k, sem auditor ou ajuste de
   prompt, e permanece sujeita aos mesmos sete gates.
+- **26/09/2026 — resultado da ADR-030:** ampliar o denso de top 6 para top 20
+  elevou o recall de `REFUTED` de 0,083 para 0,417, mas não reconheceu corretamente
+  nenhum `MISLEADING`, reduziu a taxa de citação relevante para 0,139 e provocou
+  quatro saídas com IDs inválidos, rejeitadas pelo guardrail. O macro-F1 foi 0,376,
+  apenas +0,003 sobre top 6 e −0,054 contra a baseline (IC percentil por família de
+  −0,184 a +0,079). Só o gate de P95 passou; a candidata não foi promovida e o
+  auditor factual não foi executado. O próximo estudo deve separar recuperação
+  ampla da seleção compacta de contexto, em vez de enviar mais trechos diretamente
+  à LLM.
 
 ## Política de alteração
 

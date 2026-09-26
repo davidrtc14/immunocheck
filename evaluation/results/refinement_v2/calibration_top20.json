@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "experiment": "refinement_v2_1_calibration_dense_top20",
+  "executed_at": "2026-09-26T12:47:09.858769+00:00",
+  "protocol": "evaluation/REFINEMENT_V2_PROTOCOL.md",
+  "protocol_sha256": "541610af5e33db35d0c1c75285172c16be7fe4fec71e4b5987d977b69b802bc2",
+  "plan": "evaluation/refinement_v2/CALIBRATION_TOP20_PLAN.md",
+  "plan_sha256": "55ce90da27f64ebe25716004467cd49afc2dddf84bf70f4dc75f489795a1fa3f",
+  "dataset": "evaluation/refinement_v2/calibration/adjudicated_items.jsonl",
+  "dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+  "phase_a_checkpoint_sha256": "6735a67e361c3e83cace85610275221f658c98db52877c333fb5df8dc041ce6b",
+  "partition": "calibration_development_only",
+  "v1_test_items_loaded": 0,
+  "holdout_v2_items_loaded": 0,
+  "model": "qwen3:8b",
+  "ollama_base_url": "http://127.0.0.1:11434",
+  "temperature": 0,
+  "seed": 42,
+  "single_changed_component": "dense_retrieval_top_k_6_to_20",
+  "retrieval": "bge_m3_dense_top_20",
+  "extraction": "reused_from_phase_a_without_new_llm_call",
+  "latency_method": "phase_a_shared_extraction_plus_top6_retrieval_as_proxy_plus_new_inference; top20_retrieval_measured_separately",
+  "conditions": [
+    "v1_dense_with_auditor",
+    "v2_separated_dense_top20_no_auditor"
+  ],
+  "factual_auditor_executed": false,
+  "factual_auditor_next_step": "not_eligible_under_preregistered_gates",
+  "descriptive_comparison_with_top6": {
+    "top6_candidate_macro_f1": 0.37274725274725273,
+    "top20_candidate_macro_f1": 0.37587719298245614,
+    "top20_minus_top6_macro_f1": 0.00312994023520341
+  },
+  "checkpoint_sha256": "8f196abcece368be644c835b41d0def0b9f618e7583bca4c82f1f0325ef7e0a1",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "summary": {
+    "item_count": 48,
+    "family_count": 12,
+    "systems": {
+      "v1_dense_with_auditor": {
+        "accuracy": 0.4583333333333333,
+        "balanced_accuracy": 0.45833333333333337,
+        "macro_f1": 0.43004385964912284,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 1.0,
+            "recall": 0.5833333333333334,
+            "f1": 0.7368421052631579,
+            "support": 12
+          },
+          "REFUTED": {
+            "precision": 0.5833333333333334,
+            "recall": 0.5833333333333334,
+            "f1": 0.5833333333333334,
+            "support": 12
+          },
+          "MISLEADING": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 12
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.2857142857142857,
+            "recall": 0.6666666666666666,
+            "f1": 0.4,
+            "support": 12
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            7,
+            0,
+            0,
+            5
+          ],
+          [
+            0,
+            7,
+            0,
+            5
+          ],
+          [
+            0,
+            2,
+            0,
+            10
+          ],
+          [
+            0,
+            3,
+            1,
+            8
+          ]
+        ],
+        "abstention": {
+          "precision": 0.2857142857142857,
+          "recall": 0.6666666666666666,
+          "f1": 0.4
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.5,
+        "technical_failure_rate": 0.0,
+        "latency_ms": {
+          "median": 9168.645100027788,
+          "p95": 12412.637499975972,
+          "samples": 48
+        }
+      },
+      "v2_separated_dense_top20_no_auditor": {
+        "accuracy": 0.3958333333333333,
+        "balanced_accuracy": 0.39583333333333337,
+        "macro_f1": 0.37587719298245614,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 1.0,
+            "recall": 0.5833333333333334,
+            "f1": 0.7368421052631579,
+            "support": 12
+          },
+          "REFUTED": {
+            "precision": 0.4166666666666667,
+            "recall": 0.4166666666666667,
+            "f1": 0.4166666666666667,
+            "support": 12
+          },
+          "MISLEADING": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 12
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.25,
+            "recall": 0.5833333333333334,
+            "f1": 0.35,
+            "support": 12
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            7,
+            1,
+            0,
+            4
+          ],
+          [
+            0,
+            5,
+            0,
+            7
+          ],
+          [
+            0,
+            2,
+            0,
+            10
+          ],
+          [
+            0,
+            4,
+            1,
+            7
+          ]
+        ],
+        "abstention": {
+          "precision": 0.25,
+          "recall": 0.5833333333333334,
+          "f1": 0.35
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.1388888888888889,
+        "technical_failure_rate": 0.08333333333333333,
+        "latency_ms": {
+          "median": 12161.990400054492,
+          "p95": 17984.520600060932,
+          "samples": 48
+        }
+      }
+    },
+    "paired_bootstrap": {
+      "unit": "claim_family",
+      "resamples": 2000,
+      "seed": 20260926,
+      "candidate_minus_baseline_macro_f1_95_percentile_interval": {
+        "lower": -0.18389729470704075,
+        "median": -0.05568533975805737,
+        "upper": 0.07862733957219246
+      }
+    },
+    "promotion_gates": {
+      "macro_f1_delta": {
+        "value": -0.054166666666666696,
+        "threshold": 0.08,
+        "direction": "minimum",
+        "passed": false
+      },
+      "misleading_recall": {
+        "value": 0.0,
+        "threshold": 0.4,
+        "direction": "minimum",
+        "passed": false
+      },
+      "abstention_precision": {
+        "value": 0.25,
+        "threshold": 0.45,
+        "direction": "minimum",
+        "passed": false
+      },
+      "citation_hit_rate": {
+        "value": 0.1388888888888889,
+        "threshold": 0.6,
+        "direction": "minimum",
+        "passed": false
+      },
+      "maximum_class_recall_drop": {
+        "value": 0.16666666666666669,
+        "threshold": 0.05,
+        "direction": "maximum",
+        "passed": false,
+        "per_class": {
+          "SUPPORTED": 0.0,
+          "REFUTED": 0.16666666666666669,
+          "MISLEADING": 0.0,
+          "INSUFFICIENT_EVIDENCE": 0.08333333333333326
+        }
+      },
+      "technical_failure_rate": {
+        "value": 0.08333333333333333,
+        "threshold": 0.02,
+        "direction": "maximum",
+        "passed": false
+      },
+      "textual_p95_seconds": {
+        "value": 17.984520600060932,
+        "threshold": 20.0,
+        "direction": "maximum",
+        "passed": true
+      }
+    },
+    "factual_auditor_condition_eligible": false,
+    "extraction": {
+      "in_scope_rate": 1.0,
+      "technical_failure_rate": 0.0,
+      "latency_ms": {
+        "median": 1736.3824499771,
+        "p95": 2171.714000054635,
+        "samples": 48
+      }
+    }
+  }
+}
