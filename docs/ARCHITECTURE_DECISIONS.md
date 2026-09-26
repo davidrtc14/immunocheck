@@ -38,7 +38,7 @@
 | ADR-034 | Encerrar o refinamento v2 sem promover candidata nem criar holdout | Aceita | Nenhuma condição passou todos os gates; novos ajustes nos mesmos 48 itens elevariam o risco de sobreajuste e o holdout não pode ser usado para selecionar arquitetura. |
 | ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Não promovida | Recuperou `MISLEADING` e abstenção, mas zerou o recall de `REFUTED`; quatro dos sete gates passaram. |
 | ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Não promovida por citação | Macro-F1 0,725 e seis de sete gates passaram; citação relevante ficou em 0,444, abaixo do mínimo de 0,60. |
-| ADR-037 | Selecionar citações em estágio dedicado sem alterar o veredito roteado | Em avaliação | Isola o único gate falho da ADR-036 e limita a saída a três aliases válidos do top 15. |
+| ADR-037 | Selecionar citações em estágio dedicado sem alterar o veredito roteado | Não promovida | Melhorou citação exata somente de 0,444 para 0,472 e elevou P95 para 16,47 s; o gate de 0,60 continuou falhando. |
 
 ## Histórico de alterações
 
@@ -190,6 +190,11 @@
   mudar veredito ou explicação; falhas mantêm as referências anteriores, são
   contabilizadas e precisam respeitar os mesmos gates de erro e latência. O teto
   anotado é 25/36 e o mínimo operacional permanece 22/36.
+- **26/09/2026 — resultado da ADR-037:** o seletor preservou todos os vereditos e
+  não teve falhas, mas elevou citação exata apenas de 16/36 para 17/36 e o P95 para
+  16,47 s. Uma auditoria diagnóstica encontrou o mesmo documento anotado em 30/36,
+  sem converter essa proximidade em acerto. A hipótese seguinte passa a expandir
+  candidatos dentro dos documentos selecionados, mantendo o limite de três fontes.
 
 ## Política de alteração
 

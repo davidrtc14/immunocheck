@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "citation_selector_v3_experiment_pending",
+  "status": "citation_selector_v3_failed_gate",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -277,5 +277,25 @@
     "candidate_promoted": false,
     "holdout_creation_authorized": false,
     "next_hypothesis": "citation_selection_only_without_verdict_changes"
+  },
+  "experiment_citation_selector_v3": {
+    "completed_at": "2026-09-26",
+    "pre_experiment_commit": "27987e6",
+    "plan_sha256": "f53a4118b39e05d5cc69c8e3291a67d157f7747dea8ce603d180a754c11050f4",
+    "checkpoint_sha256": "480b3bfa8c1c896004eb257b854e121edcef8a75d03be40bb7b55e97b43c226d",
+    "report_sha256": "3d75d1d5ad8ff881b05a338734fd5941fba2ca1aff739b29068657dd46526694",
+    "items": 48,
+    "v1_test_items_loaded": 0,
+    "holdout_items_loaded": 0,
+    "verdict_changes": 0,
+    "candidate_macro_f1": 0.7248760488176964,
+    "candidate_citation_hit_rate": 0.4722222222222222,
+    "candidate_p95_seconds": 16.47099920012988,
+    "technical_failures": 0,
+    "passed_gates": 6,
+    "total_gates": 7,
+    "candidate_promoted": false,
+    "holdout_creation_authorized": false,
+    "next_hypothesis": "hierarchical_passage_selection_within_selected_documents"
   }
 }
