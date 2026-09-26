@@ -12,6 +12,7 @@ from immunocheck.application.text_components import (
     GuardedFaithfulnessVerifier,
     LLMAliasedEvidenceSufficiencyAssessor,
     LLMClaimExtractor,
+    LLMClaimRouteAnalyzer,
     LLMConclusiveVerdictGenerator,
     LLMEvidenceSufficiencyAssessor,
     LLMFaithfulnessVerifier,
@@ -172,6 +173,30 @@ def test_claim_extractor_preserves_material_negation_in_short_claim() -> None:
     original = "O manual prescreve um processo fixo, sem adaptação aos desafios locais."
 
     assert LLMClaimExtractor(client).extract(original) == ExtractedClaim(original, 0.9)
+
+
+@pytest.mark.parametrize(
+    ("route", "claim"),
+    [
+        ("GENERAL_SIMPLE", "A vacina não oferece proteção."),
+        ("PREMISE_CONCLUSION", "O estudo encontrou X, portanto X vale para todos."),
+        ("UNANCHORED_SPECIFIC_EVENT", "A reação de uma pessoa foi causada pela vacina."),
+    ],
+)
+def test_claim_router_returns_only_structural_route(route: str, claim: str) -> None:
+    client = ScriptedClient([{"route": route, "explanation": "Estrutura identificada."}])
+
+    assessment = LLMClaimRouteAnalyzer(client).analyze(ExtractedClaim(claim, 0.9))
+
+    assert assessment.route == route
+    assert assessment.explanation == "Estrutura identificada."
+
+
+def test_claim_router_rejects_unknown_route() -> None:
+    client = ScriptedClient([{"route": "OUTRA", "explanation": "Inválida."}])
+
+    with pytest.raises(ModelOutputError, match="rota inválida"):
+        LLMClaimRouteAnalyzer(client).analyze(ExtractedClaim("Alegação", 0.9))
 
 
 def test_sufficiency_gate_returns_typed_assessment_and_replaces_source_id() -> None:

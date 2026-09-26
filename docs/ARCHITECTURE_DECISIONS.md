@@ -37,6 +37,7 @@
 | ADR-033 | Triar gate de suficiência v2 com aliases curtos e regra explícita para extrapolações | Descartada na triagem | O gate marcou os 48 itens como suficientes: recuperou todos os conclusivos, mas nenhuma das 12 abstenções; quatro dos seis gates passaram. |
 | ADR-034 | Encerrar o refinamento v2 sem promover candidata nem criar holdout | Aceita | Nenhuma condição passou todos os gates; novos ajustes nos mesmos 48 itens elevariam o risco de sobreajuste e o holdout não pode ser usado para selecionar arquitetura. |
 | ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Não promovida | Recuperou `MISLEADING` e abstenção, mas zerou o recall de `REFUTED`; quatro dos sete gates passaram. |
+| ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Em avaliação | Explora a complementaridade medida entre os decisores direto e relacional sem combinar resultados por rótulo esperado. |
 
 ## Histórico de alterações
 
@@ -172,6 +173,11 @@
   (IC por família de −0,081 a +0,175), a citação ficou em 0,556 e quatro de sete
   gates passaram. A condição não foi promovida. A complementaridade observada
   autoriza estudar roteamento por forma da alegação, ainda apenas como exploração.
+- **26/09/2026 — ADR-036:** um roteador local baseado somente na forma textual da
+  alegação escolherá entre decisão direta para proposição simples, decisão relacional
+  para premissa-conclusão e abstenção para evento específico sem âncora. As saídas
+  dos especialistas serão reutilizadas e a latência do roteador será contabilizada.
+  Os sete gates permanecem inalterados e qualquer sucesso exige confirmação nova.
 
 ## Política de alteração
 
