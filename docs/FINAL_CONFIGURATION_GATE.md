@@ -1,5 +1,9 @@
 # Gate da configuração final
 
+> Registro histórico da seleção da v1 antes de seu teste congelado. A v3 posterior
+> usou dados novos e protocolo próprio; a configuração demonstrável atual está em
+> `docs/V3_INTEGRATION.md`.
+
 Data: 18/09/2026. Este registro transforma o impasse do auditor em uma decisão
 explícita antes da execução única no teste congelado. Nenhum item de teste foi
 carregado para preparar esta recomendação.

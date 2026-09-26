@@ -531,7 +531,26 @@ revisão clínica independente. Essa limitação deve acompanhar qualquer result
 
 **Concluída em 26/09/2026:** a v3 foi integrada sem alterar os componentes
 congelados, passou a ser o padrão local e mantém a v1 como reversão explícita. A
-suíte teve 404 aprovações e uma integração PostgreSQL opcional ignorada; o ensaio
+suíte teve 409 aprovações e uma integração PostgreSQL opcional ignorada; o ensaio
 controlado aprovou texto, imagem, link e rejeição de vídeo. Consulte
 `docs/V3_INTEGRATION.md`. O teste ao vivo com o bot real permanece uma preparação
 manual para a apresentação, não uma fase de desenvolvimento nem fonte de calibração.
+
+## Fase 10 — Consolidação acadêmica e pacote de entrega
+
+- [x] Alinhar a documentação operacional vigente com a arquitetura v3 integrada.
+- [x] Consolidar problema, método, arquitetura, resultados e ameaças à validade.
+- [x] Separar claramente resultados históricos da configuração demonstrável atual.
+- [x] Registrar um índice de evidências e comandos de reprodução para o TCC.
+- [x] Proteger por teste as afirmações documentais essenciais sobre a versão ativa.
+
+**Objetivo:** transformar os artefatos técnicos e experimentais já concluídos em um
+pacote coerente para redação e apresentação do TCC, sem reexecutar testes congelados,
+recalibrar modelos ou declarar encerrado o gate institucional LGPD/CEP.
+
+**Concluída em 26/09/2026:** o pacote `docs/TCC_DELIVERY_PACKAGE.md` consolida a
+questão-síntese, objetivos, método executado, arquitetura, resultados, ameaças à
+validade, ética e índice de evidências. O guia de reprodução e a revisão de
+privacidade foram alinhados à v3, registros históricos receberam rotulagem explícita
+e testes automatizados protegem as afirmações essenciais. Nenhum conjunto de
+qualidade foi reexecutado e o gate institucional continua aberto.

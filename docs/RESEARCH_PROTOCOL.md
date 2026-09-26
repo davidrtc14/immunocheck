@@ -1,5 +1,9 @@
 # Protocolo de pesquisa e avaliação
 
+> Protocolo original preservado para rastreabilidade. Ele orientou as comparações
+> da v1 e não foi reescrito após os resultados. A questão-síntese do trabalho completo
+> e a linha confirmatória v3 estão consolidadas em `docs/TCC_DELIVERY_PACKAGE.md`.
+
 ## Pergunta de pesquisa
 
 Em que medida a recuperação híbrida e a verificação pós-geração melhoram a

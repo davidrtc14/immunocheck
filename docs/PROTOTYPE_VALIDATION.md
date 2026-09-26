@@ -1,5 +1,9 @@
 # Validação inicial do protótipo textual
 
+> Registro histórico da primeira prova de conceito, preservado sem atualização
+> retroativa. O caminho demonstrável atual é a v3 descrita em
+> `docs/V3_INTEGRATION.md`.
+
 ## Finalidade
 
 Este registro documenta o teste de fumaça executado em 30/08/2026. Ele demonstra

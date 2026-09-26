@@ -63,7 +63,7 @@ Documento aprovado
 - Toda conclusão sem cobertura suficiente deve resultar em abstenção.
 - Ausência de menção nunca é tratada como contradição.
 - Em abstenções, referências parciais são rotuladas como não conclusivas.
-- Conteúdos com várias alegações informam que a v1 analisou somente a principal.
+- Conteúdos com várias alegações informam que o protótipo analisou somente a principal.
 
 ## Componentes
 

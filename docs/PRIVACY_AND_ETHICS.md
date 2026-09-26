@@ -29,7 +29,7 @@ uma nova operação de tratamento e não está autorizado por este documento.
 |---|---|---|---|---|
 | Texto, imagem ou URL enviados | Executar uma checagem | Telegram → memória do computador | Nenhuma | Pode conter dado pessoal ou dado sensível de saúde mesmo sem solicitação. |
 | `chat_id`, `file_id` e metadados da atualização | Receber arquivo e devolver resposta | Telegram e memória do adaptador | Nenhuma | São identificadores pessoais; não entram nos logs. |
-| Texto extraído, embeddings da consulta e resposta | RAG, geração e auditoria | Tesseract, BGE-M3 e Qwen3 locais | Nenhuma | Não são enviados a LLM ou embedding externo. |
+| Texto extraído, embeddings da consulta e resposta | RAG, roteamento, geração e seleção de citações | Tesseract, BGE-M3 e Qwen3 locais | Nenhuma | Não são enviados a LLM ou embedding externo. |
 | URL informada | Baixar conteúdo público | Computador e servidor do endereço | Nenhuma | O servidor acessado observa a requisição; URL pode conter identificadores. |
 | Eventos técnicos e tempos | Operação e diagnóstico | Log local | Conforme política do operador | Mensagem, URL, resposta e identificadores são excluídos por desenho. |
 | Corpus e benchmark | Conhecimento e avaliação offline | Arquivos/PG local e Git quando permitido | Versionada | Documentos públicos; alegações sintéticas sem perfis de autores. |
@@ -71,7 +71,8 @@ se uma confirmação adicional é condição para a apresentação.
 - **Não discriminação:** resultados devem ser analisados por classe, tema e tipo de
   entrada quando houver amostra; atributos pessoais não são inferidos.
 - **Prestação de contas:** decisões, corpus, hashes, falhas e resultados negativos
-  são versionados; a v3 descartada foi preservada em vez de ocultada.
+  são versionados; variantes descartadas e a v1 limitada foram preservadas em vez
+  de ocultadas.
 
 ## Papéis e base legal: decisão institucional pendente
 
@@ -103,7 +104,7 @@ Correções no corpus ou benchmark são versionadas com justificativa e históri
 |---|---|---|
 | Censura ou autoridade indevida | Fontes visíveis, quatro classes e linguagem não punitiva | Seleção institucional do corpus influencia o enquadramento. |
 | Confundir ausência de evidência com falsidade | Classe `INSUFFICIENT_EVIDENCE` | Auditor atual apresenta falsos positivos de abstenção. |
-| Desinformação produzida pelo sistema | RAG local, IDs válidos, schema e auditor | Gerador e auditor usam o mesmo modelo; erros são correlacionados. |
+| Desinformação produzida pelo sistema | RAG local, IDs válidos, schema, roteamento e seleção hierárquica | Roteador, geradores e seletores usam o mesmo modelo; erros podem ser correlacionados. |
 | Conselho médico individual | Prompt, guarda determinística e aviso | Formulações indiretas podem escapar; não substitui profissional. |
 | Viés geográfico/institucional | Proveniência e cobertura temática documentadas | Corpus prioriza português e instituições oficiais; validade externa é limitada. |
 | Exclusão por acessibilidade | Chat textual, linguagem curta e fontes legíveis | Telegram, OCR e links ainda criam barreiras; não houve teste com participantes. |

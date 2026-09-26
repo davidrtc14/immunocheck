@@ -119,6 +119,7 @@ entregue ao bot.
 - `evaluation/refinement_v2/CONSOLIDATION_REPORT.md` — síntese e encerramento do refinamento v2.
 - `evaluation/refinement_v3/README.md` — candidata v3 e confirmação documental.
 - `docs/V3_INTEGRATION.md` — integração, ensaio multimodal e limites de reprodução.
+- `docs/TCC_DELIVERY_PACKAGE.md` — síntese para redação, banca e índice de evidências.
 - `docs/ROADMAP.md` — ordem de implementação e critérios de aceite.
 - `docs/PROTOTYPE_VALIDATION.md` — evidências e limitações do teste ponta a ponta.
 - `docs/RETRIEVAL_PHASE2.md` — implementação, medições e decisões da recuperação.

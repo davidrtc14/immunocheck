@@ -27,6 +27,13 @@ O preflight da integração aprovou 15/15 controles técnicos obrigatórios e cl
 o estado como `release_candidate_blocked_by_human_gates`, restando somente o gate
 institucional LGPD/CEP.
 
+A Fase 10 também foi concluída. `docs/TCC_DELIVERY_PACKAGE.md` é a entrada principal
+para redigir e apresentar o trabalho: separa v1 histórica e v3 atual, consolida
+método, resultados, ameaças à validade, ética, evidências e comandos. Não reexecutar
+os conjuntos congelados. O próximo trabalho técnico deve ser correção de defeito
+demonstrável ou preparação de apresentação; novos ajustes de acurácia exigem outra
+linha experimental e dados novos.
+
 ## Histórico — prova de conceito v1
 
 O teste congelado foi executado uma única vez no commit candidato `52ab0bd`.

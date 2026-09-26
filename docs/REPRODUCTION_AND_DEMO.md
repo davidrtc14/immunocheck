@@ -2,17 +2,18 @@
 
 ## Finalidade e estado
 
-Este guia reproduz o protótipo local e organiza uma apresentação sem reexecutar o
-teste congelado. A configuração final foi avaliada uma única vez em 18/09/2026;
-os comandos de demonstração validam integração e não podem substituir ou ampliar o
-resultado confirmatório.
+Este guia reproduz o protótipo local e organiza uma apresentação sem reexecutar os
+conjuntos congelados. A v1 histórica foi testada em 18/09/2026 e a v3 atual foi
+confirmada em 26/09/2026; comandos de demonstração validam somente integração e não
+podem substituir, ampliar ou recalibrar esses resultados.
 
 ## Ambiente de referência
 
 - Windows 11, Ryzen 5 7500F, 32 GB DDR5 e RTX 4060 de 8 GB;
 - Python 3.12.x — o projeto recusa Python 3.13+;
-- Docker Desktop com Compose v2;
-- PostgreSQL 17 + pgvector 0.8.6 pela imagem fixada em `compose.yaml`;
+- Docker Desktop com Compose v2, necessário apenas para reproduzir a persistência;
+- PostgreSQL 17 + pgvector 0.8.6 pela imagem fixada em `compose.yaml`, fora do
+  caminho online do bot;
 - Ollama local com `qwen3:8b`;
 - Tesseract OCR disponível no `PATH` ou em `TESSERACT_CMD`;
 - BGE-M3 na revisão fixada pelo código e cache local de modelos.
@@ -32,10 +33,15 @@ py -3.12 -m venv .venv
 python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
 Copy-Item .env.example .env
+ollama pull qwen3:8b
+```
+
+Para reproduzir também a persistência opcional do corpus:
+
+```powershell
 $env:DATABASE_URL = "postgresql://immunocheck:immunocheck-local-only@localhost:5432/immunocheck"
 docker compose up -d postgres
 python scripts/migrate_database.py
-ollama pull qwen3:8b
 ```
 
 O `.env` é local e nunca deve ser commitado. O inicializador
@@ -103,6 +109,9 @@ python -m immunocheck.cli "A vacina contra HPV faz parte da rotina de vacinaçã
 python -m immunocheck.cli "Toda vacina contra HPV exige três doses para qualquer adolescente."
 ```
 
+Esses comandos usam a v3. Acrescente `--pipeline-version v1` apenas para reproduzir
+o caminho histórico; não misture saídas das duas versões em uma mesma métrica.
+
 Verifique a estrutura, não um rótulo decorado: veredito válido, alegação analisada,
 explicação curta, fontes programáticas quando houver conclusão, aviso médico e
 tempo total. Uma abstenção é saída válida e não deve ser manipulada durante a
@@ -127,8 +136,8 @@ seguir o protocolo de `docs/PRIVACY_AND_ETHICS.md`.
 
 1. **Problema e limite (1 min):** checagem acadêmica de vacinação, não diagnóstico,
    sem vídeo/WhatsApp e sem memória conversacional.
-2. **Arquitetura (1 min):** entrada → normalização → BGE-M3 → Qwen3 local → validação
-   de citações/auditoria → resposta ou abstenção.
+2. **Arquitetura (1 min):** entrada → normalização → BGE-M3 top 15 → roteamento →
+   especialista direto/relacional → citações hierárquicas → resposta ou abstenção.
 3. **Privacidade (1 min):** mostrar `/privacidade`, processamento local e fronteira
    externa do Telegram; não usar dados pessoais.
 4. **Texto (2 min):** enviar uma alegação sintética e abrir uma das fontes exibidas.
@@ -136,19 +145,23 @@ seguir o protocolo de `docs/PRIVACY_AND_ETHICS.md`.
    uma única alegação legível; explicar limiar/rejeição do OCR.
 6. **Falha segura (1 min):** mostrar entrada fora de escopo, imagem ilegível ou
    pedido médico individual e a resposta transparente.
-7. **Resultados (1–2 min):** apresentar macro-F1 0,416, recall zero de
-   `MISLEADING`, intervalos e v3 descartada; não afirmar desempenho em notícias reais.
+7. **Resultados (1–2 min):** separar a v1 histórica (macro-F1 0,416 e recall zero
+   de `MISLEADING` no teste de 64 itens) da confirmação v3 (macro-F1 0,846 contra
+   0,482 da v1 nos mesmos 32 itens novos, recall `MISLEADING` 0,625 e citação exata
+   0,833). Declarar que o gabarito v3 teve curadoria do pesquisador apoiada por IA,
+   sem validação clínica independente, e não afirmar desempenho em notícias reais.
 
 ## Evidência do ensaio local
 
 O executor `scripts/rehearse_demo.py` aprovou texto, imagem, link controlado e recusa
-de vídeo pelo adaptador em memória. O relatório está em
-`evaluation/results/demo/AUTOMATED_REHEARSAL_REPORT.md`. Para repetir sem sobrescrever
+de vídeo pelo adaptador em memória. O registro atual da v3 está em
+`evaluation/results/demo/v3_automated_rehearsal.json`. Para repetir sem sobrescrever
 o registro original:
 
 ```powershell
 python scripts/rehearse_demo.py `
-  --output evaluation/results/demo/automated_rehearsal_replica.json
+  --pipeline-version v3 `
+  --output evaluation/results/demo/v3_automated_rehearsal_replica.json
 ```
 
 Essa automação não substitui a passagem ao vivo com o bot e o ambiente da banca.
@@ -164,7 +177,7 @@ Essa automação não substitui a passagem ao vivo com o bot e o ambiente da ban
 - [ ] Links das fontes abertos em abas, caso a rede da apresentação falhe.
 - [ ] Plano B por CLI preparado se o Telegram estiver indisponível.
 - [ ] Capturas de execução rotuladas como demonstração, não como experimento.
-- [ ] Limitações, resultado negativo do auditor e estado do teste apresentados.
+- [ ] Limitações da v1, confirmação positiva da v3 e estado dos conjuntos apresentados.
 
 O preenchimento operacional único, pronto para devolução, está em
 `docs/LIVE_DEMO_CHECKLIST.md`. Antes dele, executar o preflight sem sobrescrever o
@@ -174,6 +187,10 @@ registro original:
 python scripts/release_preflight.py --with-tests `
   --output output/live-preflight.json
 ```
+
+No preflight atual, Docker, Compose e PostgreSQL são diagnósticos opcionais porque o
+bot lê corpus e índice em arquivo. Python, artefatos, corpus/índice, Ollama, Tesseract,
+Ruff e pytest permanecem obrigatórios.
 
 ## Critério de conclusão deste documento
 
