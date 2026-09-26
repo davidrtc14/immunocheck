@@ -9,8 +9,10 @@ import platform
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import tomllib
+import urllib.request
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -67,9 +69,9 @@ def main() -> None:
         _timed_check("demo_artifact", True, _check_demo),
         _timed_check("ollama_model", True, _check_ollama),
         _timed_check("tesseract_portuguese", True, _check_tesseract),
-        _timed_check("docker_engine", True, _check_docker),
-        _timed_check("docker_compose", True, _check_compose),
-        _timed_check("postgres_health", True, _check_postgres),
+        _timed_check("docker_engine", False, _check_docker),
+        _timed_check("docker_compose", False, _check_compose),
+        _timed_check("postgres_health", False, _check_postgres),
     ]
     if args.with_tests:
         checks.extend(
@@ -235,12 +237,21 @@ def _check_demo() -> tuple[bool, str]:
 
 
 def _check_ollama() -> tuple[bool, str]:
-    executable = _resolve_executable(
-        "ollama",
-        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs/Ollama/ollama.exe",
-    )
-    result = _run((executable, "list"), timeout=20)
-    passed = result.returncode == 0 and "qwen3:8b" in result.stdout.lower()
+    try:
+        executable = _resolve_executable(
+            "ollama",
+            Path(os.environ.get("LOCALAPPDATA", "")) / "Programs/Ollama/ollama.exe",
+        )
+        result = _run((executable, "list"), timeout=20)
+        payload = result.stdout.lower()
+        passed = result.returncode == 0 and "qwen3:8b" in payload
+    except (FileNotFoundError, OSError):
+        with urllib.request.urlopen(
+            "http://127.0.0.1:11434/api/tags",
+            timeout=5,
+        ) as response:
+            payload = response.read().decode("utf-8").lower()
+        passed = "qwen3:8b" in payload
     return passed, "qwen3:8b disponível localmente" if passed else "qwen3:8b não detectado"
 
 
@@ -291,19 +302,20 @@ def _check_ruff() -> tuple[bool, str]:
 
 
 def _check_pytest() -> tuple[bool, str]:
-    result = _run(
-        (
-            sys.executable,
-            "-m",
-            "pytest",
-            "-q",
-            "--basetemp",
-            "output/release-preflight-pytest",
-            "-p",
-            "no:cacheprovider",
-        ),
-        timeout=300,
-    )
+    with tempfile.TemporaryDirectory(prefix="immunocheck-preflight-") as temporary:
+        result = _run(
+            (
+                sys.executable,
+                "-m",
+                "pytest",
+                "-q",
+                "--basetemp",
+                str(Path(temporary) / "pytest"),
+                "-p",
+                "no:cacheprovider",
+            ),
+            timeout=300,
+        )
     passed = result.returncode == 0
     summary = next(
         (line.strip() for line in reversed(result.stdout.splitlines()) if " passed" in line),

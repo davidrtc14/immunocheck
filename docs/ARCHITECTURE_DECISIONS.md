@@ -44,6 +44,7 @@
 | ADR-040 | Usar gabarito documental com curadoria do pesquisador apoiada por IA na confirmação v3 | Aceita com limitação declarada | Elimina a dependência inviável de revisor externo no prazo do TCC; rótulos e evidências são congelados antes da execução, sem alegar validação clínica, independência ou concordância entre anotadores. |
 | ADR-041 | Promover a candidata v3 para integração controlada ao protótipo | Aceita | Na confirmação nova, obteve macro-F1 0,846, ganho de 0,364 sobre a v1, recall `MISLEADING` 0,625, citação exata 0,833, falha zero e P95 19,35 s; passou 8/8 gates, sem abrir o teste histórico da v1. |
 | ADR-042 | Integrar a v3 por seleção explícita de versão, preservando a v1 | Aceita | A integração reutiliza sem alteração os componentes congelados, adiciona uma camada de orquestração testável e mantém `PIPELINE_VERSION=v1` como reversão; a v3 só se torna padrão do bot após regressão e ensaio multimodal local. |
+| ADR-043 | Tratar Docker/PostgreSQL como diagnóstico opcional no preflight do bot local | Aceita | O caminho online lê o corpus/índice local e não persiste interações; Docker e PostgreSQL continuam validados para ingestão/reprodução, mas sua indisponibilidade não bloqueia Telegram, CLI ou demonstração. |
 
 ## Histórico de alterações
 
@@ -243,6 +244,13 @@
   divergência de serialização dos arquivos locais ignorados do índice está declarada
   em `docs/V3_INTEGRATION.md` e impede alegação de identidade byte a byte, mas não
   alterou os rankings observados nem motivou recalibração.
+- **26/09/2026 — ADR-043:** o preflight passa a distinguir dependências do caminho
+  online de infraestrutura auxiliar. Python, corpus/índice, modelo Ollama, Tesseract,
+  artefatos e testes continuam obrigatórios. Docker, Compose e PostgreSQL são
+  diagnósticos opcionais porque não participam da análise online nem armazenam
+  interações; sua ausência deve ser reportada, mas não rebaixa a prontidão técnica
+  do bot local. A integração PostgreSQL permanece coberta por teste dedicado quando
+  `IMMUNOCHECK_TEST_DATABASE_URL` for fornecida.
 
 ## Política de alteração
 
