@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from collections.abc import Sequence
 from dataclasses import dataclass, field
 from typing import Any
@@ -9,6 +10,7 @@ import pytest
 from immunocheck.application.text_components import (
     FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
     GuardedFaithfulnessVerifier,
+    LLMAliasedEvidenceSufficiencyAssessor,
     LLMClaimExtractor,
     LLMConclusiveVerdictGenerator,
     LLMEvidenceSufficiencyAssessor,
@@ -200,6 +202,35 @@ def test_sufficiency_gate_rejects_positive_decision_without_source() -> None:
 
     with pytest.raises(ModelOutputError, match="inconsistentes"):
         LLMEvidenceSufficiencyAssessor(client).assess(
+            ExtractedClaim("A vacina está indicada.", 0.9),
+            (EVIDENCE,),
+        )
+
+
+def test_aliased_sufficiency_gate_maps_short_reference_to_chunk_id() -> None:
+    client = ScriptedClient(
+        [{"sufficient": True, "explanation": "Há cobertura direta.", "source_refs": ["E1"]}]
+    )
+
+    assessment = LLMAliasedEvidenceSufficiencyAssessor(client).assess(
+        ExtractedClaim("A vacina está indicada.", 0.9),
+        (EVIDENCE,),
+    )
+
+    assert assessment.sufficient is True
+    assert assessment.source_ids == ("official:p1:c1",)
+    prompt = json.loads(client.user_prompts[0])
+    assert prompt["evidence"][0]["ref"] == "E1"
+    assert "official:p1:c1" not in client.user_prompts[0]
+
+
+def test_aliased_sufficiency_gate_rejects_unknown_reference() -> None:
+    client = ScriptedClient(
+        [{"sufficient": False, "explanation": "Cobertura parcial.", "source_refs": ["E2"]}]
+    )
+
+    with pytest.raises(ModelOutputError, match="não fornecida"):
+        LLMAliasedEvidenceSufficiencyAssessor(client).assess(
             ExtractedClaim("A vacina está indicada.", 0.9),
             (EVIDENCE,),
         )
