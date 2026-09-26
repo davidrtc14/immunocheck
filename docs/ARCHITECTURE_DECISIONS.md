@@ -40,6 +40,7 @@
 | ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Não promovida por citação | Macro-F1 0,725 e seis de sete gates passaram; citação relevante ficou em 0,444, abaixo do mínimo de 0,60. |
 | ADR-037 | Selecionar citações em estágio dedicado sem alterar o veredito roteado | Não promovida | Melhorou citação exata somente de 0,444 para 0,472 e elevou P95 para 16,47 s; o gate de 0,60 continuou falhando. |
 | ADR-038 | Expandir passagens nos documentos selecionados antes da citação final | Aprovada na calibração | Elevou citação exata para 0,722, preservou macro-F1 0,725 e completou 7/7 gates; ainda exige confirmação independente. |
+| ADR-039 | Congelar a candidata hierárquica v3 antes de construir dados confirmatórios | Aceita | Preserva código, prompts, modelo, corpus, índices e hashes após 7/7 gates, impedindo ajuste orientado pelo conjunto confirmatório. |
 
 ## Histórico de alterações
 
@@ -207,6 +208,10 @@
   abstenção 0,750, falha zero e P95 18,72 s. Todos os sete gates passaram. A
   aprovação é somente de calibração exploratória; código e artefatos devem ser
   congelados antes de criar o conjunto confirmatório independente.
+- **26/09/2026 — ADR-039:** a candidata do commit `38e8da9` foi congelada com
+  hashes de código, corpus, índice e digest do Qwen3-8B. Ela permanece opt-in e fora
+  do bot. A partir deste marco, qualquer alteração nesses componentes invalida sua
+  elegibilidade para o conjunto confirmatório v3 e exige nova versão.
 
 ## Política de alteração
 

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "purpose": "refinement_v2_calibration_candidates",
   "prepared_at": "2026-09-22",
-  "status": "hierarchical_v3_passed_calibration_pending_freeze",
+  "status": "candidate_v3_frozen_confirmatory_dataset_pending",
   "test_v1_predictions_loaded": 0,
   "holdout_v2_created": false,
   "hash_normalization": "UTF-8, CRLF/CR normalizado para LF, sem BOM",
@@ -322,5 +322,17 @@
     "candidate_promoted_to_production": false,
     "confirmatory_dataset_creation_authorized": true,
     "next_action": "freeze_candidate_before_confirmatory_dataset"
+  },
+  "candidate_v3_freeze": {
+    "frozen_at": "2026-09-26",
+    "source_commit": "38e8da91074a5dc3642f2ced92abce88e2b21feb",
+    "source_tree": "592e859ac2bc9733bf33bffd852e1f3c3647eda5",
+    "model": "qwen3:8b",
+    "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+    "corpus_sha256": "401bed2cad62142b30e2879b6f91e6f05098ab9ac86191316ba65685af36b19a",
+    "dense_manifest_sha256": "2abbf3075a8d2e80258c20cad581b2a00d5ae3f8c5cdfcaa790447c1a4f6605c",
+    "dense_vectors_sha256": "8f6c5520a79b72cdd738534d472751fef3f1138b38a479d895f5ac32d7d0ddbd",
+    "production_bot_changed": false,
+    "confirmatory_dataset_opened": false
   }
 }

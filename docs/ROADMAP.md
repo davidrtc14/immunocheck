@@ -509,7 +509,7 @@ acadêmica. Consulte `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.
 - [x] Roteamento estrutural entre especialistas avaliado.
 - [x] Seleção dedicada e expansão hierárquica de citações avaliadas.
 - [x] Sete gates de calibração satisfeitos sem abrir teste ou holdout.
-- [ ] Congelamento formal de código, prompts, corpus e hashes da candidata.
+- [x] Congelamento formal de código, prompts, corpus e hashes da candidata.
 - [ ] Construção e revisão humana de conjunto confirmatório com famílias novas.
 - [ ] Execução confirmatória única e decisão de promoção ou rejeição.
 
