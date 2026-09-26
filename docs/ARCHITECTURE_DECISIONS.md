@@ -39,7 +39,7 @@
 | ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Não promovida | Recuperou `MISLEADING` e abstenção, mas zerou o recall de `REFUTED`; quatro dos sete gates passaram. |
 | ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Não promovida por citação | Macro-F1 0,725 e seis de sete gates passaram; citação relevante ficou em 0,444, abaixo do mínimo de 0,60. |
 | ADR-037 | Selecionar citações em estágio dedicado sem alterar o veredito roteado | Não promovida | Melhorou citação exata somente de 0,444 para 0,472 e elevou P95 para 16,47 s; o gate de 0,60 continuou falhando. |
-| ADR-038 | Expandir passagens nos documentos selecionados antes da citação final | Em avaliação | O documento anotado foi recuperado em 30/36 casos, mas o ID exato em 17/36; a expansão testa se o gargalo é a granularidade do chunk. |
+| ADR-038 | Expandir passagens nos documentos selecionados antes da citação final | Aprovada na calibração | Elevou citação exata para 0,722, preservou macro-F1 0,725 e completou 7/7 gates; ainda exige confirmação independente. |
 
 ## Histórico de alterações
 
@@ -201,6 +201,12 @@
   deduplicação e máximo de 20 candidatos. O segundo seletor não poderá alterar a
   decisão e terá sua latência somada ao caminho anterior. O gate continua sendo ID
   exato; correspondência documental não será contada como sucesso.
+- **26/09/2026 — resultado da ADR-038:** a expansão elevou citação exata de 17/36
+  para 26/36 e preservou os 48 vereditos. A candidata manteve macro-F1 0,725, delta
+  +0,295 (IC por família +0,165 a +0,469), recall `MISLEADING` 0,417, precisão de
+  abstenção 0,750, falha zero e P95 18,72 s. Todos os sete gates passaram. A
+  aprovação é somente de calibração exploratória; código e artefatos devem ser
+  congelados antes de criar o conjunto confirmatório independente.
 
 ## Política de alteração
 

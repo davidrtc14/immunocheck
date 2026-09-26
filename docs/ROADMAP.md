@@ -502,3 +502,20 @@ condicionais que não foram autorizadas pelos resultados. Criar o holdout ou exe
 uma confirmação apesar da falha nos gates violaria o protocolo. A ADR-034 encerra a
 linha sem promoção, preserva a v1 congelada e direciona o trabalho para consolidação
 acadêmica. Consulte `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.
+
+## Fase 8 — Candidata roteada v3 e confirmação independente
+
+- [x] Decisão relacional com guarda de evento específico avaliada.
+- [x] Roteamento estrutural entre especialistas avaliado.
+- [x] Seleção dedicada e expansão hierárquica de citações avaliadas.
+- [x] Sete gates de calibração satisfeitos sem abrir teste ou holdout.
+- [ ] Congelamento formal de código, prompts, corpus e hashes da candidata.
+- [ ] Construção e revisão humana de conjunto confirmatório com famílias novas.
+- [ ] Execução confirmatória única e decisão de promoção ou rejeição.
+
+**Estado em 26/09/2026:** a candidata roteada com citações hierárquicas obteve
+macro-F1 0,725, recall `MISLEADING` 0,417, precisão de abstenção 0,750, citação
+exata 0,722, falha zero e P95 18,72 s nos 48 itens de calibração. Os sete gates
+passaram, mas o resultado é exploratório porque a arquitetura foi desenvolvida a
+partir dos erros desse conjunto. A candidata não substitui a v1 até uma confirmação
+única em dados novos, preparada somente após o congelamento formal.

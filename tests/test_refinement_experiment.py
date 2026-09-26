@@ -352,5 +352,34 @@ def test_published_citation_selector_v3_report_is_bound_and_reproducible() -> No
     assert experiment["report_sha256"] == _normalized_sha256(report_path)
 
 
+def test_published_hierarchical_v3_report_passes_all_calibration_gates() -> None:
+    results = ROOT / "evaluation" / "results" / "refinement_v3"
+    calibration = ROOT / "evaluation" / "refinement_v2" / "calibration"
+    checkpoint_path = results / "calibration_hierarchical.jsonl"
+    report_path = results / "calibration_hierarchical.json"
+    dataset_path = calibration / "adjudicated_items.jsonl"
+    manifest = json.loads((calibration / "manifest.json").read_text("utf-8"))
+    report = json.loads(report_path.read_text("utf-8"))
+    items = load_end_to_end_items(dataset_path, require_reviewed=True)
+    records = load_refinement_checkpoint(checkpoint_path)
+    conditions = ("v1_dense_with_auditor", "v3_routed_with_hierarchical_citations")
+    recomputed = summarize_refinement_records(
+        records,
+        items,
+        bootstrap_resamples=2000,
+        seed=20260926,
+        conditions=conditions,
+    )
+
+    assert report["summary"] == recomputed
+    assert report["verdict_changes_from_routed"] == 0
+    assert all(report["summary"]["promotion_gates"][name]["passed"] for name in report["summary"]["promotion_gates"])
+    experiment = manifest["experiment_hierarchical_citation_v3"]
+    assert experiment["candidate_passed_calibration"] is True
+    assert experiment["candidate_promoted_to_production"] is False
+    assert experiment["checkpoint_sha256"] == _normalized_sha256(checkpoint_path)
+    assert experiment["report_sha256"] == _normalized_sha256(report_path)
+
+
 def _normalized_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
