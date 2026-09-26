@@ -39,6 +39,7 @@
 | ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Não promovida | Recuperou `MISLEADING` e abstenção, mas zerou o recall de `REFUTED`; quatro dos sete gates passaram. |
 | ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Não promovida por citação | Macro-F1 0,725 e seis de sete gates passaram; citação relevante ficou em 0,444, abaixo do mínimo de 0,60. |
 | ADR-037 | Selecionar citações em estágio dedicado sem alterar o veredito roteado | Não promovida | Melhorou citação exata somente de 0,444 para 0,472 e elevou P95 para 16,47 s; o gate de 0,60 continuou falhando. |
+| ADR-038 | Expandir passagens nos documentos selecionados antes da citação final | Em avaliação | O documento anotado foi recuperado em 30/36 casos, mas o ID exato em 17/36; a expansão testa se o gargalo é a granularidade do chunk. |
 
 ## Histórico de alterações
 
@@ -195,6 +196,11 @@
   16,47 s. Uma auditoria diagnóstica encontrou o mesmo documento anotado em 30/36,
   sem converter essa proximidade em acerto. A hipótese seguinte passa a expandir
   candidatos dentro dos documentos selecionados, mantendo o limite de três fontes.
+- **26/09/2026 — ADR-038:** a seleção hierárquica manterá cada semente, incluirá os
+  quatro primeiros chunks do documento e vizinhos imediatos da mesma página, com
+  deduplicação e máximo de 20 candidatos. O segundo seletor não poderá alterar a
+  decisão e terá sua latência somada ao caminho anterior. O gate continua sendo ID
+  exato; correspondência documental não será contada como sucesso.
 
 ## Política de alteração
 
