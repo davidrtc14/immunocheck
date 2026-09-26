@@ -5,7 +5,11 @@ from dataclasses import replace
 import pytest
 
 from immunocheck.domain.models import Verdict
-from immunocheck.evaluation.confirmatory import validate_confirmatory_dataset
+from immunocheck.evaluation.confirmatory import (
+    CONFIRMATORY_CONDITIONS,
+    summarize_confirmatory_records,
+    validate_confirmatory_dataset,
+)
 from immunocheck.evaluation.end_to_end import (
     DatasetSplit,
     DatasetStatus,
@@ -70,3 +74,32 @@ def test_rejects_conclusive_item_without_documentary_evidence() -> None:
     items[target] = replace(items[target], evidence_chunk_ids=())
     with pytest.raises(EndToEndDatasetError, match="evidência"):
         validate_confirmatory_dataset(tuple(items), excluded_families=frozenset())
+
+
+def test_summarizes_perfect_confirmatory_checkpoint() -> None:
+    items = _items()
+    records = []
+    for item in items:
+        source_ids = list(item.evidence_chunk_ids)
+        condition = {
+            "verdict": item.label.value,
+            "source_ids": source_ids,
+            "latency_ms": 1000.0,
+            "technical_error": None,
+        }
+        records.append(
+            {
+                "item_id": item.item_id,
+                "claim_family": item.claim_family,
+                "expected_label": item.label.value,
+                "conditions": {
+                    CONFIRMATORY_CONDITIONS[0]: dict(condition),
+                    CONFIRMATORY_CONDITIONS[1]: dict(condition),
+                },
+            }
+        )
+
+    summary = summarize_confirmatory_records(records, items)
+    assert summary["systems"][CONFIRMATORY_CONDITIONS[1]]["macro_f1"] == 1.0
+    assert summary["promotion_gates"]["absolute_macro_f1"]["passed"] is True
+    assert summary["promotion_gates"]["macro_f1_delta"]["passed"] is False
