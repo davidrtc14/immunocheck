@@ -11,6 +11,7 @@ from immunocheck.application.text_components import (
     FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
     GuardedFaithfulnessVerifier,
     LLMAliasedEvidenceSufficiencyAssessor,
+    LLMCitationSelector,
     LLMClaimExtractor,
     LLMClaimRouteAnalyzer,
     LLMConclusiveVerdictGenerator,
@@ -439,6 +440,43 @@ def test_relation_generator_rejects_unknown_reference() -> None:
         LLMRelationVerdictGenerator(client).generate(
             ExtractedClaim("A vacina está indicada.", 0.9),
             (EVIDENCE,),
+        )
+
+
+def test_citation_selector_maps_alias_without_exposing_chunk_id() -> None:
+    client = ScriptedClient([{"source_refs": ["E1"]}])
+    draft = DraftVerdict(Verdict.SUPPORTED, "A alegação é sustentada.", (EVIDENCE.chunk_id,))
+
+    selected = LLMCitationSelector(client).select(
+        ExtractedClaim("A vacina está indicada.", 0.9),
+        draft,
+        (EVIDENCE,),
+    )
+
+    assert selected == (EVIDENCE.chunk_id,)
+    assert EVIDENCE.chunk_id not in client.user_prompts[0]
+
+
+def test_citation_selector_rejects_empty_or_unknown_selection() -> None:
+    draft = DraftVerdict(Verdict.REFUTED, "A alegação é contradita.", (EVIDENCE.chunk_id,))
+    claim = ExtractedClaim("A vacina não está indicada.", 0.9)
+
+    with pytest.raises(ModelOutputError, match="inválidas"):
+        LLMCitationSelector(ScriptedClient([{"source_refs": []}])).select(
+            claim, draft, (EVIDENCE,)
+        )
+    with pytest.raises(ModelOutputError, match="não fornecida"):
+        LLMCitationSelector(ScriptedClient([{"source_refs": ["E2"]}])).select(
+            claim, draft, (EVIDENCE,)
+        )
+
+
+def test_citation_selector_refuses_insufficient_decision() -> None:
+    draft = DraftVerdict(Verdict.INSUFFICIENT_EVIDENCE, "Não é possível concluir.", ())
+
+    with pytest.raises(ValueError, match="abstenção"):
+        LLMCitationSelector(ScriptedClient([])).select(
+            ExtractedClaim("Alegação", 0.9), draft, (EVIDENCE,)
         )
 
 
