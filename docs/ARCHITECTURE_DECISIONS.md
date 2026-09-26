@@ -33,6 +33,7 @@
 | ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Não promovida | Na calibração nova, a candidata teve macro-F1 0,373, delta de −0,057 contra a v1, recall zero de `MISLEADING` e 38/48 abstenções; falhou cinco dos sete gates. |
 | ADR-030 | Testar BGE-M3 denso top 20 como única mudança da v2.1 | Não promovida | Macro-F1 subiu apenas 0,003 sobre top 6, ficou 0,054 abaixo da baseline, manteve recall zero de `MISLEADING` e causou quatro falhas de IDs; só um dos sete gates passou. |
 | ADR-031 | Selecionar seis trechos do top 20 por MMR | Descartada na triagem | Hit@6 caiu de 21/36 para 12/36, sem nenhum ganho de cobertura e com nove perdas; só o gate de latência passou, portanto não houve inferência fim a fim. |
+| ADR-032 | Testar decisão direta em quatro classes, denso top 6 e sem auditor | Em validação | Na calibração, o gate separado descartou todos os chunks anotados dos 12 casos `MISLEADING`; o caminho direto será comparado à v1 auditada sem alterar extração, retrieval, modelo ou prompt já existente. |
 
 ## Histórico de alterações
 
@@ -129,6 +130,12 @@
   chamada de LLM, sem teste e sem holdout. O incidente pré-experimental de uma
   execução sem persistência foi registrado no próprio plano e limita a triagem a
   diagnóstico de desenvolvimento.
+- **26/09/2026 — ADR-032:** no top 20, nove dos 12 casos `MISLEADING` continham ao
+  menos um chunk anotado, mas o gate separado preservou zero; dez foram convertidos
+  em abstenção e dois em `REFUTED`. Como o gerador direto denso sem auditor já teve
+  o melhor ponto estimado no desenvolvimento histórico, a próxima iteração remove
+  somente gate e auditor, reutiliza o top 6 da fase A e permanece submetida aos
+  mesmos sete gates contra a baseline v1 auditada.
 
 ## Política de alteração
 
