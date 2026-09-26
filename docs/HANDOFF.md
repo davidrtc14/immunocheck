@@ -18,11 +18,14 @@ confirmada a partir dos cinco erros desse conjunto. Resultado completo em
 `evaluation/refinement_v3/confirmatory/RESULTS.md`.
 
 A Fase 9 foi concluída: a v3 é o padrão local do bot e da CLI, com a v1 preservada
-por `PIPELINE_VERSION=v1` ou `--pipeline-version v1`. A regressão teve 404 testes
+por `PIPELINE_VERSION=v1` ou `--pipeline-version v1`. A regressão teve 409 testes
 aprovados e um teste PostgreSQL opcional ignorado. O ensaio controlado aprovou texto,
 imagem, link e rejeição de vídeo; detalhes e limites estão em
 `docs/V3_INTEGRATION.md`. Ainda falta preencher o checklist ao vivo no ambiente da
 apresentação. A aprovação experimental não autoriza implantação pública.
+O preflight da integração aprovou 15/15 controles técnicos obrigatórios e classificou
+o estado como `release_candidate_blocked_by_human_gates`, restando somente o gate
+institucional LGPD/CEP.
 
 ## Histórico — prova de conceito v1
 

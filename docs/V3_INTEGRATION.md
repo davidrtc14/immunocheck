@@ -23,7 +23,7 @@ conforme a configuração que foi confirmada experimentalmente.
 
 ## Evidência de integração
 
-- suíte geral: 404 testes aprovados e um teste PostgreSQL opcional ignorado por falta
+- suíte geral: 409 testes aprovados e um teste PostgreSQL opcional ignorado por falta
   de `IMMUNOCHECK_TEST_DATABASE_URL`;
 - regressão dirigida: roteamento, profundidades 6/15, expansão, duas seleções,
   fontes programáticas, falha fechada e abstenções;
@@ -40,6 +40,12 @@ conforme a configuração que foi confirmada experimentalmente.
 O relatório desidentificado do ensaio está em
 `evaluation/results/demo/v3_automated_rehearsal.json`. Ele valida integração e
 latência observada, não substitui a avaliação de qualidade confirmatória.
+
+O preflight final aprovou os 15 controles técnicos obrigatórios e está em
+`evaluation/results/release/v3_integration_preflight.json`. Docker, Compose e
+PostgreSQL ficaram indisponíveis apenas nesta sessão automatizada e são diagnósticos
+opcionais para o bot, pois o caminho online usa corpus/índice em arquivo. O status de
+entrega continua bloqueado somente pelo gate institucional LGPD/CEP.
 
 ## Limites de reprodução
 
