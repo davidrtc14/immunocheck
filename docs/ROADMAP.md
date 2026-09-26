@@ -440,3 +440,9 @@ permaneceu `INSUFFICIENT_EVIDENCE`; nenhum rótulo primário foi alterado. Um sn
 separado registra as 16 segundas anotações e as três decisões, mantendo o snapshot
 primário intacto. A calibração v2 está pronta para as três condições pré-registradas;
 o holdout continua inexistente e nenhuma inferência havia sido executada nesse marco.
+
+Plano experimental da fase A registrado em 26/09/2026: a configuração definitiva
+da v1 e a candidata separada sem auditor serão comparadas nos mesmos 48 itens, com
+extração e retrieval denso top 6 compartilhados. O auditor factual só será executado
+se todos os sete gates já documentados forem satisfeitos. O script usa checkpoint
+incremental, bootstrap por família e bloqueia o teste v1 e o holdout v2.
