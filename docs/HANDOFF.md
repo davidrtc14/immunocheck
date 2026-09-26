@@ -1,9 +1,28 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 18/09/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 26/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
-## Ponto atual — prova de conceito avaliada, gates humanos ainda abertos
+## Ponto atual — v3 confirmada, integração ao protótipo ainda pendente
+
+A Fase 8 foi concluída. A candidata v3 congelada combina retrieval BGE-M3 top 15,
+roteamento estrutural, especialistas direto/relacional e seleção hierárquica de
+citações. Na execução confirmatória única em 32 itens e oito famílias novas, obteve
+macro-F1 0,846 contra 0,482 da v1, recall `MISLEADING` 0,625, precisão de abstenção
+1,000, citação exata 0,833, falha zero e P95 19,35 s. Todos os oito gates passaram.
+
+O conjunto e o protocolo foram congelados no commit `43838ec`; o executor, no
+commit `c9065a8`. O gabarito teve curadoria do pesquisador com apoio de IA e
+evidência documental, sem validação clínica independente. Não ajustar a candidata
+confirmada a partir dos cinco erros desse conjunto. Resultado completo em
+`evaluation/refinement_v3/confirmatory/RESULTS.md`.
+
+A próxima ação é a Fase 9: expor a v3 por builder opt-in, executar regressões de
+privacidade/formatação e medir texto, imagem e link no caminho real antes de mudar o
+bot. A v1 permanece ativa até essa integração; a aprovação experimental não é uma
+implantação pública.
+
+## Histórico — prova de conceito v1
 
 O teste congelado foi executado uma única vez no commit candidato `52ab0bd`.
 A configuração BGE-M3 densa, Qwen3-8B e auditor v2 obteve macro-F1 0,416, recall

@@ -39,9 +39,10 @@
 | ADR-035 | Triar decisão relacional v3 com guarda de evento específico e denso top 15 | Não promovida | Recuperou `MISLEADING` e abstenção, mas zerou o recall de `REFUTED`; quatro dos sete gates passaram. |
 | ADR-036 | Rotear alegações simples, compostas e eventos específicos para decisões especializadas | Não promovida por citação | Macro-F1 0,725 e seis de sete gates passaram; citação relevante ficou em 0,444, abaixo do mínimo de 0,60. |
 | ADR-037 | Selecionar citações em estágio dedicado sem alterar o veredito roteado | Não promovida | Melhorou citação exata somente de 0,444 para 0,472 e elevou P95 para 16,47 s; o gate de 0,60 continuou falhando. |
-| ADR-038 | Expandir passagens nos documentos selecionados antes da citação final | Aprovada na calibração | Elevou citação exata para 0,722, preservou macro-F1 0,725 e completou 7/7 gates; ainda exige confirmação independente. |
+| ADR-038 | Expandir passagens nos documentos selecionados antes da citação final | Confirmada pela ADR-041 | Elevou citação exata para 0,722 na calibração e para 0,833 na confirmação, preservando a decisão roteada. |
 | ADR-039 | Congelar a candidata hierárquica v3 antes de construir dados confirmatórios | Aceita | Preserva código, prompts, modelo, corpus, índices e hashes após 7/7 gates, impedindo ajuste orientado pelo conjunto confirmatório. |
 | ADR-040 | Usar gabarito documental com curadoria do pesquisador apoiada por IA na confirmação v3 | Aceita com limitação declarada | Elimina a dependência inviável de revisor externo no prazo do TCC; rótulos e evidências são congelados antes da execução, sem alegar validação clínica, independência ou concordância entre anotadores. |
+| ADR-041 | Promover a candidata v3 para integração controlada ao protótipo | Aceita | Na confirmação nova, obteve macro-F1 0,846, ganho de 0,364 sobre a v1, recall `MISLEADING` 0,625, citação exata 0,833, falha zero e P95 19,35 s; passou 8/8 gates, sem abrir o teste histórico da v1. |
 
 ## Histórico de alterações
 
@@ -220,6 +221,13 @@
   atraso e é proporcional ao protótipo de graduação, mas deverá constar como
   limitação: o conjunto não possui validação clínica independente nem medida de
   concordância entre anotadores.
+- **26/09/2026 — ADR-041:** a execução única usou 32 itens e oito famílias novas,
+  congelados antes da inferência. A v3 atingiu macro-F1 0,846 contra 0,482 da v1,
+  com intervalo bootstrap do ganho de +0,192 a +0,540, recall `MISLEADING` 0,625,
+  precisão de abstenção 1,000, citação exata 0,833, falha zero e P95 19,35 s. Os
+  oito gates passaram. A configuração torna-se a referência para integração ao
+  bot, mas a v1 em execução não é alterada por esta decisão e o resultado não
+  sustenta implantação pública ou validação clínica.
 
 ## Política de alteração
 

@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "experiment": "refinement_v3_confirmatory_once",
+  "executed_at": "2026-09-26T16:15:03.550065+00:00",
+  "preexecution_manifest_sha256": "9f6049903d038cc572ce8ea31c8097546a26a3b8928ff827e8a760d2dc42067a",
+  "dataset_sha256": "23267ee36a2dd976a2c312941839d364ec149a96a2a8826ef3f4bd7ead0ac812",
+  "protocol_sha256": "68d8b97af087ff9ebf002d992d9b029bc0d16e14e5733aa538a924b92a4343b0",
+  "candidate_source_commit": "38e8da91074a5dc3642f2ced92abce88e2b21feb",
+  "partition": "new_confirmatory_test_families",
+  "v1_final_test_items_loaded": 0,
+  "model": "qwen3:8b",
+  "temperature": 0,
+  "seed": 42,
+  "retrieval": "bge_m3_dense_top_15",
+  "conditions": [
+    "v1_dense_with_auditor",
+    "v3_routed_with_hierarchical_citations"
+  ],
+  "curation": "project_researcher_ai_assisted",
+  "external_human_review_claimed": false,
+  "checkpoint_sha256": "ff6ad3ecc3db2867ef384118ae3c0dc4bf590063f18baea743be7a666d2bc01a",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "summary": {
+    "item_count": 32,
+    "family_count": 8,
+    "systems": {
+      "v1_dense_with_auditor": {
+        "accuracy": 0.53125,
+        "balanced_accuracy": 0.53125,
+        "macro_f1": 0.48205128205128206,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "support": 8
+          },
+          "REFUTED": {
+            "precision": 0.5714285714285714,
+            "recall": 0.5,
+            "f1": 0.5333333333333333,
+            "support": 8
+          },
+          "MISLEADING": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 8
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.3333333333333333,
+            "recall": 0.75,
+            "f1": 0.46153846153846156,
+            "support": 8
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            7,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            4,
+            0,
+            4
+          ],
+          [
+            0,
+            1,
+            0,
+            7
+          ],
+          [
+            0,
+            2,
+            0,
+            6
+          ]
+        ],
+        "abstention": {
+          "precision": 0.3333333333333333,
+          "recall": 0.75,
+          "f1": 0.46153846153846156
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.6666666666666666,
+        "technical_failure_rate": 0.0,
+        "latency_ms": {
+          "median": 9946.53435004875,
+          "p95": 12087.158699985594,
+          "samples": 32
+        }
+      },
+      "v3_routed_with_hierarchical_citations": {
+        "accuracy": 0.84375,
+        "balanced_accuracy": 0.84375,
+        "macro_f1": 0.8461152882205514,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 8
+          },
+          "REFUTED": {
+            "precision": 0.6363636363636364,
+            "recall": 0.875,
+            "f1": 0.7368421052631579,
+            "support": 8
+          },
+          "MISLEADING": {
+            "precision": 0.8333333333333334,
+            "recall": 0.625,
+            "f1": 0.7142857142857143,
+            "support": 8
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 1.0,
+            "recall": 0.875,
+            "f1": 0.9333333333333333,
+            "support": 8
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            8,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            7,
+            1,
+            0
+          ],
+          [
+            0,
+            3,
+            5,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            7
+          ]
+        ],
+        "abstention": {
+          "precision": 1.0,
+          "recall": 0.875,
+          "f1": 0.9333333333333333
+        },
+        "relevant_citation_hit_rate_on_conclusive_items": 0.8333333333333334,
+        "technical_failure_rate": 0.0,
+        "latency_ms": {
+          "median": 13779.229099920485,
+          "p95": 19348.57749985531,
+          "samples": 32
+        }
+      }
+    },
+    "paired_bootstrap": {
+      "unit": "claim_family",
+      "resamples": 2000,
+      "seed": 20260926,
+      "candidate_minus_baseline_macro_f1_95_percentile_interval": {
+        "lower": 0.19194373401534537,
+        "median": 0.36277056277056285,
+        "upper": 0.5400934575649945
+      }
+    },
+    "promotion_gates": {
+      "absolute_macro_f1": {
+        "value": 0.8461152882205514,
+        "threshold": 0.6,
+        "direction": "minimum",
+        "passed": true
+      },
+      "macro_f1_delta": {
+        "value": 0.3640640061692693,
+        "threshold": 0.08,
+        "direction": "minimum",
+        "passed": true
+      },
+      "misleading_recall": {
+        "value": 0.625,
+        "threshold": 0.4,
+        "direction": "minimum",
+        "passed": true
+      },
+      "abstention_precision": {
+        "value": 1.0,
+        "threshold": 0.45,
+        "direction": "minimum",
+        "passed": true
+      },
+      "citation_hit_rate": {
+        "value": 0.8333333333333334,
+        "threshold": 0.6,
+        "direction": "minimum",
+        "passed": true
+      },
+      "maximum_class_recall_drop": {
+        "value": -0.125,
+        "threshold": 0.05,
+        "direction": "maximum",
+        "passed": true,
+        "per_class": {
+          "SUPPORTED": -0.125,
+          "REFUTED": -0.375,
+          "MISLEADING": -0.625,
+          "INSUFFICIENT_EVIDENCE": -0.125
+        }
+      },
+      "technical_failure_rate": {
+        "value": 0.0,
+        "threshold": 0.02,
+        "direction": "maximum",
+        "passed": true
+      },
+      "textual_p95_seconds": {
+        "value": 19.34857749985531,
+        "threshold": 20.0,
+        "direction": "maximum",
+        "passed": true
+      }
+    },
+    "all_gates_passed": true
+  }
+}

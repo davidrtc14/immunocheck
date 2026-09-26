@@ -3,9 +3,9 @@
 ## Estado
 
 A candidata roteada com seleção hierárquica de citações passou os sete gates de
-calibração em 26/09/2026 e foi formalmente congelada. Ela permanece experimental e
-fora do bot até uma avaliação confirmatória única em famílias novas com gabarito
-documental congelado.
+calibração, foi formalmente congelada e depois passou os oito gates da confirmação
+documental em 26/09/2026. Ela está aprovada para integração controlada, mas ainda
+permanece fora do bot até a Fase 9.
 
 Resultado de calibração:
 
@@ -39,6 +39,14 @@ O resultado completo está em `HIERARCHICAL_CITATION_RESULTS.md`; a configuraç�
 os hashes imutáveis estão em `CANDIDATE_FREEZE.md`. Os experimentos intermediários
 permanecem documentados para que a trajetória não seja confundida com uma única
 tentativa bem-sucedida.
+
+## Confirmação
+
+Em 32 itens e oito famílias novas, a v3 obteve macro-F1 0,846 contra 0,482 da v1,
+recall `MISLEADING` 0,625, precisão de abstenção 1,000, citação exata 0,833, falha
+zero e P95 19,35 s. Todos os oito gates passaram. Consulte
+`confirmatory/RESULTS.md` e os artefatos estruturados em
+`evaluation/results/refinement_v3/`.
 
 ## Limite metodológico
 

@@ -503,7 +503,7 @@ uma confirmação apesar da falha nos gates violaria o protocolo. A ADR-034 ence
 linha sem promoção, preserva a v1 congelada e direciona o trabalho para consolidação
 acadêmica. Consulte `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.
 
-## Fase 8 — Candidata roteada v3 e confirmação independente
+## Fase 8 — Candidata roteada v3 e confirmação documental
 
 - [x] Decisão relacional com guarda de evento específico avaliada.
 - [x] Roteamento estrutural entre especialistas avaliado.
@@ -511,14 +511,23 @@ acadêmica. Consulte `evaluation/refinement_v2/CONSOLIDATION_REPORT.md`.
 - [x] Sete gates de calibração satisfeitos sem abrir teste ou holdout.
 - [x] Congelamento formal de código, prompts, corpus e hashes da candidata.
 - [x] Construção e curadoria documental de conjunto confirmatório com famílias novas.
-- [ ] Execução confirmatória única e decisão de promoção ou rejeição.
+- [x] Execução confirmatória única e decisão de promoção ou rejeição.
 
-**Estado em 26/09/2026:** a candidata roteada com citações hierárquicas obteve
-macro-F1 0,725, recall `MISLEADING` 0,417, precisão de abstenção 0,750, citação
-exata 0,722, falha zero e P95 18,72 s nos 48 itens de calibração. Os sete gates
-passaram, mas o resultado é exploratório porque a arquitetura foi desenvolvida a
-partir dos erros desse conjunto. A candidata não substitui a v1 até uma confirmação
-única em dados novos, preparada somente após o congelamento formal.
+**Concluída em 26/09/2026:** a candidata roteada com citações hierárquicas obteve
+macro-F1 0,846 contra 0,482 da v1 em 32 itens e oito famílias novas. O recall
+`MISLEADING` foi 0,625, a precisão de abstenção 1,000, a citação exata 0,833, a
+falha técnica zero e o P95 19,35 s. Os oito gates passaram; a candidata foi
+aprovada para integração controlada ao protótipo, sem alterar automaticamente o bot.
 Por decisão metodológica proporcional ao prazo do TCC, a curadoria confirmatória é
 feita pelo pesquisador com apoio de IA e evidência rastreável, sem alegação de
 revisão clínica independente. Essa limitação deve acompanhar qualquer resultado.
+
+## Fase 9 — Integração controlada da v3 ao protótipo
+
+- [ ] Expor a pipeline v3 por builder opt-in, preservando a v1 para comparação.
+- [ ] Executar testes de regressão, privacidade e formatação das quatro classes.
+- [ ] Medir texto, imagem e link no caminho real sem reutilizar o conjunto confirmatório.
+- [ ] Atualizar o bot local e o roteiro de demonstração somente após o preflight.
+
+**Ponto de partida:** a qualidade da v3 já foi confirmada e seus componentes estão
+congelados. A próxima fase é integração de software, não nova calibração.
