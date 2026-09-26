@@ -453,3 +453,10 @@ candidata teve recall zero de `MISLEADING`, recall 0,083 de `REFUTED` e 38/48
 abstenções. Falhou cinco dos sete gates; apenas falha técnica zero e P95 de 14,74 s
 passaram. Conforme o plano congelado, a fase B com auditor factual não foi executada,
 o holdout continuou fechado e a candidata não foi promovida.
+
+Diagnóstico pós-fase A em 26/09/2026: entre os 36 itens conclusivos, o top 6 denso
+continha evidência anotada em 21 (58,3%); houve 14 misses atribuídos ao retrieval,
+oito rejeições do gate apesar de evidência anotada, duas seleções inadequadas e cinco
+riscos de extração. BGE-M3 denso top 20 elevou a cobertura para 72,2%, superando BM25
+(25,0%) e híbrido RRF (63,9%). A ADR-030 registra como próxima iteração a mudança
+isolada de top 6 para top 20, sem alterar prompts nem executar auditor.

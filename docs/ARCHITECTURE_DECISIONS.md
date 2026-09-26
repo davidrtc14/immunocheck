@@ -31,6 +31,7 @@
 | ADR-027 | BGE-M3 + auditor v2 como configuração definitiva da v1 | Aceita com limitação crítica | No teste único obteve macro-F1 0,416, recall de abstenção 0,750 e recall zero de `MISLEADING`; congela a prova de conceito, mas impede recomendação de implantação pública. |
 | ADR-028 | Congelar a v1 e abrir linha experimental v2 com dados novos | Aceita | Evita ajuste pós-teste: os 64 itens finais e os 96 itens já calibrados permanecem históricos; a v2 exige nova calibração e novo holdout. |
 | ADR-029 | Separar suficiência, classificação e fidelidade na v2 | Não promovida | Na calibração nova, a candidata teve macro-F1 0,373, delta de −0,057 contra a v1, recall zero de `MISLEADING` e 38/48 abstenções; falhou cinco dos sete gates. |
+| ADR-030 | Testar BGE-M3 denso top 20 como única mudança da v2.1 | Em validação | Na calibração, Hit@20 foi 72,2% contra Hit@6 de 58,3%; BM25 e híbrido ficaram abaixo do denso. Prompts e demais componentes permanecem congelados. |
 
 ## Histórico de alterações
 
@@ -105,6 +106,12 @@
   teve recall zero de `MISLEADING`, recall 0,083 de `REFUTED` e 38 abstenções.
   Somente falha técnica e P95 passaram. A fase B com auditor factual não foi
   executada e a candidata não será promovida.
+- **26/09/2026 — diagnóstico e ADR-030:** a atribuição exclusiva encontrou 14
+  misses de retrieval, cinco riscos de extração, oito rejeições do gate apesar de
+  evidência anotada e duas seleções inadequadas do gate. Aumentar a profundidade
+  densa para 20 eleva a cobertura anotada de 58,3% para 72,2%; BM25 e híbrido RRF
+  foram inferiores. A próxima iteração muda somente top-k, sem auditor ou ajuste de
+  prompt, e permanece sujeita aos mesmos sete gates.
 
 ## Política de alteração
 

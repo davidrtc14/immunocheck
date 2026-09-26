@@ -127,5 +127,23 @@
     "total_gates": 7,
     "factual_auditor_executed": false,
     "candidate_promoted": false
+  },
+  "phase_a_diagnostics": {
+    "completed_at": "2026-09-26",
+    "retrieval_hit_at_6": 0.5833333333333334,
+    "dense_hit_at_20": 0.7222222222222222,
+    "bm25_hit_at_20": 0.25,
+    "hybrid_rrf_hit_at_20": 0.6388888888888888,
+    "primary_stage_counts": {
+      "correct_conclusive": 7,
+      "correct_insufficient_evidence": 12,
+      "extraction_integrity_risk": 5,
+      "retrieval_miss": 14,
+      "sufficiency_rejection_with_annotated_evidence": 8,
+      "sufficiency_selection_miss": 2
+    },
+    "v1_test_records_loaded": 0,
+    "holdout_v2_records_loaded": 0,
+    "next_hypothesis": "dense_top_20_only"
   }
 }

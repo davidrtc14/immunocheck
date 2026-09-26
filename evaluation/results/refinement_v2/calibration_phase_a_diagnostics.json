@@ -1,0 +1,982 @@
+{
+  "schema_version": 1,
+  "scope": "refinement_v2_calibration_phase_a_only",
+  "item_count": 48,
+  "condition": "v2_separated_no_auditor",
+  "primary_stage_counts": {
+    "correct_conclusive": 7,
+    "correct_insufficient_evidence": 12,
+    "extraction_integrity_risk": 5,
+    "retrieval_miss": 14,
+    "sufficiency_rejection_with_annotated_evidence": 8,
+    "sufficiency_selection_miss": 2
+  },
+  "item_ids_by_primary_stage": {
+    "correct_conclusive": [
+      "ref2-cal-0001",
+      "ref2-cal-0002",
+      "ref2-cal-0005",
+      "ref2-cal-0013",
+      "ref2-cal-0029",
+      "ref2-cal-0033",
+      "ref2-cal-0041"
+    ],
+    "correct_insufficient_evidence": [
+      "ref2-cal-0004",
+      "ref2-cal-0008",
+      "ref2-cal-0012",
+      "ref2-cal-0016",
+      "ref2-cal-0020",
+      "ref2-cal-0024",
+      "ref2-cal-0028",
+      "ref2-cal-0032",
+      "ref2-cal-0036",
+      "ref2-cal-0040",
+      "ref2-cal-0044",
+      "ref2-cal-0048"
+    ],
+    "extraction_integrity_risk": [
+      "ref2-cal-0014",
+      "ref2-cal-0017",
+      "ref2-cal-0037",
+      "ref2-cal-0038",
+      "ref2-cal-0039"
+    ],
+    "retrieval_miss": [
+      "ref2-cal-0009",
+      "ref2-cal-0010",
+      "ref2-cal-0011",
+      "ref2-cal-0021",
+      "ref2-cal-0022",
+      "ref2-cal-0025",
+      "ref2-cal-0026",
+      "ref2-cal-0027",
+      "ref2-cal-0031",
+      "ref2-cal-0034",
+      "ref2-cal-0043",
+      "ref2-cal-0045",
+      "ref2-cal-0046",
+      "ref2-cal-0047"
+    ],
+    "sufficiency_rejection_with_annotated_evidence": [
+      "ref2-cal-0006",
+      "ref2-cal-0007",
+      "ref2-cal-0015",
+      "ref2-cal-0018",
+      "ref2-cal-0019",
+      "ref2-cal-0030",
+      "ref2-cal-0035",
+      "ref2-cal-0042"
+    ],
+    "sufficiency_selection_miss": [
+      "ref2-cal-0003",
+      "ref2-cal-0023"
+    ]
+  },
+  "abstention_by_expected_label": {
+    "SUPPORTED": {
+      "abstentions": 3,
+      "total": 12,
+      "rate": 0.25
+    },
+    "REFUTED": {
+      "abstentions": 11,
+      "total": 12,
+      "rate": 0.9166666666666666
+    },
+    "MISLEADING": {
+      "abstentions": 12,
+      "total": 12,
+      "rate": 1.0
+    },
+    "INSUFFICIENT_EVIDENCE": {
+      "abstentions": 12,
+      "total": 12,
+      "rate": 1.0
+    }
+  },
+  "extraction": {
+    "exact_original": 29,
+    "low_token_recall_below_0_8": 5,
+    "material_marker_loss": 0,
+    "mean_token_recall": 0.937072141461822
+  },
+  "retrieval_and_gate_on_conclusive_items": {
+    "items": 36,
+    "retrieval_hit": 21,
+    "retrieval_hit_rate": 0.5833333333333334,
+    "gate_selected_annotated_evidence": 18,
+    "gate_selection_hit_rate": 0.5
+  },
+  "details": [
+    {
+      "item_id": "ref2-cal-0001",
+      "claim_family": "dengue_postmarketing_signal",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "correct_conclusive",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "ms_dengue_seguranca_2025:p9:c3:a90ace9ee174",
+        "ms_guia_dengue_butantan_2026:p20:c1:4ba26a1a50c7"
+      ],
+      "candidate_explanation": "A alegação é sustentada pelos trechos que mencionam a possibilidade de eventos adversos raros serem revelados após a vacinação em larga escala, reforçando a necessidade da farmacovigilância pós-comercialização."
+    },
+    {
+      "item_id": "ref2-cal-0002",
+      "claim_family": "dengue_postmarketing_signal",
+      "expected_label": "REFUTED",
+      "candidate_label": "REFUTED",
+      "primary_stage": "correct_conclusive",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.8571428571428571,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "ms_dengue_seguranca_2025:p1:c2:2a784fdd4c94",
+        "ms_guia_dengue_butantan_2026:p21:c1:0f2fc5dfee5a"
+      ],
+      "candidate_explanation": "A alegação afirma que a vacina contra dengue deixa de ser acompanhada quanto a eventos adversos após sua aprovação. No entanto, os trechos indicam que o monitoramento e a vigilância epidemiológica são intensificados após a implementação da vacina, reforçando a necessidade de acompanhar eventos adversos mesmo após a aprovação."
+    },
+    {
+      "item_id": "ref2-cal-0003",
+      "claim_family": "dengue_postmarketing_signal",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_selection_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "ms_dengue_seguranca_2025:p7:c1:263c307fc8fd",
+        "ms_dengue_seguranca_2025:p7:c2:b314bd1b0862",
+        "ms_dengue_seguranca_2025:p7:c3:be9b6eaa762f"
+      ],
+      "candidate_explanation": "Os trechos fornecem dados sobre o aumento das notificações de hipersensibilidade e anafilaxia após a vacinação contra dengue, mas não afirmam diretamente que todas as reações notificadas foram causadas pelo imunizante. Há menção a casos classificados como hipersensibilidade tardia e imediata, incluindo anafilaxia, mas não há uma conclusão definitiva sobre causalidade em todos os casos."
+    },
+    {
+      "item_id": "ref2-cal-0004",
+      "claim_family": "dengue_postmarketing_signal",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "conitec_dengue_871_2023:p33:c1:8dd43b712fd5",
+        "conitec_dengue_871_2023:p89:c1:792cbc6670d1",
+        "ms_dengue_seguranca_2025:p13:c4:515fc5217fff"
+      ],
+      "candidate_explanation": "Os trechos fornecidos mencionam urticária como uma reação possível à vacina, mas não há menção específica a uma adolescente em uma unidade não identificada ou a um caso de urticária causada por dose de vacina contra dengue. A falta de informações sobre o sujeito, população, produto e período específico torna impossível comparar com segurança a alegação."
+    },
+    {
+      "item_id": "ref2-cal-0005",
+      "claim_family": "mpox_notification_severity",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "correct_conclusive",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.9411764705882353,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "ms_mpox_seguranca_2025:p2:c1:894d4f88419f",
+        "ms_mpox_seguranca_2025:p2:c2:d1a1378ab756",
+        "ms_mpox_seguranca_2025:p3:c1:198a86d0c93c"
+      ],
+      "candidate_explanation": "A alegação afirma que a maioria dos eventos adversos notificados na vacina mpox no informe brasileiro foi classificada como não grave. O trecho menciona que 49 (96,1%; 1,5 notificação por mil DA) foram classificados como não graves, o que sustenta diretamente a alegação."
+    },
+    {
+      "item_id": "ref2-cal-0006",
+      "claim_family": "mpox_notification_severity",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "ms_mpox_seguranca_2025:p2:c2:d1a1378ab756",
+        "ms_mpox_seguranca_2025:p3:c1:198a86d0c93c"
+      ],
+      "candidate_explanation": "Os trechos fornecidos mencionam que apenas 2 casos de eventos adversos graves foram notificados, mas não afirmam que todos os eventos adversos notificados após a vacina mpox no informe brasileiro foram graves. A alegação é geral e não é diretamente comprovada pelos dados apresentados."
+    },
+    {
+      "item_id": "ref2-cal-0007",
+      "claim_family": "mpox_notification_severity",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.8,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "ms_esavi_4ed:p182:c1:e4517a173ee2",
+        "ms_esavi_4ed:p61:c2:8815aa023745",
+        "ms_mpox_seguranca_2025:p2:c3:0adbf3f2c967"
+      ],
+      "candidate_explanation": "Os trechos mencionam convulsões após vacinação, mas não confirmam causalidade direta da vacina mpox. A investigação é necessária para esclarecer se a convulsão foi causada pela vacina ou por outro fator, como febre ou condições pré-existentes."
+    },
+    {
+      "item_id": "ref2-cal-0008",
+      "claim_family": "mpox_notification_severity",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "ms_esavi_4ed:p227:c2:a96a6cd24d10",
+        "ms_esavi_4ed:p61:c2:8815aa023745",
+        "ms_esavi_4ed:p82:c1:1fdcb411244a"
+      ],
+      "candidate_explanation": "Os trechos mencionam febre como uma reação comum pós-vacina, mas não especificam que a febre do trabalhador de laboratório foi causada diretamente pelo imunizante. Não há menção à vacina mpox ou ao caso específico do trabalhador."
+    },
+    {
+      "item_id": "ref2-cal-0009",
+      "claim_family": "measles_first_dose_age_response",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "ms_calendario_2026:p38:c1:8ffa8d2e79c5",
+        "ms_crie_2023:p35:c2:5ffe87115673",
+        "ms_esavi_4ed:p66:c3:3449aa1f864a"
+      ],
+      "candidate_explanation": "Os trechos fornecidos mencionam a importância de seguir intervalos recomendados entre doses e possíveis impactos da administração inadequada, mas não abordam diretamente o efeito da aplicação mais cedo da primeira dose contra o sarampo na imunogenicidade ou proteção. Não há menção explícita sobre redução da eficácia por antecipar a vacinação."
+    },
+    {
+      "item_id": "ref2-cal-0010",
+      "claim_family": "measles_first_dose_age_response",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "ms_calendario_2026:p39:c2:1353b7c442dd",
+        "ms_esavi_4ed:p73:c1:780028309a69",
+        "ms_nt21_sarampo_dose_zero_2026:p1:c3:574876a22273"
+      ],
+      "candidate_explanation": "Os trechos mencionam a idade indicada para a aplicação da dose zero da vacina tríplice viral e possíveis interferências imunológicas, mas não abordam diretamente se a idade em que a primeira dose é aplicada influencia a resposta imunológica. Não há dados sobre eficácia ou resposta imunológica em diferentes idades."
+    },
+    {
+      "item_id": "ref2-cal-0011",
+      "claim_family": "measles_first_dose_age_response",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.9565217391304348,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "ms_calendario_2026:p39:c1:ccc7c2c45987",
+        "ms_esavi_4ed:p228:c3:a88d94ee8fbd",
+        "ms_manual_normas_2024:p98:c3:588ad1212a93"
+      ],
+      "candidate_explanation": "Os trechos fornecidos mencionam vacinação contra sarampo e eventos adversos pós-vacinação, mas não abordam diretamente a eficácia da vacinação precoce ou a suposta inutilidade da segunda dose. Não há menção à resposta imunológica após a primeira dose, nem à relação entre vacinação cedo e benefício da segunda dose."
+    },
+    {
+      "item_id": "ref2-cal-0012",
+      "claim_family": "measles_first_dose_age_response",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "ms_esavi_4ed:p68:c1:b6a6d9443ece",
+        "ms_esavi_4ed:p68:c2:c7db74076d38",
+        "ms_manual_normas_2024:p72:c3:e9886c5d1fd0"
+      ],
+      "candidate_explanation": "Os trechos fornecidos abordam falhas vacinais e erros de imunização, mas não mencionam especificamente a relação entre a administração precoce da primeira dose contra o sarampo e uma falha vacinal em uma criança específica. Não há menção ao tempo de aplicação da vacina ou à correlação com casos individuais de falhas vacinais."
+    },
+    {
+      "item_id": "ref2-cal-0013",
+      "claim_family": "hpv_single_dose_scope",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "correct_conclusive",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "jvacx_hpv_one_dose_review_2024:p1:c31:586edee1c5b5",
+        "jvacx_hpv_one_dose_review_2024:p1:c3:c4d75a582746",
+        "jvacx_hpv_one_dose_review_2024:p1:c51:0cf090a030b5"
+      ],
+      "candidate_explanation": "A alegação é sustentada pelos trechos, que indicam que a incidência de infecção por HPV 16 ou 18 foi muito baixa entre os vacinados, independentemente do número de doses recebidas."
+    },
+    {
+      "item_id": "ref2-cal-0014",
+      "claim_family": "hpv_single_dose_scope",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "extraction_integrity_risk",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.7777777777777778,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "jvacx_hpv_one_dose_review_2024:p1:c47:88e49539f47e",
+        "jvacx_hpv_one_dose_review_2024:p1:c48:e069a030587f",
+        "jvacx_hpv_one_dose_review_2024:p1:c51:0cf090a030b5"
+      ],
+      "candidate_explanation": "Os trechos mencionam que uma dose de vacina contra HPV foi eficaz em jovens saudáveis do sexo feminino, com resultados positivos em estudos clínicos e revisões sistemáticas. No entanto, não há menção direta à ineficácia da vacina em relação a essa população específica, o que torna insuficiente para comparar com segurança a alegação."
+    },
+    {
+      "item_id": "ref2-cal-0015",
+      "claim_family": "hpv_single_dose_scope",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "jvacx_hpv_one_dose_review_2024:p1:c3:c4d75a582746",
+        "jvacx_hpv_one_dose_review_2024:p1:c48:e069a030587f",
+        "ms_crie_2023:p113:c2:0221febc18e2"
+      ],
+      "candidate_explanation": "Os trechos mencionam que uma dose de vacina contra HPV pode ser eficaz e imunogênica em jovens saudáveis, mas não abordam diretamente a proteção duradoura para meninos, mulheres mais velhas ou pessoas com HIV. A evidência apresentada é limitada a estudos em jovens e não inclui dados suficientes sobre outros grupos populacionais mencionados na alegação."
+    },
+    {
+      "item_id": "ref2-cal-0016",
+      "claim_family": "hpv_single_dose_scope",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "jvacx_hpv_one_dose_review_2024:p1:c6:43f417304539",
+        "ms_hpv:p1:c5:d2c96edbaf75",
+        "ms_manual_normas_2024:p216:c2:ce19a33ff1e5"
+      ],
+      "candidate_explanation": "Os trechos mencionam que a vacina contra HPV é eficaz contra os tipos mais comuns, mas não afirmam que uma única dose ofereça proteção para toda a vida contra todos os tipos de HPV. Além disso, não há menção específica sobre uma pessoa não identificada ou sobre proteção por toda a vida."
+    },
+    {
+      "item_id": "ref2-cal-0017",
+      "claim_family": "meningococcal_conjugate_impact",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "extraction_integrity_risk",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.7142857142857143,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "paho_meningococcal_impact_review_2017:p1:c20:4dce91e5dadb",
+        "paho_meningococcal_impact_review_2017:p1:c4:e0edfedc93b4",
+        "paho_meningococcal_impact_review_2017:p1:c6:a47cbee13391"
+      ],
+      "candidate_explanation": "Os trechos indicam que vacinas conjugadas têm maior impacto e efetividade em comparação com as polissacarídeas, além de proteção mais duradoura. A alegação é sustentada por esses dados."
+    },
+    {
+      "item_id": "ref2-cal-0018",
+      "claim_family": "meningococcal_conjugate_impact",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.9090909090909091,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "paho_meningococcal_impact_review_2017:p1:c20:4dce91e5dadb",
+        "paho_meningococcal_impact_review_2017:p1:c4:e0edfedc93b4",
+        "paho_meningococcal_impact_review_2017:p1:c6:a47cbee13391"
+      ],
+      "candidate_explanation": "Os trechos mencionam estudos que mostram eficácia e impacto positivo das vacinas meningocócicas conjugadas, incluindo taxas de efetividade entre 66% a 100% e reduções na incidência de doença meningocócica. No entanto, não há menção direta à revisão específica que afirma não encontrar impacto nem eficácia para essas vacinas. A alegação é contraditória com os trechos recuperados."
+    },
+    {
+      "item_id": "ref2-cal-0019",
+      "claim_family": "meningococcal_conjugate_impact",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.95,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "paho_meningococcal_impact_review_2017:p1:c20:4dce91e5dadb",
+        "paho_meningococcal_impact_review_2017:p1:c2:95c4ac863616",
+        "paho_meningococcal_impact_review_2017:p1:c5:5847df94e9df"
+      ],
+      "candidate_explanation": "Os trechos mencionam que vacinas conjugadas podem ter efetividade de até 100% em alguns estudos, mas não afirmam que qualquer pessoa vacinada fique completamente protegida contra toda meningite. A alegação exagera a eficácia e generaliza demais os resultados, o que não é abordado diretamente pelos trechos."
+    },
+    {
+      "item_id": "ref2-cal-0020",
+      "claim_family": "meningococcal_conjugate_impact",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.875,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "ms_esavi_4ed:p142:c2:2d5a33494390",
+        "ms_esavi_4ed:p273:c2:2d16dbcd7748"
+      ],
+      "candidate_explanation": "Os trechos fornecidos mencionam meningite como uma possível complicação pós-vacinação, mas não abordam diretamente a possibilidade de uma vacina meningocócica estar defeituosa causando meningite em uma pessoa vacinada. Não há menção à deficiência da vacina meningocócica ou casos específicos relacionados a essa vacina e meningite."
+    },
+    {
+      "item_id": "ref2-cal-0021",
+      "claim_family": "adult_pneumococcal_vaccine_type_outcomes",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c33:7aa75ef177d7",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c35:0f775d5dce8d"
+      ],
+      "candidate_explanation": "Os trechos mencionam que estudos observacionais sugerem proteção contra doenças pneumocócicas causadas pelos sorotipos incluídos nas vacinas PCV13 e PPSV23, mas não fornecem dados suficientes sobre a eficácia ou efetividade dessas vacinas em adultos. Há menção de limitações, como a falta de estudos randomizados para PPSV23 e resultados inconsistentes em alguns casos."
+    },
+    {
+      "item_id": "ref2-cal-0022",
+      "claim_family": "adult_pneumococcal_vaccine_type_outcomes",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c33:7aa75ef177d7",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c34:fb44f142b88b",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c36:667a160c3ecd"
+      ],
+      "candidate_explanation": "Os trechos mencionam que PCV13 e PPSV23 oferecem algum grau de proteção contra doenças pneumocócicas, incluindo pneumonia por sorotipos vacinais, embora a eficácia varie e não seja sempre estatisticamente significante. No entanto, não há uma conclusão direta ou clara sobre a ausência de proteção, o que torna insuficiente para refutar ou apoiar a alegação com base nos trechos fornecidos."
+    },
+    {
+      "item_id": "ref2-cal-0023",
+      "claim_family": "adult_pneumococcal_vaccine_type_outcomes",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_selection_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "pathogens_pneumococcal_adults_meta_2023:p1:c33:7aa75ef177d7",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c37:9fd4e5f52916",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c4:cf667c3c43db"
+      ],
+      "candidate_explanation": "Os trechos mencionam que PCV13 e PPSV23 são eficazes contra VT-IPD e VT-pneumonia, mas não afirmam previnir 'qualquer pneumonia em adultos, independentemente do agente ou sorotipo'. A alegação é mais ampla do que os dados apresentados, que se limitam a certos sorotipos e tipos de pneumonia."
+    },
+    {
+      "item_id": "ref2-cal-0024",
+      "claim_family": "adult_pneumococcal_vaccine_type_outcomes",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "ms_crie_2023:p133:c1:58c37c1b96ea",
+        "pathogens_pneumococcal_adults_meta_2023:p1:c3:72f9155cc2db"
+      ],
+      "candidate_explanation": "Os trechos mencionam eficácia e resposta imunológica da vacina pneumocócica, mas não abordam diretamente a perda de eficácia como causa de pneumonia em adultos vacinados. Não há menção a casos específicos ou estudos que relacionem a perda de eficácia da vacina com ocorrência de pneumonia em indivíduos vacinados."
+    },
+    {
+      "item_id": "ref2-cal-0025",
+      "claim_family": "enhanced_influenza_evidence_certainty",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "rmv_influenza_enhanced_review_2025:p1:c33:ca58d301e61a",
+        "rmv_influenza_enhanced_review_2025:p1:c38:cf0189296ad0",
+        "rmv_influenza_enhanced_review_2025:p1:c43:e9b888005771"
+      ],
+      "candidate_explanation": "Os trechos mencionam limitações na evidência de efetividade relativa das vacinas de influenza aprimoradas, mas não confirmam diretamente que 'não houve aumento de eventos adversos graves'. Há menção à segurança geral e alguns dados sobre eventos adversos, mas não há uma conclusão clara ou direta sobre a ausência de aumento em eventos graves. A falta de informações específicas sobre comparações com"
+    },
+    {
+      "item_id": "ref2-cal-0026",
+      "claim_family": "enhanced_influenza_evidence_certainty",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "rmv_influenza_enhanced_review_2025:p1:c22:c43f6ba31602",
+        "rmv_influenza_enhanced_review_2025:p1:c33:ca58d301e61a",
+        "rmv_influenza_enhanced_review_2025:p1:c37:d14eed7228b2"
+      ],
+      "candidate_explanation": "Os trechos fornecidos não mencionam aumento de eventos adversos graves em todas as formulações aprimoradas de vacina contra influenza. Em vez disso, eles indicam que a evidência sobre eventos adversos graves é limitada e que a segurança geral das vacinas parece favorável. Não há menção direta à comparação entre todas as formulações aprimoradas ou ao aumento generalizado de eventos adversos graves."
+    },
+    {
+      "item_id": "ref2-cal-0027",
+      "claim_family": "enhanced_influenza_evidence_certainty",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "lancet_repeated_influenza_meta_2022:p1:c31:6925587593bd",
+        "lancet_repeated_influenza_meta_2022:p1:c32:282d82302532",
+        "rmv_influenza_enhanced_review_2025:p1:c43:e9b888005771"
+      ],
+      "candidate_explanation": "Os trechos fornecidos não mencionam uma estimativa de efetividade relativa de 88% ou qualquer comparação direta entre vacinas aprimoradas e padrão em todos os adultos e temporadas. Eles discutem variações na eficácia com base em fatores como número de vacinações anteriores, grupos específicos de idade e tipos de vacinas, mas não cobrem a afirmação específica da alegação."
+    },
+    {
+      "item_id": "ref2-cal-0028",
+      "claim_family": "enhanced_influenza_evidence_certainty",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.8666666666666667,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "lancet_repeated_influenza_meta_2022:p1:c32:282d82302532",
+        "lancet_repeated_influenza_meta_2022:p1:c44:de4f44fe59dd",
+        "lancet_repeated_influenza_meta_2022:p1:c46:4aa7d4cfb34e"
+      ],
+      "candidate_explanation": "Os trechos fornecidos discutem a eficácia da vacina contra a gripe e fatores que podem influenciá-la, como a variabilidade viral e o número de doses anteriores. No entanto, não há menção direta à relação entre a vacinação de idosos e a gripe em indivíduos vacinados, tampouco informações sobre formulações específicas ou eficácia em idosos. A alegação menciona uma 'formulação aprimorada', que não é,"
+    },
+    {
+      "item_id": "ref2-cal-0029",
+      "claim_family": "vaccination_autoimmune_pooled_association",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "correct_conclusive",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "vaccines_autoimmune_disorders_meta_2021:p1:c2:aab20eccd228",
+        "vaccines_hpv_autoimmune_meta_2025:p9:c5:a026c1dbf592"
+      ],
+      "candidate_explanation": "A alegação é sustentada pelos trechos que indicam que uma meta-análise encontrou ocorrência global semelhante de doenças autoimunes entre pessoas vacinadas e não vacinadas. O primeiro trecho menciona que a associação foi confirmada com um valor de 0,99 (intervalo de confiança de 0,97–1,02), indicando equivalência. O segundo trecho também afirma que não houve aumento de risco de doenças autoimunes após vacinação contra HPV."
+    },
+    {
+      "item_id": "ref2-cal-0030",
+      "claim_family": "vaccination_autoimmune_pooled_association",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "vaccines_autoimmune_disorders_meta_2021:p1:c2:aab20eccd228",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c4:af1c4091d936",
+        "vaccines_hpv_autoimmune_meta_2025:p9:c5:a026c1dbf592"
+      ],
+      "candidate_explanation": "Os trechos mencionam estudos de meta-análise que não encontraram associação significativa entre vacinação e doenças autoimunes, mas não abordam diretamente a frequência com que pessoas vacinadas desenvolvem doenças autoimunes em comparação com as não vacinadas. A alegação é mais específica e requer dados sobre frequência, que não estão presentes nos trechos."
+    },
+    {
+      "item_id": "ref2-cal-0031",
+      "claim_family": "vaccination_autoimmune_pooled_association",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.9444444444444444,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "ms_crie_2023:p33:c4:69235a7c16cd",
+        "vaccines_autoimmune_disorders_meta_2021:p1:c20:972cb9b03826",
+        "vaccines_hpv_autoimmune_meta_2025:p10:c5:316ff09b4d01"
+      ],
+      "candidate_explanation": "Os trechos mencionam que não há aumento de doenças autoimunes após vacinação, mas não abordam diretamente se uma manifestação autoimune individual pode ocorrer temporalmente após qualquer vacina. A alegação envolve causalidade e generalização que não são totalmente cobertas pelos trechos."
+    },
+    {
+      "item_id": "ref2-cal-0032",
+      "claim_family": "vaccination_autoimmune_pooled_association",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.8571428571428571,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "ms_covid_esavi:p38:c2:76db78f4d7a2",
+        "ms_esavi_4ed:p299:c1:a442c0b29d6d",
+        "ms_esavi_4ed:p58:c1:1a8d454f7d1d"
+      ],
+      "candidate_explanation": "Os trechos mencionam eventos adversos pós-vacinação e a necessidade de investigação clínica e epidemiológica para estabelecer causalidade, mas não fornecem evidência direta ou indireta sobre uma doença autoimune diagnosticada meses após a vacinação. Não há menção específica a casos de doenças autoimunes atribuídas à vacina em um período de meses."
+    },
+    {
+      "item_id": "ref2-cal-0033",
+      "claim_family": "covid_pregnancy_evidence_certainty",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "correct_conclusive",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "springer_covid_pregnancy_lsr_2024:p15:c4:9b55657846bb",
+        "springer_covid_pregnancy_lsr_2024:p19:c1:ed3ae4b80e05",
+        "springer_covid_pregnancy_lsr_2024:p1:c4:47941c48cc39"
+      ],
+      "candidate_explanation": "A alegação é sustentada pelos trechos, que mencionam evidências favoráveis à segurança e efetividade das vacinas de covid-19 durante a gestação, embora com certeza limitada. Não há distorção ou omissão relevante."
+    },
+    {
+      "item_id": "ref2-cal-0034",
+      "claim_family": "covid_pregnancy_evidence_certainty",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "springer_covid_pregnancy_lsr_2024:p12:c6:d6b8cc609c29",
+        "springer_covid_pregnancy_lsr_2024:p19:c1:ed3ae4b80e05",
+        "springer_covid_pregnancy_lsr_2024:p19:c6:4f001920ca63"
+      ],
+      "candidate_explanation": "Os trechos mencionam estudos que avaliaram a segurança e eficácia da vacinação contra a covid-19 durante a gravidez, mas não há evidência direta de que a vacinação tenha piorado todos os desfechos maternos e neonatais. A alegação é contraditória com alguns trechos que indicam segurança e ausência de associação negativa."
+    },
+    {
+      "item_id": "ref2-cal-0035",
+      "claim_family": "covid_pregnancy_evidence_certainty",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "springer_covid_pregnancy_lsr_2024:p15:c5:05d9bafeee92",
+        "springer_covid_pregnancy_lsr_2024:p1:c3:f6ccfe01ff61",
+        "vaccines_pertussis_pregnancy_meta_2025:p1:c20:408c427ee8f1"
+      ],
+      "candidate_explanation": "Os trechos mencionam eficácia e segurança de vacinas em gestantes, mas não cobrem proteção idêntica e total para qualquer plataforma, variante ou momento da gestação. Há menção a variações na eficácia entre variantes (como Omicron) e diferentes tipos de vacinas, o que contradiz a afirmação de proteção universal."
+    },
+    {
+      "item_id": "ref2-cal-0036",
+      "claim_family": "covid_pregnancy_evidence_certainty",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "conitec_vsr_975_2025:p21:c1:60bec9862925",
+        "ms_covid_vacinacao_2024_2ed:p24:c3:ffb3e65c7724",
+        "springer_covid_pregnancy_lsr_2024:p2:c1:6dc6dc7b4a23"
+      ],
+      "candidate_explanation": "Os trechos fornecidos não oferecem evidência direta ou indireta sobre uma complicação específica ocorrida na gestação causada pela vacina contra a covid-19. Eles discutem a segurança e eficácia geral das vacinas durante a gravidez, mas não abordam casos específicos de complicações relacionadas à vacinação."
+    },
+    {
+      "item_id": "ref2-cal-0037",
+      "claim_family": "vaccine_misinformation_scare_tactics",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "extraction_integrity_risk",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.7,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "vaccine_misinformation_communication_review_2023:p1:c3:4362a218aa19",
+        "vaccine_misinformation_communication_review_2023:p1:c54:25efde957e81",
+        "vaccine_misinformation_communication_review_2023:p1:c58:650b0427266c"
+      ],
+      "candidate_explanation": "A alegação é sustentada pelos trechos que mencionam que táticas de medo, como imagens gráficas de crianças infectadas com doenças preveníveis por vacinas, aumentaram a crença em desinformações. Isso reflete diretamente a afirmação da eficácia negativa dessas estratégias."
+    },
+    {
+      "item_id": "ref2-cal-0038",
+      "claim_family": "vaccine_misinformation_scare_tactics",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "extraction_integrity_risk",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.7692307692307693,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "vaccine_misinformation_communication_review_2023:p1:c3:4362a218aa19",
+        "vaccine_misinformation_communication_review_2023:p1:c55:d8cf6428eb21",
+        "vaccine_misinformation_communication_review_2023:p1:c58:650b0427266c"
+      ],
+      "candidate_explanation": "Os trechos mencionam que comunicar com certeza absoluta sobre riscos vacinais pode ter efeitos negativos, mas não abordam diretamente a relação entre apresentar riscos vacinais com certeza absoluta e a redução da desinformação. A alegação envolve uma causalidade que não é claramente coberta pelos trechos."
+    },
+    {
+      "item_id": "ref2-cal-0039",
+      "claim_family": "vaccine_misinformation_scare_tactics",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "extraction_integrity_risk",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.45,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "vaccine_misinformation_communication_review_2023:p1:c49:4bb2a224bc20",
+        "vaccine_misinformation_communication_review_2023:p1:c53:3e58573fefd4",
+        "vaccine_misinformation_communication_review_2023:p1:c61:1cc5357e7df1"
+      ],
+      "candidate_explanation": "Os trechos mencionam que mensagens humorísticas podem reduzir a hesitação vacinal em certos grupos, mas não afirmam diretamente que 'qualquer mensagem bem-humorada aumenta a vacinação da população'. A eficácia do humor varia conforme o público-alvo e as crenças pré-existentes, o que limita a generalização da alegação. Não há menção explícita sobre aumento geral da vacinação em toda a população."
+    },
+    {
+      "item_id": "ref2-cal-0040",
+      "claim_family": "vaccine_misinformation_scare_tactics",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.8461538461538461,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "vaccine_misinformation_communication_review_2023:p1:c36:79ebb9792a84",
+        "vaccine_misinformation_communication_review_2023:p1:c52:9d08f807a390",
+        "vaccine_misinformation_communication_review_2023:p1:c58:650b0427266c"
+      ],
+      "candidate_explanation": "Os trechos mencionam que o uso de imagens dramáticas ou de doenças em cartazes pode ter efeitos negativos, como aumentar a percepção de riscos adversos ou não ter impacto claro. No entanto, não há menção direta à campanha local específica, nem ao uso de uma imagem assustadora que resultou na perda de cobertura vacinal. A falta de informações sobre o contexto local e os resultados específicos da a莽"
+    },
+    {
+      "item_id": "ref2-cal-0041",
+      "claim_family": "adjuvant_mechanism_delivery",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "correct_conclusive",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c2:296f777a96e1",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2",
+        "sttt_vaccine_adjuvants_review_2023:p1:c93:8b286d9f6333"
+      ],
+      "candidate_explanation": "Os trechos mencionam que os adjuvantes podem ser classificados como imunoestimulantes e sistemas de entrega, atuando para ampliar a resposta adaptativa ao antígeno vacinal. Isso sustenta diretamente a alegação."
+    },
+    {
+      "item_id": "ref2-cal-0042",
+      "claim_family": "adjuvant_mechanism_delivery",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "sufficiency_rejection_with_annotated_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": true,
+      "gate_selected_annotated_evidence": true,
+      "candidate_source_ids": [
+        "ms_crie_2023:p170:c1:9b643752d03c",
+        "sttt_vaccine_adjuvants_review_2023:p1:c5:b9666c7bab46",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2"
+      ],
+      "candidate_explanation": "Os trechos fornecidos descrevem que os adjuvantes ampliam a apresentação de antígenos e induzem sinais coestimulatórios, promovendo uma resposta imune mais robusta. Não há menção à ideia de que os adjuvantes enfraquecem deliberadamente a resposta imune da vacina. A alegação é contraditória com o conteúdo dos trechos."
+    },
+    {
+      "item_id": "ref2-cal-0043",
+      "claim_family": "adjuvant_mechanism_delivery",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.9473684210526315,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "sttt_vaccine_adjuvants_review_2023:p1:c5:b9666c7bab46",
+        "sttt_vaccine_adjuvants_review_2023:p1:c8:e392ddbdc5b2",
+        "sttt_vaccine_adjuvants_review_2023:p1:c93:8b286d9f6333"
+      ],
+      "candidate_explanation": "Os trechos fornecidos discutem os mecanismos e o papel dos adjuvantes nas vacinas, mas não abordam diretamente a eficácia ou segurança de todas as vacinas com adjuvantes. Há menção à possibilidade de que alguns adjuvantes possam melhorar a resposta imune, mas também são destacados os limites e riscos associados ao uso de certos adjuvantes. A alegação afirma que 'qualquer vacina' torna-se mais efic"
+    },
+    {
+      "item_id": "ref2-cal-0044",
+      "claim_family": "adjuvant_mechanism_delivery",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "ms_esavi_4ed:p248:c1:a6b46ed65e13",
+        "ms_esavi_4ed:p61:c1:c4abfacf6c23",
+        "ms_esavi_4ed:p81:c1:94789d4e6590"
+      ],
+      "candidate_explanation": "Os trechos mencionam que reações locais podem ser causadas por adjuvantes como hidróxido de alumínio, mas não afirmam diretamente que uma reação local específica foi causada especificamente pelo adjuvante da vacina em questão. Faltam informações sobre a identificação do adjuvante específico, o produto da vacina e a correlação direta entre a reação e o adjuvante."
+    },
+    {
+      "item_id": "ref2-cal-0045",
+      "claim_family": "acellular_pertussis_waning",
+      "expected_label": "SUPPORTED",
+      "candidate_label": "SUPPORTED",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "plos_pertussis_waning_meta_2018:p1:c22:0b1f842b5824",
+        "plos_pertussis_waning_meta_2018:p1:c26:c3ae40abeb88"
+      ],
+      "candidate_explanation": "Os trechos indicam que a proteção inicial das vacinas acelulares contra coqueluche é alta, mas diminui com o tempo. A eficácia iniciais de 85% no primeiro ano e uma redução anual de 11,7% são mencionadas explicitamente."
+    },
+    {
+      "item_id": "ref2-cal-0046",
+      "claim_family": "acellular_pertussis_waning",
+      "expected_label": "REFUTED",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.9285714285714286,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "jkms_varicella_effectiveness_meta_2025:p1:c21:eba8ee6495b4",
+        "ms_crie_2023:p145:c4:cf6fe2f67ae2"
+      ],
+      "candidate_explanation": "Os trechos mencionam a eficácia da vacina acelular contra coqueluche, mas não abordam diretamente a persistência da eficácia por muitos anos após a vacinação. Apenas um trecho menciona a persistência de anticorpos oito a dez anos após a vacinação, mas isso é referente à vacina varicela, não à vacina contra coqueluche."
+    },
+    {
+      "item_id": "ref2-cal-0047",
+      "claim_family": "acellular_pertussis_waning",
+      "expected_label": "MISLEADING",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "retrieval_miss",
+      "extraction_exact": false,
+      "extraction_token_recall": 0.8888888888888888,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": false,
+      "gate_selected_annotated_evidence": false,
+      "candidate_source_ids": [
+        "ms_calendario_2026:p13:c3:2f0031408543",
+        "ms_calendario_2026:p15:c1:4671c41d0401",
+        "ms_manual_normas_2024:p189:c2:3676f07b9e3a"
+      ],
+      "candidate_explanation": "Os trechos fornecidos mencionam recomendações sobre vacinação contra coqueluche, incluindo doses de reforço e intervalos entre as doses. No entanto, não há menção direta à proteção contra coqueluche diminuindo com o tempo ou se a dose de reforço na adolescência oferece proteção adicional. A falta de informações sobre eficácia ao longo do tempo e impacto da vacinação em adolescentes limita a capaci"
+    },
+    {
+      "item_id": "ref2-cal-0048",
+      "claim_family": "acellular_pertussis_waning",
+      "expected_label": "INSUFFICIENT_EVIDENCE",
+      "candidate_label": "INSUFFICIENT_EVIDENCE",
+      "primary_stage": "correct_insufficient_evidence",
+      "extraction_exact": true,
+      "extraction_token_recall": 1.0,
+      "material_marker_loss": false,
+      "retrieval_hit_annotated_evidence": null,
+      "gate_selected_annotated_evidence": null,
+      "candidate_source_ids": [
+        "ms_manual_normas_2024:p217:c3:e545ea121f01",
+        "ms_operacao_gota_2026:p13:c3:9483b9ba0024"
+      ],
+      "candidate_explanation": "Os trechos fornecidos não mencionam diretamente casos de coqueluche em adolescentes vacinados, nem discutem a eficácia da dose de reforço em prevenir a doença. Não há informações sobre imunidade gerada pela vacinação ou falhas na proteção contra a coqueluche."
+    }
+  ],
+  "interpretation_limits": [
+    "Interseção de IDs mede cobertura da evidência anotada, não relevância exaustiva de todos os chunks recuperados.",
+    "Atribuição por estágio é diagnóstica e não demonstra causalidade isolada.",
+    "O diagnóstico não carrega teste v1 nem holdout v2 e não altera os resultados da fase A."
+  ],
+  "inputs": {
+    "dataset": "evaluation/refinement_v2/calibration/adjudicated_items.jsonl",
+    "dataset_sha256": "9cd26e96b7d5ee35ddb32ebf7a36914b3349db81c3e21d4f4476cf4cf66e09f8",
+    "records": "evaluation/results/refinement_v2/calibration_phase_a.jsonl",
+    "records_sha256": "6735a67e361c3e83cace85610275221f658c98db52877c333fb5df8dc041ce6b",
+    "v1_test_records_loaded": 0,
+    "holdout_v2_records_loaded": 0
+  }
+}
