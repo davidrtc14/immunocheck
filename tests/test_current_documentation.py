@@ -48,3 +48,33 @@ def test_delivery_package_keeps_institutional_gate_open() -> None:
     assert "gate institucional permanece aberto" in package
     assert "não piloto público" in package
     assert "sem validação clínica independente" in package
+
+
+def test_manuscript_preserves_results_sources_and_limitations() -> None:
+    manuscript = _read("docs/TCC_MANUSCRIPT_DRAFT.md")
+
+    assert "[NOME COMPLETO DO AUTOR]" in manuscript
+    assert "[NOME E TITULAÇÃO DO ORIENTADOR]" in manuscript
+    for result in ("0,416", "0,846", "0,625", "0,833", "19,35"):
+        assert result in manuscript
+    assert "sem validação clínica independente" in manuscript
+    assert "não autorizam uso clínico ou implantação pública" in manuscript
+    assert "https://arxiv.org/abs/2005.11401" in manuscript
+    assert "https://aclanthology.org/2024.findings-acl.137/" in manuscript
+    for evidence in (
+        "evaluation/results/test/FINAL_TEST_REPORT.md",
+        "evaluation/refinement_v3/confirmatory/RESULTS.md",
+        "evaluation/results/performance/OPERATIONAL_PERFORMANCE_REPORT.md",
+    ):
+        assert (ROOT / evidence).is_file(), evidence
+        assert evidence in manuscript
+
+
+def test_defense_plan_prevents_overclaiming_and_keeps_demo_bounded() -> None:
+    defense = _read("docs/DEFENSE_PLAN.md")
+    normalized = " ".join(defense.split())
+
+    assert "somente o autor interage com o bot" in normalized
+    assert "não comparar diretamente métricas de conjuntos diferentes" in normalized
+    assert "sem validação clínica independente" in normalized
+    assert "não teve validação clínica independente" in normalized

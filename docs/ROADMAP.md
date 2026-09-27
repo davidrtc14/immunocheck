@@ -554,3 +554,23 @@ validade, ética e índice de evidências. O guia de reprodução e a revisão d
 privacidade foram alinhados à v3, registros históricos receberam rotulagem explícita
 e testes automatizados protegem as afirmações essenciais. Nenhum conjunto de
 qualidade foi reexecutado e o gate institucional continua aberto.
+
+## Fase 11 — Manuscrito-base e preparação da defesa
+
+- [x] Produzir manuscrito acadêmico-base com capítulos e referências primárias.
+- [x] Vincular resultados numéricos aos artefatos experimentais correspondentes.
+- [x] Preparar narrativa de defesa com tempo, demonstração e perguntas críticas.
+- [x] Manter campos pessoais/institucionais como placeholders explícitos.
+- [x] Validar que manuscrito e defesa não exageram validade ou estado regulatório.
+
+**Objetivo:** oferecer material editável para a escrita final e para a apresentação,
+sem presumir template institucional não fornecido, autoria clínica, aprovação ética
+ou resultado além do que os artefatos reproduzíveis sustentam.
+
+**Concluída em 27/09/2026:** `docs/TCC_MANUSCRIPT_DRAFT.md` organiza problema,
+fundamentação, método, arquitetura, resultados, discussão, ética e conclusão em um
+texto acadêmico editável. `docs/DEFENSE_PLAN.md` converte o mesmo recorte em uma
+apresentação de 12–15 minutos, com demonstração limitada, contingência e respostas
+a perguntas críticas. Os números permanecem ligados aos artefatos experimentais,
+os campos pessoais continuam explícitos e testes impedem a remoção acidental das
+principais limitações. Nenhum template institucional foi presumido.

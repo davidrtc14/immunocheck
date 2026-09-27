@@ -1,6 +1,6 @@
 # Handoff de continuidade — ImmunoCheck
 
-Atualizado em 26/09/2026. Este arquivo resume o contexto necessário para outra
+Atualizado em 27/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
 ## Ponto atual — v3 integrada ao protótipo local
@@ -33,6 +33,13 @@ método, resultados, ameaças à validade, ética, evidências e comandos. Não 
 os conjuntos congelados. O próximo trabalho técnico deve ser correção de defeito
 demonstrável ou preparação de apresentação; novos ajustes de acurácia exigem outra
 linha experimental e dados novos.
+
+A Fase 11 foi concluída. `docs/TCC_MANUSCRIPT_DRAFT.md` contém um manuscrito-base
+com capítulos, resultados rastreáveis, referências primárias e campos pessoais
+explícitos. `docs/DEFENSE_PLAN.md` contém a narrativa de 12–15 minutos, roteiro de
+demonstração, contingência e respostas a perguntas prováveis. Nenhum template da
+UNIPÊ foi inventado: o texto deve ser diagramado quando o modelo institucional for
+fornecido. As limitações experimentais e o gate LGPD/CEP continuam obrigatórios.
 
 ## Histórico — prova de conceito v1
 
