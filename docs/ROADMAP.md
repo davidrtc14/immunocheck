@@ -598,3 +598,15 @@ reingestão fica para decisão explícita, e até lá fontes HTML/XML ainda exib
 O orçamento de contexto (B2) só altera prompts que antes estouravam o `num_ctx` e eram
 truncados em silêncio pelo Ollama; prompts que cabem passam inalterados.
 
+## Fase 13 — Plano v4, Fase A: instrumentação e dados (em andamento)
+
+- [x] A1. Métricas em nível de documento e de suficiência de evidência.
+- [x] A2. Harness de ablação com bootstrap pareado por família.
+- [~] A3. Conjunto v4 lacrado (96 itens, 24 famílias): construído e validado; **segunda
+  anotação ≥ 50% e revisor externo pendentes** (pacote em `evaluation/refinement_v4/second_annotation/`).
+- [x] A4. Baseline lexical (aprovado na 2ª redação; 1ª reprovada e preservada).
+
+**Estado em 13/10/2026:** a fase não está concluída porque o critério de segunda anotação
+do plano depende de uma pessoa. Achado da A2: nenhuma técnica de retrieval superou o denso
+top 15 na calibração (efeito de teto: Doc-Recall@15 = 0,93).
+
