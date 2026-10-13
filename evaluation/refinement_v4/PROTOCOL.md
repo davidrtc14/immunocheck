@@ -35,8 +35,8 @@ teste histórico da v1 e o confirmatório v3 não são reutilizados.
 Gabarito de rótulo, justificativa e evidência definido pelo pesquisador com apoio de IA antes
 de qualquer inferência (mesma política da ADR-040). **Não há revisor externo nem validação
 clínica.** A segunda anotação independente (≥ 50%) está preparada em
-`second_annotation/participant/` (48 itens, 12 famílias, cego), mas **ainda não foi feita**;
-só pode ser descrita como realizada depois que um revisor humano devolver o formulário e a
+`second_annotation/participant/` (48 itens, 12 famílias, cego), mas **foi dispensada por decisão do pesquisador em 13/10/2026** (prazo do TCC), sem concordância reportada;
+só poderia ser descrita como realizada depois que um revisor humano devolver o formulário e a
 concordância for calculada com `annotation_agreement.py`.
 
 A busca de evidências usou BM25 e expressões regulares sobre o corpus; nenhuma busca densa foi

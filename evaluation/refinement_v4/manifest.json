@@ -5,7 +5,7 @@
   "dataset": "evaluation/refinement_v4/items.jsonl",
   "dataset_sha256": "4b38f69e78b0c5a7687f02275beb33dee35a99050db6bca8a8d02608c4104d5a",
   "protocol": "evaluation/refinement_v4/PROTOCOL.md",
-  "protocol_sha256": "676316bf65386130b0198806a7b7cbc62f70b711d7e6637be6f754a92c6f71b9",
+  "protocol_sha256": "3687eb999bd3236bd7734ec1a17b71ba8e7d4feaa1f3e15af58fa6803cbc1bc5",
   "item_count": 96,
   "family_count": 24,
   "labels": {
