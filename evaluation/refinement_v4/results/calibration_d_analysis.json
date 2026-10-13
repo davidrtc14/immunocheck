@@ -1,0 +1,119 @@
+{
+  "conditions": {
+    "v3_plain": {
+      "macro_f1": 0.449820788530466,
+      "recall": {
+        "SUPPORTED": 1.0,
+        "REFUTED": 0.75,
+        "MISLEADING": 0.0,
+        "INSUFFICIENT_EVIDENCE": 0.3333333333333333
+      },
+      "precision": {
+        "SUPPORTED": 0.631578947368421,
+        "REFUTED": 0.47368421052631576,
+        "MISLEADING": 0.0,
+        "INSUFFICIENT_EVIDENCE": 0.6666666666666666
+      },
+      "conclusion_precision": 0.5,
+      "conclusions": 42,
+      "failures": 1,
+      "median_latency_s": 14.4472,
+      "p95_latency_s": 16.7553,
+      "in_sample_threshold": {
+        "thresholds": {
+          "min_confidence": null,
+          "min_top_score": null,
+          "min_margin": 0.002403
+        },
+        "records": 48,
+        "baseline_macro_f1": 0.449820788530466,
+        "selected_macro_f1": 0.46130952380952384,
+        "selected_curve": {
+          "abstentions": 12,
+          "abstention_precision": 0.4166666666666667,
+          "abstention_recall": 0.4166666666666667,
+          "correct_conclusions_sacrificed": 1
+        },
+        "candidates_evaluated": 16,
+        "max_sacrificed_fraction": 0.25
+      },
+      "abstention_curve_in_sample": {
+        "abstentions": 12,
+        "abstention_precision": 0.4166666666666667,
+        "abstention_recall": 0.4166666666666667,
+        "correct_conclusions_sacrificed": 1
+      },
+      "nested_lofo_macro_f1": 0.4799043549043549,
+      "nested_lofo_delta_vs_no_threshold": 0.030083566373888926
+    },
+    "v4_grounded": {
+      "macro_f1": 0.5415954415954416,
+      "recall": {
+        "SUPPORTED": 0.9166666666666666,
+        "REFUTED": 0.8333333333333334,
+        "MISLEADING": 0.0,
+        "INSUFFICIENT_EVIDENCE": 0.75
+      },
+      "precision": {
+        "SUPPORTED": 0.6111111111111112,
+        "REFUTED": 0.6666666666666666,
+        "MISLEADING": 0.0,
+        "INSUFFICIENT_EVIDENCE": 0.6428571428571429
+      },
+      "conclusion_precision": 0.6176470588235294,
+      "conclusions": 34,
+      "failures": 1,
+      "median_latency_s": 16.7067,
+      "p95_latency_s": 19.9475,
+      "in_sample_threshold": {
+        "thresholds": {
+          "min_confidence": null,
+          "min_top_score": null,
+          "min_margin": null
+        },
+        "records": 48,
+        "baseline_macro_f1": 0.5415954415954416,
+        "selected_macro_f1": 0.5415954415954416,
+        "selected_curve": {
+          "abstentions": 14,
+          "abstention_precision": 0.6428571428571429,
+          "abstention_recall": 0.75,
+          "correct_conclusions_sacrificed": 0
+        },
+        "candidates_evaluated": 15,
+        "max_sacrificed_fraction": 0.25
+      },
+      "abstention_curve_in_sample": {
+        "abstentions": 14,
+        "abstention_precision": 0.6428571428571429,
+        "abstention_recall": 0.75,
+        "correct_conclusions_sacrificed": 0
+      },
+      "nested_lofo_macro_f1": 0.5260515346722243,
+      "nested_lofo_delta_vs_no_threshold": -0.015543906923217277
+    }
+  },
+  "decisions": {
+    "D1": {
+      "macro_f1_non_inferior": true,
+      "precision_or_f1_gain": true,
+      "failures_and_latency": false,
+      "paired_bootstrap_family": {
+        "delta": 0.09177465306497562,
+        "lower": 0.026207974038897297,
+        "upper": 0.1707070707070707
+      },
+      "adopted": false
+    },
+    "D2": {
+      "base_condition": "v3_plain",
+      "nested_delta": 0.030083566373888926,
+      "adopted": true,
+      "paired_bootstrap_family": {
+        "delta": 0.030083566373888926,
+        "lower": -0.054763925943891956,
+        "upper": 0.11966036414565823
+      }
+    }
+  }
+}

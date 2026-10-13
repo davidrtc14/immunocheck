@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 
@@ -133,7 +134,7 @@ def build_v4_text_pipeline(
     corpus_path: Path = DEFAULT_CORPUS_PATH,
     model: str | None = None,
     base_url: str | None = None,
-    grounded: bool = True,
+    grounded: bool | None = None,
     thresholds: AbstentionThresholds | None = None,
 ) -> AbstainingPipeline:
     """Monta a v4 opt-in (ancoragem D1 + abstenção calibrada D2) com entrada textual."""
@@ -152,7 +153,7 @@ def build_v4_multimodal_pipeline(
     corpus_path: Path = DEFAULT_CORPUS_PATH,
     model: str | None = None,
     base_url: str | None = None,
-    grounded: bool = True,
+    grounded: bool | None = None,
     thresholds: AbstentionThresholds | None = None,
 ) -> AbstainingPipeline:
     return _build_v4_pipeline(
@@ -332,9 +333,11 @@ def _build_v4_pipeline(
     corpus_path: Path,
     model: str | None,
     base_url: str | None,
-    grounded: bool,
+    grounded: bool | None,
     thresholds: AbstentionThresholds | None,
 ) -> AbstainingPipeline:
+    if grounded is None:
+        grounded = _v4_grounded_default()
     client = _build_llm_client(model=model, base_url=base_url)
     corpus = load_evidence_jsonl(corpus_path)
     recorder = SignalRecorder()
@@ -367,6 +370,14 @@ def _build_v4_pipeline(
         if thresholds is not None
         else AbstentionThresholds.load(V4_THRESHOLDS_PATH),
     )
+
+
+def _v4_grounded_default() -> bool:
+    """A ancoragem D1 só entra por padrão se a calibração registrada a adotou."""
+    if not V4_THRESHOLDS_PATH.is_file():
+        return False
+    data = json.loads(V4_THRESHOLDS_PATH.read_text(encoding="utf-8"))
+    return data.get("base_condition") == "v4_grounded"
 
 
 def resolve_pipeline_version(value: str | None) -> str:

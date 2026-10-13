@@ -612,3 +612,14 @@ truncados em silêncio pelo Ollama; prompts que cabem passam inalterados.
 concordância entre anotadores). Achado da A2: nenhuma técnica de retrieval superou o denso
 top 15 na calibração (efeito de teto: Doc-Recall@15 = 0,93).
 
+## Fase 14 — Plano v4, Fase D (parcial): D1 e D2 calibrados
+
+- [x] D1. Ancoragem verificável implementada (`application/grounding.py`) e calibrada.
+- [x] D2. Abstenção calibrada implementada (`application/abstention.py`) e calibrada.
+- [ ] D3, D4, D5 (consistência, `MISLEADING`, roteamento): não iniciados.
+
+**Resultado (13/10/2026):** ver `evaluation/refinement_v4/CALIBRATION_D_RESULTS.md`. A v3 cai de
+0,846 (confirmatório) para 0,450 no conjunto v4 de calibração; `MISLEADING` tem recall zero. D1
+melhora o macro-F1 em +0,092 mas reprova um critério pré-registrado por uma falha técnica
+herdada; D2 tem ganho marginal e estatisticamente inconclusivo. Fase não concluída.
+
