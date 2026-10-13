@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass, field
 from typing import Protocol
 
+from immunocheck.application.advice_guard import enforce_no_individual_advice
 from immunocheck.application.ports import (
     ClaimExtractor,
     ContentNormalizer,
@@ -61,6 +62,9 @@ class RoutedFactCheckPipeline:
     input_limits: InputLimits = field(default_factory=InputLimits)
 
     def run(self, submission: ContentSubmission) -> FactCheckResult:
+        return enforce_no_individual_advice(self._run(submission))
+
+    def _run(self, submission: ContentSubmission) -> FactCheckResult:
         validate_submission(submission, self.input_limits)
         normalized_text = self.normalizer.normalize(submission)
         claim = self.claim_extractor.extract(normalized_text)

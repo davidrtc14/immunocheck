@@ -72,3 +72,29 @@ def test_formats_every_verdict_class(verdict: Verdict, label: str) -> None:
     assert f"VEREDITO: {label}" in output
     assert "AVISO:" in output
     assert "TEMPO TOTAL:" in output
+
+
+def test_cli_warns_that_top_k_is_ignored_by_v3(monkeypatch, capsys) -> None:
+    from immunocheck import cli
+
+    captured: dict[str, object] = {}
+
+    class FakePipeline:
+        def run(self, submission):
+            return FactCheckResult.insufficient("Sem evidência.", claim="x")
+
+    def fake_build(**kwargs):
+        captured.update(kwargs)
+        return FakePipeline()
+
+    monkeypatch.setattr(cli, "build_configured_text_pipeline", fake_build)
+
+    assert cli.main(["--pipeline-version", "v3", "--top-k", "9", "alegação"]) == 0
+    assert "--top-k é ignorado na v3" in capsys.readouterr().err
+
+    assert cli.main(["--pipeline-version", "v1", "--top-k", "9", "alegação"]) == 0
+    assert captured["top_k"] == 9
+    assert "ignorado" not in capsys.readouterr().err
+
+    assert cli.main(["--pipeline-version", "v3", "alegação"]) == 0
+    assert "ignorado" not in capsys.readouterr().err

@@ -3,9 +3,11 @@ from __future__ import annotations
 import hashlib
 import re
 
-from immunocheck.ingestion.models import ExtractedDocument, TextChunk
+from immunocheck.ingestion.models import ExtractedDocument, ExtractedPage, TextChunk
 
 PARAGRAPH_BREAK = re.compile(r"\n{2,}")
+ANCHORED_FORMATS = frozenset({"html", "xml"})
+MAX_HEADING_CHARS = 120
 
 
 def chunk_document(
@@ -23,8 +25,11 @@ def chunk_document(
     for page in document.pages:
         if not page.text.strip():
             continue
-        for sequence, text in enumerate(
-            _split_text(page.text, max_chars=max_chars, overlap_chars=overlap_chars),
+        normalized = _normalize(page.text)
+        # Deslocamentos só valem quando a normalização preservou o texto da página.
+        anchored = document.metadata.format in ANCHORED_FORMATS and normalized == page.text
+        for sequence, (start, text) in enumerate(
+            _split_text(normalized, max_chars=max_chars, overlap_chars=overlap_chars),
             start=1,
         ):
             chunk_id = _chunk_id(document.metadata.document_id, page.number, sequence, text)
@@ -39,17 +44,38 @@ def chunk_document(
                     page_start=page.number,
                     page_end=page.number,
                     publication_date=document.metadata.publication_date,
+                    section=_section_label(page, start) if anchored else None,
                 )
             )
     return tuple(chunks)
 
 
-def _split_text(text: str, *, max_chars: int, overlap_chars: int) -> tuple[str, ...]:
-    normalized = "\n\n".join(part.strip() for part in PARAGRAPH_BREAK.split(text) if part.strip())
+def _normalize(text: str) -> str:
+    return "\n\n".join(part.strip() for part in PARAGRAPH_BREAK.split(text) if part.strip())
+
+
+def _section_label(page: ExtractedPage, start: int) -> str:
+    """Rótulo `Título, §N` da linha onde o chunk começa; HTML/XML não têm páginas reais."""
+    paragraph = page.text.count("\n", 0, start) + 1
+    heading = next((title for offset, title in reversed(page.headings) if offset <= start), None)
+    if heading is None:
+        return f"§{paragraph}"
+    if len(heading) > MAX_HEADING_CHARS:
+        heading = heading[: MAX_HEADING_CHARS - 1].rstrip() + "…"
+    return f"{heading}, §{paragraph}"
+
+
+def _split_text(
+    normalized: str,
+    *,
+    max_chars: int,
+    overlap_chars: int,
+) -> tuple[tuple[int, str], ...]:
+    """Divide o texto e devolve (deslocamento do primeiro caractere útil, chunk)."""
     if not normalized:
         return ()
 
-    chunks: list[str] = []
+    chunks: list[tuple[int, str]] = []
     start = 0
     while start < len(normalized):
         end = min(start + max_chars, len(normalized))
@@ -57,9 +83,10 @@ def _split_text(text: str, *, max_chars: int, overlap_chars: int) -> tuple[str, 
             boundary = normalized.rfind(" ", start, end)
             if boundary > start + max_chars // 2:
                 end = boundary
-        chunk = normalized[start:end].strip()
+        raw = normalized[start:end]
+        chunk = raw.strip()
         if chunk:
-            chunks.append(chunk)
+            chunks.append((start + len(raw) - len(raw.lstrip()), chunk))
         if end >= len(normalized):
             break
         start = max(end - overlap_chars, start + 1)

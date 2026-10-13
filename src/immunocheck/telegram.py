@@ -12,6 +12,7 @@ from typing import Any, Protocol
 from immunocheck.application.content_normalizer import ContentExtractionError
 from immunocheck.application.text_components import ModelOutputError
 from immunocheck.bootstrap import build_configured_multimodal_pipeline
+from immunocheck.bot_access import AccessPolicy
 from immunocheck.domain.input_policy import InputLimits, InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult
 from immunocheck.infrastructure.ocr import inspect_image
@@ -40,6 +41,9 @@ UNSUPPORTED_INPUT_MESSAGE = (
 )
 BUSY_MESSAGE = (
     "O protótipo já possui várias análises na fila. Aguarde a conclusão e tente novamente."
+)
+RATE_LIMIT_MESSAGE = (
+    "Você enviou mensagens demais em pouco tempo. Aguarde um minuto e tente novamente."
 )
 START_MESSAGE = """ImmunoCheck — verificação acadêmica de alegações sobre vacinação humana.
 
@@ -86,7 +90,13 @@ class TelegramUpdateHandler:
     client: TelegramClient
     pipeline: FactCheckRunner
     clock: Callable[[], float] = time.perf_counter
-    input_limits: InputLimits = field(default_factory=InputLimits)
+    input_limits: InputLimits | None = None
+    access: AccessPolicy | None = None
+
+    def __post_init__(self) -> None:
+        # Fonte única dos limites: a pipeline que valida a entrada, salvo configuração explícita.
+        if self.input_limits is None:
+            self.input_limits = getattr(self.pipeline, "input_limits", None) or InputLimits()
 
     def handle(self, update: dict[str, Any]) -> HandlingResult:
         pending = self.prepare(update)
@@ -111,6 +121,13 @@ class TelegramUpdateHandler:
         if not isinstance(chat, dict) or not isinstance(chat.get("id"), int):
             return None
         chat_id = chat["id"]
+        if self.access is not None:
+            if not self.access.is_allowed(chat_id):
+                return None
+            if not self.access.limiter.allow(chat_id):
+                if self.access.limiter.should_notify(chat_id):
+                    self.client.send_message(chat_id, RATE_LIMIT_MESSAGE)
+                return None
         submission: ContentSubmission
         telegram_file_id: str | None = None
         text = message.get("text")
@@ -274,6 +291,7 @@ def main() -> int:
     try:
         client = TelegramBotAPI(token=token, request_timeout_seconds=2.0)
         pipeline = build_configured_multimodal_pipeline()
+        access = AccessPolicy.from_environment(os.environ)
     except (ValueError, CorpusLoadError) as exc:
         print(f"Configuração inválida: {exc}", file=sys.stderr)
         return 2
@@ -281,7 +299,7 @@ def main() -> int:
     LOGGER.info("Bot iniciado por long polling, sem persistência de interações.")
     poller = TelegramLongPoller(
         client=client,
-        handler=TelegramUpdateHandler(client=client, pipeline=pipeline),
+        handler=TelegramUpdateHandler(client=client, pipeline=pipeline, access=access),
     )
     try:
         poller.run_forever()

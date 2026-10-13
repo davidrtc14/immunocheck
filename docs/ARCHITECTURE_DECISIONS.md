@@ -45,6 +45,7 @@
 | ADR-041 | Promover a candidata v3 para integração controlada ao protótipo | Aceita | Na confirmação nova, obteve macro-F1 0,846, ganho de 0,364 sobre a v1, recall `MISLEADING` 0,625, citação exata 0,833, falha zero e P95 19,35 s; passou 8/8 gates, sem abrir o teste histórico da v1. |
 | ADR-042 | Integrar a v3 por seleção explícita de versão, preservando a v1 | Aceita | A integração reutiliza sem alteração os componentes congelados, adiciona uma camada de orquestração testável e mantém `PIPELINE_VERSION=v1` como reversão; a v3 só se torna padrão do bot após regressão e ensaio multimodal local. |
 | ADR-043 | Tratar Docker/PostgreSQL como diagnóstico opcional no preflight do bot local | Aceita | O caminho online lê o corpus/índice local e não persiste interações; Docker e PostgreSQL continuam validados para ingestão/reprodução, mas sua indisponibilidade não bloqueia Telegram, CLI ou demonstração. |
+| ADR-044 | Correções de segurança e robustez da Fase B do plano v4, sem alterar a v3 congelada | Aceita | Guarda de orientação individual, orçamento de contexto, âncoras de seção, limite de taxa e correções menores são defeitos, não ganhos de acurácia; entram como camadas e módulos novos, sem editar componentes congelados. |
 
 ## Histórico de alterações
 
@@ -251,6 +252,16 @@
   interações; sua ausência deve ser reportada, mas não rebaixa a prontidão técnica
   do bot local. A integração PostgreSQL permanece coberta por teste dedicado quando
   `IMMUNOCHECK_TEST_DATABASE_URL` for fornecida.
+- **13/10/2026 — ADR-044:** a Fase B do plano v4 adiciona (i) `advice_guard`, filtro
+  determinístico que reaproveita `PERSONAL_MEDICAL_ADVICE` e converte saídas com
+  orientação individual em `INSUFFICIENT_EVIDENCE` sem fontes; (ii) `ContextBudgetClient`,
+  que estima tokens e trunca cada trecho de evidência (nunca o prompt de sistema) antes
+  do Ollama, além de limitar a 6.000 caracteres o texto de link/OCR enviado ao extrator;
+  (iii) campo opcional `section` (título + parágrafo) para HTML/XML; (iv) limite de taxa e
+  allowlist opcional por chat, somente em memória; (v) correções do BM25, da CLI e do
+  extrator XML. Nenhum prompt, modelo, top-k, corpus ou índice da v3 foi alterado e
+  nenhum experimento foi executado; a reingestão do corpus para gravar `section` está
+  pendente de decisão porque mudaria os hashes congelados.
 
 ## Política de alteração
 

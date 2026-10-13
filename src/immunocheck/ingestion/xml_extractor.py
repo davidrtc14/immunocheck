@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import xml.etree.ElementTree as ET
+from collections.abc import Iterator
 
 from immunocheck.ingestion.models import DocumentMetadata, ExtractedDocument, ExtractedPage
 
@@ -9,6 +10,7 @@ class XmlExtractionError(RuntimeError):
     """Indica que um documento XML não produziu conteúdo textual útil."""
 
 
+HEADING_TAGS = {"article-title", "title"}
 BLOCK_TAGS = {
     "article-title",
     "kwd",
@@ -34,21 +36,25 @@ def extract_xml(xml: str, metadata: DocumentMetadata) -> ExtractedDocument:
     if article is None:
         raise XmlExtractionError("O XML não contém um artigo reconhecível.")
 
-    lines: list[str] = []
-    for element in article.iter():
-        if _local_name(element.tag) not in BLOCK_TAGS:
-            continue
-        if any(_local_name(parent.tag) in BLOCK_TAGS for parent in _ancestors(article, element)):
+    lines: dict[str, bool] = {}
+    for element, inside_block in _walk(article, in_block=False):
+        if _local_name(element.tag) not in BLOCK_TAGS or inside_block:
             continue
         text = " ".join("".join(element.itertext()).split())
         if text:
-            lines.append(text)
-    normalized = "\n".join(dict.fromkeys(lines))
+            lines.setdefault(text, _local_name(element.tag) in HEADING_TAGS)
+    normalized = "\n".join(lines)
+    headings: list[tuple[int, str]] = []
+    offset = 0
+    for line, is_heading in lines.items():
+        if is_heading:
+            headings.append((offset, line))
+        offset += len(line) + 1
     if len(normalized) < 40:
         raise XmlExtractionError("O XML não contém texto útil suficiente.")
     return ExtractedDocument(
         metadata=metadata,
-        pages=(ExtractedPage(number=1, text=normalized),),
+        pages=(ExtractedPage(number=1, text=normalized, headings=tuple(headings)),),
     )
 
 
@@ -56,18 +62,13 @@ def _local_name(tag: str) -> str:
     return tag.rsplit("}", 1)[-1]
 
 
-def _ancestors(root: ET.Element, target: ET.Element) -> tuple[ET.Element, ...]:
-    path: list[ET.Element] = []
-
-    def visit(element: ET.Element) -> bool:
-        if element is target:
-            return True
-        for child in element:
-            path.append(element)
-            if visit(child):
-                return True
-            path.pop()
-        return False
-
-    visit(root)
-    return tuple(path)
+def _walk(
+    element: ET.Element,
+    *,
+    in_block: bool,
+) -> Iterator[tuple[ET.Element, bool]]:
+    """Percorre o artigo em ordem de documento, em tempo linear, sinalizando blocos aninhados."""
+    yield element, in_block
+    child_in_block = in_block or _local_name(element.tag) in BLOCK_TAGS
+    for child in element:
+        yield from _walk(child, in_block=child_in_block)

@@ -137,17 +137,17 @@ def test_refinement_decision_components_are_separate_and_opt_in() -> None:
 def test_pipeline_version_is_explicit_and_rejects_unknown_value(monkeypatch) -> None:
     monkeypatch.setenv("PIPELINE_VERSION", "v3")
 
-    assert bootstrap._pipeline_version(None) == "v3"
-    assert bootstrap._pipeline_version("V1") == "v1"
+    assert bootstrap.resolve_pipeline_version(None) == "v3"
+    assert bootstrap.resolve_pipeline_version("V1") == "v1"
     with pytest.raises(ValueError, match="PIPELINE_VERSION"):
-        bootstrap._pipeline_version("experimental")
+        bootstrap.resolve_pipeline_version("experimental")
 
 
 def test_v3_is_default_but_v1_remains_available(monkeypatch) -> None:
     monkeypatch.delenv("PIPELINE_VERSION", raising=False)
 
-    assert bootstrap._pipeline_version(None) == "v3"
-    assert bootstrap._pipeline_version("v1") == "v1"
+    assert bootstrap.resolve_pipeline_version(None) == "v3"
+    assert bootstrap.resolve_pipeline_version("v1") == "v1"
 
 
 def test_configured_builder_dispatches_without_changing_legacy_builder(monkeypatch) -> None:

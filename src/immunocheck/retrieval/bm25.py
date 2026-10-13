@@ -18,11 +18,14 @@ class BM25Index:
     ) -> None:
         if not evidence:
             raise ValueError("O índice BM25 exige pelo menos uma evidência.")
-        self._evidence = tuple(evidence)
         self._tokenizer = tokenizer
-        self._tokenized_corpus = tuple(tokenizer(item.text) for item in self._evidence)
-        if any(not tokens for tokens in self._tokenized_corpus):
-            raise ValueError("Todas as evidências precisam conter tokens indexáveis.")
+        # Chunks sem tokens (símbolos, tabelas) nunca casariam com uma consulta: ficam de fora.
+        indexable = [(item, tokenizer(item.text)) for item in evidence]
+        indexable = [(item, tokens) for item, tokens in indexable if tokens]
+        if not indexable:
+            raise ValueError("Nenhuma evidência contém tokens indexáveis.")
+        self._evidence = tuple(item for item, _ in indexable)
+        self._tokenized_corpus = tuple(tokens for _, tokens in indexable)
         self._index = BM25Okapi(self._tokenized_corpus)
 
     def search(self, query: str, *, top_k: int = 10) -> tuple[Evidence, ...]:

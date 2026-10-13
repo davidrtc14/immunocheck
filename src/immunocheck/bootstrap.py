@@ -20,6 +20,7 @@ from immunocheck.application.text_components import (
     LLMVerdictGenerator,
     TextNormalizer,
 )
+from immunocheck.infrastructure.context_budget import ContextBudgetClient
 from immunocheck.infrastructure.ocr import TesseractOCR
 from immunocheck.infrastructure.ollama import OllamaStructuredClient
 from immunocheck.infrastructure.web_content import SafeLinkTextExtractor
@@ -127,7 +128,7 @@ def build_configured_text_pipeline(
     top_k: int = 6,
     retrieval_mode: str | None = None,
 ) -> FactCheckPipeline | RoutedFactCheckPipeline:
-    version = _pipeline_version(pipeline_version)
+    version = resolve_pipeline_version(pipeline_version)
     if version == "v3":
         return build_routed_text_pipeline(
             corpus_path=corpus_path,
@@ -152,7 +153,7 @@ def build_configured_multimodal_pipeline(
     top_k: int = 6,
     retrieval_mode: str | None = None,
 ) -> FactCheckPipeline | RoutedFactCheckPipeline:
-    version = _pipeline_version(pipeline_version)
+    version = resolve_pipeline_version(pipeline_version)
     if version == "v3":
         return build_routed_multimodal_pipeline(
             corpus_path=corpus_path,
@@ -221,10 +222,7 @@ def _build_pipeline(
     retrieval_mode: str | None,
     separated_decision: bool,
 ) -> FactCheckPipeline:
-    client = OllamaStructuredClient(
-        model=model or os.getenv("OLLAMA_MODEL", "qwen3:8b"),
-        base_url=base_url or os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
-    )
+    client = _build_llm_client(model=model, base_url=base_url)
     sufficiency_assessor, generator, verifier = _build_decision_components(
         client, separated_decision=separated_decision
     )
@@ -249,10 +247,7 @@ def _build_routed_pipeline(
     model: str | None,
     base_url: str | None,
 ) -> RoutedFactCheckPipeline:
-    client = OllamaStructuredClient(
-        model=model or os.getenv("OLLAMA_MODEL", "qwen3:8b"),
-        base_url=base_url or os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
-    )
+    client = _build_llm_client(model=model, base_url=base_url)
     corpus = load_evidence_jsonl(corpus_path)
     return RoutedFactCheckPipeline(
         normalizer=normalizer,
@@ -270,7 +265,15 @@ def _build_routed_pipeline(
     )
 
 
-def _pipeline_version(value: str | None) -> str:
+def _build_llm_client(*, model: str | None, base_url: str | None) -> ContextBudgetClient:
+    ollama = OllamaStructuredClient(
+        model=model or os.getenv("OLLAMA_MODEL", "qwen3:8b"),
+        base_url=base_url or os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
+    )
+    return ContextBudgetClient(ollama, context_tokens=ollama.context_tokens)
+
+
+def resolve_pipeline_version(value: str | None) -> str:
     version = (value or os.getenv("PIPELINE_VERSION", "v3")).strip().lower()
     if version not in {"v1", "v3"}:
         raise ValueError("PIPELINE_VERSION deve ser 'v1' ou 'v3'.")

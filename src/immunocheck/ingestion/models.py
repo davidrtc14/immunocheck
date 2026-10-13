@@ -18,6 +18,8 @@ class DocumentMetadata:
 class ExtractedPage:
     number: int
     text: str
+    # (deslocamento em `text`, título) das linhas de cabeçalho; só HTML/XML usam âncoras.
+    headings: tuple[tuple[int, str], ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -38,3 +40,4 @@ class TextChunk:
     page_start: int
     page_end: int
     publication_date: str | None = None
+    section: str | None = None

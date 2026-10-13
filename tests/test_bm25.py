@@ -37,3 +37,21 @@ def test_bm25_returns_empty_when_there_is_no_lexical_overlap() -> None:
     index = BM25Index((evidence("hpv", "Vacinação contra HPV."),))
 
     assert index.search("astronomia quasar") == ()
+
+
+def test_bm25_ignores_chunks_without_tokens_instead_of_failing() -> None:
+    index = BM25Index(
+        (
+            evidence("vazio", "— • ***"),
+            evidence("hpv", "A vacinação contra HPV previne infecções persistentes."),
+        )
+    )
+
+    assert [item.chunk_id for item in index.search("vacina HPV")] == ["hpv"]
+
+
+def test_bm25_rejects_corpus_with_no_indexable_chunk() -> None:
+    import pytest
+
+    with pytest.raises(ValueError):
+        BM25Index((evidence("vazio", "— • ***"),))
