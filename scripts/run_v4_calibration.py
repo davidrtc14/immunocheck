@@ -16,7 +16,11 @@ from immunocheck.evaluation.end_to_end import DatasetSplit, load_end_to_end_item
 REPOSITORY = Path(__file__).resolve().parents[1]
 ITEMS = REPOSITORY / "evaluation/refinement_v4/items.jsonl"
 OUTPUT_DIR = REPOSITORY / "evaluation/refinement_v4/results"
-CONDITIONS = {"v3_plain": False, "v4_grounded": True}
+CONDITIONS = {
+    "v3_plain": {"grounded": False, "d4": False},
+    "v4_grounded": {"grounded": True, "d4": False},
+    "v4_d4": {"grounded": True, "d4": True},
+}
 
 
 def main() -> None:
@@ -41,7 +45,7 @@ def main() -> None:
         done = {json.loads(line)["item_id"] for line in checkpoint.read_text("utf-8").splitlines() if line}
 
     pipeline = build_v4_text_pipeline(
-        grounded=CONDITIONS[args.condition], thresholds=AbstentionThresholds()
+        **CONDITIONS[args.condition], thresholds=AbstentionThresholds()
     )
     with checkpoint.open("a", encoding="utf-8", newline="\n") as handle:
         for item in items:
@@ -67,6 +71,8 @@ def main() -> None:
                 "latency_ms": round(latency_ms, 1),
                 "failure": failure,
                 "signals": asdict(signals) if signals else None,
+                "route": pipeline.last_route,
+                "technical_abstention": pipeline.last_technical_abstention,
             }
             handle.write(json.dumps(record, ensure_ascii=False) + "\n")
             handle.flush()
