@@ -51,6 +51,7 @@ class Evidence:
     publication_date: str | None = None
     page: int | None = None
     retrieval_score: float | None = None
+    section: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -91,6 +92,7 @@ class SourceReference:
     url: str
     publication_date: str | None = None
     page: int | None = None
+    section: str | None = None
 
     @classmethod
     def from_evidence(cls, evidence: Evidence) -> SourceReference:
@@ -101,6 +103,7 @@ class SourceReference:
             url=evidence.url,
             publication_date=evidence.publication_date,
             page=evidence.page,
+            section=evidence.section,
         )
 
 

@@ -54,8 +54,11 @@ def _parse_chunk(chunk: dict[str, object], line_number: int) -> Evidence:
             raise ValueError(f"Campo {field} inválido na linha {line_number}.")
     publication_date = chunk.get("publication_date")
     page = chunk.get("page_start")
+    section = chunk.get("section")
     if publication_date is not None and not isinstance(publication_date, str):
         raise ValueError(f"Data inválida na linha {line_number}.")
+    if section is not None and (not isinstance(section, str) or not section.strip()):
+        raise ValueError(f"Seção inválida na linha {line_number}.")
     if not isinstance(page, int) or isinstance(page, bool) or page <= 0:
         raise ValueError(f"Página inválida na linha {line_number}.")
     return Evidence(
@@ -66,4 +69,5 @@ def _parse_chunk(chunk: dict[str, object], line_number: int) -> Evidence:
         url=str(chunk["url"]),
         publication_date=publication_date,
         page=page,
+        section=section,
     )

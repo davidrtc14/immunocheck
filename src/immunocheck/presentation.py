@@ -40,7 +40,9 @@ def format_result(result: FactCheckResult, *, elapsed_seconds: float) -> str:
             details = [source.source_name, source.document_title]
             if source.publication_date:
                 details.append(source.publication_date)
-            if source.page:
+            if source.section:
+                details.append(source.section)
+            elif source.page:
                 details.append(f"p. {source.page}")
             lines.append(f"  [{position}] {' — '.join(details)}")
             lines.append(f"      {source.url}")

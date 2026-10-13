@@ -471,12 +471,15 @@ def _document_build_key(
     entry: CatalogEntry,
     settings: BuildSettings,
 ) -> str:
-    payload = {
+    payload: dict[str, object] = {
         "document_id": document_id,
         "content_sha256": receipt.sha256,
         "format": entry.metadata.format,
         "build": asdict(settings),
     }
+    if entry.metadata.format in {"html", "xml"}:
+        # Força o reprocessamento (sem mudar chunk_id) para gravar a âncora de seção.
+        payload["section_anchors"] = 1
     return _sha256(_canonical_json_bytes(payload))
 
 
