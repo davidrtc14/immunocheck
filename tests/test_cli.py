@@ -90,7 +90,7 @@ def test_cli_warns_that_top_k_is_ignored_by_v3(monkeypatch, capsys) -> None:
     monkeypatch.setattr(cli, "build_configured_text_pipeline", fake_build)
 
     assert cli.main(["--pipeline-version", "v3", "--top-k", "9", "alegação"]) == 0
-    assert "--top-k é ignorado na v3" in capsys.readouterr().err
+    assert "--top-k é ignorado na v3/v4" in capsys.readouterr().err
 
     assert cli.main(["--pipeline-version", "v1", "--top-k", "9", "alegação"]) == 0
     assert captured["top_k"] == 9

@@ -1,9 +1,18 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 
+from immunocheck.application.abstention import (
+    AbstainingPipeline,
+    AbstentionThresholds,
+    RecordingClaimExtractor,
+    RecordingRetriever,
+    SignalRecorder,
+)
 from immunocheck.application.content_normalizer import MultimodalNormalizer
+from immunocheck.application.grounding import GroundedVerdictGenerator
 from immunocheck.application.pipeline import FactCheckPipeline
 from immunocheck.application.ports import ContentNormalizer
 from immunocheck.application.routed_pipeline import RoutedFactCheckPipeline
@@ -43,6 +52,7 @@ DEFAULT_MODEL_CACHE = PROJECT_ROOT / "models"
 RRF_INPUT_DEPTH = 60
 RRF_RANK_CONSTANT = 60
 V3_RETRIEVAL_TOP_K = 15
+V4_THRESHOLDS_PATH = PROJECT_ROOT / "evaluation" / "refinement_v4" / "thresholds.json"
 
 
 def build_text_pipeline(
@@ -119,6 +129,46 @@ def build_routed_multimodal_pipeline(
     )
 
 
+def build_v4_text_pipeline(
+    *,
+    corpus_path: Path = DEFAULT_CORPUS_PATH,
+    model: str | None = None,
+    base_url: str | None = None,
+    grounded: bool | None = None,
+    thresholds: AbstentionThresholds | None = None,
+) -> AbstainingPipeline:
+    """Monta a v4 opt-in (ancoragem D1 + abstenção calibrada D2) com entrada textual."""
+    return _build_v4_pipeline(
+        normalizer=TextNormalizer(),
+        corpus_path=corpus_path,
+        model=model,
+        base_url=base_url,
+        grounded=grounded,
+        thresholds=thresholds,
+    )
+
+
+def build_v4_multimodal_pipeline(
+    *,
+    corpus_path: Path = DEFAULT_CORPUS_PATH,
+    model: str | None = None,
+    base_url: str | None = None,
+    grounded: bool | None = None,
+    thresholds: AbstentionThresholds | None = None,
+) -> AbstainingPipeline:
+    return _build_v4_pipeline(
+        normalizer=MultimodalNormalizer(
+            image_extractor=TesseractOCR.from_environment(),
+            link_extractor=SafeLinkTextExtractor(),
+        ),
+        corpus_path=corpus_path,
+        model=model,
+        base_url=base_url,
+        grounded=grounded,
+        thresholds=thresholds,
+    )
+
+
 def build_configured_text_pipeline(
     *,
     pipeline_version: str | None = None,
@@ -129,6 +179,8 @@ def build_configured_text_pipeline(
     retrieval_mode: str | None = None,
 ) -> FactCheckPipeline | RoutedFactCheckPipeline:
     version = resolve_pipeline_version(pipeline_version)
+    if version == "v4":
+        return build_v4_text_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
     if version == "v3":
         return build_routed_text_pipeline(
             corpus_path=corpus_path,
@@ -154,6 +206,8 @@ def build_configured_multimodal_pipeline(
     retrieval_mode: str | None = None,
 ) -> FactCheckPipeline | RoutedFactCheckPipeline:
     version = resolve_pipeline_version(pipeline_version)
+    if version == "v4":
+        return build_v4_multimodal_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
     if version == "v3":
         return build_routed_multimodal_pipeline(
             corpus_path=corpus_path,
@@ -273,10 +327,63 @@ def _build_llm_client(*, model: str | None, base_url: str | None) -> ContextBudg
     return ContextBudgetClient(ollama, context_tokens=ollama.context_tokens)
 
 
+def _build_v4_pipeline(
+    *,
+    normalizer: ContentNormalizer,
+    corpus_path: Path,
+    model: str | None,
+    base_url: str | None,
+    grounded: bool | None,
+    thresholds: AbstentionThresholds | None,
+) -> AbstainingPipeline:
+    if grounded is None:
+        grounded = _v4_grounded_default()
+    client = _build_llm_client(model=model, base_url=base_url)
+    corpus = load_evidence_jsonl(corpus_path)
+    recorder = SignalRecorder()
+    if grounded:
+        direct = GroundedVerdictGenerator(client, LLMVerdictGenerator)
+        relation = GroundedVerdictGenerator(client, LLMRelationVerdictGenerator)
+    else:
+        direct, relation = LLMVerdictGenerator(client), LLMRelationVerdictGenerator(client)
+    inner = RoutedFactCheckPipeline(
+        normalizer=normalizer,
+        claim_extractor=RecordingClaimExtractor(LLMClaimExtractor(client), recorder),
+        retriever=RecordingRetriever(
+            _build_retriever(
+                corpus_path=corpus_path,
+                top_k=V3_RETRIEVAL_TOP_K,
+                retrieval_mode="dense",
+            ),
+            recorder,
+        ),
+        direct_generator=direct,
+        relation_generator=relation,
+        router=LLMClaimRouteAnalyzer(client),
+        citation_selector=LLMCitationSelector(client),
+        corpus=corpus,
+    )
+    return AbstainingPipeline(
+        inner=inner,
+        recorder=recorder,
+        thresholds=thresholds
+        if thresholds is not None
+        else AbstentionThresholds.load(V4_THRESHOLDS_PATH),
+    )
+
+
+def _v4_grounded_default() -> bool:
+    """A ancoragem D1 só entra por padrão se a calibração registrada a adotou."""
+    if not V4_THRESHOLDS_PATH.is_file():
+        return False
+    data = json.loads(V4_THRESHOLDS_PATH.read_text(encoding="utf-8"))
+    return data.get("base_condition") == "v4_grounded"
+
+
 def resolve_pipeline_version(value: str | None) -> str:
     version = (value or os.getenv("PIPELINE_VERSION", "v3")).strip().lower()
-    if version not in {"v1", "v3"}:
-        raise ValueError("PIPELINE_VERSION deve ser 'v1' ou 'v3'.")
+    if version not in {"v1", "v3", "v4"}:
+        raise ValueError("PIPELINE_VERSION deve ser 'v1', 'v3' ou 'v4'.")
     return version
 
 

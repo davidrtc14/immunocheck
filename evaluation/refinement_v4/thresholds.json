@@ -1,0 +1,22 @@
+{
+  "base_condition": "v3_plain",
+  "frozen_from": "calibration_v4_development_48_items",
+  "thresholds": {
+    "min_confidence": null,
+    "min_top_score": null,
+    "min_margin": 0.002403
+  },
+  "calibration": {
+    "records": 48,
+    "baseline_macro_f1": 0.449820788530466,
+    "selected_macro_f1": 0.46130952380952384,
+    "selected_curve": {
+      "abstentions": 12,
+      "abstention_precision": 0.4166666666666667,
+      "abstention_recall": 0.4166666666666667,
+      "correct_conclusions_sacrificed": 1
+    },
+    "candidates_evaluated": 16,
+    "max_sacrificed_fraction": 0.25
+  }
+}

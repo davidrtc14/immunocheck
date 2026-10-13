@@ -30,9 +30,9 @@ def main(argv: list[str] | None = None) -> int:
 
     started_at = time.perf_counter()
     try:
-        if args.top_k is not None and resolve_pipeline_version(args.pipeline_version) == "v3":
+        if args.top_k is not None and resolve_pipeline_version(args.pipeline_version) in {"v3", "v4"}:
             print(
-                "Aviso: --top-k é ignorado na v3, que usa profundidade fixa (top 15 congelado).",
+                "Aviso: --top-k é ignorado na v3/v4, que usam profundidade fixa (top 15 congelado).",
                 file=sys.stderr,
             )
         pipeline = build_configured_text_pipeline(
@@ -63,7 +63,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--model", default=None, help="modelo local configurado no Ollama")
     parser.add_argument(
         "--pipeline-version",
-        choices=("v1", "v3"),
+        choices=("v1", "v3", "v4"),
         default=None,
         help="pipeline local (padrão: PIPELINE_VERSION ou v3)",
     )
@@ -82,7 +82,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--top-k",
         type=int,
         default=None,
-        help=f"evidências recuperadas pela v1 (padrão {DEFAULT_V1_TOP_K}); ignorado na v3",
+        help=f"evidências recuperadas pela v1 (padrão {DEFAULT_V1_TOP_K}); ignorado na v3/v4",
     )
     return parser
 

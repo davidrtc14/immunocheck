@@ -47,6 +47,7 @@
 | ADR-043 | Tratar Docker/PostgreSQL como diagnóstico opcional no preflight do bot local | Aceita | O caminho online lê o corpus/índice local e não persiste interações; Docker e PostgreSQL continuam validados para ingestão/reprodução, mas sua indisponibilidade não bloqueia Telegram, CLI ou demonstração. |
 | ADR-044 | Correções de segurança e robustez da Fase B do plano v4, sem alterar a v3 congelada | Aceita | Guarda de orientação individual, orçamento de contexto, âncoras de seção, limite de taxa e correções menores são defeitos, não ganhos de acurácia; entram como camadas e módulos novos, sem editar componentes congelados. |
 | ADR-045 | Conjunto lacrado v4 (96 itens, 24 famílias) e instrumentação de ablação por documento | Aceita | Substitui o confirmatório de 32 itens por calibração e holdout maiores, com gate lexical e critério de promoção de retrieval pré-registrados; curadoria sem revisor externo declarada como limitação. |
+| ADR-046 | Ancoragem verificável (D1) e abstenção calibrada (D2) na linha v4 opt-in | D1 não adotada pelo critério pré-registrado; D2 adotada com ressalva | Em 48 itens, D1 elevou macro-F1 de 0,450 para 0,542 (IC +0,026 a +0,171) mas falhou o limite de falhas técnicas (1/48 > 2%, falha herdada da v3). D2 atingiu +0,0301 aninhado, IC incluindo zero. `MISLEADING` ficou com recall zero em ambas. |
 
 ## Histórico de alterações
 
@@ -270,6 +271,12 @@
   na calibração não demonstrou ganho de reranker nem de híbrido sobre o denso. A segunda anotação
   (50%) está preparada e pendente de revisor humano; nenhuma inferência do sistema foi feita
   sobre o holdout.
+- **13/10/2026 — ADR-046:** o plano D1/D2 foi registrado antes das inferências. Na calibração v4 a v3
+  obteve macro-F1 0,450 (0,846 no confirmatório de 32 itens), com recall zero de `MISLEADING`.
+  D1 (ancoragem) obteve 0,542; falhou apenas o critério de falhas técnicas (a mesma falha ocorre
+  na v3). D2 deu ganho aninhado de +0,0301 (IC com zero). A v4 opt-in usa a v3 + limiares D2;
+  levar D1 ao holdout exige emenda explícita do pesquisador. Detalhes em
+  `evaluation/refinement_v4/CALIBRATION_D_RESULTS.md`.
 
 ## Política de alteração
 
