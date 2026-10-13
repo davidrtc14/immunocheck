@@ -6,12 +6,19 @@ import time
 from pathlib import Path
 
 from immunocheck.application.text_components import ModelOutputError
-from immunocheck.bootstrap import DEFAULT_CORPUS_PATH, build_configured_text_pipeline
+from immunocheck.bootstrap import (
+    DEFAULT_CORPUS_PATH,
+    build_configured_text_pipeline,
+    resolve_pipeline_version,
+)
 from immunocheck.domain.input_policy import InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission
 from immunocheck.infrastructure.ollama import OllamaError
 from immunocheck.presentation import format_result
 from immunocheck.retrieval.pilot_corpus import CorpusLoadError
+
+
+DEFAULT_V1_TOP_K = 6
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -23,12 +30,17 @@ def main(argv: list[str] | None = None) -> int:
 
     started_at = time.perf_counter()
     try:
+        if args.top_k is not None and resolve_pipeline_version(args.pipeline_version) == "v3":
+            print(
+                "Aviso: --top-k é ignorado na v3, que usa profundidade fixa (top 15 congelado).",
+                file=sys.stderr,
+            )
         pipeline = build_configured_text_pipeline(
             pipeline_version=args.pipeline_version,
             corpus_path=args.corpus,
             model=args.model,
             base_url=args.ollama_url,
-            top_k=args.top_k,
+            top_k=args.top_k if args.top_k is not None else DEFAULT_V1_TOP_K,
         )
         result = pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text=text))
     except InvalidSubmissionError as exc:
@@ -69,8 +81,8 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--top-k",
         type=int,
-        default=6,
-        help="quantidade de evidências recuperadas pela pipeline v1",
+        default=None,
+        help=f"evidências recuperadas pela v1 (padrão {DEFAULT_V1_TOP_K}); ignorado na v3",
     )
     return parser
 

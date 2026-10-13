@@ -128,7 +128,7 @@ def build_configured_text_pipeline(
     top_k: int = 6,
     retrieval_mode: str | None = None,
 ) -> FactCheckPipeline | RoutedFactCheckPipeline:
-    version = _pipeline_version(pipeline_version)
+    version = resolve_pipeline_version(pipeline_version)
     if version == "v3":
         return build_routed_text_pipeline(
             corpus_path=corpus_path,
@@ -153,7 +153,7 @@ def build_configured_multimodal_pipeline(
     top_k: int = 6,
     retrieval_mode: str | None = None,
 ) -> FactCheckPipeline | RoutedFactCheckPipeline:
-    version = _pipeline_version(pipeline_version)
+    version = resolve_pipeline_version(pipeline_version)
     if version == "v3":
         return build_routed_multimodal_pipeline(
             corpus_path=corpus_path,
@@ -273,7 +273,7 @@ def _build_llm_client(*, model: str | None, base_url: str | None) -> ContextBudg
     return ContextBudgetClient(ollama, context_tokens=ollama.context_tokens)
 
 
-def _pipeline_version(value: str | None) -> str:
+def resolve_pipeline_version(value: str | None) -> str:
     version = (value or os.getenv("PIPELINE_VERSION", "v3")).strip().lower()
     if version not in {"v1", "v3"}:
         raise ValueError("PIPELINE_VERSION deve ser 'v1' ou 'v3'.")
