@@ -29,6 +29,16 @@ commits, capturas de tela ou relatórios.
 somente para reproduzir ou reverter temporariamente ao caminho histórico; a seleção
 não muda o corpus nem persiste interações.
 
+## Controle de acesso e limite de taxa
+
+- `TELEGRAM_RATE_LIMIT_MESSAGES` (padrão 5) por `TELEGRAM_RATE_LIMIT_WINDOW_SECONDS`
+  (padrão 60): janela deslizante por chat, mantida somente em memória, com no máximo
+  10.000 chats rastreados. O chat excedente recebe um único aviso por janela.
+- `TELEGRAM_ALLOWED_CHAT_IDS` (opcional): lista de IDs separados por vírgula. Quando
+  definida, chats fora dela são ignorados sem resposta. É configuração do operador, não
+  dado de usuário; vazia, qualquer chat é aceito.
+- Nenhum identificador é gravado em disco nem registrado em log.
+
 ## Comportamento
 
 - `/start`: apresenta finalidade, limite e aviso de privacidade;
