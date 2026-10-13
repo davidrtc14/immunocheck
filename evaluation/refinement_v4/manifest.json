@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "sealed_unexecuted",
+  "created_at": "2026-10-13",
+  "dataset": "evaluation/refinement_v4/items.jsonl",
+  "dataset_sha256": "4b38f69e78b0c5a7687f02275beb33dee35a99050db6bca8a8d02608c4104d5a",
+  "protocol": "evaluation/refinement_v4/PROTOCOL.md",
+  "protocol_sha256": "676316bf65386130b0198806a7b7cbc62f70b711d7e6637be6f754a92c6f71b9",
+  "item_count": 96,
+  "family_count": 24,
+  "labels": {
+    "INSUFFICIENT_EVIDENCE": 24,
+    "MISLEADING": 24,
+    "REFUTED": 24,
+    "SUPPORTED": 24
+  },
+  "splits": {
+    "development": 48,
+    "test": 48
+  },
+  "holdout_item_ids_sha256": "4055abc5a65b0b342f75923b7b19810e26d52c4935f8c6da6a85513484f3110b",
+  "curation": "project_researcher_ai_assisted",
+  "external_human_review_claimed": false,
+  "second_annotation_completed": false,
+  "holdout_inference_executed": false,
+  "retrieval_ablation_executed_on_calibration": true,
+  "end_to_end_inference_executed": false
+}

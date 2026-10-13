@@ -1,0 +1,1145 @@
+{
+  "schema_version": 1,
+  "purpose": "detect_lexical_shortcuts_not_validate_immunocheck",
+  "partition": "calibration_v4",
+  "test_items_loaded_into_model": false,
+  "seed": 20260916,
+  "folds": 5,
+  "bootstrap_unit": "claim_family",
+  "bootstrap_resamples": 2000,
+  "dataset_identity_sha256": "fce5381b4a12bc9664a09ece6c0f4191fbaa9787ba70c4c481a97df2777e44d4",
+  "item_count": 48,
+  "family_count": 12,
+  "label_order": [
+    "SUPPORTED",
+    "REFUTED",
+    "MISLEADING",
+    "INSUFFICIENT_EVIDENCE"
+  ],
+  "model": {
+    "features": "word_tfidf_unigrams_bigrams",
+    "classifier": "logistic_regression_balanced",
+    "strip_accents": "unicode",
+    "sublinear_tf": true
+  },
+  "metrics": {
+    "accuracy": 0.5625,
+    "balanced_accuracy": 0.5625,
+    "macro_f1": 0.5579801639584248,
+    "weighted_f1": 0.5579801639584249,
+    "per_class": {
+      "SUPPORTED": {
+        "precision": 0.5,
+        "recall": 0.4166666666666667,
+        "f1": 0.45454545454545453,
+        "support": 12
+      },
+      "REFUTED": {
+        "precision": 0.45454545454545453,
+        "recall": 0.4166666666666667,
+        "f1": 0.43478260869565216,
+        "support": 12
+      },
+      "MISLEADING": {
+        "precision": 0.5333333333333333,
+        "recall": 0.6666666666666666,
+        "f1": 0.5925925925925926,
+        "support": 12
+      },
+      "INSUFFICIENT_EVIDENCE": {
+        "precision": 0.75,
+        "recall": 0.75,
+        "f1": 0.75,
+        "support": 12
+      }
+    },
+    "confusion_matrix_reference_rows": [
+      [
+        5,
+        3,
+        3,
+        1
+      ],
+      [
+        3,
+        5,
+        3,
+        1
+      ],
+      [
+        0,
+        3,
+        8,
+        1
+      ],
+      [
+        2,
+        0,
+        1,
+        9
+      ]
+    ]
+  },
+  "bootstrap_95_percentile_interval": {
+    "accuracy": {
+      "lower": 0.4791666666666667,
+      "median": 0.5625,
+      "upper": 0.6458333333333334
+    },
+    "balanced_accuracy": {
+      "lower": 0.4791666666666667,
+      "median": 0.5625,
+      "upper": 0.6458333333333334
+    },
+    "macro_f1": {
+      "lower": 0.45896428571428577,
+      "median": 0.5544560719662217,
+      "upper": 0.6456362116144725
+    }
+  },
+  "fold_records": [
+    {
+      "fold": 1,
+      "training_items": 36,
+      "validation_items": 12,
+      "training_families": [
+        "bcg_hiv_exposed_children",
+        "clinical_trial_phases_before_approval",
+        "covid_vaccine_children_5_11_efficacy",
+        "egg_allergy_vaccination",
+        "hepatitis_b_birth_dose",
+        "measles_elimination_certification",
+        "pertussis_burden_infants_lmic",
+        "pneumococcal_serotypes_latin_america",
+        "rotavirus_vaccine_deaths_averted"
+      ],
+      "validation_families": [
+        "booster_doses_immune_memory",
+        "covid_label_updates_regulatory",
+        "simultaneous_vaccines_immune_load"
+      ],
+      "metrics": {
+        "accuracy": 0.5833333333333334,
+        "balanced_accuracy": 0.5833333333333334,
+        "macro_f1": 0.5571428571428572,
+        "weighted_f1": 0.5571428571428572,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.5,
+            "recall": 0.3333333333333333,
+            "f1": 0.4,
+            "support": 3
+          },
+          "REFUTED": {
+            "precision": 0.5,
+            "recall": 0.6666666666666666,
+            "f1": 0.5714285714285714,
+            "support": 3
+          },
+          "MISLEADING": {
+            "precision": 0.5,
+            "recall": 0.3333333333333333,
+            "f1": 0.4,
+            "support": 3
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.75,
+            "recall": 1.0,
+            "f1": 0.8571428571428571,
+            "support": 3
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            2,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 2,
+      "training_items": 36,
+      "validation_items": 12,
+      "training_families": [
+        "bcg_hiv_exposed_children",
+        "booster_doses_immune_memory",
+        "clinical_trial_phases_before_approval",
+        "covid_label_updates_regulatory",
+        "egg_allergy_vaccination",
+        "hepatitis_b_birth_dose",
+        "measles_elimination_certification",
+        "pneumococcal_serotypes_latin_america",
+        "simultaneous_vaccines_immune_load"
+      ],
+      "validation_families": [
+        "covid_vaccine_children_5_11_efficacy",
+        "pertussis_burden_infants_lmic",
+        "rotavirus_vaccine_deaths_averted"
+      ],
+      "metrics": {
+        "accuracy": 0.4166666666666667,
+        "balanced_accuracy": 0.41666666666666663,
+        "macro_f1": 0.3839285714285714,
+        "weighted_f1": 0.38392857142857145,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 1.0,
+            "recall": 0.3333333333333333,
+            "f1": 0.5,
+            "support": 3
+          },
+          "REFUTED": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 3
+          },
+          "MISLEADING": {
+            "precision": 0.25,
+            "recall": 0.3333333333333333,
+            "f1": 0.2857142857142857,
+            "support": 3
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 0.6,
+            "recall": 1.0,
+            "f1": 0.75,
+            "support": 3
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            2,
+            1
+          ],
+          [
+            0,
+            2,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 3,
+      "training_items": 40,
+      "validation_items": 8,
+      "training_families": [
+        "booster_doses_immune_memory",
+        "clinical_trial_phases_before_approval",
+        "covid_label_updates_regulatory",
+        "covid_vaccine_children_5_11_efficacy",
+        "egg_allergy_vaccination",
+        "measles_elimination_certification",
+        "pertussis_burden_infants_lmic",
+        "pneumococcal_serotypes_latin_america",
+        "rotavirus_vaccine_deaths_averted",
+        "simultaneous_vaccines_immune_load"
+      ],
+      "validation_families": [
+        "bcg_hiv_exposed_children",
+        "hepatitis_b_birth_dose"
+      ],
+      "metrics": {
+        "accuracy": 0.625,
+        "balanced_accuracy": 0.625,
+        "macro_f1": 0.6166666666666667,
+        "weighted_f1": 0.6166666666666667,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1": 0.5,
+            "support": 2
+          },
+          "REFUTED": {
+            "precision": 0.5,
+            "recall": 0.5,
+            "f1": 0.5,
+            "support": 2
+          },
+          "MISLEADING": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 2
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "support": 2
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 4,
+      "training_items": 40,
+      "validation_items": 8,
+      "training_families": [
+        "bcg_hiv_exposed_children",
+        "booster_doses_immune_memory",
+        "clinical_trial_phases_before_approval",
+        "covid_label_updates_regulatory",
+        "covid_vaccine_children_5_11_efficacy",
+        "hepatitis_b_birth_dose",
+        "pertussis_burden_infants_lmic",
+        "pneumococcal_serotypes_latin_america",
+        "rotavirus_vaccine_deaths_averted",
+        "simultaneous_vaccines_immune_load"
+      ],
+      "validation_families": [
+        "egg_allergy_vaccination",
+        "measles_elimination_certification"
+      ],
+      "metrics": {
+        "accuracy": 0.625,
+        "balanced_accuracy": 0.625,
+        "macro_f1": 0.5666666666666667,
+        "weighted_f1": 0.5666666666666667,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 2
+          },
+          "REFUTED": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 2
+          },
+          "MISLEADING": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 2
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "support": 2
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            2,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ]
+        ]
+      }
+    },
+    {
+      "fold": 5,
+      "training_items": 40,
+      "validation_items": 8,
+      "training_families": [
+        "bcg_hiv_exposed_children",
+        "booster_doses_immune_memory",
+        "covid_label_updates_regulatory",
+        "covid_vaccine_children_5_11_efficacy",
+        "egg_allergy_vaccination",
+        "hepatitis_b_birth_dose",
+        "measles_elimination_certification",
+        "pertussis_burden_infants_lmic",
+        "rotavirus_vaccine_deaths_averted",
+        "simultaneous_vaccines_immune_load"
+      ],
+      "validation_families": [
+        "clinical_trial_phases_before_approval",
+        "pneumococcal_serotypes_latin_america"
+      ],
+      "metrics": {
+        "accuracy": 0.625,
+        "balanced_accuracy": 0.625,
+        "macro_f1": 0.5333333333333333,
+        "weighted_f1": 0.5333333333333333,
+        "per_class": {
+          "SUPPORTED": {
+            "precision": 0.5,
+            "recall": 1.0,
+            "f1": 0.6666666666666666,
+            "support": 2
+          },
+          "REFUTED": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 2
+          },
+          "MISLEADING": {
+            "precision": 0.6666666666666666,
+            "recall": 1.0,
+            "f1": 0.8,
+            "support": 2
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "precision": 1.0,
+            "recall": 0.5,
+            "f1": 0.6666666666666666,
+            "support": 2
+          }
+        },
+        "confusion_matrix_reference_rows": [
+          [
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            2,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ]
+        ]
+      }
+    }
+  ],
+  "top_weighted_terms_diagnostic_only": {
+    "INSUFFICIENT_EVIDENCE": [
+      {
+        "term": "2027",
+        "coefficient": 0.32607243202080954
+      },
+      {
+        "term": "minha",
+        "coefficient": 0.2803661262181364
+      },
+      {
+        "term": "em 2027",
+        "coefficient": 0.24519796092262441
+      },
+      {
+        "term": "reduz em",
+        "coefficient": 0.23878970441119793
+      },
+      {
+        "term": "reduz",
+        "coefficient": 0.23878970441119793
+      },
+      {
+        "term": "para",
+        "coefficient": 0.2338570396031379
+      },
+      {
+        "term": "vai",
+        "coefficient": 0.21643226674061508
+      },
+      {
+        "term": "tomou",
+        "coefficient": 0.21043573188492387
+      },
+      {
+        "term": "ela",
+        "coefficient": 0.2048690293949707
+      },
+      {
+        "term": "filho",
+        "coefficient": 0.2046370309697951
+      },
+      {
+        "term": "nao funciona",
+        "coefficient": 0.2046370309697951
+      },
+      {
+        "term": "funciona",
+        "coefficient": 0.2046370309697951
+      },
+      {
+        "term": "meu",
+        "coefficient": 0.18771102835649628
+      },
+      {
+        "term": "ficou",
+        "coefficient": 0.1815351690898743
+      },
+      {
+        "term": "ele",
+        "coefficient": 0.18130317066469867
+      }
+    ],
+    "MISLEADING": [
+      {
+        "term": "entao",
+        "coefficient": 0.3652435893258902
+      },
+      {
+        "term": "pode",
+        "coefficient": 0.29623662034343107
+      },
+      {
+        "term": "foi",
+        "coefficient": 0.24939042192942293
+      },
+      {
+        "term": "um",
+        "coefficient": 0.2435640623500462
+      },
+      {
+        "term": "la",
+        "coefficient": 0.23425473993408175
+      },
+      {
+        "term": "como",
+        "coefficient": 0.21393323726628136
+      },
+      {
+        "term": "virus",
+        "coefficient": 0.19876219103923584
+      },
+      {
+        "term": "portanto",
+        "coefficient": 0.19822383694018206
+      },
+      {
+        "term": "crianca",
+        "coefficient": 0.18237383781380348
+      },
+      {
+        "term": "vacinada",
+        "coefficient": 0.18237383781380348
+      },
+      {
+        "term": "numero de",
+        "coefficient": 0.1762929516065738
+      },
+      {
+        "term": "numero",
+        "coefficient": 0.1762929516065738
+      },
+      {
+        "term": "pode recebe",
+        "coefficient": 0.17325347309148995
+      },
+      {
+        "term": "recebe la",
+        "coefficient": 0.17325347309148995
+      },
+      {
+        "term": "entao uma",
+        "coefficient": 0.1691050830321309
+      }
+    ],
+    "REFUTED": [
+      {
+        "term": "nunca",
+        "coefficient": 0.2865287017579581
+      },
+      {
+        "term": "receber",
+        "coefficient": 0.2677264158343784
+      },
+      {
+        "term": "receber vacina",
+        "coefficient": 0.25359811630665946
+      },
+      {
+        "term": "nenhuma",
+        "coefficient": 0.24992055130440546
+      },
+      {
+        "term": "as",
+        "coefficient": 0.1611348419915631
+      },
+      {
+        "term": "das vacinas",
+        "coefficient": 0.15941261342665863
+      },
+      {
+        "term": "de ser",
+        "coefficient": 0.1569213285018978
+      },
+      {
+        "term": "vacina bcg",
+        "coefficient": 0.15370457822766762
+      },
+      {
+        "term": "expostas verticalmente",
+        "coefficient": 0.15370457822766762
+      },
+      {
+        "term": "verticalmente ao",
+        "coefficient": 0.15370457822766762
+      },
+      {
+        "term": "verticalmente",
+        "coefficient": 0.15370457822766762
+      },
+      {
+        "term": "hiv nunca",
+        "coefficient": 0.15370457822766762
+      },
+      {
+        "term": "nunca podem",
+        "coefficient": 0.15370457822766762
+      },
+      {
+        "term": "podem receber",
+        "coefficient": 0.15370457822766762
+      },
+      {
+        "term": "por diarreia",
+        "coefficient": 0.1466079742323054
+      }
+    ],
+    "SUPPORTED": [
+      {
+        "term": "menores",
+        "coefficient": 0.2720436573587679
+      },
+      {
+        "term": "menores de",
+        "coefficient": 0.2720436573587679
+      },
+      {
+        "term": "na",
+        "coefficient": 0.20999533046548047
+      },
+      {
+        "term": "de",
+        "coefficient": 0.2073218125545777
+      },
+      {
+        "term": "em menores",
+        "coefficient": 0.20121080910196593
+      },
+      {
+        "term": "da vacina",
+        "coefficient": 0.19873758093098406
+      },
+      {
+        "term": "pela",
+        "coefficient": 0.19631316653651631
+      },
+      {
+        "term": "ovo mesmo",
+        "coefficient": 0.16024097217387478
+      },
+      {
+        "term": "contraindica",
+        "coefficient": 0.16024097217387478
+      },
+      {
+        "term": "grave nao",
+        "coefficient": 0.16024097217387478
+      },
+      {
+        "term": "nao contraindica",
+        "coefficient": 0.16024097217387478
+      },
+      {
+        "term": "contraindica vacina",
+        "coefficient": 0.16024097217387478
+      },
+      {
+        "term": "mesmo grave",
+        "coefficient": 0.16024097217387478
+      },
+      {
+        "term": "mortes",
+        "coefficient": 0.15511974447497917
+      },
+      {
+        "term": "mortes em",
+        "coefficient": 0.15511974447497917
+      }
+    ]
+  },
+  "predictions": [
+    {
+      "item_id": "ref4-0001",
+      "claim_family": "simultaneous_vaccines_immune_load",
+      "fold": 1,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0003",
+      "claim_family": "bcg_hiv_exposed_children",
+      "fold": 3,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0004",
+      "claim_family": "hepatitis_b_birth_dose",
+      "fold": 3,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0005",
+      "claim_family": "rotavirus_vaccine_deaths_averted",
+      "fold": 2,
+      "reference_label": "MISLEADING",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0013",
+      "claim_family": "bcg_hiv_exposed_children",
+      "fold": 3,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0015",
+      "claim_family": "measles_elimination_certification",
+      "fold": 4,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0018",
+      "claim_family": "covid_label_updates_regulatory",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0019",
+      "claim_family": "measles_elimination_certification",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0022",
+      "claim_family": "egg_allergy_vaccination",
+      "fold": 4,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0023",
+      "claim_family": "pertussis_burden_infants_lmic",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0024",
+      "claim_family": "bcg_hiv_exposed_children",
+      "fold": 3,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0025",
+      "claim_family": "rotavirus_vaccine_deaths_averted",
+      "fold": 2,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0027",
+      "claim_family": "pneumococcal_serotypes_latin_america",
+      "fold": 5,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0030",
+      "claim_family": "covid_label_updates_regulatory",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0032",
+      "claim_family": "simultaneous_vaccines_immune_load",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0034",
+      "claim_family": "covid_vaccine_children_5_11_efficacy",
+      "fold": 2,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0035",
+      "claim_family": "covid_label_updates_regulatory",
+      "fold": 1,
+      "reference_label": "MISLEADING",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0036",
+      "claim_family": "covid_vaccine_children_5_11_efficacy",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0037",
+      "claim_family": "egg_allergy_vaccination",
+      "fold": 4,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0040",
+      "claim_family": "measles_elimination_certification",
+      "fold": 4,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0042",
+      "claim_family": "pneumococcal_serotypes_latin_america",
+      "fold": 5,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0045",
+      "claim_family": "simultaneous_vaccines_immune_load",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0048",
+      "claim_family": "hepatitis_b_birth_dose",
+      "fold": 3,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0050",
+      "claim_family": "booster_doses_immune_memory",
+      "fold": 1,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0051",
+      "claim_family": "clinical_trial_phases_before_approval",
+      "fold": 5,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0052",
+      "claim_family": "covid_vaccine_children_5_11_efficacy",
+      "fold": 2,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0054",
+      "claim_family": "covid_label_updates_regulatory",
+      "fold": 1,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0055",
+      "claim_family": "measles_elimination_certification",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0056",
+      "claim_family": "pertussis_burden_infants_lmic",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0058",
+      "claim_family": "pneumococcal_serotypes_latin_america",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0059",
+      "claim_family": "pneumococcal_serotypes_latin_america",
+      "fold": 5,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0061",
+      "claim_family": "rotavirus_vaccine_deaths_averted",
+      "fold": 2,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0062",
+      "claim_family": "pertussis_burden_infants_lmic",
+      "fold": 2,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0063",
+      "claim_family": "clinical_trial_phases_before_approval",
+      "fold": 5,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0064",
+      "claim_family": "pertussis_burden_infants_lmic",
+      "fold": 2,
+      "reference_label": "MISLEADING",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0069",
+      "claim_family": "egg_allergy_vaccination",
+      "fold": 4,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0073",
+      "claim_family": "clinical_trial_phases_before_approval",
+      "fold": 5,
+      "reference_label": "REFUTED",
+      "predicted_label": "SUPPORTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0075",
+      "claim_family": "booster_doses_immune_memory",
+      "fold": 1,
+      "reference_label": "INSUFFICIENT_EVIDENCE",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0076",
+      "claim_family": "hepatitis_b_birth_dose",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0079",
+      "claim_family": "booster_doses_immune_memory",
+      "fold": 1,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "REFUTED",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0080",
+      "claim_family": "simultaneous_vaccines_immune_load",
+      "fold": 1,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0081",
+      "claim_family": "bcg_hiv_exposed_children",
+      "fold": 3,
+      "reference_label": "REFUTED",
+      "predicted_label": "REFUTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0083",
+      "claim_family": "booster_doses_immune_memory",
+      "fold": 1,
+      "reference_label": "MISLEADING",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0084",
+      "claim_family": "egg_allergy_vaccination",
+      "fold": 4,
+      "reference_label": "MISLEADING",
+      "predicted_label": "MISLEADING",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0088",
+      "claim_family": "covid_vaccine_children_5_11_efficacy",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "MISLEADING",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0089",
+      "claim_family": "hepatitis_b_birth_dose",
+      "fold": 3,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    },
+    {
+      "item_id": "ref4-0091",
+      "claim_family": "rotavirus_vaccine_deaths_averted",
+      "fold": 2,
+      "reference_label": "REFUTED",
+      "predicted_label": "INSUFFICIENT_EVIDENCE",
+      "correct": false
+    },
+    {
+      "item_id": "ref4-0094",
+      "claim_family": "clinical_trial_phases_before_approval",
+      "fold": 5,
+      "reference_label": "SUPPORTED",
+      "predicted_label": "SUPPORTED",
+      "correct": true
+    }
+  ],
+  "holdout_items_loaded_into_model": false,
+  "executed_at": "2026-10-13T22:07:02.864856+00:00",
+  "gate": {
+    "maximum_macro_f1": 0.45,
+    "observed_macro_f1": 0.5579801639584248,
+    "passed": false
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.2",
+    "scikit_learn": "1.9.0"
+  }
+}
