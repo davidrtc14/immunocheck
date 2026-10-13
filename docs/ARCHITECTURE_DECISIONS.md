@@ -46,6 +46,7 @@
 | ADR-042 | Integrar a v3 por seleção explícita de versão, preservando a v1 | Aceita | A integração reutiliza sem alteração os componentes congelados, adiciona uma camada de orquestração testável e mantém `PIPELINE_VERSION=v1` como reversão; a v3 só se torna padrão do bot após regressão e ensaio multimodal local. |
 | ADR-043 | Tratar Docker/PostgreSQL como diagnóstico opcional no preflight do bot local | Aceita | O caminho online lê o corpus/índice local e não persiste interações; Docker e PostgreSQL continuam validados para ingestão/reprodução, mas sua indisponibilidade não bloqueia Telegram, CLI ou demonstração. |
 | ADR-044 | Correções de segurança e robustez da Fase B do plano v4, sem alterar a v3 congelada | Aceita | Guarda de orientação individual, orçamento de contexto, âncoras de seção, limite de taxa e correções menores são defeitos, não ganhos de acurácia; entram como camadas e módulos novos, sem editar componentes congelados. |
+| ADR-045 | Conjunto lacrado v4 (96 itens, 24 famílias) e instrumentação de ablação por documento | Aceita | Substitui o confirmatório de 32 itens por calibração e holdout maiores, com gate lexical e critério de promoção de retrieval pré-registrados; curadoria sem revisor externo declarada como limitação. |
 
 ## Histórico de alterações
 
@@ -262,6 +263,13 @@
   extrator XML. Nenhum prompt, modelo, top-k, corpus ou índice da v3 foi alterado e
   nenhum experimento foi executado; a reingestão do corpus para gravar `section` está
   pendente de decisão porque mudaria os hashes congelados.
+- **13/10/2026 — ADR-045:** a Fase A do plano v4 adicionou métricas por documento, o harness
+  de ablação com bootstrap pareado por família e o conjunto v4 (48 itens de calibração e 48 de
+  holdout lacrado). O baseline lexical reprovou na primeira redação (macro-F1 0,558 > 0,45) e foi
+  corrigido por reescrita de 47 alegações (0,328); ambas as execuções foram preservadas. A ablação
+  na calibração não demonstrou ganho de reranker nem de híbrido sobre o denso. A segunda anotação
+  (50%) está preparada e pendente de revisor humano; nenhuma inferência do sistema foi feita
+  sobre o holdout.
 
 ## Política de alteração
 

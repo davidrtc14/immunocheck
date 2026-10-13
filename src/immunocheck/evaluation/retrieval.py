@@ -236,3 +236,58 @@ def _validate_metric_inputs(relevant: AbstractSet[str], k: int) -> None:
 
 def _deduplicate(ranking: Sequence[str]) -> tuple[str, ...]:
     return tuple(dict.fromkeys(ranking))
+
+
+# --- Métricas em nível de documento e de suficiência (plano v4, A1) ---------------------
+
+DOCUMENT_METRIC_DEPTHS = (5, 10, 15)
+
+
+def document_id_of(chunk_id: str) -> str:
+    """Extrai o `document_id` de `doc:pN:cN:hash`; o documento pode conter `:`."""
+    parts = chunk_id.rsplit(":", 3)
+    if len(parts) != 4 or not parts[1].startswith("p") or not parts[2].startswith("c"):
+        raise ValueError(f"chunk_id fora do formato doc:pN:cN:hash: {chunk_id!r}")
+    return parts[0]
+
+
+def document_recall_at_k(ranking: Sequence[str], relevant: AbstractSet[str], *, k: int) -> float:
+    """Fração dos documentos anotados que aparecem entre os k primeiros chunks."""
+    _validate_metric_inputs(relevant, k)
+    relevant_documents = {document_id_of(chunk_id) for chunk_id in relevant}
+    retrieved_documents = {document_id_of(chunk_id) for chunk_id in _deduplicate(ranking)[:k]}
+    return len(retrieved_documents & relevant_documents) / len(relevant_documents)
+
+
+def document_hit_at_k(ranking: Sequence[str], relevant: AbstractSet[str], *, k: int) -> float:
+    """1 se ao menos um documento anotado aparece entre os k primeiros chunks."""
+    return 1.0 if document_recall_at_k(ranking, relevant, k=k) > 0 else 0.0
+
+
+def chunk_hit_at_k(ranking: Sequence[str], relevant: AbstractSet[str], *, k: int) -> float:
+    """1 se ao menos um chunk anotado aparece entre os k primeiros (suficiência de evidência)."""
+    return 1.0 if recall_at_k(ranking, relevant, k=k) > 0 else 0.0
+
+
+def evidence_coverage_at_k(ranking: Sequence[str], relevant: AbstractSet[str], *, k: int) -> float:
+    """Chunk-level Recall@k; nome explícito para a cobertura de evidência anotada."""
+    return recall_at_k(ranking, relevant, k=k)
+
+
+def query_document_metrics(
+    ranking: Sequence[str],
+    relevant: AbstractSet[str],
+    *,
+    depths: Sequence[int] = DOCUMENT_METRIC_DEPTHS,
+) -> dict[str, float]:
+    """Métricas de uma consulta, nomeadas `<métrica>@<k>`, prontas para o harness de ablação."""
+    metrics: dict[str, float] = {
+        "mrr": reciprocal_rank(ranking, relevant),
+        "ndcg@10": ndcg_at_k(ranking, relevant, k=10),
+    }
+    for depth in depths:
+        metrics[f"chunk_recall@{depth}"] = recall_at_k(ranking, relevant, k=depth)
+        metrics[f"chunk_hit@{depth}"] = chunk_hit_at_k(ranking, relevant, k=depth)
+        metrics[f"doc_recall@{depth}"] = document_recall_at_k(ranking, relevant, k=depth)
+        metrics[f"doc_hit@{depth}"] = document_hit_at_k(ranking, relevant, k=depth)
+    return metrics

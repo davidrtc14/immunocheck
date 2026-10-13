@@ -1,0 +1,214 @@
+{
+  "seed": 20261013,
+  "families": [
+    "bcg_hiv_exposed_children",
+    "border_vaccination_population_scope",
+    "covid_label_updates_regulatory",
+    "egg_allergy_vaccination",
+    "false_contraindications_mild_illness",
+    "live_vaccines_pregnancy",
+    "measles_elimination_certification",
+    "pneumococcal_serotypes_latin_america",
+    "respiratory_virus_cases_vs_deaths_2025",
+    "rheumatic_disease_vaccination_safety",
+    "rotavirus_vaccine_deaths_averted",
+    "rsv_maternal_vaccine_safety_signal"
+  ],
+  "item_count": 48,
+  "fraction": 0.5,
+  "tasks": {
+    "annotation-001": {
+      "item_id": "ref4-0014",
+      "claim_family": "live_vaccines_pregnancy"
+    },
+    "annotation-002": {
+      "item_id": "ref4-0087",
+      "claim_family": "respiratory_virus_cases_vs_deaths_2025"
+    },
+    "annotation-003": {
+      "item_id": "ref4-0009",
+      "claim_family": "rheumatic_disease_vaccination_safety"
+    },
+    "annotation-004": {
+      "item_id": "ref4-0024",
+      "claim_family": "bcg_hiv_exposed_children"
+    },
+    "annotation-005": {
+      "item_id": "ref4-0046",
+      "claim_family": "rheumatic_disease_vaccination_safety"
+    },
+    "annotation-006": {
+      "item_id": "ref4-0053",
+      "claim_family": "rsv_maternal_vaccine_safety_signal"
+    },
+    "annotation-007": {
+      "item_id": "ref4-0060",
+      "claim_family": "false_contraindications_mild_illness"
+    },
+    "annotation-008": {
+      "item_id": "ref4-0005",
+      "claim_family": "rotavirus_vaccine_deaths_averted"
+    },
+    "annotation-009": {
+      "item_id": "ref4-0043",
+      "claim_family": "rheumatic_disease_vaccination_safety"
+    },
+    "annotation-010": {
+      "item_id": "ref4-0027",
+      "claim_family": "pneumococcal_serotypes_latin_america"
+    },
+    "annotation-011": {
+      "item_id": "ref4-0072",
+      "claim_family": "rsv_maternal_vaccine_safety_signal"
+    },
+    "annotation-012": {
+      "item_id": "ref4-0054",
+      "claim_family": "covid_label_updates_regulatory"
+    },
+    "annotation-013": {
+      "item_id": "ref4-0059",
+      "claim_family": "pneumococcal_serotypes_latin_america"
+    },
+    "annotation-014": {
+      "item_id": "ref4-0017",
+      "claim_family": "false_contraindications_mild_illness"
+    },
+    "annotation-015": {
+      "item_id": "ref4-0055",
+      "claim_family": "measles_elimination_certification"
+    },
+    "annotation-016": {
+      "item_id": "ref4-0070",
+      "claim_family": "live_vaccines_pregnancy"
+    },
+    "annotation-017": {
+      "item_id": "ref4-0074",
+      "claim_family": "live_vaccines_pregnancy"
+    },
+    "annotation-018": {
+      "item_id": "ref4-0003",
+      "claim_family": "bcg_hiv_exposed_children"
+    },
+    "annotation-019": {
+      "item_id": "ref4-0025",
+      "claim_family": "rotavirus_vaccine_deaths_averted"
+    },
+    "annotation-020": {
+      "item_id": "ref4-0085",
+      "claim_family": "respiratory_virus_cases_vs_deaths_2025"
+    },
+    "annotation-021": {
+      "item_id": "ref4-0016",
+      "claim_family": "false_contraindications_mild_illness"
+    },
+    "annotation-022": {
+      "item_id": "ref4-0068",
+      "claim_family": "live_vaccines_pregnancy"
+    },
+    "annotation-023": {
+      "item_id": "ref4-0013",
+      "claim_family": "bcg_hiv_exposed_children"
+    },
+    "annotation-024": {
+      "item_id": "ref4-0037",
+      "claim_family": "egg_allergy_vaccination"
+    },
+    "annotation-025": {
+      "item_id": "ref4-0095",
+      "claim_family": "rsv_maternal_vaccine_safety_signal"
+    },
+    "annotation-026": {
+      "item_id": "ref4-0035",
+      "claim_family": "covid_label_updates_regulatory"
+    },
+    "annotation-027": {
+      "item_id": "ref4-0081",
+      "claim_family": "bcg_hiv_exposed_children"
+    },
+    "annotation-028": {
+      "item_id": "ref4-0091",
+      "claim_family": "rotavirus_vaccine_deaths_averted"
+    },
+    "annotation-029": {
+      "item_id": "ref4-0066",
+      "claim_family": "false_contraindications_mild_illness"
+    },
+    "annotation-030": {
+      "item_id": "ref4-0061",
+      "claim_family": "rotavirus_vaccine_deaths_averted"
+    },
+    "annotation-031": {
+      "item_id": "ref4-0019",
+      "claim_family": "measles_elimination_certification"
+    },
+    "annotation-032": {
+      "item_id": "ref4-0012",
+      "claim_family": "rsv_maternal_vaccine_safety_signal"
+    },
+    "annotation-033": {
+      "item_id": "ref4-0057",
+      "claim_family": "border_vaccination_population_scope"
+    },
+    "annotation-034": {
+      "item_id": "ref4-0058",
+      "claim_family": "pneumococcal_serotypes_latin_america"
+    },
+    "annotation-035": {
+      "item_id": "ref4-0030",
+      "claim_family": "covid_label_updates_regulatory"
+    },
+    "annotation-036": {
+      "item_id": "ref4-0096",
+      "claim_family": "respiratory_virus_cases_vs_deaths_2025"
+    },
+    "annotation-037": {
+      "item_id": "ref4-0006",
+      "claim_family": "respiratory_virus_cases_vs_deaths_2025"
+    },
+    "annotation-038": {
+      "item_id": "ref4-0022",
+      "claim_family": "egg_allergy_vaccination"
+    },
+    "annotation-039": {
+      "item_id": "ref4-0018",
+      "claim_family": "covid_label_updates_regulatory"
+    },
+    "annotation-040": {
+      "item_id": "ref4-0044",
+      "claim_family": "border_vaccination_population_scope"
+    },
+    "annotation-041": {
+      "item_id": "ref4-0084",
+      "claim_family": "egg_allergy_vaccination"
+    },
+    "annotation-042": {
+      "item_id": "ref4-0040",
+      "claim_family": "measles_elimination_certification"
+    },
+    "annotation-043": {
+      "item_id": "ref4-0077",
+      "claim_family": "rheumatic_disease_vaccination_safety"
+    },
+    "annotation-044": {
+      "item_id": "ref4-0031",
+      "claim_family": "border_vaccination_population_scope"
+    },
+    "annotation-045": {
+      "item_id": "ref4-0069",
+      "claim_family": "egg_allergy_vaccination"
+    },
+    "annotation-046": {
+      "item_id": "ref4-0042",
+      "claim_family": "pneumococcal_serotypes_latin_america"
+    },
+    "annotation-047": {
+      "item_id": "ref4-0015",
+      "claim_family": "measles_elimination_certification"
+    },
+    "annotation-048": {
+      "item_id": "ref4-0041",
+      "claim_family": "border_vaccination_population_scope"
+    }
+  },
+  "warning": "NÃO entregar ao participante."
+}
