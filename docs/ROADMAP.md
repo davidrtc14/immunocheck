@@ -574,3 +574,27 @@ apresentação de 12–15 minutos, com demonstração limitada, contingência e 
 a perguntas críticas. Os números permanecem ligados aos artefatos experimentais,
 os campos pessoais continuam explícitos e testes impedem a remoção acidental das
 principais limitações. Nenhum template institucional foi presumido.
+
+## Fase 12 — Plano v4, Fase B: segurança e robustez
+
+- [x] B1. Pós-filtro determinístico contra orientação médica individual na saída da v3.
+- [x] B2. Orçamento de contexto do LLM e limite de texto de link/OCR antes do extrator.
+- [x] B3. Âncoras de seção/parágrafo para HTML/XML no código de ingestão e apresentação.
+- [x] B4. Rate limit por chat em memória e allowlist opcional no bot.
+- [x] B5. Dívidas: `_ancestors` quadrático, BM25 com chunk sem tokens, `--top-k` na v3 e
+  duplicidade de `input_limits`.
+
+**Objetivo:** corrigir defeitos de segurança e robustez sem alterar a candidata v3
+congelada (`text_components.py`, `document_expansion.py`, corpus e índice) nem executar
+qualquer experimento.
+
+**Estado em 13/10/2026 (branch `feat/v4-seguranca-robustez`):** todos os itens estão
+implementados e testados (450 testes aprovados, 1 ignorado por depender de PostgreSQL).
+Pendência declarada de B3: o corpus local **não foi reingerido**. Os `chunk_id` não mudam
+(ainda usam `p1`), mas as linhas de HTML/XML ganharão o campo `section` e o
+`build_key` desses documentos mudou para forçar o reprocessamento. Reingerir altera os
+hashes de `chunks.jsonl` e dos índices registrados em `CANDIDATE_FREEZE.md`; por isso a
+reingestão fica para decisão explícita, e até lá fontes HTML/XML ainda exibem "p. 1".
+O orçamento de contexto (B2) só altera prompts que antes estouravam o `num_ctx` e eram
+truncados em silêncio pelo Ollama; prompts que cabem passam inalterados.
+
