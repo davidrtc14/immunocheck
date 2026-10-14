@@ -19,6 +19,9 @@ class OllamaStructuredClient:
     timeout_seconds: float = 120.0
     max_response_bytes: int = 1_000_000
     context_tokens: int = 8_192
+    # Raciocínio do Qwen3 (ablação v5). Desligado por padrão: v1/v3 não mudam.
+    think: bool = False
+    temperature: float = 0.0
 
     def __post_init__(self) -> None:
         _validate_local_base_url(self.base_url)
@@ -28,6 +31,8 @@ class OllamaStructuredClient:
             raise ValueError("Timeout e limite de resposta devem ser positivos.")
         if self.context_tokens <= 0:
             raise ValueError("O contexto do modelo deve ser positivo.")
+        if not 0.0 <= self.temperature <= 2.0:
+            raise ValueError("A temperatura deve estar entre 0 e 2.")
 
     def chat(
         self,
@@ -51,10 +56,10 @@ class OllamaStructuredClient:
                 {"role": "user", "content": user_prompt},
             ],
             "stream": False,
-            "think": False,
+            "think": self.think,
             "format": schema,
             "options": {
-                "temperature": 0,
+                "temperature": self.temperature,
                 "seed": 42,
                 "repeat_penalty": 1.1,
                 "num_ctx": self.context_tokens,

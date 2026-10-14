@@ -13,6 +13,10 @@ from immunocheck.application.abstention import (
     SignalRecorder,
 )
 from immunocheck.application.content_normalizer import MultimodalNormalizer
+from immunocheck.application.decomposed_pipeline import (
+    DecomposedFactCheckPipeline,
+    LLMVerdictExplainer,
+)
 from immunocheck.application.grounding import GroundedVerdictGenerator
 from immunocheck.application.misleading import (
     FEW_SHOT_BLOCK,
@@ -22,7 +26,9 @@ from immunocheck.application.misleading import (
 )
 from immunocheck.application.pipeline import FactCheckPipeline
 from immunocheck.application.ports import ContentNormalizer
+from immunocheck.application.proposition_nli import LLMPropositionJudge
 from immunocheck.application.routed_pipeline import RoutedFactCheckPipeline
+from immunocheck.application.structured_claim import LLMStructuredClaimExtractor
 from immunocheck.application.text_components import (
     FACTUAL_VERIFICATION_SYSTEM_PROMPT_V3,
     GuardedFaithfulnessVerifier,
@@ -45,10 +51,12 @@ from immunocheck.retrieval.dense import (
     SentenceTransformerEmbedder,
     load_dense_index,
 )
+from immunocheck.retrieval.multi_query import MultiQueryRetriever
 from immunocheck.retrieval.pilot_corpus import (
     PilotCorpusBM25Retriever,
     load_evidence_jsonl,
 )
+from immunocheck.retrieval.reranker import SentenceTransformerCrossEncoderScorer
 from immunocheck.retrieval.rrf import HybridRetriever
 
 PROJECT_ROOT = Path(__file__).parents[2]
@@ -60,6 +68,11 @@ RRF_INPUT_DEPTH = 60
 RRF_RANK_CONSTANT = 60
 V3_RETRIEVAL_TOP_K = 15
 V4_THRESHOLDS_PATH = PROJECT_ROOT / "evaluation" / "refinement_v4" / "thresholds.json"
+V5_EVIDENCE_TOP_K = 8
+V5_BASE_RETRIEVAL_DEPTH = 20
+# Com raciocínio, os tokens de pensamento contam no limite de saída do Ollama.
+V5_THINK_OUTPUT_TOKENS = 3_072
+V5_THINK_TEMPERATURE = 0.6
 
 
 def build_text_pipeline(
@@ -180,6 +193,53 @@ def build_v4_multimodal_pipeline(
     )
 
 
+def build_v5_text_pipeline(
+    *,
+    corpus_path: Path = DEFAULT_CORPUS_PATH,
+    model: str | None = None,
+    base_url: str | None = None,
+    multi_query: bool = True,
+    reranker: bool = False,
+    think: bool = False,
+    trace_sink=None,
+) -> DecomposedFactCheckPipeline:
+    """Monta a v5 exploratória (ADR-049) com entrada textual."""
+    return _build_v5_pipeline(
+        normalizer=TextNormalizer(),
+        corpus_path=corpus_path,
+        model=model,
+        base_url=base_url,
+        multi_query=multi_query,
+        reranker=reranker,
+        think=think,
+        trace_sink=trace_sink,
+    )
+
+
+def build_v5_multimodal_pipeline(
+    *,
+    corpus_path: Path = DEFAULT_CORPUS_PATH,
+    model: str | None = None,
+    base_url: str | None = None,
+    multi_query: bool = True,
+    reranker: bool = False,
+    think: bool = False,
+) -> DecomposedFactCheckPipeline:
+    return _build_v5_pipeline(
+        normalizer=MultimodalNormalizer(
+            image_extractor=TesseractOCR.from_environment(),
+            link_extractor=SafeLinkTextExtractor(),
+        ),
+        corpus_path=corpus_path,
+        model=model,
+        base_url=base_url,
+        multi_query=multi_query,
+        reranker=reranker,
+        think=think,
+        trace_sink=None,
+    )
+
+
 def build_configured_text_pipeline(
     *,
     pipeline_version: str | None = None,
@@ -188,8 +248,10 @@ def build_configured_text_pipeline(
     base_url: str | None = None,
     top_k: int = 6,
     retrieval_mode: str | None = None,
-) -> FactCheckPipeline | RoutedFactCheckPipeline:
+) -> FactCheckPipeline | RoutedFactCheckPipeline | DecomposedFactCheckPipeline:
     version = resolve_pipeline_version(pipeline_version)
+    if version == "v5":
+        return build_v5_text_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
     if version == "v4":
         return build_v4_text_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
     if version == "v3":
@@ -215,8 +277,10 @@ def build_configured_multimodal_pipeline(
     base_url: str | None = None,
     top_k: int = 6,
     retrieval_mode: str | None = None,
-) -> FactCheckPipeline | RoutedFactCheckPipeline:
+) -> FactCheckPipeline | RoutedFactCheckPipeline | DecomposedFactCheckPipeline:
     version = resolve_pipeline_version(pipeline_version)
+    if version == "v5":
+        return build_v5_multimodal_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
     if version == "v4":
         return build_v4_multimodal_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
     if version == "v3":
@@ -330,10 +394,18 @@ def _build_routed_pipeline(
     )
 
 
-def _build_llm_client(*, model: str | None, base_url: str | None) -> ContextBudgetClient:
+def _build_llm_client(
+    *,
+    model: str | None,
+    base_url: str | None,
+    think: bool = False,
+    temperature: float = 0.0,
+) -> ContextBudgetClient:
     ollama = OllamaStructuredClient(
         model=model or os.getenv("OLLAMA_MODEL", "qwen3:8b"),
         base_url=base_url or os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
+        think=think,
+        temperature=temperature,
     )
     return ContextBudgetClient(ollama, context_tokens=ollama.context_tokens)
 
@@ -365,9 +437,7 @@ def _build_v4_pipeline(
                 PromptAugmentingClient(capture, FEW_SHOT_BLOCK)
             ),
         )
-        direct = ResilientVerdictGenerator(
-            CombinedVerdictGenerator(direct, few_shot), recorder
-        )
+        direct = ResilientVerdictGenerator(CombinedVerdictGenerator(direct, few_shot), recorder)
         relation = ResilientVerdictGenerator(few_shot, recorder)
     inner = RoutedFactCheckPipeline(
         normalizer=normalizer,
@@ -395,6 +465,55 @@ def _build_v4_pipeline(
     )
 
 
+def _build_v5_pipeline(
+    *,
+    normalizer: ContentNormalizer,
+    corpus_path: Path,
+    model: str | None,
+    base_url: str | None,
+    multi_query: bool,
+    reranker: bool,
+    think: bool,
+    trace_sink,
+) -> DecomposedFactCheckPipeline:
+    client = _build_llm_client(model=model, base_url=base_url)
+    judge_client = (
+        _build_llm_client(
+            model=model,
+            base_url=base_url,
+            think=True,
+            temperature=V5_THINK_TEMPERATURE,
+        )
+        if think
+        else client
+    )
+    scorer = (
+        SentenceTransformerCrossEncoderScorer(
+            cache_folder=DEFAULT_MODEL_CACHE,
+            local_files_only=True,
+        )
+        if reranker
+        else None
+    )
+    base = _build_retriever(
+        corpus_path=corpus_path,
+        top_k=V5_BASE_RETRIEVAL_DEPTH,
+        retrieval_mode="dense",
+    )
+    return DecomposedFactCheckPipeline(
+        normalizer=normalizer,
+        extractor=LLMStructuredClaimExtractor(client),
+        retriever=MultiQueryRetriever(base, top_k=V5_EVIDENCE_TOP_K, scorer=scorer),
+        judge=LLMPropositionJudge(
+            judge_client,
+            max_output_tokens=V5_THINK_OUTPUT_TOKENS if think else 900,
+        ),
+        explainer=LLMVerdictExplainer(client),
+        multi_query=multi_query,
+        trace_sink=trace_sink,
+    )
+
+
 def _v4_grounded_default() -> bool:
     """A ancoragem D1 só entra por padrão se a calibração registrada a adotou."""
     if not V4_THRESHOLDS_PATH.is_file():
@@ -405,8 +524,8 @@ def _v4_grounded_default() -> bool:
 
 def resolve_pipeline_version(value: str | None) -> str:
     version = (value or os.getenv("PIPELINE_VERSION", "v3")).strip().lower()
-    if version not in {"v1", "v3", "v4"}:
-        raise ValueError("PIPELINE_VERSION deve ser 'v1', 'v3' ou 'v4'.")
+    if version not in {"v1", "v3", "v4", "v5"}:
+        raise ValueError("PIPELINE_VERSION deve ser 'v1', 'v3', 'v4' ou 'v5'.")
     return version
 
 
