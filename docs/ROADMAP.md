@@ -635,3 +635,16 @@ herdada; D2 tem ganho marginal e estatisticamente inconclusivo. Fase não conclu
 família −0,194 a +0,008). Ver `evaluation/refinement_v4/HOLDOUT_RESULTS.md`. Limitações: sem
 revisor externo, 48 itens, conjunto sintético. As Fases C, E e D3–D5 do plano v4 não foram
 executadas além dos experimentos de ablação e calibração já relatados.
+
+## Fase 16 — Linha exploratória v5 (decomposição e agregação determinística)
+
+- [x] Protocolo e ADR-049 registrados antes das inferências.
+- [ ] Conjunto de paráfrases (2 por item v4) com validador.
+- [ ] Linha de base de consistência da v3 sob paráfrase.
+- [ ] Módulos v5 (extração estruturada, NLI por proposição, agregação, multiconsulta) com testes.
+- [ ] Iteração somente na calibração; congelamento por hash.
+- [ ] Ablação final única nos 96 itens + paráfrases e decisão pela regra pré-registrada.
+
+Critérios de aceite: suíte completa e Ruff aprovados; relatórios com IC por família,
+consistência sob paráfrase, latência e limitações; decisão aplicada conforme
+`evaluation/refinement_v5/PROTOCOL.md`. Resultado é exploratório, não confirmatório.

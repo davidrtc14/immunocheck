@@ -50,6 +50,7 @@
 | ADR-046 | Ancoragem verificável (D1) e abstenção calibrada (D2) na linha v4 opt-in | D1 não adotada pelo critério pré-registrado; D2 adotada com ressalva | Em 48 itens, D1 elevou macro-F1 de 0,450 para 0,542 (IC +0,026 a +0,171) mas falhou o limite de falhas técnicas (1/48 > 2%, falha herdada da v3). D2 atingiu +0,0301 aninhado, IC incluindo zero. `MISLEADING` ficou com recall zero em ambas. |
 | ADR-047 | Caminho dedicado a MISLEADING (D4/D5) e emenda que leva D1 ao holdout | D4/D5 não adotadas pelo critério pré-registrado; emenda D1 aceita | `v4_d4` elevou o recall de MISLEADING de 0 para 0,67 e o macro-F1 para 0,593 (IC inclui zero), mas derrubou REFUTED (0,83→0,33) e SUPPORTED (0,92→0,58); precisão das conclusões 0,559 < piso 0,568. |
 | ADR-048 | Não promover a candidata v4 (v3 + D1); a v3 permanece padrão | Aceita | No holdout v4 (48 itens, execução única) a candidata obteve macro-F1 0,487 contra 0,577 da v3 (Δ −0,089; IC −0,194 a +0,008) e falhou 4 de 8 gates pré-registrados. |
+| ADR-049 | Linha exploratória v5: decomposição da alegação, NLI por proposição e agregação determinística | Proposta (exploratória) | Diagnóstico dos 42 erros da v3 no conjunto v4 aponta interpretação/decisão, não retrieval (doc_hit@15 0,94); `MISLEADING` passa a ser decidido por regra sobre proposições. Sem conjunto novo: avaliação nos 96 itens v4 já revelados + paráfrases, sem valor confirmatório. |
 
 ## Histórico de alterações
 
@@ -286,6 +287,13 @@
   `evaluation/refinement_v4/CALIBRATION_D4_RESULTS.md`.
 - **13/10/2026 — ADR-048:** a candidata v4 (v3 + ancoragem D1) foi congelada por hashes e executada uma única vez no holdout v4, com os gates registrados antes. Resultado negativo: macro-F1 0,487 contra 0,577 da v3; falharam os gates de ganho, precisão das conclusões, queda de recall de `REFUTED` e citação. A v3 permanece o padrão do bot e da CLI; `PIPELINE_VERSION=v4` fica documentada como opt-in experimental. Resultados em `evaluation/refinement_v4/HOLDOUT_RESULTS.md`.
 
+- **14/10/2026 — ADR-049:** aberta a linha exploratória v5 (`PIPELINE_VERSION=v5`, opt-in). A
+  extração passa a produzir alegação canônica, tipo (geral/evento individual) e 1–3 proposições com
+  papel e tipo; cada proposição é julgada por NLI com verificação determinística de escopo e de trecho
+  literal; o veredito é agregado por regra explícita. Multiconsulta, reranker e modo de raciocínio do
+  Qwen são ablações. Como não há conjunto novo e o holdout v4 foi revelado, a avaliação usa os 96 itens
+  v4 e paráfrases com rótulo herdado e não tem valor confirmatório. Protocolo e regra de decisão em
+  `evaluation/refinement_v5/PROTOCOL.md`, registrados antes de qualquer inferência.
 ## Política de alteração
 
 Uma ADR aceita pode ser alterada quando houver evidência experimental, inviabilidade
