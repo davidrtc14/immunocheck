@@ -48,6 +48,7 @@
 | ADR-044 | Correções de segurança e robustez da Fase B do plano v4, sem alterar a v3 congelada | Aceita | Guarda de orientação individual, orçamento de contexto, âncoras de seção, limite de taxa e correções menores são defeitos, não ganhos de acurácia; entram como camadas e módulos novos, sem editar componentes congelados. |
 | ADR-045 | Conjunto lacrado v4 (96 itens, 24 famílias) e instrumentação de ablação por documento | Aceita | Substitui o confirmatório de 32 itens por calibração e holdout maiores, com gate lexical e critério de promoção de retrieval pré-registrados; curadoria sem revisor externo declarada como limitação. |
 | ADR-046 | Ancoragem verificável (D1) e abstenção calibrada (D2) na linha v4 opt-in | D1 não adotada pelo critério pré-registrado; D2 adotada com ressalva | Em 48 itens, D1 elevou macro-F1 de 0,450 para 0,542 (IC +0,026 a +0,171) mas falhou o limite de falhas técnicas (1/48 > 2%, falha herdada da v3). D2 atingiu +0,0301 aninhado, IC incluindo zero. `MISLEADING` ficou com recall zero em ambas. |
+| ADR-047 | Caminho dedicado a MISLEADING (D4/D5) e emenda que leva D1 ao holdout | D4/D5 não adotadas pelo critério pré-registrado; emenda D1 aceita | `v4_d4` elevou o recall de MISLEADING de 0 para 0,67 e o macro-F1 para 0,593 (IC inclui zero), mas derrubou REFUTED (0,83→0,33) e SUPPORTED (0,92→0,58); precisão das conclusões 0,559 < piso 0,568. |
 
 ## Histórico de alterações
 
@@ -277,6 +278,11 @@
   na v3). D2 deu ganho aninhado de +0,0301 (IC com zero). A v4 opt-in usa a v3 + limiares D2;
   levar D1 ao holdout exige emenda explícita do pesquisador. Detalhes em
   `evaluation/refinement_v4/CALIBRATION_D_RESULTS.md`.
+- **13/10/2026 — ADR-047:** por decisão do pesquisador, a ancoragem D1 integra a candidata v4 que será
+  levada ao holdout, em desvio declarado do critério de falhas da calibração D. O plano D4/D5 foi
+  registrado antes da execução; `v4_d4` falhou um de seis critérios por 0,009 e mostrou conversão
+  excessiva para `MISLEADING`. Permanece opt-in (`d4=True`) e fora da candidata. Detalhes em
+  `evaluation/refinement_v4/CALIBRATION_D4_RESULTS.md`.
 
 ## Política de alteração
 

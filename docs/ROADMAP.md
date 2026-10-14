@@ -616,7 +616,8 @@ top 15 na calibração (efeito de teto: Doc-Recall@15 = 0,93).
 
 - [x] D1. Ancoragem verificável implementada (`application/grounding.py`) e calibrada.
 - [x] D2. Abstenção calibrada implementada (`application/abstention.py`) e calibrada.
-- [ ] D3, D4, D5 (consistência, `MISLEADING`, roteamento): não iniciados.
+- [~] D4/D5 (`MISLEADING`, roteamento): testadas em `v4_d4`; não adotadas (ver
+  `CALIBRATION_D4_RESULTS.md`). D3 (consistência): não iniciada.
 
 **Resultado (13/10/2026):** ver `evaluation/refinement_v4/CALIBRATION_D_RESULTS.md`. A v3 cai de
 0,846 (confirmatório) para 0,450 no conjunto v4 de calibração; `MISLEADING` tem recall zero. D1
