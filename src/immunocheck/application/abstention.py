@@ -72,6 +72,8 @@ class SignalRecorder:
     def reset(self) -> None:
         self._state.claim = None
         self._state.evidence = ()
+        self._state.route = None
+        self._state.technical_abstention = False
 
     def signals(self) -> RunSignals:
         claim: ExtractedClaim | None = getattr(self._state, "claim", None)
@@ -107,6 +109,16 @@ class RecordingRetriever:
         return evidence
 
 
+class RecordingRouter:
+    def __init__(self, delegate, recorder: SignalRecorder) -> None:
+        self._delegate, self._recorder = delegate, recorder
+
+    def analyze(self, claim: ExtractedClaim):
+        route = self._delegate.analyze(claim)
+        self._recorder._state.route = route.route
+        return route
+
+
 class Runner(Protocol):
     def run(self, submission: ContentSubmission) -> FactCheckResult: ...
 
@@ -118,12 +130,18 @@ class AbstainingPipeline:
     thresholds: AbstentionThresholds = field(default_factory=AbstentionThresholds)
     last_signals: RunSignals | None = None
     last_inner_result: FactCheckResult | None = None
+    last_route: str | None = None
+    last_technical_abstention: bool = False
 
     def run(self, submission: ContentSubmission) -> FactCheckResult:
         self.recorder.reset()
         result = self.inner.run(submission)
         signals = self.recorder.signals()
         self.last_signals, self.last_inner_result = signals, result
+        self.last_route = getattr(self.recorder._state, "route", None)
+        self.last_technical_abstention = getattr(
+            self.recorder._state, "technical_abstention", False
+        )
         if result.verdict is Verdict.INSUFFICIENT_EVIDENCE:
             return result
         if self.thresholds.reason(signals) is None:

@@ -1,0 +1,74 @@
+{
+  "v4_grounded": {
+    "macro_f1": 0.5415954415954416,
+    "recall": {
+      "SUPPORTED": 0.9166666666666666,
+      "REFUTED": 0.8333333333333334,
+      "MISLEADING": 0.0,
+      "INSUFFICIENT_EVIDENCE": 0.75
+    },
+    "precision": {
+      "SUPPORTED": 0.6111111111111112,
+      "REFUTED": 0.6666666666666666,
+      "MISLEADING": 0.0,
+      "INSUFFICIENT_EVIDENCE": 0.6428571428571429
+    },
+    "conclusion_precision": 0.6176470588235294,
+    "conclusions": 34,
+    "failures": 1,
+    "median_latency_s": 16.7067,
+    "p95_latency_s": 19.9475
+  },
+  "v4_d4": {
+    "macro_f1": 0.5925815670397714,
+    "recall": {
+      "SUPPORTED": 0.5833333333333334,
+      "REFUTED": 0.3333333333333333,
+      "MISLEADING": 0.6666666666666666,
+      "INSUFFICIENT_EVIDENCE": 0.75
+    },
+    "precision": {
+      "SUPPORTED": 1.0,
+      "REFUTED": 0.8,
+      "MISLEADING": 0.36363636363636365,
+      "INSUFFICIENT_EVIDENCE": 0.6428571428571429
+    },
+    "conclusion_precision": 0.5588235294117647,
+    "conclusions": 34,
+    "failures": 0,
+    "median_latency_s": 27.23965,
+    "p95_latency_s": 33.359300000000005
+  },
+  "paired_bootstrap_family_d4_minus_grounded": {
+    "delta": 0.05098612544432979,
+    "lower": -0.09180931479524823,
+    "upper": 0.1695628520225294
+  },
+  "routes_by_expected_label": {
+    "INSUFFICIENT_EVIDENCE": {
+      "GENERAL_SIMPLE": 9,
+      "UNANCHORED_SPECIFIC_EVENT": 3
+    },
+    "MISLEADING": {
+      "GENERAL_SIMPLE": 11,
+      "UNANCHORED_SPECIFIC_EVENT": 1
+    },
+    "SUPPORTED": {
+      "GENERAL_SIMPLE": 12
+    },
+    "REFUTED": {
+      "GENERAL_SIMPLE": 12
+    }
+  },
+  "technical_abstentions": 1,
+  "unhandled_exceptions": 0,
+  "gates": {
+    "misleading_recall>=0.33": true,
+    "macro_f1>=base+0.03": true,
+    "conclusion_precision>=base-0.05": false,
+    "abstention_recall>=0.60": true,
+    "no_unhandled_exception": true,
+    "p95<=45s": true
+  },
+  "adopted": false
+}

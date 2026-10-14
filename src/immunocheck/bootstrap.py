@@ -9,10 +9,17 @@ from immunocheck.application.abstention import (
     AbstentionThresholds,
     RecordingClaimExtractor,
     RecordingRetriever,
+    RecordingRouter,
     SignalRecorder,
 )
 from immunocheck.application.content_normalizer import MultimodalNormalizer
 from immunocheck.application.grounding import GroundedVerdictGenerator
+from immunocheck.application.misleading import (
+    FEW_SHOT_BLOCK,
+    CombinedVerdictGenerator,
+    PromptAugmentingClient,
+    ResilientVerdictGenerator,
+)
 from immunocheck.application.pipeline import FactCheckPipeline
 from immunocheck.application.ports import ContentNormalizer
 from immunocheck.application.routed_pipeline import RoutedFactCheckPipeline
@@ -136,6 +143,7 @@ def build_v4_text_pipeline(
     base_url: str | None = None,
     grounded: bool | None = None,
     thresholds: AbstentionThresholds | None = None,
+    d4: bool = False,
 ) -> AbstainingPipeline:
     """Monta a v4 opt-in (ancoragem D1 + abstenção calibrada D2) com entrada textual."""
     return _build_v4_pipeline(
@@ -145,6 +153,7 @@ def build_v4_text_pipeline(
         base_url=base_url,
         grounded=grounded,
         thresholds=thresholds,
+        d4=d4,
     )
 
 
@@ -155,6 +164,7 @@ def build_v4_multimodal_pipeline(
     base_url: str | None = None,
     grounded: bool | None = None,
     thresholds: AbstentionThresholds | None = None,
+    d4: bool = False,
 ) -> AbstainingPipeline:
     return _build_v4_pipeline(
         normalizer=MultimodalNormalizer(
@@ -166,6 +176,7 @@ def build_v4_multimodal_pipeline(
         base_url=base_url,
         grounded=grounded,
         thresholds=thresholds,
+        d4=d4,
     )
 
 
@@ -335,6 +346,7 @@ def _build_v4_pipeline(
     base_url: str | None,
     grounded: bool | None,
     thresholds: AbstentionThresholds | None,
+    d4: bool = False,
 ) -> AbstainingPipeline:
     if grounded is None:
         grounded = _v4_grounded_default()
@@ -346,6 +358,17 @@ def _build_v4_pipeline(
         relation = GroundedVerdictGenerator(client, LLMRelationVerdictGenerator)
     else:
         direct, relation = LLMVerdictGenerator(client), LLMRelationVerdictGenerator(client)
+    if d4:
+        few_shot = GroundedVerdictGenerator(
+            client,
+            lambda capture: LLMRelationVerdictGenerator(
+                PromptAugmentingClient(capture, FEW_SHOT_BLOCK)
+            ),
+        )
+        direct = ResilientVerdictGenerator(
+            CombinedVerdictGenerator(direct, few_shot), recorder
+        )
+        relation = ResilientVerdictGenerator(few_shot, recorder)
     inner = RoutedFactCheckPipeline(
         normalizer=normalizer,
         claim_extractor=RecordingClaimExtractor(LLMClaimExtractor(client), recorder),
@@ -359,7 +382,7 @@ def _build_v4_pipeline(
         ),
         direct_generator=direct,
         relation_generator=relation,
-        router=LLMClaimRouteAnalyzer(client),
+        router=RecordingRouter(LLMClaimRouteAnalyzer(client), recorder),
         citation_selector=LLMCitationSelector(client),
         corpus=corpus,
     )
