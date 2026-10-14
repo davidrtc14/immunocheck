@@ -49,6 +49,7 @@
 | ADR-045 | Conjunto lacrado v4 (96 itens, 24 famílias) e instrumentação de ablação por documento | Aceita | Substitui o confirmatório de 32 itens por calibração e holdout maiores, com gate lexical e critério de promoção de retrieval pré-registrados; curadoria sem revisor externo declarada como limitação. |
 | ADR-046 | Ancoragem verificável (D1) e abstenção calibrada (D2) na linha v4 opt-in | D1 não adotada pelo critério pré-registrado; D2 adotada com ressalva | Em 48 itens, D1 elevou macro-F1 de 0,450 para 0,542 (IC +0,026 a +0,171) mas falhou o limite de falhas técnicas (1/48 > 2%, falha herdada da v3). D2 atingiu +0,0301 aninhado, IC incluindo zero. `MISLEADING` ficou com recall zero em ambas. |
 | ADR-047 | Caminho dedicado a MISLEADING (D4/D5) e emenda que leva D1 ao holdout | D4/D5 não adotadas pelo critério pré-registrado; emenda D1 aceita | `v4_d4` elevou o recall de MISLEADING de 0 para 0,67 e o macro-F1 para 0,593 (IC inclui zero), mas derrubou REFUTED (0,83→0,33) e SUPPORTED (0,92→0,58); precisão das conclusões 0,559 < piso 0,568. |
+| ADR-048 | Não promover a candidata v4 (v3 + D1); a v3 permanece padrão | Aceita | No holdout v4 (48 itens, execução única) a candidata obteve macro-F1 0,487 contra 0,577 da v3 (Δ −0,089; IC −0,194 a +0,008) e falhou 4 de 8 gates pré-registrados. |
 
 ## Histórico de alterações
 
@@ -283,6 +284,7 @@
   registrado antes da execução; `v4_d4` falhou um de seis critérios por 0,009 e mostrou conversão
   excessiva para `MISLEADING`. Permanece opt-in (`d4=True`) e fora da candidata. Detalhes em
   `evaluation/refinement_v4/CALIBRATION_D4_RESULTS.md`.
+- **13/10/2026 — ADR-048:** a candidata v4 (v3 + ancoragem D1) foi congelada por hashes e executada uma única vez no holdout v4, com os gates registrados antes. Resultado negativo: macro-F1 0,487 contra 0,577 da v3; falharam os gates de ganho, precisão das conclusões, queda de recall de `REFUTED` e citação. A v3 permanece o padrão do bot e da CLI; `PIPELINE_VERSION=v4` fica documentada como opt-in experimental. Resultados em `evaluation/refinement_v4/HOLDOUT_RESULTS.md`.
 
 ## Política de alteração
 

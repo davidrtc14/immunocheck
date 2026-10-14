@@ -1,0 +1,93 @@
+{
+  "v3_plain": {
+    "macro_f1": 0.5767018928783634,
+    "recall": {
+      "SUPPORTED": 0.9166666666666666,
+      "REFUTED": 0.8333333333333334,
+      "MISLEADING": 0.3333333333333333,
+      "INSUFFICIENT_EVIDENCE": 0.3333333333333333
+    },
+    "precision": {
+      "SUPPORTED": 0.6875,
+      "REFUTED": 0.47619047619047616,
+      "MISLEADING": 0.8,
+      "INSUFFICIENT_EVIDENCE": 0.6666666666666666
+    },
+    "conclusion_precision": 0.5952380952380952,
+    "conclusions": 42,
+    "failures": 1,
+    "median_latency_s": 14.662600000000001,
+    "p95_latency_s": 17.1193,
+    "citation_rate": 0.6944444444444444,
+    "abstention_precision": 0.6666666666666666
+  },
+  "v4_candidate": {
+    "macro_f1": 0.4874134361390733,
+    "recall": {
+      "SUPPORTED": 0.9166666666666666,
+      "REFUTED": 0.6666666666666666,
+      "MISLEADING": 0.08333333333333333,
+      "INSUFFICIENT_EVIDENCE": 0.5
+    },
+    "precision": {
+      "SUPPORTED": 0.6111111111111112,
+      "REFUTED": 0.47058823529411764,
+      "MISLEADING": 0.5,
+      "INSUFFICIENT_EVIDENCE": 0.5454545454545454
+    },
+    "conclusion_precision": 0.5405405405405406,
+    "conclusions": 37,
+    "failures": 0,
+    "median_latency_s": 16.958599999999997,
+    "p95_latency_s": 22.732400000000002,
+    "citation_rate": 0.6388888888888888,
+    "abstention_precision": 0.5454545454545454
+  },
+  "paired_bootstrap_family_candidate_minus_v3": {
+    "delta": -0.08928845673929009,
+    "lower": -0.19445168329015877,
+    "upper": 0.008253082043404636
+  },
+  "confusion": {
+    "v3_plain": {
+      "INSU->INSU": 4,
+      "INSU->MISL": 1,
+      "INSU->REFU": 5,
+      "INSU->SUPP": 2,
+      "MISL->MISL": 4,
+      "MISL->REFU": 6,
+      "MISL->SUPP": 2,
+      "REFU->INSU": 1,
+      "REFU->REFU": 10,
+      "REFU->SUPP": 1,
+      "SUPP->INSU": 1,
+      "SUPP->SUPP": 11
+    },
+    "v4_candidate": {
+      "INSU->INSU": 6,
+      "INSU->MISL": 1,
+      "INSU->REFU": 3,
+      "INSU->SUPP": 2,
+      "MISL->INSU": 2,
+      "MISL->MISL": 1,
+      "MISL->REFU": 6,
+      "MISL->SUPP": 3,
+      "REFU->INSU": 2,
+      "REFU->REFU": 8,
+      "REFU->SUPP": 2,
+      "SUPP->INSU": 1,
+      "SUPP->SUPP": 11
+    }
+  },
+  "gates": {
+    "1_macro_f1>=0.45": true,
+    "2_gain_vs_v3>=0.05": false,
+    "3_abstention_recall>=0.50_and_precision>=0.50": true,
+    "4_conclusion_precision>=v3": false,
+    "5_recall_drop_S_R<=0.10": false,
+    "6_failures<=2": true,
+    "7_p95<=45s": true,
+    "8_citation>=0.50_and_not_below_v3-0.05": false
+  },
+  "all_gates_passed": false
+}

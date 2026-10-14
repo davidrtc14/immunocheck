@@ -624,3 +624,14 @@ top 15 na calibração (efeito de teto: Doc-Recall@15 = 0,93).
 melhora o macro-F1 em +0,092 mas reprova um critério pré-registrado por uma falha técnica
 herdada; D2 tem ganho marginal e estatisticamente inconclusivo. Fase não concluída.
 
+## Fase 15 — Plano v4, Fase F: confirmação no holdout
+
+- [x] Candidata congelada por hashes e gates registrados antes da execução.
+- [x] Execução única no holdout v4 (48 itens) para a v3 e para a candidata v4.
+- [x] Tabela de ablação completa e resultados negativos relatados.
+- [x] Resultado: gates 4/8 reprovados; **v3 permanece como padrão**.
+
+**Concluída em 13/10/2026.** Macro-F1 0,487 (candidata) contra 0,577 (v3), Δ −0,089 (IC por
+família −0,194 a +0,008). Ver `evaluation/refinement_v4/HOLDOUT_RESULTS.md`. Limitações: sem
+revisor externo, 48 itens, conjunto sintético. As Fases C, E e D3–D5 do plano v4 não foram
+executadas além dos experimentos de ablação e calibração já relatados.

@@ -377,6 +377,26 @@ Essa separação permite corrigir a redação sem modificar evidência experimen
 evita que métricas provenientes de amostras diferentes sejam combinadas como se
 fossem uma única avaliação.
 
+## 5.6 Linha experimental v4 (resultado negativo)
+
+Para reduzir a dependência de moldes de redação do confirmatório de 32 itens, construiu-se um
+conjunto v4 com 96 itens e 24 famílias (48 de calibração e 48 de holdout lacrado). Um baseline
+lexical TF-IDF reprovou o gate de atalhos na primeira redação (macro-F1 0,558) e passou após
+reescrita de 47 alegações (0,328); ambas as execuções foram preservadas.
+
+Na calibração, a v3 obteve macro-F1 0,450, contra 0,846 no confirmatório anterior, com recall
+zero de `MISLEADING`. Foram testadas: métricas de retrieval por documento (denso top 15 não foi
+superado por BM25, híbrido RRF ou reranker, com Doc-Recall@15 de 0,93); ancoragem verificável
+D1 (macro-F1 0,542); limiares de abstenção D2 (ganho aninhado de +0,030, IC incluindo zero); e
+um caminho dedicado a `MISLEADING` (recall 0,67, porém com perda de recall em `REFUTED` e
+`SUPPORTED`, reprovado por 0,009 num critério pré-registrado).
+
+A candidata v4 (v3 + D1) foi congelada e executada uma única vez no holdout. Obteve macro-F1 0,487
+contra 0,577 da v3 (diferença −0,089; IC 95% por família −0,194 a +0,008) e falhou quatro dos oito
+gates pré-registrados (ganho, precisão das conclusões, queda de recall de `REFUTED` e citação).
+Portanto a v3 permanece a configuração do protótipo. O resultado negativo é relatado integralmente em
+`evaluation/refinement_v4/HOLDOUT_RESULTS.md`.
+
 # 6 Discussão
 
 Os resultados mostram que qualidade de retrieval isolada não determina o desempenho
@@ -395,6 +415,8 @@ universo documental. A diferença para a v1 no conjunto confirmatório é válid
 comparação interna; não é estimativa populacional nem comparação direta com o teste
 histórico de 64 itens.
 
+A linha v4 reforça essa cautela: no conjunto novo e mais variado, a v3 caiu para macro-F1 0,450 (calibração) e 0,577 (holdout), e uma intervenção que ajudou na calibração (ancoragem D1) piorou no holdout. Isso ilustra o otimismo de selecionar configurações em poucos itens.
+
 ## 6.1 Ameaças à validade
 
 **Validade interna:** preparação dos dados pelo pesquisador, apoio de IA na curadoria
@@ -409,7 +431,7 @@ mantido por ser um critério conservador.
 português, imagens tipográficas e links controlados não representam toda a internet,
 outras culturas, fotos difíceis ou mudanças futuras nas recomendações.
 
-**Validade de conclusão:** amostras pequenas ampliam incerteza. O bootstrap por
+**Validade de conclusão:** amostras pequenas ampliam incerteza (o holdout v4 tem 48 itens e 12 famílias; o v4 não teve segunda anotação nem revisor externo). O bootstrap por
 família evita tratar paráfrases como observações totalmente independentes, mas não
 substitui avaliação maior e externa.
 
