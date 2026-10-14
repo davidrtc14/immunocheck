@@ -97,3 +97,17 @@ A escolha da "melhor condição" é feita pelo maior macro-F1 entre as que satis
 Holdout revelado; benchmark sintético; curadoria sem revisor externo; paráfrases geradas com
 apoio de IA; 24 famílias (IC largos); uma execução por condição; possível viés do desenho
 para os padrões de erro observados.
+
+## Adendo 1 (14/10/2026, antes das inferências de avaliação)
+
+No teste de fumaça com uma alegação sintética fora do conjunto, a mesma entrada produziu vereditos
+diferentes em duas execuções seguidas (temperatura 0, seed 42), o que indica não determinismo do
+Ollama entre chamadas. Por isso acrescenta-se uma métrica descritiva, sem gate:
+
+- **Estabilidade entre execuções:** fração de itens com o mesmo veredito em duas execuções da mesma
+  condição e da mesma entrada. Para a v3, compara-se a nova execução das formas originais com os
+  registros v4 já versionados (`calibration_v3_plain`, `holdout_v3_plain`). Para a melhor condição
+  v5, a fase final inclui uma segunda execução (`--tag run2`) das formas originais.
+
+Executor: `scripts/run_v5_experiment.py`. A linha de base da v3 (288 entradas) roda na fase `dev`
+porque a v3 está congelada e não é ajustada.
