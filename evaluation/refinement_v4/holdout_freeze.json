@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-13",
+  "candidate": "v3 + D1 (ancoragem verificável); sem D2 e sem D4/D5",
+  "pipeline": {
+    "grounded": true,
+    "d4": false,
+    "thresholds": "desativados"
+  },
+  "baseline": "v3 (prompts congelados), sem ancoragem",
+  "git_commit": "aab61e2f3f5b4f85e872e6e13117f153e8e88dbb",
+  "ollama_model": "qwen3:8b",
+  "ollama_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "temperature": 0,
+  "seed": 42,
+  "num_ctx": 8192,
+  "sha256": {
+    "src/immunocheck/application/text_components.py": "053378ab07450192e9684f886e7c1a0c153789bb7f632197c4283150281915e4",
+    "src/immunocheck/application/routed_pipeline.py": "766343ce0d6006eaed76dc3e9c25dd4976fc6b6462064ab8712ee899af8bff4b",
+    "src/immunocheck/application/grounding.py": "3231afc144872375de8a3f913e965fa3713248402f16db6c87a4b37d51a36496",
+    "src/immunocheck/application/advice_guard.py": "d0ff54ae6cda31c1ff9e0270d0aa6448b34fa093755a9f0fbfea6b3f56b8b922",
+    "src/immunocheck/application/abstention.py": "26b2c30f8b15805aa65c86716bcb9c51758ba959eee359bdb8a324e0c2ada52f",
+    "src/immunocheck/retrieval/document_expansion.py": "b00be06050c1b15811265bdbeeea06faf66c6f6e7c23e1b1d691590eacd4a1b3",
+    "src/immunocheck/infrastructure/context_budget.py": "10f8da727ce154d356e92427ee866195cd0b2b97e525f8e3b55e53140a92b4d8",
+    "evaluation/refinement_v4/items.jsonl": "4b38f69e78b0c5a7687f02275beb33dee35a99050db6bca8a8d02608c4104d5a",
+    "evaluation/refinement_v4/HOLDOUT_PROTOCOL.md": "316d002d529f4b59b9c58e166bc879f878198483c58423bb6fe981cf2008ce63",
+    "corpus/processed/chunks.jsonl": "401bed2cad62142b30e2879b6f91e6f05098ab9ac86191316ba65685af36b19a",
+    "corpus/processed/dense_bge_m3.json": "2abbf3075a8d2e80258c20cad581b2a00d5ae3f8c5cdfcaa790447c1a4f6605c",
+    "corpus/processed/dense_bge_m3.npz": "8f6c5520a79b72cdd738534d472751fef3f1138b38a479d895f5ac32d7d0ddbd"
+  },
+  "holdout_executed": false
+}
