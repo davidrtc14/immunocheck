@@ -3,6 +3,18 @@
 Atualizado em 27/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
+## Ponto atual (13/10/2026) — Plano v4 executado; v3 permanece padrão
+
+As Fases A, B e F do `docs/IMPROVEMENT_PLAN_V4.md` foram executadas, além de D1/D2/D4/D5 em
+calibração. Correções da Fase B (guarda de orientação individual, orçamento de contexto, seção/
+parágrafo em HTML/XML, limite de taxa do bot, dívidas menores) estão em `develop`; a reingestão do
+corpus para gravar `section` NÃO foi feita (mudaria hashes congelados). Conjunto v4 em
+`evaluation/refinement_v4/` (96 itens; sem segunda anotação, por decisão do pesquisador).
+Resultado do holdout v4: candidata v3 + D1 = macro-F1 0,487 contra 0,577 da v3; 4/8 gates reprovados;
+**v3 continua padrão** (ADR-048). Não reexecutar o holdout v4. Resumo em
+`evaluation/refinement_v4/HOLDOUT_RESULTS.md` e `docs/TCC_MANUSCRIPT_DRAFT.md` seção 5.6.
+Não executados: Fase C (exceto ablação), Fase E, D3. Prazo de entrega do TCC: 16/11/2026.
+
 ## Ponto atual — v3 integrada ao protótipo local
 
 A Fase 8 foi concluída. A candidata v3 congelada combina retrieval BGE-M3 top 15,
