@@ -130,19 +130,26 @@ particular não identificada publicamente (uma criança, um idoso, minha tia, um
 atribuir causa, dano, falha ou ineficácia. Afirmações sobre populações, estudos, documentos, metas ou
 recomendações são GENERAL, mesmo que citem um país ou um estudo específico.
 
-4. propositions: de 1 a 3 proposições verificáveis em separado.
-- Use UMA proposição CORE quando houver um único fato central, mesmo com números, negação ou
-  quantificador. Não divida uma frase simples em pedaços.
-- Divida somente quando houver afirmações separáveis em que uma poderia ser verdadeira e a outra
-  falsa: um dado ou fato (PREMISE) usado para tirar uma conclusão (CONCLUSION), ou dois fatos
-  independentes unidos por "e" (duas CORE).
+4. propositions: de 1 a 3 proposições verificáveis em separado. PREFIRA UMA ÚNICA proposição.
+- Use UMA proposição CORE, com o texto da alegação canônica, quando houver um único fato central,
+  mesmo com números, negação, quantificador, enumeração (miocardite e pericardite; registro ou
+  autorização), faixa etária, fonte citada ("segundo o estudo avaliado pela Anvisa") ou detalhes de
+  contexto. Nunca crie proposições só com contexto ("o estudo avaliou crianças", "a vacina foi
+  introduzida").
+- Divida somente quando houver afirmações em que uma poderia ser verdadeira e a outra falsa:
+  a) um dado ou fato (PREMISE) usado para tirar uma conclusão (CONCLUSION), com "então", "portanto",
+     "por isso", "o que prova/mostra", ";" seguido de conclusão, "pois/porque" etc.;
+  b) dois fatos sobre medidas ou sujeitos diferentes unidos por "e"/"enquanto" (duas CORE).
 - Quando um dado real vier acompanhado de generalização ("vale para todos", "garante a toda pessoa",
   "em qualquer país", "sem nenhum cuidado"), separe o dado (PREMISE, FACT) da generalização
   (CONCLUSION, UNIVERSAL).
 - type: FACT para fato ou dado; CAUSAL para causa e efeito; UNIVERSAL para generalização ou
-  quantificador absoluto; NORMATIVE para conclusão sobre o que se deve fazer (é desnecessário,
-  é dispensável, deve ser retirada, não é mais prioridade).
+  quantificador absoluto; NORMATIVE somente para conclusão sobre o que se deve fazer (é
+  desnecessário, é dispensável, deve ser retirada, não é mais prioridade).
 - Cada proposição deve ser autocontida: repita o sujeito, o produto e a população.
+- As proposições juntas devem cobrir TODA a alegação canônica. Nunca descarte a conclusão, a
+  generalização, a causa atribuída ou a recomendação; em caso de dúvida, mantenha a frase inteira
+  em uma única proposição CORE.
 
 5. english_query: tradução curta da canonical_claim para o inglês, para busca em artigos científicos.
 
@@ -162,7 +169,11 @@ Exemplos ilustrativos (não os repita):
   desnecessário."
 - "Meu vizinho tomou a vacina da febre amarela e ficou doente, ela faz mal." → INDIVIDUAL_EVENT;
   1 CORE CAUSAL "A vacina contra febre amarela causou a doença do vizinho."
-- "A vacina X teve eficácia de 80% em adultos e é aplicada aos 2 meses." → GENERAL; duas CORE FACT."""
+- "A vacina X teve eficácia de 80% em adultos e é aplicada aos 2 meses." → GENERAL; duas CORE FACT.
+- "A vacina de febre amarela teve eficácia de 95%, então protege 95% de qualquer pessoa em qualquer
+  lugar." → GENERAL; PREMISE FACT "A vacina contra febre amarela teve eficácia de 95%."; CONCLUSION
+  UNIVERSAL "A vacina contra febre amarela protege 95% de qualquer pessoa em qualquer lugar."
+"""
 
 RETRY_SUFFIX = (
     "\n\nA tentativa anterior não produziu um objeto válido. Responda novamente com um objeto "

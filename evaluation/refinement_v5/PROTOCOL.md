@@ -111,3 +111,19 @@ Ollama entre chamadas. Por isso acrescenta-se uma métrica descritiva, sem gate:
 
 Executor: `scripts/run_v5_experiment.py`. A linha de base da v3 (288 entradas) roda na fase `dev`
 porque a v3 está congelada e não é ajustada.
+
+## Adendo 2 (14/10/2026): mudanças da iteração na calibração
+
+Três iterações de `v5_multiquery`, somente no split de calibração (48 itens + 96 paráfrases).
+Artefatos: `results/dev/v5_multiquery_development_iter{1,2,3}.jsonl`.
+
+| Iteração | Mudança | Macro-F1 (original) | Consistência |
+|---|---|---|---|
+| iter1 | desenho registrado | 0,377 | 0,688 |
+| iter2 | `scope_match` (5 booleanos) → `scope_conflict` (conflito nomeado); prompt de extração passa a preferir uma única proposição | 0,583 | 0,604 |
+| iter3 | **remoção da pós-regra de escopo** (acertou 1 e errou 15 de 16 rebaixamentos na iter2); números verificados contra toda a evidência recuperada, e não só contra o trecho citado; extração obrigada a cobrir a alegação inteira; NLI instruído sobre proposições absolutas | 0,688 | 0,729 |
+
+Desvio declarado: a pós-regra "CONTRADICTED com escopo divergente → NOT_ADDRESSED", descrita no
+desenho original, foi removida por evidência da calibração. A distinção de escopo permanece como
+instrução do NLI. As regras de agregação não mudaram. A partir daqui, prompts e código ficam
+congelados para a execução final (`freeze.json`).

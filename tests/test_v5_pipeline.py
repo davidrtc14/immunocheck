@@ -119,10 +119,6 @@ def _structured_payload(**overrides):
     return payload
 
 
-def _scope(value=True):
-    return {name: value for name in ("subject", "population", "product", "place", "period")}
-
-
 # --- extração estruturada -------------------------------------------------------------------
 
 
@@ -189,17 +185,9 @@ QUOTE_A = "induz memória imunológica contra a toxina tetânica"
 
 
 def test_verified_entailment_is_kept() -> None:
-    raw = {"relation": "ENTAILED", "scope_match": _scope(), "source_ref": "E1", "quote": QUOTE_A}
+    raw = {"relation": "ENTAILED", "source_ref": "E1", "quote": QUOTE_A}
     judgment = apply_post_rules(PROPOSITION, raw, ALIASES)
     assert judgment.relation is E and judgment.source_id == CHUNK_A.chunk_id
-
-
-def test_scope_mismatch_downgrades_contradiction() -> None:
-    scope = _scope() | {"place": False}
-    raw = {"relation": "CONTRADICTED", "scope_match": scope, "source_ref": "E1", "quote": QUOTE_A}
-    judgment = apply_post_rules(PROPOSITION, raw, ALIASES)
-    assert judgment.relation is N and judgment.model_relation is C
-    assert judgment.downgrade_reason is DowngradeReason.SCOPE_MISMATCH
 
 
 @pytest.mark.parametrize(
@@ -213,7 +201,7 @@ def test_scope_mismatch_downgrades_contradiction() -> None:
     ),
 )
 def test_unverifiable_quote_downgrades(reference, quote) -> None:
-    raw = {"relation": "ENTAILED", "scope_match": _scope(), "source_ref": reference, "quote": quote}
+    raw = {"relation": "ENTAILED", "source_ref": reference, "quote": quote}
     judgment = apply_post_rules(PROPOSITION, raw, ALIASES)
     assert judgment.relation is N
     assert judgment.downgrade_reason is DowngradeReason.NO_VERIFIED_QUOTE
@@ -222,7 +210,7 @@ def test_unverifiable_quote_downgrades(reference, quote) -> None:
 def test_entailment_with_absent_number_is_downgraded_but_contradiction_is_not() -> None:
     proposition = Proposition("Recomenda-se reforço a cada 5 anos, com 35% de queda.", CORE, FACT)
     quote = "recomenda-se reforço a cada 10 anos"
-    entailed = {"relation": "ENTAILED", "scope_match": _scope(), "source_ref": "E2", "quote": quote}
+    entailed = {"relation": "ENTAILED", "source_ref": "E2", "quote": quote}
     assert apply_post_rules(proposition, entailed, ALIASES).downgrade_reason is (
         DowngradeReason.UNSUPPORTED_NUMBER
     )
@@ -357,14 +345,12 @@ MISLEADING_JUDGMENTS = {
     "judgments": [
         {
             "proposition": "P1",
-            "scope_match": _scope(),
             "relation": "ENTAILED",
             "source_ref": "E1",
             "quote": QUOTE_A,
         },
         {
             "proposition": "P2",
-            "scope_match": _scope(),
             "relation": "CONTRADICTED",
             "source_ref": "E2",
             "quote": "recomenda-se reforço a cada 10 anos porque a proteção diminui",
@@ -410,7 +396,6 @@ def test_not_addressed_abstains_without_sources() -> None:
         "judgments": [
             {
                 "proposition": f"P{i}",
-                "scope_match": _scope(),
                 "relation": "NOT_ADDRESSED",
                 "source_ref": None,
                 "quote": None,
