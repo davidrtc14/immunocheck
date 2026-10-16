@@ -1,0 +1,64 @@
+{
+  "frozen_at": "2026-10-16",
+  "phase": "Fase 18 (ADR-051) — teste externo congelado",
+  "sources": [
+    {
+      "name": "factckbr",
+      "repository": "jghm-f/FACTCK.BR",
+      "commit": "57e25d742ea14cb912069d3f6e9a0333477bc9c3",
+      "license": "MIT",
+      "redistributable": true
+    },
+    {
+      "name": "xfact",
+      "repository": "utahnlp/x-fact",
+      "commit": "c58b1ea78753977528485469428ff356a4b837e4",
+      "license": "MIT",
+      "redistributable": true
+    },
+    {
+      "name": "factckbr_extended",
+      "repository": "Residencia-em-IA-Grupo-6/FACTCK.BR-extended",
+      "commit": "b19074ecff459e8b893f5e6333fc52078213e31c",
+      "license": "código MIT; dados pertencem às agências (sem licença de redistribuição)",
+      "redistributable": false
+    }
+  ],
+  "raw_sha256": {
+    "factckbr:FACTCKBR.tsv": "1e90fe8b67af22d0f756a7f831b6a2f66072b5d0d66fb1172f3bda1e748201db",
+    "xfact:data/x-fact/train.all.tsv": "55f7385af77baab3fdd92cc2e3b7368fb9b8300a34831d86091ad22b88499661",
+    "xfact:data/x-fact/dev.all.tsv": "faed99c2ee9e7ea505a1bae88c06bd2c686804b5e1e786551e589b5f89df8199",
+    "xfact:data/x-fact/test.all.tsv": "b126a4f7e16ec72f554a79e1fffaef8d71ba03ec9e07072ff7484a502cf37cbb",
+    "xfact:data/x-fact/ood.tsv": "6524dceae75cc37e26304c281a0df09e359718b66d0f628d9c11bca2582b0d1e",
+    "factckbr_extended:datasets/FACTCKBR_updated.tsv": "72e00cf65abe77c115150e60ac8c2aaff0575a2663506c7d362c6c89cd0c6752"
+  },
+  "sha256": {
+    "evaluation/refinement_v6/external/items.jsonl": "4c05d54b1c0c34bbbd8f165d9583a41037fc19a3b0444798c142428cbfb9c56d",
+    "evaluation/refinement_v6/external/supplement_manifest.jsonl": "d8dbbdd0f7550697eb68db7c7c528dd80b840dae782265519c006cb1ff7f4d73",
+    "scripts/build_external_testset.py": "ff446aa937f80b00890ba6d7b301723fcbc87a39cc0999c5bee13f7a74a98945"
+  },
+  "reconstructed_supplement_sha256": "9f17dc272c024407d415026e3b09e5f3e96cf278b8d7e50c73cee12a9a7dbb79",
+  "counts": {
+    "items": {
+      "total": 54,
+      "labels": {
+        "MISLEADING": 6,
+        "REFUTED": 37,
+        "SUPPORTED": 11
+      }
+    },
+    "supplement": {
+      "total": 96,
+      "labels": {
+        "MISLEADING": 47,
+        "REFUTED": 48,
+        "SUPPORTED": 1
+      }
+    },
+    "combined_labels": {
+      "MISLEADING": 53,
+      "REFUTED": 85,
+      "SUPPORTED": 12
+    }
+  }
+}

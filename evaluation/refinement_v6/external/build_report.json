@@ -1,0 +1,73 @@
+{
+  "built_at": "2026-10-16",
+  "evaluation_claims_compared": 641,
+  "corpus_fact_checker_url_hits": [],
+  "items": {
+    "total": 54,
+    "labels": {
+      "MISLEADING": 6,
+      "REFUTED": 37,
+      "SUPPORTED": 11
+    }
+  },
+  "supplement": {
+    "total": 96,
+    "labels": {
+      "MISLEADING": 47,
+      "REFUTED": 48,
+      "SUPPORTED": 1
+    }
+  },
+  "combined_labels": {
+    "MISLEADING": 53,
+    "REFUTED": 85,
+    "SUPPORTED": 12
+  },
+  "corpus_topic_coverage": {
+    "covered": 103,
+    "generic_vaccination": 41,
+    "not_covered": 4,
+    "partial": 2
+  },
+  "topics": {
+    "alegacoes_causais_recorrentes": 24,
+    "composicao_e_fabricacao": 3,
+    "comunicacao_equidade_e_etica": 1,
+    "contraindicacoes_e_populacoes_especiais": 1,
+    "eficacia_e_imunogenicidade": 11,
+    "epidemiologia_das_doencas": 6,
+    "normas_e_calendarios": 11,
+    "seguranca_e_farmacovigilancia": 38,
+    "vacinas_especificas": 55
+  },
+  "candidates_by_source": {
+    "factckbr": 1300,
+    "factckbr_extended": 2875,
+    "xfact": 7941
+  },
+  "vaccine_candidates_by_source": {
+    "factckbr": 8,
+    "factckbr_extended": 417,
+    "xfact": 95
+  },
+  "excluded": {
+    "fragmented_quote": 2,
+    "label_without_mapping": 8,
+    "manual_sample_review": 2,
+    "media_artifact": 9,
+    "near_duplicate_internal": 19,
+    "near_duplicate_label_conflict": 4,
+    "political_actor": 46,
+    "question": 4,
+    "sampled_out_for_size_cap": 236,
+    "too_long": 25,
+    "truncated": 15
+  },
+  "source_labels_discarded": {
+    "a embaixada do japao no brasil nos infor": 1,
+    "complicated hard to categorise": 2,
+    "contatado pela reportagem, o orgao do go": 1,
+    "insustentavel": 3,
+    "os medicos nao apresentam estudos que in": 1
+  }
+}
