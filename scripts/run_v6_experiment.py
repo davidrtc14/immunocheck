@@ -12,6 +12,7 @@ import argparse
 import dataclasses
 import hashlib
 import json
+import subprocess
 import time
 from pathlib import Path
 
@@ -63,6 +64,27 @@ def verify_freeze() -> None:
     changed = [name for name, digest in file_hashes().items() if frozen.get(name) != digest]
     if changed:
         raise SystemExit("Congelamento violado: " + ", ".join(changed))
+
+
+def write_freeze() -> None:
+    """Registra os hashes do código e os modelos locais antes da fase final."""
+
+    if FREEZE.exists():
+        raise SystemExit("freeze.json já existe; o congelamento não é refeito.")
+    expected = json.loads((EXTERNAL / "freeze.json").read_text("utf-8"))
+    models = subprocess.run(["ollama", "list"], capture_output=True, text=True, check=False).stdout
+    payload = {
+        "frozen_at": time.strftime("%Y-%m-%d"),
+        "sha256": file_hashes(),
+        "external_supplement_sha256": expected["reconstructed_supplement_sha256"],
+        "ollama_models": [
+            " ".join(line.split()[:2])
+            for line in models.splitlines()[1:]
+            if line.split()[:1] and line.split()[0] in {"qwen3:8b", QWEN36}
+        ],
+    }
+    FREEZE.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Congelamento gravado em {FREEZE.relative_to(REPOSITORY)}.")
 
 
 def build_pipeline(condition: str, trace_sink):
@@ -147,15 +169,21 @@ def external_cases() -> list[dict]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Experimento v6 (ADR-051).")
-    parser.add_argument("--condition", choices=CONDITIONS, required=True)
-    parser.add_argument("--dataset", choices=("v4", "external"), required=True)
-    parser.add_argument("--phase", choices=("dev", "final"), required=True)
+    parser.add_argument("--write-freeze", action="store_true", help="grava freeze.json e sai")
+    parser.add_argument("--condition", choices=CONDITIONS)
+    parser.add_argument("--dataset", choices=("v4", "external"))
+    parser.add_argument("--phase", choices=("dev", "final"))
     parser.add_argument("--split", choices=("development", "test", "all"), default="all")
     parser.add_argument("--forms", nargs="+", choices=FORMS, default=list(FORMS))
     parser.add_argument("--limit", type=int, help="só os primeiros N casos (medição de latência)")
     parser.add_argument("--tag", default="run1")
     args = parser.parse_args()
 
+    if args.write_freeze:
+        write_freeze()
+        return
+    if not (args.condition and args.dataset and args.phase):
+        parser.error("--condition, --dataset e --phase são obrigatórios.")
     if args.phase == "dev" and (args.dataset != "v4" or args.split != "development"):
         parser.error("Na fase dev só os itens development do v4 podem ser usados.")
     if args.phase == "final":
