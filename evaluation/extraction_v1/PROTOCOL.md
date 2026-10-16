@@ -140,3 +140,11 @@ Itens `development` e modelos de desenvolvimento. A linha de base cobre os 48 it
 - **Limitação mantida:** na imagem de baixa resolução, o nome do remetente sobra no texto e o OCR
   multipassada às vezes escolhe uma leitura pior de uma palavra ("Comirnaty" → "Comimaty"); não há
   correção por princípio sem ajustar ao benchmark.
+
+## Latência da visão como alternativa (16/10/2026)
+
+Medição descartável com a visão forçada (limiar 101) em 6 imagens de calibração, pipeline completo:
+de 34 a 51 s por pedido, por causa da troca entre `qwen3.6` (transcrição) e `qwen3:8b` (veredito).
+Com o limiar registrado (confiança do OCR < 70 ou OCR reprovado), a visão foi acionada em 1 de 288
+imagens de calibração, então o P95 da `improved_vision` só passa de 45 s se ela for acionada em mais de
+5% das imagens. O critério G5 decide; nada foi ajustado com esta medição.

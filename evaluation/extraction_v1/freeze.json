@@ -1,0 +1,32 @@
+{
+  "frozen_at": "2026-10-16",
+  "sha256": {
+    "src/immunocheck/evaluation/extraction_benchmark.py": "2754b776eee6bd46673be6d8b187c4b45dff4bb68a763a9ba013d4f51c4790cf",
+    "scripts/run_extraction_experiment.py": "1554425b0a15fc3266ff3e39deb237b65305499ca38e933862650311d2036a73",
+    "src/immunocheck/application/content_normalizer.py": "7a521a21d92d71cc0887710332a9f8cc88bd2d297629823e7dc463b3fc0d302f",
+    "src/immunocheck/infrastructure/ocr.py": "f708c3344cc86d348b53af4154c80ac113768e6538bde31688c9af048d3536bb",
+    "src/immunocheck/infrastructure/web_content.py": "b1066c7c60d4cd22a4f0f4acadab64d0353746dd9f0746b194e233d4abbba3f5",
+    "src/immunocheck/application/input_cleaning.py": "4a3901712d8d3f8ce600aaad9bbdf793942e6da1cf59cf88453e7f40ae110998",
+    "src/immunocheck/application/input_understanding.py": "5adf9e33656c2b178f37d3d181649dd60332c817fefdf2b0c97ea1e184532350",
+    "src/immunocheck/application/passage_selection.py": "fa0fe0a49d9b632dc2f683284c6db2781950464e0e7e64cb96157f646c8d339b",
+    "src/immunocheck/infrastructure/main_content.py": "019ce5b8b5d8f34a941e23f1ea96709a89a66ad5cee62a8e8ceba69ec3a272c6",
+    "src/immunocheck/infrastructure/ocr_multipass.py": "0724cdd42c43caa3c2acb9795ef8bb64f3a7902ceb2eb3a37f9ad8a7417f3b74",
+    "src/immunocheck/infrastructure/ollama_vision.py": "a2583d6f9d4a89a980bef463de54c9ce446443ac75571eb4cdd28cb795614eda"
+  },
+  "fonts": {
+    "arial.ttf": "b3658eadae55e682b5f69eb64c439c1ecc8f196c0bb8d4756d145d13bc86476a",
+    "segoeui.ttf": "704eada12961a27fd271f7d3b09e2066520e758390c1776744eff430fee30f6e",
+    "segoeuib.ttf": "b169e636719880976a97e94e3b1cb3dbe5f4a38eabc037bf9f2a9165154c3ad2",
+    "segoeuii.ttf": "f9feaeee8b20751c15700b4fb03571b335f52e91edece7fb7aa1ceaa6eeb0db7",
+    "tahoma.ttf": "9af03d4ad44a3b413d92f7de48b94aa7cc8a1471a75d498406eae837f62ee1d1",
+    "tahomabd.ttf": "b16ed1a15e0cabea8d41d9f8899c253cd61ac466af5e3980d02bd0cf311c2267",
+    "impact.ttf": "d8bbdb72e3f930157824b2e59677d3a912d4512c14a948e6656a2e3fb0c935ad",
+    "trebuc.ttf": "fe3e8bdd64c1c9f3b9cf5189d06510c80d72cec28e03d04bffc560f77eec58d1",
+    "trebucbd.ttf": "dfcc306777a594d2815368547dd897e2ac82aff8073e55d9e682569939e49b81"
+  },
+  "tesseract": "tesseract v5.5.3.20260724",
+  "ollama_models": [
+    "qwen3:8b 500a1f067a9f",
+    "qwen3.6:latest 07d35212591f"
+  ]
+}
