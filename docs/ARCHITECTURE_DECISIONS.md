@@ -51,6 +51,7 @@
 | ADR-047 | Caminho dedicado a MISLEADING (D4/D5) e emenda que leva D1 ao holdout | D4/D5 não adotadas pelo critério pré-registrado; emenda D1 aceita | `v4_d4` elevou o recall de MISLEADING de 0 para 0,67 e o macro-F1 para 0,593 (IC inclui zero), mas derrubou REFUTED (0,83→0,33) e SUPPORTED (0,92→0,58); precisão das conclusões 0,559 < piso 0,568. |
 | ADR-048 | Não promover a candidata v4 (v3 + D1); a v3 permanece padrão | Aceita | No holdout v4 (48 itens, execução única) a candidata obteve macro-F1 0,487 contra 0,577 da v3 (Δ −0,089; IC −0,194 a +0,008) e falhou 4 de 8 gates pré-registrados. |
 | ADR-049 | Linha exploratória v5: decomposição da alegação, NLI por proposição e agregação determinística | Não promovida; opt-in | Diagnóstico dos 42 erros da v3 no conjunto v4 aponta interpretação/decisão, não retrieval (doc_hit@15 0,94); `MISLEADING` passa a ser decidido por regra sobre proposições. Resultado (96 itens): macro-F1 0,653 vs 0,490 da v3 (IC +0,037 a +0,275), mas recall de `SUPPORTED` caiu 0,12 (> 0,10); nenhuma variante passou a regra. Exploratório. |
+| ADR-050 | Camada de compreensão da entrada multimodal medida por benchmark sintético com gabarito automático | Em avaliação | A extração de imagem, link e texto nunca teve a qualidade medida; alegações v4 embutidas em capturas, páginas e mensagens geradas permitem medir CER e concordância do veredito com o texto limpo sem curadoria humana. Modelos reservados e execução única congelada; regra em `evaluation/extraction_v1/PROTOCOL.md`. |
 
 ## Histórico de alterações
 
@@ -301,6 +302,15 @@
   reprovaram no critério de queda de recall de `SUPPORTED` (1,00 → 0,88). A v3 permanece padrão; a
   v5 fica opt-in com multiconsulta. Desvio declarado: remoção da pós-regra de escopo na calibração
   (Adendo 2). Detalhes em `evaluation/refinement_v5/RESULTS.md`.
+- **16/10/2026 — ADR-050:** aberta a Fase 17 (extração multimodal). Um benchmark sintético
+  (`src/immunocheck/evaluation/extraction_benchmark.py`) embute as 96 alegações v4 em capturas de
+  WhatsApp e de redes sociais, fotos de tela, memes, páginas HTML e PDF e mensagens com link ou ruído
+  de encaminhamento. O gabarito é o próprio texto da alegação, e a referência do veredito é a alegação
+  limpa enviada ao mesmo pipeline. Mudanças de extração entram em módulos novos, sem editar
+  `text_components.py` nem `document_expansion.py`. Os arquivos congelados da v5 (`bootstrap.py`,
+  `ollama.py`) podem receber ligações novas; a reprodução da v5 usa o commit `1e7644c`. O ensaio V0
+  mostrou o `qwen3.6` viável como alternativa de OCR por visão (cerca de 3 s por imagem com o modelo
+  carregado, mas a RAM fica no limite). Protocolo em `evaluation/extraction_v1/PROTOCOL.md`.
 ## Política de alteração
 
 Uma ADR aceita pode ser alterada quando houver evidência experimental, inviabilidade
