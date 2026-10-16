@@ -635,3 +635,22 @@ herdada; D2 tem ganho marginal e estatisticamente inconclusivo. Fase não conclu
 família −0,194 a +0,008). Ver `evaluation/refinement_v4/HOLDOUT_RESULTS.md`. Limitações: sem
 revisor externo, 48 itens, conjunto sintético. As Fases C, E e D3–D5 do plano v4 não foram
 executadas além dos experimentos de ablação e calibração já relatados.
+
+## Fase 16 — Linha exploratória v5 (decomposição e agregação determinística)
+
+- [x] Protocolo e ADR-049 registrados antes das inferências.
+- [x] Conjunto de paráfrases (2 por item v4) com validador.
+- [x] Linha de base de consistência da v3 sob paráfrase.
+- [x] Módulos v5 (extração estruturada, NLI por proposição, agregação, multiconsulta) com testes.
+- [x] Iteração somente na calibração; congelamento por hash.
+- [x] Ablação final única nos 96 itens + paráfrases e decisão pela regra pré-registrada.
+
+Critérios de aceite: suíte completa e Ruff aprovados; relatórios com IC por família,
+consistência sob paráfrase, latência e limitações; decisão aplicada conforme
+`evaluation/refinement_v5/PROTOCOL.md`. Resultado é exploratório, não confirmatório.
+
+**Concluída em 15/10/2026 como resultado exploratório.** A melhor variante (`v5_multiquery`) obteve
+macro-F1 0,653 contra 0,490 da v3 nas 96 alegações originais (IC por família +0,037 a +0,275), mas
+reprovou o critério de queda de recall de `SUPPORTED` (0,12 > 0,10); nenhuma variante passou a
+regra e a v3 permanece padrão. Limitação: a conferência humana das paráfrases
+(`PARAPHRASE_REVIEW.md`) segue pendente. Ver `evaluation/refinement_v5/RESULTS.md`.

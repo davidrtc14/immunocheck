@@ -1,0 +1,757 @@
+{
+  "phase": "final",
+  "split": "all",
+  "v3": {
+    "forms": {
+      "original": {
+        "macro_f1": 0.49048317274123726,
+        "recall": {
+          "SUPPORTED": 1.0,
+          "REFUTED": 0.7916666666666666,
+          "MISLEADING": 0.08333333333333333,
+          "INSUFFICIENT_EVIDENCE": 0.3333333333333333
+        },
+        "precision": {
+          "SUPPORTED": 0.6666666666666666,
+          "REFUTED": 0.4523809523809524,
+          "MISLEADING": 0.2857142857142857,
+          "INSUFFICIENT_EVIDENCE": 0.7272727272727273
+        },
+        "conclusion_precision": 0.5294117647058824,
+        "conclusions": 85,
+        "failures": 2,
+        "median_latency_s": 15.0044,
+        "p95_latency_s": 18.331,
+        "macro_f1_3class": 0.6595974472263132,
+        "abstention": {
+          "precision": 0.7272727272727273,
+          "recall": 0.3333333333333333
+        },
+        "confusion": {
+          "INSU->INSU": 8,
+          "INSU->MISL": 4,
+          "INSU->REFU": 10,
+          "INSU->SUPP": 2,
+          "MISL->INSU": 1,
+          "MISL->MISL": 2,
+          "MISL->REFU": 13,
+          "MISL->SUPP": 8,
+          "REFU->INSU": 2,
+          "REFU->MISL": 1,
+          "REFU->REFU": 19,
+          "REFU->SUPP": 2,
+          "SUPP->SUPP": 24
+        },
+        "n": 96
+      },
+      "colloquial": {
+        "macro_f1": 0.648322743731639,
+        "recall": {
+          "SUPPORTED": 0.875,
+          "REFUTED": 0.7916666666666666,
+          "MISLEADING": 0.375,
+          "INSUFFICIENT_EVIDENCE": 0.5833333333333334
+        },
+        "precision": {
+          "SUPPORTED": 0.7,
+          "REFUTED": 0.48717948717948717,
+          "MISLEADING": 0.9,
+          "INSUFFICIENT_EVIDENCE": 0.8235294117647058
+        },
+        "conclusion_precision": 0.620253164556962,
+        "conclusions": 79,
+        "failures": 1,
+        "median_latency_s": 15.062149999999999,
+        "p95_latency_s": 18.215700000000002,
+        "macro_f1_3class": 0.7480699205617486,
+        "abstention": {
+          "precision": 0.8235294117647058,
+          "recall": 0.5833333333333334
+        },
+        "confusion": {
+          "INSU->INSU": 14,
+          "INSU->MISL": 1,
+          "INSU->REFU": 7,
+          "INSU->SUPP": 2,
+          "MISL->INSU": 1,
+          "MISL->MISL": 9,
+          "MISL->REFU": 10,
+          "MISL->SUPP": 4,
+          "REFU->INSU": 2,
+          "REFU->REFU": 19,
+          "REFU->SUPP": 3,
+          "SUPP->REFU": 3,
+          "SUPP->SUPP": 21
+        },
+        "n": 96
+      },
+      "formal": {
+        "macro_f1": 0.5694298552754435,
+        "recall": {
+          "SUPPORTED": 0.9583333333333334,
+          "REFUTED": 0.8333333333333334,
+          "MISLEADING": 0.20833333333333334,
+          "INSUFFICIENT_EVIDENCE": 0.4166666666666667
+        },
+        "precision": {
+          "SUPPORTED": 0.71875,
+          "REFUTED": 0.45454545454545453,
+          "MISLEADING": 0.625,
+          "INSUFFICIENT_EVIDENCE": 0.8333333333333334
+        },
+        "conclusion_precision": 0.5714285714285714,
+        "conclusions": 84,
+        "failures": 0,
+        "median_latency_s": 15.141549999999999,
+        "p95_latency_s": 17.7912,
+        "macro_f1_3class": 0.7123280423280424,
+        "abstention": {
+          "precision": 0.8333333333333334,
+          "recall": 0.4166666666666667
+        },
+        "confusion": {
+          "INSU->INSU": 10,
+          "INSU->MISL": 2,
+          "INSU->REFU": 11,
+          "INSU->SUPP": 1,
+          "MISL->INSU": 1,
+          "MISL->MISL": 5,
+          "MISL->REFU": 13,
+          "MISL->SUPP": 5,
+          "REFU->INSU": 1,
+          "REFU->REFU": 20,
+          "REFU->SUPP": 3,
+          "SUPP->MISL": 1,
+          "SUPP->SUPP": 23
+        },
+        "n": 96
+      }
+    },
+    "consistency": 0.6354166666666666,
+    "pooled_macro_f1": 0.5725394914886777,
+    "run_stability_vs_v4_records": 0.9479166666666666
+  },
+  "conditions": {
+    "v5_base_all_run1": {
+      "forms": {
+        "original": {
+          "macro_f1": 0.6002140111809924,
+          "recall": {
+            "SUPPORTED": 0.8333333333333334,
+            "REFUTED": 0.7083333333333334,
+            "MISLEADING": 0.25,
+            "INSUFFICIENT_EVIDENCE": 0.7083333333333334
+          },
+          "precision": {
+            "SUPPORTED": 0.6896551724137931,
+            "REFUTED": 0.5862068965517241,
+            "MISLEADING": 0.75,
+            "INSUFFICIENT_EVIDENCE": 0.5666666666666667
+          },
+          "conclusion_precision": 0.6515151515151515,
+          "conclusions": 66,
+          "failures": 0,
+          "median_latency_s": 9.963650000000001,
+          "p95_latency_s": 13.9611,
+          "macro_f1_3class": 0.6888998506460586,
+          "abstention": {
+            "precision": 0.5666666666666667,
+            "recall": 0.7083333333333334
+          },
+          "confusion": {
+            "INSU->INSU": 17,
+            "INSU->REFU": 6,
+            "INSU->SUPP": 1,
+            "MISL->INSU": 8,
+            "MISL->MISL": 6,
+            "MISL->REFU": 5,
+            "MISL->SUPP": 5,
+            "REFU->INSU": 3,
+            "REFU->MISL": 1,
+            "REFU->REFU": 17,
+            "REFU->SUPP": 3,
+            "SUPP->INSU": 2,
+            "SUPP->MISL": 1,
+            "SUPP->REFU": 1,
+            "SUPP->SUPP": 20
+          },
+          "n": 96
+        },
+        "colloquial": {
+          "macro_f1": 0.6825344611528823,
+          "recall": {
+            "SUPPORTED": 0.8333333333333334,
+            "REFUTED": 0.75,
+            "MISLEADING": 0.4583333333333333,
+            "INSUFFICIENT_EVIDENCE": 0.7083333333333334
+          },
+          "precision": {
+            "SUPPORTED": 0.7692307692307693,
+            "REFUTED": 0.5625,
+            "MISLEADING": 0.7857142857142857,
+            "INSUFFICIENT_EVIDENCE": 0.7083333333333334
+          },
+          "conclusion_precision": 0.6805555555555556,
+          "conclusions": 72,
+          "failures": 0,
+          "median_latency_s": 10.538849999999998,
+          "p95_latency_s": 15.5387,
+          "macro_f1_3class": 0.7651891252955084,
+          "abstention": {
+            "precision": 0.7083333333333334,
+            "recall": 0.7083333333333334
+          },
+          "confusion": {
+            "INSU->INSU": 17,
+            "INSU->REFU": 6,
+            "INSU->SUPP": 1,
+            "MISL->INSU": 3,
+            "MISL->MISL": 11,
+            "MISL->REFU": 7,
+            "MISL->SUPP": 3,
+            "REFU->INSU": 3,
+            "REFU->MISL": 1,
+            "REFU->REFU": 18,
+            "REFU->SUPP": 2,
+            "SUPP->INSU": 1,
+            "SUPP->MISL": 2,
+            "SUPP->REFU": 1,
+            "SUPP->SUPP": 20
+          },
+          "n": 96
+        },
+        "formal": {
+          "macro_f1": 0.6955392755392756,
+          "recall": {
+            "SUPPORTED": 0.875,
+            "REFUTED": 0.7083333333333334,
+            "MISLEADING": 0.5,
+            "INSUFFICIENT_EVIDENCE": 0.7083333333333334
+          },
+          "precision": {
+            "SUPPORTED": 0.84,
+            "REFUTED": 0.5666666666666667,
+            "MISLEADING": 0.8,
+            "INSUFFICIENT_EVIDENCE": 0.6538461538461539
+          },
+          "conclusion_precision": 0.7142857142857143,
+          "conclusions": 70,
+          "failures": 0,
+          "median_latency_s": 10.44225,
+          "p95_latency_s": 14.0003,
+          "macro_f1_3class": 0.7632770097286227,
+          "abstention": {
+            "precision": 0.6538461538461539,
+            "recall": 0.7083333333333334
+          },
+          "confusion": {
+            "INSU->INSU": 17,
+            "INSU->REFU": 7,
+            "MISL->INSU": 5,
+            "MISL->MISL": 12,
+            "MISL->REFU": 5,
+            "MISL->SUPP": 2,
+            "REFU->INSU": 4,
+            "REFU->MISL": 1,
+            "REFU->REFU": 17,
+            "REFU->SUPP": 2,
+            "SUPP->MISL": 2,
+            "SUPP->REFU": 1,
+            "SUPP->SUPP": 21
+          },
+          "n": 96
+        }
+      },
+      "consistency": 0.71875,
+      "pooled_macro_f1": 0.6609577780213465,
+      "claim_kinds": {
+        "INDIVIDUAL_EVENT": 32,
+        "GENERAL": 256
+      },
+      "proposition_counts": {
+        "2": 119,
+        "1": 158,
+        "3": 11
+      },
+      "downgrades": {
+        "unsupported_number": 5,
+        "no_verified_quote": 19
+      },
+      "bootstrap_vs_v3": {
+        "delta": 0.10973083843975512,
+        "lower": -0.007372862470607755,
+        "upper": 0.21822101234023367
+      },
+      "gates": {
+        "1_delta_macro_f1_ge_0.05_and_ci_lower_gt_0": false,
+        "2_consistency_ge_v3": true,
+        "3_recall_drop_s_r_le_0.10": false,
+        "4_abstention_precision_ge_0.50": true,
+        "5_failures_le_2": true,
+        "6_p95_le_45s": true
+      }
+    },
+    "v5_multiquery_all_run1": {
+      "forms": {
+        "original": {
+          "macro_f1": 0.6526273905306164,
+          "recall": {
+            "SUPPORTED": 0.875,
+            "REFUTED": 0.8333333333333334,
+            "MISLEADING": 0.2916666666666667,
+            "INSUFFICIENT_EVIDENCE": 0.7083333333333334
+          },
+          "precision": {
+            "SUPPORTED": 0.7,
+            "REFUTED": 0.6451612903225806,
+            "MISLEADING": 1.0,
+            "INSUFFICIENT_EVIDENCE": 0.6071428571428571
+          },
+          "conclusion_precision": 0.7058823529411765,
+          "conclusions": 68,
+          "failures": 0,
+          "median_latency_s": 10.60495,
+          "p95_latency_s": 14.8478,
+          "macro_f1_3class": 0.7330219306963492,
+          "abstention": {
+            "precision": 0.6071428571428571,
+            "recall": 0.7083333333333334
+          },
+          "confusion": {
+            "INSU->INSU": 17,
+            "INSU->REFU": 5,
+            "INSU->SUPP": 2,
+            "MISL->INSU": 5,
+            "MISL->MISL": 7,
+            "MISL->REFU": 6,
+            "MISL->SUPP": 6,
+            "REFU->INSU": 3,
+            "REFU->REFU": 20,
+            "REFU->SUPP": 1,
+            "SUPP->INSU": 3,
+            "SUPP->SUPP": 21
+          },
+          "n": 96
+        },
+        "colloquial": {
+          "macro_f1": 0.6819649751792609,
+          "recall": {
+            "SUPPORTED": 0.75,
+            "REFUTED": 0.7916666666666666,
+            "MISLEADING": 0.4583333333333333,
+            "INSUFFICIENT_EVIDENCE": 0.75
+          },
+          "precision": {
+            "SUPPORTED": 0.6923076923076923,
+            "REFUTED": 0.59375,
+            "MISLEADING": 0.8461538461538461,
+            "INSUFFICIENT_EVIDENCE": 0.72
+          },
+          "conclusion_precision": 0.676056338028169,
+          "conclusions": 71,
+          "failures": 0,
+          "median_latency_s": 10.773299999999999,
+          "p95_latency_s": 17.069200000000002,
+          "macro_f1_3class": 0.7501309340940677,
+          "abstention": {
+            "precision": 0.72,
+            "recall": 0.75
+          },
+          "confusion": {
+            "INSU->INSU": 18,
+            "INSU->REFU": 4,
+            "INSU->SUPP": 2,
+            "MISL->INSU": 2,
+            "MISL->MISL": 11,
+            "MISL->REFU": 7,
+            "MISL->SUPP": 4,
+            "REFU->INSU": 3,
+            "REFU->REFU": 19,
+            "REFU->SUPP": 2,
+            "SUPP->INSU": 2,
+            "SUPP->MISL": 2,
+            "SUPP->REFU": 2,
+            "SUPP->SUPP": 18
+          },
+          "n": 96
+        },
+        "formal": {
+          "macro_f1": 0.7459090909090909,
+          "recall": {
+            "SUPPORTED": 0.8333333333333334,
+            "REFUTED": 0.875,
+            "MISLEADING": 0.5416666666666666,
+            "INSUFFICIENT_EVIDENCE": 0.75
+          },
+          "precision": {
+            "SUPPORTED": 0.8333333333333334,
+            "REFUTED": 0.6774193548387096,
+            "MISLEADING": 0.8666666666666667,
+            "INSUFFICIENT_EVIDENCE": 0.6923076923076923
+          },
+          "conclusion_precision": 0.7714285714285715,
+          "conclusions": 70,
+          "failures": 0,
+          "median_latency_s": 10.589799999999999,
+          "p95_latency_s": 14.781799999999999,
+          "macro_f1_3class": 0.7943735224586289,
+          "abstention": {
+            "precision": 0.6923076923076923,
+            "recall": 0.75
+          },
+          "confusion": {
+            "INSU->INSU": 18,
+            "INSU->REFU": 6,
+            "MISL->INSU": 4,
+            "MISL->MISL": 13,
+            "MISL->REFU": 4,
+            "MISL->SUPP": 3,
+            "REFU->INSU": 1,
+            "REFU->MISL": 1,
+            "REFU->REFU": 21,
+            "REFU->SUPP": 1,
+            "SUPP->INSU": 3,
+            "SUPP->MISL": 1,
+            "SUPP->SUPP": 20
+          },
+          "n": 96
+        }
+      },
+      "consistency": 0.65625,
+      "pooled_macro_f1": 0.6951583407605201,
+      "claim_kinds": {
+        "INDIVIDUAL_EVENT": 32,
+        "GENERAL": 256
+      },
+      "proposition_counts": {
+        "2": 122,
+        "1": 157,
+        "3": 9
+      },
+      "downgrades": {
+        "no_verified_quote": 8,
+        "unsupported_number": 5
+      },
+      "bootstrap_vs_v3": {
+        "delta": 0.1621442177893791,
+        "lower": 0.037400859559062805,
+        "upper": 0.2748509018048616
+      },
+      "gates": {
+        "1_delta_macro_f1_ge_0.05_and_ci_lower_gt_0": true,
+        "2_consistency_ge_v3": true,
+        "3_recall_drop_s_r_le_0.10": false,
+        "4_abstention_precision_ge_0.50": true,
+        "5_failures_le_2": true,
+        "6_p95_le_45s": true
+      }
+    },
+    "v5_multiquery_reranker_all_run1": {
+      "forms": {
+        "original": {
+          "macro_f1": 0.6498397435897436,
+          "recall": {
+            "SUPPORTED": 0.875,
+            "REFUTED": 0.8333333333333334,
+            "MISLEADING": 0.3333333333333333,
+            "INSUFFICIENT_EVIDENCE": 0.625
+          },
+          "precision": {
+            "SUPPORTED": 0.75,
+            "REFUTED": 0.5555555555555556,
+            "MISLEADING": 1.0,
+            "INSUFFICIENT_EVIDENCE": 0.625
+          },
+          "conclusion_precision": 0.6805555555555556,
+          "conclusions": 72,
+          "failures": 0,
+          "median_latency_s": 21.34745,
+          "p95_latency_s": 26.4749,
+          "macro_f1_3class": 0.7239409141583054,
+          "abstention": {
+            "precision": 0.625,
+            "recall": 0.625
+          },
+          "confusion": {
+            "INSU->INSU": 15,
+            "INSU->REFU": 8,
+            "INSU->SUPP": 1,
+            "MISL->INSU": 6,
+            "MISL->MISL": 8,
+            "MISL->REFU": 6,
+            "MISL->SUPP": 4,
+            "REFU->INSU": 2,
+            "REFU->REFU": 20,
+            "REFU->SUPP": 2,
+            "SUPP->INSU": 1,
+            "SUPP->REFU": 2,
+            "SUPP->SUPP": 21
+          },
+          "n": 96
+        },
+        "colloquial": {
+          "macro_f1": 0.7180808080808081,
+          "recall": {
+            "SUPPORTED": 0.875,
+            "REFUTED": 0.75,
+            "MISLEADING": 0.5833333333333334,
+            "INSUFFICIENT_EVIDENCE": 0.6666666666666666
+          },
+          "precision": {
+            "SUPPORTED": 0.8076923076923077,
+            "REFUTED": 0.5806451612903226,
+            "MISLEADING": 0.7777777777777778,
+            "INSUFFICIENT_EVIDENCE": 0.7619047619047619
+          },
+          "conclusion_precision": 0.7066666666666667,
+          "conclusions": 75,
+          "failures": 0,
+          "median_latency_s": 21.636699999999998,
+          "p95_latency_s": 26.354200000000002,
+          "macro_f1_3class": 0.7850782741504392,
+          "abstention": {
+            "precision": 0.7619047619047619,
+            "recall": 0.6666666666666666
+          },
+          "confusion": {
+            "INSU->INSU": 16,
+            "INSU->REFU": 7,
+            "INSU->SUPP": 1,
+            "MISL->INSU": 1,
+            "MISL->MISL": 14,
+            "MISL->REFU": 6,
+            "MISL->SUPP": 3,
+            "REFU->INSU": 4,
+            "REFU->MISL": 1,
+            "REFU->REFU": 18,
+            "REFU->SUPP": 1,
+            "SUPP->MISL": 3,
+            "SUPP->SUPP": 21
+          },
+          "n": 96
+        },
+        "formal": {
+          "macro_f1": 0.6736237248860402,
+          "recall": {
+            "SUPPORTED": 0.7916666666666666,
+            "REFUTED": 0.7916666666666666,
+            "MISLEADING": 0.4583333333333333,
+            "INSUFFICIENT_EVIDENCE": 0.6666666666666666
+          },
+          "precision": {
+            "SUPPORTED": 0.7916666666666666,
+            "REFUTED": 0.5588235294117647,
+            "MISLEADING": 0.8461538461538461,
+            "INSUFFICIENT_EVIDENCE": 0.64
+          },
+          "conclusion_precision": 0.6901408450704225,
+          "conclusions": 71,
+          "failures": 0,
+          "median_latency_s": 21.09985,
+          "p95_latency_s": 26.0977,
+          "macro_f1_3class": 0.7342075426661893,
+          "abstention": {
+            "precision": 0.64,
+            "recall": 0.6666666666666666
+          },
+          "confusion": {
+            "INSU->INSU": 16,
+            "INSU->REFU": 8,
+            "MISL->INSU": 5,
+            "MISL->MISL": 11,
+            "MISL->REFU": 5,
+            "MISL->SUPP": 3,
+            "REFU->INSU": 2,
+            "REFU->MISL": 1,
+            "REFU->REFU": 19,
+            "REFU->SUPP": 2,
+            "SUPP->INSU": 2,
+            "SUPP->MISL": 1,
+            "SUPP->REFU": 2,
+            "SUPP->SUPP": 19
+          },
+          "n": 96
+        }
+      },
+      "consistency": 0.6458333333333334,
+      "pooled_macro_f1": 0.6822148241215245,
+      "claim_kinds": {
+        "INDIVIDUAL_EVENT": 32,
+        "GENERAL": 256
+      },
+      "proposition_counts": {
+        "2": 119,
+        "1": 158,
+        "3": 11
+      },
+      "downgrades": {
+        "no_verified_quote": 18,
+        "unsupported_number": 1
+      },
+      "bootstrap_vs_v3": {
+        "delta": 0.15935657084850635,
+        "lower": 0.06849476755491779,
+        "upper": 0.2398894286240431
+      },
+      "gates": {
+        "1_delta_macro_f1_ge_0.05_and_ci_lower_gt_0": true,
+        "2_consistency_ge_v3": true,
+        "3_recall_drop_s_r_le_0.10": false,
+        "4_abstention_precision_ge_0.50": true,
+        "5_failures_le_2": true,
+        "6_p95_le_45s": true
+      }
+    },
+    "v5_multiquery_think_all_run1": {
+      "forms": {
+        "original": {
+          "macro_f1": 0.6475490196078432,
+          "recall": {
+            "SUPPORTED": 0.8333333333333334,
+            "REFUTED": 0.75,
+            "MISLEADING": 0.20833333333333334,
+            "INSUFFICIENT_EVIDENCE": 0.9583333333333334
+          },
+          "precision": {
+            "SUPPORTED": 0.7407407407407407,
+            "REFUTED": 0.6666666666666666,
+            "MISLEADING": 0.8333333333333334,
+            "INSUFFICIENT_EVIDENCE": 0.6388888888888888
+          },
+          "conclusion_precision": 0.7166666666666667,
+          "conclusions": 60,
+          "failures": 3,
+          "median_latency_s": 23.1534,
+          "p95_latency_s": 77.0185,
+          "macro_f1_3class": 0.7803679496489954,
+          "abstention": {
+            "precision": 0.6388888888888888,
+            "recall": 0.9583333333333334
+          },
+          "confusion": {
+            "INSU->INSU": 23,
+            "INSU->REFU": 1,
+            "MISL->INSU": 6,
+            "MISL->MISL": 5,
+            "MISL->REFU": 8,
+            "MISL->SUPP": 5,
+            "REFU->INSU": 3,
+            "REFU->MISL": 1,
+            "REFU->REFU": 18,
+            "REFU->SUPP": 2,
+            "SUPP->INSU": 4,
+            "SUPP->SUPP": 20
+          },
+          "n": 96
+        },
+        "colloquial": {
+          "macro_f1": 0.6754913441843533,
+          "recall": {
+            "SUPPORTED": 0.7083333333333334,
+            "REFUTED": 0.75,
+            "MISLEADING": 0.375,
+            "INSUFFICIENT_EVIDENCE": 0.9166666666666666
+          },
+          "precision": {
+            "SUPPORTED": 0.7391304347826086,
+            "REFUTED": 0.72,
+            "MISLEADING": 1.0,
+            "INSUFFICIENT_EVIDENCE": 0.5641025641025641
+          },
+          "conclusion_precision": 0.7719298245614035,
+          "conclusions": 57,
+          "failures": 3,
+          "median_latency_s": 22.264400000000002,
+          "p95_latency_s": 49.3438,
+          "macro_f1_3class": 0.7422316675041118,
+          "abstention": {
+            "precision": 0.5641025641025641,
+            "recall": 0.9166666666666666
+          },
+          "confusion": {
+            "INSU->INSU": 22,
+            "INSU->REFU": 1,
+            "INSU->SUPP": 1,
+            "MISL->INSU": 6,
+            "MISL->MISL": 9,
+            "MISL->REFU": 6,
+            "MISL->SUPP": 3,
+            "REFU->INSU": 4,
+            "REFU->REFU": 18,
+            "REFU->SUPP": 2,
+            "SUPP->INSU": 7,
+            "SUPP->SUPP": 17
+          },
+          "n": 96
+        },
+        "formal": {
+          "macro_f1": 0.7129468599033816,
+          "recall": {
+            "SUPPORTED": 0.8333333333333334,
+            "REFUTED": 0.7916666666666666,
+            "MISLEADING": 0.4166666666666667,
+            "INSUFFICIENT_EVIDENCE": 0.8333333333333334
+          },
+          "precision": {
+            "SUPPORTED": 0.9090909090909091,
+            "REFUTED": 0.7307692307692307,
+            "MISLEADING": 0.8333333333333334,
+            "INSUFFICIENT_EVIDENCE": 0.5555555555555556
+          },
+          "conclusion_precision": 0.8166666666666667,
+          "conclusions": 60,
+          "failures": 4,
+          "median_latency_s": 22.1609,
+          "p95_latency_s": 61.4123,
+          "macro_f1_3class": 0.7678912481743624,
+          "abstention": {
+            "precision": 0.5555555555555556,
+            "recall": 0.8333333333333334
+          },
+          "confusion": {
+            "INSU->INSU": 20,
+            "INSU->REFU": 3,
+            "INSU->SUPP": 1,
+            "MISL->INSU": 10,
+            "MISL->MISL": 10,
+            "MISL->REFU": 4,
+            "REFU->INSU": 4,
+            "REFU->REFU": 19,
+            "REFU->SUPP": 1,
+            "SUPP->INSU": 2,
+            "SUPP->MISL": 2,
+            "SUPP->SUPP": 20
+          },
+          "n": 96
+        }
+      },
+      "consistency": 0.625,
+      "pooled_macro_f1": 0.6800577496274217,
+      "claim_kinds": {
+        "INDIVIDUAL_EVENT": 32,
+        "GENERAL": 246
+      },
+      "proposition_counts": {
+        "2": 110,
+        "1": 157,
+        "3": 11
+      },
+      "downgrades": {
+        "no_verified_quote": 13
+      },
+      "bootstrap_vs_v3": {
+        "delta": 0.1570658468666059,
+        "lower": 0.019384422012240332,
+        "upper": 0.2868353982624854
+      },
+      "gates": {
+        "1_delta_macro_f1_ge_0.05_and_ci_lower_gt_0": true,
+        "2_consistency_ge_v3": false,
+        "3_recall_drop_s_r_le_0.10": false,
+        "4_abstention_precision_ge_0.50": true,
+        "5_failures_le_2": false,
+        "6_p95_le_45s": false
+      }
+    }
+  }
+}

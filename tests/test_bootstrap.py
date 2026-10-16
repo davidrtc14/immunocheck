@@ -178,3 +178,25 @@ def test_routed_builder_freezes_dense_top_fifteen(tmp_path: Path, monkeypatch) -
     assert pipeline.retriever is retriever
     assert captured["top_k"] == 15
     assert captured["retrieval_mode"] == "dense"
+
+
+def test_v5_is_opt_in_and_dispatched_explicitly(monkeypatch) -> None:
+    monkeypatch.delenv("PIPELINE_VERSION", raising=False)
+    decomposed = object()
+    monkeypatch.setattr(bootstrap, "build_v5_text_pipeline", lambda **kwargs: decomposed)
+
+    assert bootstrap.resolve_pipeline_version(None) == "v3"
+    assert bootstrap.build_configured_text_pipeline(pipeline_version="v5") is decomposed
+
+
+def test_v5_builder_wires_think_only_into_the_judge(monkeypatch) -> None:
+    monkeypatch.setattr(bootstrap, "_build_retriever", lambda **kwargs: object())
+
+    plain = bootstrap.build_v5_text_pipeline(multi_query=False)
+    thinking = bootstrap.build_v5_text_pipeline(think=True)
+
+    assert plain.multi_query is False and thinking.multi_query is True
+    assert plain.judge.client.delegate.think is False
+    assert thinking.judge.client.delegate.think is True
+    assert thinking.extractor.client.delegate.think is False
+    assert thinking.judge.max_output_tokens == bootstrap.V5_THINK_OUTPUT_TOKENS

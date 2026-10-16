@@ -397,6 +397,38 @@ gates pré-registrados (ganho, precisão das conclusões, queda de recall de `RE
 Portanto a v3 permanece a configuração do protótipo. O resultado negativo é relatado integralmente em
 `evaluation/refinement_v4/HOLDOUT_RESULTS.md`.
 
+## 5.7 Linha exploratória v5: diagnóstico, instabilidade e decomposição
+
+A análise dos 42 erros da v3 no conjunto v4 indicou que o gargalo não era a recuperação: o documento
+correto aparecia no top 15 em 94% das consultas, e muitos erros citavam o próprio trecho-ouro. Três
+padrões concentravam os erros: alegações `MISLEADING` julgadas por apenas uma de suas partes,
+abstenções fora do corpus convertidas em `REFUTED` por evidência de escopo vizinho e eventos
+individuais não reconhecidos pelo roteador.
+
+Para medir a instabilidade, cada um dos 96 itens recebeu duas paráfrases com o mesmo fato-alvo
+(coloquial e formal). A v3 deu o mesmo veredito nas três redações em apenas 63,5% dos itens, e seu
+macro-F1 variou de 0,490 a 0,648 conforme a redação. Entre duas execuções idênticas, 94,8% dos
+vereditos coincidiram. A sensibilidade à redação pesa, portanto, mais que o não determinismo do
+modelo.
+
+A v5 substitui o roteamento por uma reescrita estruturada: a alegação é normalizada e decomposta em
+até três proposições com papel (fato, premissa, conclusão) e tipo (factual, causal, universal,
+normativa). Cada proposição é julgada contra a evidência com trecho literal verificado pelo código, e o
+veredito é agregado por regras explícitas. `MISLEADING` passa a ser definido como parte sustentada
+somada a uma conclusão contradita ou não sustentada. Como não havia conjunto novo e o holdout v4
+já fora revelado, a avaliação é exploratória.
+
+Na execução final (96 itens, três formas), a melhor variante (multiconsulta) obteve macro-F1 0,653
+contra 0,490 da v3 nas alegações originais (+0,162; IC 95% por família +0,037 a +0,275), precisão
+das conclusões 0,71 contra 0,53, zero falhas, P95 de 14,8 s e vereditos idênticos em duas execuções
+(96 de 96, contra 94,8% na v3). Os erros de eventos individuais caíram
+de 5 para 0, os de `MISLEADING` de 21 para 12 e as conclusões indevidas fora do corpus de 11 para 7.
+Reranker e modo de raciocínio do Qwen3 não acrescentaram ganho; o raciocínio elevou a latência a
+77 s e gerou falhas. Ainda assim, nenhuma variante satisfez a regra pré-registrada: o recall de
+`SUPPORTED` caiu de 1,00 para 0,88, acima da tolerância de 0,10, porque as verificações
+determinísticas levam o sistema a se abster quando não consegue ancorar uma conclusão. A v3
+permanece padrão e a v5 fica disponível como opção (`evaluation/refinement_v5/RESULTS.md`).
+
 # 6 Discussão
 
 Os resultados mostram que qualidade de retrieval isolada não determina o desempenho
@@ -416,6 +448,13 @@ comparação interna; não é estimativa populacional nem comparação direta co
 histórico de 64 itens.
 
 A linha v4 reforça essa cautela: no conjunto novo e mais variado, a v3 caiu para macro-F1 0,450 (calibração) e 0,577 (holdout), e uma intervenção que ajudou na calibração (ancoragem D1) piorou no holdout. Isso ilustra o otimismo de selecionar configurações em poucos itens.
+
+A linha v5 sugere que a instabilidade dos vereditos decorre mais da interpretação da alegação que
+da falta de fontes. Tornar explícitas as partes da alegação e decidir `MISLEADING` por regra trouxe
+o maior ganho observado no conjunto v4, mas a um custo de conservadorismo: o sistema passa a trocar
+algumas conclusões corretas por abstenções quando não encontra âncora literal. Para um verificador
+de saúde, esse viés pode ser desejável, mas a decisão de adotá-lo foi mantida conforme a regra
+registrada antes dos dados, e o ganho precisa de confirmação em um conjunto novo.
 
 ## 6.1 Ameaças à validade
 

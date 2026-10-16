@@ -3,7 +3,29 @@
 Atualizado em 27/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 
-## Ponto atual (13/10/2026) — Plano v4 executado; v3 permanece padrão
+## Ponto atual (14/10/2026) — Linha exploratória v5 em execução final (ADR-049)
+
+Branch `feat/v5-decomposicao` (ainda não integrada em `develop`). Protocolo, regra de decisão e
+adendos em `evaluation/refinement_v5/PROTOCOL.md`. Feito:
+- 192 paráfrases (`paraphrases.jsonl`), com validador. A conferência humana na
+  `PARAPHRASE_REVIEW.md` está **pendente**.
+- Linha de base da v3 sob paráfrase (`PARAPHRASE_BASELINE.md`): consistência 0,635 e
+  estabilidade entre execuções 0,948.
+- Pipeline v5 opt-in (`PIPELINE_VERSION=v5`), com três iterações só na calibração. Iter3: macro-F1
+  0,688 contra 0,450 da v3 e consistência 0,729. A regra de escopo foi removida (Adendo 2).
+- Código congelado em `evaluation/refinement_v5/freeze.json` (commit `1e7644c`).
+
+**Execução final concluída em 15/10/2026** (`evaluation/refinement_v5/RESULTS.md`). Nenhuma variante
+passou a regra (recall de `SUPPORTED` 1,00 → 0,88). A v3 permanece padrão e a v5 fica opt-in com
+multiconsulta. ADR-049, ROADMAP (Fase 16) e manuscrito (seção 5.7) foram atualizados.
+
+**Pendente:**
+1. (Concluído em 16/10/2026) Repetição `run2`: 96 de 96 vereditos idênticos aos da run1.
+2. Conferência humana das paráfrases (`PARAPHRASE_REVIEW.md`).
+3. Integrar `feat/v5-decomposicao` em `develop`. A v3 continua padrão, sem mudança de
+   comportamento do bot.
+
+## Ponto anterior (13/10/2026) — Plano v4 executado; v3 permanece padrão
 
 As Fases A, B e F do `docs/IMPROVEMENT_PLAN_V4.md` foram executadas, além de D1/D2/D4/D5 em
 calibração. Correções da Fase B (guarda de orientação individual, orçamento de contexto, seção/

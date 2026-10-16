@@ -1,0 +1,135 @@
+{
+  "phase": "dev",
+  "split": "all",
+  "v3": {
+    "forms": {
+      "original": {
+        "macro_f1": 0.49048317274123726,
+        "recall": {
+          "SUPPORTED": 1.0,
+          "REFUTED": 0.7916666666666666,
+          "MISLEADING": 0.08333333333333333,
+          "INSUFFICIENT_EVIDENCE": 0.3333333333333333
+        },
+        "precision": {
+          "SUPPORTED": 0.6666666666666666,
+          "REFUTED": 0.4523809523809524,
+          "MISLEADING": 0.2857142857142857,
+          "INSUFFICIENT_EVIDENCE": 0.7272727272727273
+        },
+        "conclusion_precision": 0.5294117647058824,
+        "conclusions": 85,
+        "failures": 2,
+        "median_latency_s": 15.0044,
+        "p95_latency_s": 18.331,
+        "macro_f1_3class": 0.6595974472263132,
+        "abstention": {
+          "precision": 0.7272727272727273,
+          "recall": 0.3333333333333333
+        },
+        "confusion": {
+          "INSU->INSU": 8,
+          "INSU->MISL": 4,
+          "INSU->REFU": 10,
+          "INSU->SUPP": 2,
+          "MISL->INSU": 1,
+          "MISL->MISL": 2,
+          "MISL->REFU": 13,
+          "MISL->SUPP": 8,
+          "REFU->INSU": 2,
+          "REFU->MISL": 1,
+          "REFU->REFU": 19,
+          "REFU->SUPP": 2,
+          "SUPP->SUPP": 24
+        },
+        "n": 96
+      },
+      "colloquial": {
+        "macro_f1": 0.648322743731639,
+        "recall": {
+          "SUPPORTED": 0.875,
+          "REFUTED": 0.7916666666666666,
+          "MISLEADING": 0.375,
+          "INSUFFICIENT_EVIDENCE": 0.5833333333333334
+        },
+        "precision": {
+          "SUPPORTED": 0.7,
+          "REFUTED": 0.48717948717948717,
+          "MISLEADING": 0.9,
+          "INSUFFICIENT_EVIDENCE": 0.8235294117647058
+        },
+        "conclusion_precision": 0.620253164556962,
+        "conclusions": 79,
+        "failures": 1,
+        "median_latency_s": 15.062149999999999,
+        "p95_latency_s": 18.215700000000002,
+        "macro_f1_3class": 0.7480699205617486,
+        "abstention": {
+          "precision": 0.8235294117647058,
+          "recall": 0.5833333333333334
+        },
+        "confusion": {
+          "INSU->INSU": 14,
+          "INSU->MISL": 1,
+          "INSU->REFU": 7,
+          "INSU->SUPP": 2,
+          "MISL->INSU": 1,
+          "MISL->MISL": 9,
+          "MISL->REFU": 10,
+          "MISL->SUPP": 4,
+          "REFU->INSU": 2,
+          "REFU->REFU": 19,
+          "REFU->SUPP": 3,
+          "SUPP->REFU": 3,
+          "SUPP->SUPP": 21
+        },
+        "n": 96
+      },
+      "formal": {
+        "macro_f1": 0.5694298552754435,
+        "recall": {
+          "SUPPORTED": 0.9583333333333334,
+          "REFUTED": 0.8333333333333334,
+          "MISLEADING": 0.20833333333333334,
+          "INSUFFICIENT_EVIDENCE": 0.4166666666666667
+        },
+        "precision": {
+          "SUPPORTED": 0.71875,
+          "REFUTED": 0.45454545454545453,
+          "MISLEADING": 0.625,
+          "INSUFFICIENT_EVIDENCE": 0.8333333333333334
+        },
+        "conclusion_precision": 0.5714285714285714,
+        "conclusions": 84,
+        "failures": 0,
+        "median_latency_s": 15.141549999999999,
+        "p95_latency_s": 17.7912,
+        "macro_f1_3class": 0.7123280423280424,
+        "abstention": {
+          "precision": 0.8333333333333334,
+          "recall": 0.4166666666666667
+        },
+        "confusion": {
+          "INSU->INSU": 10,
+          "INSU->MISL": 2,
+          "INSU->REFU": 11,
+          "INSU->SUPP": 1,
+          "MISL->INSU": 1,
+          "MISL->MISL": 5,
+          "MISL->REFU": 13,
+          "MISL->SUPP": 5,
+          "REFU->INSU": 1,
+          "REFU->REFU": 20,
+          "REFU->SUPP": 3,
+          "SUPP->MISL": 1,
+          "SUPP->SUPP": 23
+        },
+        "n": 96
+      }
+    },
+    "consistency": 0.6354166666666666,
+    "pooled_macro_f1": 0.5725394914886777,
+    "run_stability_vs_v4_records": 0.9479166666666666
+  },
+  "conditions": {}
+}
