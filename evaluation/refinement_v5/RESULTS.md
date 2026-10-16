@@ -3,7 +3,7 @@
 Execução única de cada condição, com código congelado (`freeze.json`, commit `1e7644c`),
 sobre os 96 itens v4 em três formas (original, coloquial, formal = 288 entradas). Temperatura 0,
 seed 42 (raciocínio: temperatura 0,6). A v3 de referência é `results/dev/v3_all_run1.jsonl`.
-Artefatos: `results/final/*_all_run1.jsonl`, `results/final/v5_multiquery_all_run2.jsonl` (pendente) e
+Artefatos: `results/final/*_all_run1.jsonl`, `results/final/v5_multiquery_all_run2.jsonl` e
 `results/final/analysis.json`. **Resultado exploratório, não confirmatório** (ver ameaças).
 
 ## Desempenho nas alegações originais (96)
@@ -27,10 +27,13 @@ Artefatos: `results/final/*_all_run1.jsonl`, `results/final/v5_multiquery_all_ru
 | v5_multiquery_think | 0,625 | 0,648 / 0,675 / 0,713 | 0,680 |
 
 Estabilidade entre execuções (mesma entrada, duas execuções): v3 0,948 (contra os registros v4);
-v5_multiquery **pendente** (run1 contra run2; repetição em andamento). Na primeira tentativa da
+v5_multiquery **1,000** (run1 contra run2: 96 de 96 vereditos idênticos; macro-F1 0,653 nas duas).
+A decomposição com agregação determinística eliminou a variação entre execuções observada na v3.
+Na primeira tentativa da
 run2, os 18 primeiros casos estouraram o tempo limite do cliente (2 × 120 s, `OllamaError`) porque o
 Ollama ainda processava uma requisição longa da condição com raciocínio. Esses registros de falha de
-infraestrutura foram descartados e a repetição foi retomada; a métrica é descritiva e sem gate.
+infraestrutura foram descartados e a repetição foi retomada (interrompida e retomada por checkpoint
+mais duas vezes por encerramento da sessão, sem falhas); a métrica é descritiva e sem gate.
 
 ## Efeito nos padrões de erro que motivaram a v5 (alegações originais)
 
@@ -59,7 +62,8 @@ flexibilizado após a observação dos dados.
 
 - A decomposição com agregação determinística melhora o macro-F1 em todas as formas e condições
   (+0,11 a +0,16 nas originais; IC acima de zero em três das quatro condições), eleva a precisão
-  das conclusões (0,53 → 0,71), elimina falhas técnicas e reduz a latência.
+  das conclusões (0,53 → 0,71), elimina falhas técnicas, reduz a latência e torna o veredito reprodutível entre execuções
+  (1,000 contra 0,948 da v3).
 - O ganho vem dos três padrões diagnosticados: eventos individuais passam a ser reconhecidos
   (5 → 0 erros), `MISLEADING` é confundido menos (21 → 12) e há menos conclusões sem base
   fora do corpus (11 → 7).

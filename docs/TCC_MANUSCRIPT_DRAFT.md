@@ -420,7 +420,8 @@ já fora revelado, a avaliação é exploratória.
 
 Na execução final (96 itens, três formas), a melhor variante (multiconsulta) obteve macro-F1 0,653
 contra 0,490 da v3 nas alegações originais (+0,162; IC 95% por família +0,037 a +0,275), precisão
-das conclusões 0,71 contra 0,53, zero falhas e P95 de 14,8 s. Os erros de eventos individuais caíram
+das conclusões 0,71 contra 0,53, zero falhas, P95 de 14,8 s e vereditos idênticos em duas execuções
+(96 de 96, contra 94,8% na v3). Os erros de eventos individuais caíram
 de 5 para 0, os de `MISLEADING` de 21 para 12 e as conclusões indevidas fora do corpus de 11 para 7.
 Reranker e modo de raciocínio do Qwen3 não acrescentaram ganho; o raciocínio elevou a latência a
 77 s e gerou falhas. Ainda assim, nenhuma variante satisfez a regra pré-registrada: o recall de
