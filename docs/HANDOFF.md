@@ -21,7 +21,7 @@ multiconsulta. ADR-049, ROADMAP (Fase 16) e manuscrito (seção 5.7) foram atual
 
 **Pendente:**
 1. Concluir a repetição `run2` da `v5_multiquery`, que é retomável e pula os casos já gravados:
-   `.\.venv\Scripts\python.exe scriptsun_v5_experiment.py --condition v5_multiquery --phase final --split all --forms original --tag run2`
+   `.\.venv\Scripts\python.exe scripts\run_v5_experiment.py --condition v5_multiquery --phase final --split all --forms original --tag run2`
    Depois, calcular a concordância run1 × run2, preencher em `RESULTS.md` e commitar o JSONL.
 2. Conferência humana das paráfrases (`PARAPHRASE_REVIEW.md`).
 3. Integrar `feat/v5-decomposicao` em `develop`. A v3 continua padrão, sem mudança de
