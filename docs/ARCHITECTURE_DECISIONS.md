@@ -51,6 +51,7 @@
 | ADR-047 | Caminho dedicado a MISLEADING (D4/D5) e emenda que leva D1 ao holdout | D4/D5 não adotadas pelo critério pré-registrado; emenda D1 aceita | `v4_d4` elevou o recall de MISLEADING de 0 para 0,67 e o macro-F1 para 0,593 (IC inclui zero), mas derrubou REFUTED (0,83→0,33) e SUPPORTED (0,92→0,58); precisão das conclusões 0,559 < piso 0,568. |
 | ADR-048 | Não promover a candidata v4 (v3 + D1); a v3 permanece padrão | Aceita | No holdout v4 (48 itens, execução única) a candidata obteve macro-F1 0,487 contra 0,577 da v3 (Δ −0,089; IC −0,194 a +0,008) e falhou 4 de 8 gates pré-registrados. |
 | ADR-049 | Linha exploratória v5: decomposição da alegação, NLI por proposição e agregação determinística | Não promovida; opt-in | Diagnóstico dos 42 erros da v3 no conjunto v4 aponta interpretação/decisão, não retrieval (doc_hit@15 0,94); `MISLEADING` passa a ser decidido por regra sobre proposições. Resultado (96 itens): macro-F1 0,653 vs 0,490 da v3 (IC +0,037 a +0,275), mas recall de `SUPPORTED` caiu 0,12 (> 0,10); nenhuma variante passou a regra. Exploratório. |
+| ADR-051 | Correção pontual da v5 e confirmação em teste externo de agências de checagem | Em avaliação | 150 alegações externas congeladas sem inferência; avaliação "sustentada × não sustentada" com abstenção como terceira saída (precisão das conclusões, erro grave, cobertura), porque o gabarito é de mundo real e a abstenção fora do corpus é o comportamento exigido. Promoção exige os seis critérios v5 no v4 e não inferioridade no externo; regra em `evaluation/refinement_v6/PROTOCOL.md`. |
 
 ## Histórico de alterações
 
@@ -301,6 +302,14 @@
   reprovaram no critério de queda de recall de `SUPPORTED` (1,00 → 0,88). A v3 permanece padrão; a
   v5 fica opt-in com multiconsulta. Desvio declarado: remoção da pós-regra de escopo na calibração
   (Adendo 2). Detalhes em `evaluation/refinement_v5/RESULTS.md`.
+- **16/10/2026 — ADR-051:** aberta a Fase 18. O teste externo (`evaluation/refinement_v6/external/`,
+  150 alegações de X-FACT, FACTCK.BR e FACTCK.BR-extended; 12 `SUPPORTED`, 53 `MISLEADING`, 85
+  `REFUTED`) foi montado por regra e congelado sem nenhuma inferência. Os 96 itens sem licença de
+  redistribuição são versionados só por URL e hash. Como o gabarito é de mundo real e o sistema deve
+  se abster fora do corpus, a análise principal é binária com a abstenção à parte. O recall de
+  `SUPPORTED` fica descritivo por falta de poder estatístico. As correções da v5 (trecho tolerante e
+  normalização de números) são desenvolvidas só na calibração v4. Protocolo em
+  `evaluation/refinement_v6/PROTOCOL.md`.
 ## Política de alteração
 
 Uma ADR aceita pode ser alterada quando houver evidência experimental, inviabilidade

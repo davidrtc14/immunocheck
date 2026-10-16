@@ -654,3 +654,16 @@ macro-F1 0,653 contra 0,490 da v3 nas 96 alegações originais (IC por família 
 reprovou o critério de queda de recall de `SUPPORTED` (0,12 > 0,10); nenhuma variante passou a
 regra e a v3 permanece padrão. Limitação: a conferência humana das paráfrases
 (`PARAPHRASE_REVIEW.md`) segue pendente. Ver `evaluation/refinement_v5/RESULTS.md`.
+
+## Fase 18 — Correção da v5 e confirmação em teste externo (ADR-051)
+
+- [x] Teste externo de agências de checagem montado por regra e congelado sem inferência.
+- [x] Protocolo e regra de decisão registrados antes das inferências.
+- [ ] Correções da v5 (trecho tolerante, normalização de números) só na calibração v4; congelamento.
+- [ ] Execução única: v4 (96 itens) para `v5_fixed`; externo (150) para v3, v5, `v5_fixed` e, se
+  couber, `v5_fixed_qwen36`.
+- [ ] Decisão pela regra pré-registrada.
+
+Critérios de aceite: suíte completa e Ruff aprovados; relatório com precisão das conclusões, erro
+grave, cobertura, IC, estratificação por cobertura do corpus e limitações; decisão aplicada conforme
+`evaluation/refinement_v6/PROTOCOL.md`.
