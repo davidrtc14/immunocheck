@@ -123,3 +123,20 @@ Ensaio descartável com 10 itens de calibração (`development`), sem valor de a
 **Conclusão:** viável como juiz (condição da Fase 18) e como alternativa de OCR. A RAM fica no limite,
 e alternar entre `qwen3:8b` e `qwen3.6` no mesmo pedido custa o recarregamento do modelo, o que a
 condição com visão vai medir.
+
+## Calibração do veredito (16/10/2026)
+
+Itens `development` e modelos de desenvolvimento. A linha de base cobre os 48 itens de calibração
+(576 casos); a condição `improved`, os 16 primeiros, e a comparação usa só esses 16 (176 casos).
+- **Concordância com o veredito do texto limpo:** 0,682 na linha de base e 0,852 na `improved`. Os
+  maiores ganhos foram na página longa (0,06 → 0,94), no comentário com link (0,00 → 0,75) e no texto
+  encaminhado com emoji (0,69 → 0,94). A `improved` não teve falhas; a linha de base teve 27 de 576
+  (4,7%, `ModelOutputError` do extrator da v3). P95 da `improved`: 16,5 s.
+- **Defeito encontrado:** a limpeza passava o texto em CAIXA ALTA para minúsculas, o que apagava a
+  caixa dos nomes próprios, e deixava resíduos como ".!" (CAIXA ALTA: 0,94 → 0,81). Correção por
+  princípio, antes do congelamento: a caixa não é mais alterada, e uma sequência de pontuação com `!`
+  ou `?` fica só com o primeiro sinal. Não foram acrescentadas regras para as frases do modelo de
+  texto. Com a modalidade texto refeita, a concordância geral foi a 0,864 (CAIXA ALTA 0,88; emoji 1,00).
+- **Limitação mantida:** na imagem de baixa resolução, o nome do remetente sobra no texto e o OCR
+  multipassada às vezes escolhe uma leitura pior de uma palavra ("Comirnaty" → "Comimaty"); não há
+  correção por princípio sem ajustar ao benchmark.

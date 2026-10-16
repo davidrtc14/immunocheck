@@ -35,9 +35,12 @@ def test_forwarded_text_loses_emoji_markers_and_calls_to_action() -> None:
     assert clean_forwarded_text(raw) == CLAIM
 
 
-def test_shouting_is_softened_but_acronyms_numbers_and_negations_survive() -> None:
-    cleaned = clean_forwarded_text("ATENÇÃO!!! A VACINA DO HPV NÃO PROTEGE 90% DAS MENINAS DO SUS!!!")
-    assert cleaned == "A vacina do HPV não protege 90% das meninas do SUS!"
+def test_shouting_keeps_case_and_collapses_mixed_punctuation() -> None:
+    cleaned = clean_forwarded_text(
+        "ATENÇÃO!!! NA AMÉRICA LATINA, A VACINA NÃO PROTEGE 90%.!!! VEJAM?!"
+    )
+    assert cleaned == "NA AMÉRICA LATINA, A VACINA NÃO PROTEGE 90%. VEJAM?"
+    assert clean_forwarded_text("Será mesmo... que funciona?") == "Será mesmo... que funciona?"
 
 
 def test_cleaning_keeps_words_that_only_look_like_markers() -> None:
@@ -196,8 +199,9 @@ def test_vision_is_used_only_for_failed_or_low_confidence_ocr() -> None:
 def test_unreadable_image_without_vision_falls_back_to_caption_or_fails() -> None:
     with pytest.raises(ContentExtractionError):
         _normalizer(None).normalize(IMAGE)
-    captioned = ContentSubmission(kind=ContentKind.IMAGE, text=CLAIM, data=b"x",
-                                  media_type="image/png")
+    captioned = ContentSubmission(
+        kind=ContentKind.IMAGE, text=CLAIM, data=b"x", media_type="image/png"
+    )
     assert _normalizer(None).normalize(captioned) == CLAIM
 
 
@@ -268,7 +272,11 @@ def test_cleaner_leaves_every_clean_evaluation_claim_unchanged() -> None:
     from immunocheck.evaluation.paraphrase_set import load_paraphrases
 
     root = Path(__file__).parents[1]
-    items = load_end_to_end_items(root / "evaluation/refinement_v4/items.jsonl", require_reviewed=True)
+    items = load_end_to_end_items(
+        root / "evaluation/refinement_v4/items.jsonl", require_reviewed=True
+    )
     claims = [item.claim for item in items]
-    claims += [p.claim for p in load_paraphrases(root / "evaluation/refinement_v5/paraphrases.jsonl")]
+    claims += [
+        p.claim for p in load_paraphrases(root / "evaluation/refinement_v5/paraphrases.jsonl")
+    ]
     assert all(clean_forwarded_text(claim) == " ".join(claim.split()) for claim in claims)

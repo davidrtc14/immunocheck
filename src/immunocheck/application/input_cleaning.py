@@ -1,9 +1,10 @@
 """Limpeza determinística da entrada antes do extrator de alegação (ADR-050).
 
 Remove o que não é alegação: emoji, marcadores de encaminhamento, chamadas para repassar,
-pontuação repetida, texto todo em caixa alta e, no texto de OCR, os elementos de interface de
+pontuação repetida e, no texto de OCR, os elementos de interface de
 aplicativos de mensagem e redes sociais (hora, bateria, contadores, "online"). Nenhuma regra
-reescreve palavras da alegação; números, negações e siglas curtas são preservados.
+reescreve palavras da alegação: caixa, números, negações e siglas são preservados (a caixa alta
+não é suavizada porque isso apagaria a caixa dos nomes próprios).
 """
 
 from __future__ import annotations
@@ -30,7 +31,7 @@ _CALL_TO_ACTION = re.compile(
 _LEADING_ALERT = re.compile(
     r"^\W*(?:aten[cç][aã]o|urgente|alerta|importante|cuidado)\s*[!:.]+\s*", re.IGNORECASE
 )
-_REPEATED_MARKS = re.compile(r"([!?])[!?]+")
+_REPEATED_MARKS = re.compile(r"([.!?])[.!?]*[!?][.!?]*")
 _URL = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
 
 _CLOCK = r"\d{1,2}[:h]\d{2}(?:\s*(?:am|pm))?"
@@ -58,13 +59,6 @@ _INTERFACE_LINE = re.compile(
 # Palavras de interface que o OCR costuma deformar ("Mensaderm", "onhne").
 _INTERFACE_WORDS = ("mensagem", "online", "digitando", "patrocinado")
 _FORWARD_TEXT = "encaminhada com frequência"
-_FUNCTION_WORDS = frozenset(
-    {
-        "a", "o", "e", "é", "as", "os", "ao", "à", "de", "do", "da", "dos", "das", "em", "no",
-        "na", "nos", "nas", "um", "uma", "por", "que", "se", "com", "sem", "mas", "ou", "foi",
-        "são", "tem", "já", "até", "seu", "sua", "nem", "não", "há", "só", "mais",
-    }
-)
 _TRAILING_CLOCK = re.compile(rf"\s+{_CLOCK}\W*$", re.IGNORECASE)
 _SENTENCE_END = re.compile(r"[.!?:;…]\s*$")
 
@@ -99,7 +93,7 @@ def clean_forwarded_text(text: str) -> str:
             continue
         if _CALL_TO_ACTION.search(line) and len(line) < 80:
             continue
-        lines.append(_soften_shouting(line))
+        lines.append(line)
     return "\n".join(lines)
 
 
@@ -145,27 +139,12 @@ def split_message_link(text: str) -> tuple[str | None, str]:
     return url, " ".join(token for token in commentary.split() if re.search(r"\w", token))
 
 
-def _soften_shouting(line: str) -> str:
-    letters = [char for char in line if char.isalpha()]
-    if len(letters) < 20 or sum(char.isupper() for char in letters) / len(letters) < 0.8:
-        return line
-    words = []
-    for word in line.split():
-        core = re.sub(r"\W", "", word)
-        # Siglas curtas (HPV, BCG, SUS) e palavras com dígitos ficam como estão.
-        is_acronym = len(core) <= 3 and core.lower() not in _FUNCTION_WORDS
-        if is_acronym or any(char.isdigit() for char in core):
-            words.append(word)
-        else:
-            words.append(word.lower())
-    softened = " ".join(words)
-    return softened[:1].upper() + softened[1:]
-
-
 def _is_garbled_interface_word(line: str) -> bool:
     token = line.strip(" .:-").lower()
-    return " " not in token and len(token) <= 12 and any(
-        SequenceMatcher(None, token, word).ratio() >= 0.7 for word in _INTERFACE_WORDS
+    return (
+        " " not in token
+        and len(token) <= 12
+        and any(SequenceMatcher(None, token, word).ratio() >= 0.7 for word in _INTERFACE_WORDS)
     )
 
 

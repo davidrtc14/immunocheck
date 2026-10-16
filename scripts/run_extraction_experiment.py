@@ -14,6 +14,7 @@ import argparse
 import dataclasses
 import hashlib
 import json
+import subprocess
 import time
 from collections.abc import Callable
 from pathlib import Path
@@ -264,21 +265,56 @@ def run_verdict(cases, normalizer, route, handle, done: set[str]) -> None:
         print(case_id, "->", verdict, rejection or failure or "", flush=True)
 
 
+def write_freeze() -> None:
+    """Registra os hashes do código, das fontes e as versões locais antes da fase final."""
+
+    if FREEZE.exists():
+        raise SystemExit("freeze.json já existe; o congelamento não é refeito.")
+    tesseract = TesseractOCR.from_environment().executable
+    version = subprocess.run(
+        [str(tesseract), "--version"], capture_output=True, text=True, check=False
+    ).stdout.splitlines()[:1]
+    models = subprocess.run(["ollama", "list"], capture_output=True, text=True, check=False).stdout
+    payload = {
+        "frozen_at": time.strftime("%Y-%m-%d"),
+        "sha256": file_hashes(),
+        "fonts": bench.font_hashes(),
+        "tesseract": version[0] if version else None,
+        "ollama_models": [
+            " ".join(line.split()[:2])
+            for line in models.splitlines()[1:]
+            if line.split()[:1] and line.split()[0] in {"qwen3:8b", "qwen3.6:latest"}
+        ],
+    }
+    FREEZE.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Congelamento gravado em {FREEZE.relative_to(REPOSITORY)}.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Benchmark de extração multimodal (ADR-050).")
-    parser.add_argument("--condition", choices=CONDITIONS, required=True)
-    parser.add_argument("--phase", choices=("dev", "final"), required=True)
-    parser.add_argument("--stage", choices=("extract", "verdict"), required=True)
+    parser.add_argument("--write-freeze", action="store_true", help="grava freeze.json e sai")
+    parser.add_argument("--condition", choices=CONDITIONS)
+    parser.add_argument("--phase", choices=("dev", "final"))
+    parser.add_argument("--stage", choices=("extract", "verdict"))
     parser.add_argument(
         "--modalities", nargs="+", choices=tuple(bench.MODALITY_TEMPLATES),
         default=list(bench.MODALITY_TEMPLATES),
     )
     parser.add_argument("--tag", default="run1")
+    parser.add_argument("--items", type=int, help="fase dev: só os primeiros N itens")
     args = parser.parse_args()
+    if args.write_freeze:
+        write_freeze()
+        return
+    if not (args.condition and args.phase and args.stage):
+        parser.error("--condition, --phase e --stage são obrigatórios.")
     if args.phase == "final":
         verify_freeze()
 
     cases = select_cases(args.phase, tuple(args.modalities))
+    if args.items and args.phase == "dev":
+        chosen = sorted({case.parent_item_id for case in cases})[: args.items]
+        cases = [case for case in cases if case.parent_item_id in chosen]
     fetcher = MappingFetcher(page_resources(cases))
     normalizer, route = build_condition(args.condition, fetcher)
     output_dir = RESULTS / args.phase
