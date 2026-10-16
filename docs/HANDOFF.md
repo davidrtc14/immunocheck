@@ -15,20 +15,17 @@ adendos em `evaluation/refinement_v5/PROTOCOL.md`. Feito:
   0,688 contra 0,450 da v3 e consistência 0,729. A regra de escopo foi removida (Adendo 2).
 - Código congelado em `evaluation/refinement_v5/freeze.json` (commit `1e7644c`).
 
-**Próximo passo:** concluir a execução final (fase `final`, split `all`, 288 entradas por condição),
-retomável por checkpoint. O comando abaixo pula os casos já gravados:
+**Execução final concluída em 15/10/2026** (`evaluation/refinement_v5/RESULTS.md`). Nenhuma variante
+passou a regra (recall de `SUPPORTED` 1,00 → 0,88). A v3 permanece padrão e a v5 fica opt-in com
+multiconsulta. ADR-049, ROADMAP (Fase 16) e manuscrito (seção 5.7) foram atualizados.
 
-```powershell
-foreach ($c in "v5_multiquery","v5_base","v5_multiquery_reranker","v5_multiquery_think") { .\.venv\Scripts\python.exe scripts\run_v5_experiment.py --condition $c --phase final --split all --tag run1 }
-```
-
-Depois:
-1. Rodar `--tag run2 --forms original` só para a melhor condição.
-2. Rodar `scripts/analyze_v5.py --phase final --split all --conditions <nomes>_all_run1`.
-3. Aplicar a regra de decisão, escrever `evaluation/refinement_v5/RESULTS.md` e atualizar
-   ADR-049, ROADMAP (Fase 16), manuscrito e este arquivo.
-
-Não alterar os arquivos congelados antes da execução final.
+**Pendente:**
+1. Concluir a repetição `run2` da `v5_multiquery`, que é retomável e pula os casos já gravados:
+   `.\.venv\Scripts\python.exe scriptsun_v5_experiment.py --condition v5_multiquery --phase final --split all --forms original --tag run2`
+   Depois, calcular a concordância run1 × run2, preencher em `RESULTS.md` e commitar o JSONL.
+2. Conferência humana das paráfrases (`PARAPHRASE_REVIEW.md`).
+3. Integrar `feat/v5-decomposicao` em `develop`. A v3 continua padrão, sem mudança de
+   comportamento do bot.
 
 ## Ponto anterior (13/10/2026) — Plano v4 executado; v3 permanece padrão
 
