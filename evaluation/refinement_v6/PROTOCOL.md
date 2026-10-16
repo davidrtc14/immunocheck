@@ -110,3 +110,37 @@ Se nenhuma passar, a v3 continua padrão e o resultado entra no TCC como está.
 - Possível presença das checagens no pré-treino do Qwen.
 - A análise binária esconde erros entre `MISLEADING` e `REFUTED`.
 - O v4 continua exploratório.
+
+## Adendo 1 (16/10/2026, antes de qualquer inferência e de qualquer código da V2)
+
+**Fato observado** (releitura de resultados v5 já publicados, sem nova execução): as duas perdas de
+`SUPPORTED` por verificação determinística que motivaram a V2 estão no holdout do v4. São elas
+`ref4-0020` (número ausente) e `ref4-0049` (trecho não verificado). Na calibração há um único erro
+de `SUPPORTED` (`ref4-0018`), e o próprio modelo o julgou `NOT_ADDRESSED`, sem rebaixamento. Por isso
+a V2 não pode ser "desenvolvida na calibração" de forma informativa, e o critério 3 no v4 seria
+circular para `v5_fixed`.
+
+**Decisão aprovada pelo pesquisador:**
+
+1. **As correções da V2 são definidas agora por princípio**, sem ajuste a dados:
+   - **Trecho tolerante:** além da substring exata atual, o trecho é aceito se, com tokens
+     alfanuméricos normalizados (`alnum_key` por palavra), a maior subsequência comum entre o trecho
+     e o chunk citado cobrir pelo menos 90% dos tokens do trecho. O mínimo de 20 caracteres continua.
+   - **Números equivalentes:** um número da proposição conta como presente se alguma forma
+     equivalente estiver na evidência:
+     - separador decimal com vírgula ou ponto;
+     - separador de milhar com ponto ou espaço, ou sem separador;
+     - "mil", "milhão" e "milhões" como multiplicadores;
+     - "%", "por cento" e "porcento";
+     - números por extenso de zero a vinte, dezenas até noventa e "cem".
+
+   Os limiares (90%) e as listas acima ficam fixos; a calibração v4 só verifica que não há
+   regressão (macro-F1 do `development` não menor que o da `v5_multiquery` e nenhuma falha nova).
+2. **No v4, o critério 3 (queda de recall) fica descritivo** para `v5_fixed` e `v5_fixed_qwen36`,
+   por circularidade. Os critérios 1, 2, 4, 5 e 6 continuam como gates nos 96 itens.
+3. **A promoção passa a exigir** esses cinco critérios no v4 e os gates X1–X4 no teste externo, que
+   é o único conjunto não visto. `v5_multiquery` continua sem possibilidade de promoção, porque já
+   foi reprovada no critério 3 antes desta linha.
+4. **Limitação declarada:** a perda de recall de `SUPPORTED` não pode ser confirmada em nenhum
+   conjunto (12 itens no externo). O risco de conservadorismo fica coberto indiretamente pela
+   cobertura (X3) e pela precisão das conclusões (X1).
