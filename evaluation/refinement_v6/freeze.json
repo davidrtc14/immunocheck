@@ -1,0 +1,21 @@
+{
+  "frozen_at": "2026-10-17",
+  "sha256": {
+    "scripts/run_v6_experiment.py": "c02176dde04108cb30c9b754aed1395cea32b4d5e8c4dc05132dbbd05c5f6d7d",
+    "src/immunocheck/application/tolerant_verification.py": "7275753fa02aaa84ae6e33928cdba0f41d530d9c0aee6c3dba45798388575f2c",
+    "src/immunocheck/application/structured_claim.py": "cc870fa116e16539c1135ed96a00a42407111e5e5dd2cb921a81879375d2bfea",
+    "src/immunocheck/application/proposition_nli.py": "222adf0e9ae084481633d5fc3da1ff26e40de605607126e00a464df3616081d1",
+    "src/immunocheck/application/verdict_aggregation.py": "83936caa0e3a99b76e68658a34ab864f87299d8c3c0454ae67d7222a70ba9c5c",
+    "src/immunocheck/application/decomposed_pipeline.py": "be50b901be4bfee65c8079ebbd1b8f3bf3648b70e1d50c189f399777e03d9dda",
+    "src/immunocheck/retrieval/multi_query.py": "b3957eb66ddb6eee265953b583b55288f2f21de2173acfa606156577a42a5527",
+    "src/immunocheck/bootstrap.py": "f7d2ce905c7e482665f97835c323be0f2f35e80c5862b862a576ace762efbf50",
+    "src/immunocheck/infrastructure/ollama.py": "621d7b2db0f17f0dec859be6cff92c29ab564f2509c5455b40d00c62c6de8a56",
+    "evaluation/refinement_v6/external/items.jsonl": "4c05d54b1c0c34bbbd8f165d9583a41037fc19a3b0444798c142428cbfb9c56d",
+    "evaluation/refinement_v6/external/supplement_manifest.jsonl": "d8dbbdd0f7550697eb68db7c7c528dd80b840dae782265519c006cb1ff7f4d73"
+  },
+  "external_supplement_sha256": "9f17dc272c024407d415026e3b09e5f3e96cf278b8d7e50c73cee12a9a7dbb79",
+  "ollama_models": [
+    "qwen3:8b 500a1f067a9f",
+    "qwen3.6:latest 07d35212591f"
+  ]
+}

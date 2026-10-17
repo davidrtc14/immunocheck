@@ -52,6 +52,7 @@
 | ADR-048 | Não promover a candidata v4 (v3 + D1); a v3 permanece padrão | Aceita | No holdout v4 (48 itens, execução única) a candidata obteve macro-F1 0,487 contra 0,577 da v3 (Δ −0,089; IC −0,194 a +0,008) e falhou 4 de 8 gates pré-registrados. |
 | ADR-049 | Linha exploratória v5: decomposição da alegação, NLI por proposição e agregação determinística | Não promovida; opt-in | Diagnóstico dos 42 erros da v3 no conjunto v4 aponta interpretação/decisão, não retrieval (doc_hit@15 0,94); `MISLEADING` passa a ser decidido por regra sobre proposições. Resultado (96 itens): macro-F1 0,653 vs 0,490 da v3 (IC +0,037 a +0,275), mas recall de `SUPPORTED` caiu 0,12 (> 0,10); nenhuma variante passou a regra. Exploratório. |
 | ADR-050 | Camada de compreensão da entrada multimodal medida por benchmark sintético com gabarito automático | Avaliada; não promovida (v2 opt-in) | A extração de imagem, link e texto nunca teve a qualidade medida; alegações v4 embutidas em capturas, páginas e mensagens geradas permitem medir CER e concordância do veredito com o texto limpo sem curadoria humana. Modelos reservados e execução única congelada; regra em `evaluation/extraction_v1/PROTOCOL.md`. Concordância 0,630 → 0,731 (IC por família +0,074 a +0,129), mas falhas técnicas de 2,19% acima do limite fixo de 2%: `EXTRACTION_VERSION=v1` continua padrão. |
+| ADR-051 | Correção pontual da v5 e confirmação em teste externo de agências de checagem | Avaliada; não promovida (v3 padrão) | 150 alegações externas congeladas sem inferência; avaliação "sustentada × não sustentada" com abstenção como terceira saída (precisão das conclusões, erro grave, cobertura), porque o gabarito é de mundo real e a abstenção fora do corpus é o comportamento exigido. Promoção exige os seis critérios v5 no v4 e não inferioridade no externo; regra em `evaluation/refinement_v6/PROTOCOL.md`. No externo, a v5 corta o erro grave pela metade (5,8% → 2,9%), mas a cobertura cai 0,147, acima do limite de 0,10. |
 
 ## Histórico de alterações
 
@@ -321,6 +322,25 @@
   avaliada, mas a regra não é reinterpretada. `EXTRACTION_VERSION=v1` continua padrão; a v2 fica
   opt-in. Achado: a mensagem com link concorda só 0,23 porque o extrator de alegação se confunde com
   o comentário à frente do conteúdo. Detalhes em `evaluation/extraction_v1/RESULTS.md`.
+- **16/10/2026 — ADR-051:** aberta a Fase 18. O teste externo (`evaluation/refinement_v6/external/`,
+  150 alegações de X-FACT, FACTCK.BR e FACTCK.BR-extended; 12 `SUPPORTED`, 53 `MISLEADING`, 85
+  `REFUTED`) foi montado por regra e congelado sem nenhuma inferência. Os 96 itens sem licença de
+  redistribuição são versionados só por URL e hash. Como o gabarito é de mundo real e o sistema deve
+  se abster fora do corpus, a análise principal é binária com a abstenção à parte. O recall de
+  `SUPPORTED` fica descritivo por falta de poder estatístico. As correções da v5 (trecho tolerante e
+  normalização de números) são desenvolvidas só na calibração v4. Protocolo em
+  `evaluation/refinement_v6/PROTOCOL.md`.
+- **17/10/2026 — ADR-051, resultado:** execução final única (congelamento em `c42d783`). A
+  `v5_fixed` passou nos cinco critérios do v4 (macro-F1 0,637, Δ +0,146 com IC por família +0,020
+  a +0,256), mas reprovou no teste externo: precisão das conclusões 0,877 contra 0,861 da v3 (IC da
+  diferença −0,083 a +0,116, abaixo do limite de −0,08 em X1) e cobertura 0,380 contra 0,527 (X3). O
+  erro grave caiu de 5,8% para 2,9%. A `v5_fixed_qwen36` teve o melhor veredito do projeto (macro-F1
+  0,716 e consistência 0,760 no v4; precisão 0,898 e erro grave 2,2% no externo), mas reprovou em X3
+  e no critério 5. A v3 continua padrão. Depois da execução, ao investigar as falhas, foi encontrado
+  um defeito na regra tolerante de números (quebra de linha aceita como separador de milhar, o que
+  gerava `ValueError` em tabelas da evidência; 5 e 7 entradas no v4, nenhuma no externo). As
+  execuções não foram repetidas e a decisão não depende do defeito; a correção entrou em seguida,
+  com teste. Detalhes em `evaluation/refinement_v6/RESULTS.md`.
 ## Política de alteração
 
 Uma ADR aceita pode ser alterada quando houver evidência experimental, inviabilidade

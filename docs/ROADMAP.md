@@ -671,3 +671,17 @@ regra e a v3 permanece padrão. Limitação: a conferência humana das paráfras
 Critérios de aceite: suíte completa e Ruff aprovados; relatório com CER, concordância do veredito
 por modalidade e modelo, IC por família, latência P95 e limitações; decisão aplicada conforme
 `evaluation/extraction_v1/PROTOCOL.md`.
+
+## Fase 18 — Correção da v5 e confirmação em teste externo (ADR-051)
+
+- [x] Teste externo de agências de checagem montado por regra e congelado sem inferência.
+- [x] Protocolo e regra de decisão registrados antes das inferências.
+- [x] Correções da v5 (trecho tolerante, normalização de números) só na calibração v4; congelamento.
+- [x] Execução única: v4 (96 itens) para `v5_fixed`; externo (150) para v3, v5, `v5_fixed` e, se
+  couber, `v5_fixed_qwen36`.
+- [x] Decisão pela regra pré-registrada (17/10/2026): nenhuma condição promovida; a v3 continua
+  padrão. Ver `evaluation/refinement_v6/RESULTS.md`.
+
+Critérios de aceite: suíte completa e Ruff aprovados; relatório com precisão das conclusões, erro
+grave, cobertura, IC, estratificação por cobertura do corpus e limitações; decisão aplicada conforme
+`evaluation/refinement_v6/PROTOCOL.md`.
