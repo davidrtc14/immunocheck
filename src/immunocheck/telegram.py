@@ -10,8 +10,9 @@ from dataclasses import dataclass, field
 from typing import Any, Protocol
 
 from immunocheck.application.content_normalizer import ContentExtractionError
+from immunocheck.application.input_understanding import route_message
 from immunocheck.application.text_components import ModelOutputError
-from immunocheck.bootstrap import build_configured_multimodal_pipeline
+from immunocheck.bootstrap import build_configured_multimodal_pipeline, resolve_extraction_version
 from immunocheck.bot_access import AccessPolicy
 from immunocheck.domain.input_policy import InputLimits, InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult
@@ -92,6 +93,10 @@ class TelegramUpdateHandler:
     clock: Callable[[], float] = time.perf_counter
     input_limits: InputLimits | None = None
     access: AccessPolicy | None = None
+    # v1: só uma URL isolada vira link; v2 (ADR-050): URL com comentário também.
+    message_router: Callable[[str], ContentSubmission] = field(
+        default_factory=lambda: legacy_route_message
+    )
 
     def __post_init__(self) -> None:
         # Fonte única dos limites: a pipeline que valida a entrada, salvo configuração explícita.
@@ -148,11 +153,7 @@ class TelegramUpdateHandler:
             if command is not None:
                 self.client.send_message(chat_id, "Comando não reconhecido. Use /ajuda.")
                 return None
-            submission = (
-                ContentSubmission(kind=ContentKind.LINK, url=normalized_text)
-                if _looks_like_standalone_url(normalized_text)
-                else ContentSubmission(kind=ContentKind.TEXT, text=normalized_text)
-            )
+            submission = self.message_router(normalized_text)
         else:
             try:
                 image_descriptor = _telegram_image_descriptor(message, self.input_limits)
@@ -201,6 +202,7 @@ class TelegramUpdateHandler:
                     )
                 submission = ContentSubmission(
                     kind=ContentKind.IMAGE,
+                    text=submission.text,
                     data=data,
                     media_type=info.media_type,
                     width=info.width,
@@ -292,6 +294,7 @@ def main() -> int:
         client = TelegramBotAPI(token=token, request_timeout_seconds=2.0)
         pipeline = build_configured_multimodal_pipeline()
         access = AccessPolicy.from_environment(os.environ)
+        router = route_message if resolve_extraction_version() == "v2" else legacy_route_message
     except (ValueError, CorpusLoadError) as exc:
         print(f"Configuração inválida: {exc}", file=sys.stderr)
         return 2
@@ -299,7 +302,9 @@ def main() -> int:
     LOGGER.info("Bot iniciado por long polling, sem persistência de interações.")
     poller = TelegramLongPoller(
         client=client,
-        handler=TelegramUpdateHandler(client=client, pipeline=pipeline, access=access),
+        handler=TelegramUpdateHandler(
+            client=client, pipeline=pipeline, access=access, message_router=router
+        ),
     )
     try:
         poller.run_forever()
@@ -330,8 +335,19 @@ def _log_feedback_latency(feedback_seconds: float) -> None:
     )
 
 
+def legacy_route_message(text: str) -> ContentSubmission:
+    if _looks_like_standalone_url(text):
+        return ContentSubmission(kind=ContentKind.LINK, url=text)
+    return ContentSubmission(kind=ContentKind.TEXT, text=text)
+
+
 def _looks_like_standalone_url(text: str) -> bool:
     return " " not in text and text.lower().startswith(("http://", "https://"))
+
+
+def _caption(message: dict[str, Any]) -> str | None:
+    caption = message.get("caption")
+    return caption.strip() or None if isinstance(caption, str) else None
 
 
 def _telegram_image_descriptor(
@@ -353,6 +369,7 @@ def _telegram_image_descriptor(
         return (
             ContentSubmission(
                 kind=ContentKind.IMAGE,
+                text=_caption(message),
                 media_type="image/jpeg",
                 width=width,
                 height=height,
@@ -369,7 +386,10 @@ def _telegram_image_descriptor(
     if media_type not in limits.allowed_image_types or not isinstance(file_id, str):
         return None
     _validate_telegram_image_metadata(None, None, file_size, limits)
-    return ContentSubmission(kind=ContentKind.IMAGE, media_type=media_type), file_id
+    return (
+        ContentSubmission(kind=ContentKind.IMAGE, text=_caption(message), media_type=media_type),
+        file_id,
+    )
 
 
 def _validate_telegram_image_metadata(

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 import json
 import os
 from pathlib import Path
@@ -18,6 +19,7 @@ from immunocheck.application.decomposed_pipeline import (
     LLMVerdictExplainer,
 )
 from immunocheck.application.grounding import GroundedVerdictGenerator
+from immunocheck.application.input_understanding import UnderstandingNormalizer
 from immunocheck.application.misleading import (
     FEW_SHOT_BLOCK,
     CombinedVerdictGenerator,
@@ -43,8 +45,11 @@ from immunocheck.application.text_components import (
     TextNormalizer,
 )
 from immunocheck.infrastructure.context_budget import ContextBudgetClient
+from immunocheck.infrastructure.main_content import MainContentLinkExtractor
 from immunocheck.infrastructure.ocr import TesseractOCR
+from immunocheck.infrastructure.ocr_multipass import MultiPassTesseractOCR
 from immunocheck.infrastructure.ollama import OllamaStructuredClient
+from immunocheck.infrastructure.ollama_vision import OllamaVisionTranscriber
 from immunocheck.infrastructure.web_content import SafeLinkTextExtractor
 from immunocheck.retrieval.dense import (
     DenseRetriever,
@@ -277,24 +282,64 @@ def build_configured_multimodal_pipeline(
     base_url: str | None = None,
     top_k: int = 6,
     retrieval_mode: str | None = None,
+    extraction_version: str | None = None,
 ) -> FactCheckPipeline | RoutedFactCheckPipeline | DecomposedFactCheckPipeline:
     version = resolve_pipeline_version(pipeline_version)
     if version == "v5":
-        return build_v5_multimodal_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
-    if version == "v4":
-        return build_v4_multimodal_pipeline(corpus_path=corpus_path, model=model, base_url=base_url)
-    if version == "v3":
-        return build_routed_multimodal_pipeline(
+        pipeline = build_v5_multimodal_pipeline(
+            corpus_path=corpus_path, model=model, base_url=base_url
+        )
+    elif version == "v4":
+        pipeline = build_v4_multimodal_pipeline(
+            corpus_path=corpus_path, model=model, base_url=base_url
+        )
+    elif version == "v3":
+        pipeline = build_routed_multimodal_pipeline(
             corpus_path=corpus_path,
             model=model,
             base_url=base_url,
         )
-    return build_multimodal_pipeline(
-        corpus_path=corpus_path,
-        model=model,
-        base_url=base_url,
-        top_k=top_k,
-        retrieval_mode=retrieval_mode,
+    else:
+        pipeline = build_multimodal_pipeline(
+            corpus_path=corpus_path,
+            model=model,
+            base_url=base_url,
+            top_k=top_k,
+            retrieval_mode=retrieval_mode,
+        )
+    if resolve_extraction_version(extraction_version) == "v2":
+        return dataclasses.replace(
+            pipeline, normalizer=build_understanding_normalizer(base_url=base_url)
+        )
+    return pipeline
+
+
+def resolve_extraction_version(value: str | None = None) -> str:
+    """v1 = extração atual; v2 = camada de compreensão da entrada (ADR-050), opt-in."""
+    version = (value or os.getenv("EXTRACTION_VERSION", "v1")).strip().lower()
+    if version not in {"v1", "v2"}:
+        raise ValueError("EXTRACTION_VERSION deve ser 'v1' ou 'v2'.")
+    return version
+
+
+def build_understanding_normalizer(
+    *,
+    vision: bool | None = None,
+    base_url: str | None = None,
+) -> UnderstandingNormalizer:
+    use_vision = vision if vision is not None else os.getenv("EXTRACTION_VISION", "0") == "1"
+    transcriber = (
+        OllamaVisionTranscriber(
+            model=os.getenv("OLLAMA_VISION_MODEL", "qwen3.6:latest"),
+            base_url=base_url or os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434"),
+        )
+        if use_vision
+        else None
+    )
+    return UnderstandingNormalizer(
+        image_reader=MultiPassTesseractOCR.from_environment(),
+        link_extractor=MainContentLinkExtractor(),
+        vision=transcriber,
     )
 
 
