@@ -26,13 +26,16 @@ from immunocheck.application.proposition_nli import (
     PropositionJudgment,
     Relation,
 )
+from immunocheck.application.proposition_nli import (
+    unsupported_numbers as strict_unsupported,
+)
 from immunocheck.application.structured_claim import Proposition
 from immunocheck.application.text_components import ModelOutputError, StructuredChatClient
 from immunocheck.domain.models import Evidence
 
 QUOTE_TOKEN_COVERAGE = 0.9
 
-_NUMBER = re.compile(r"\d+(?:[.,\s]\d{3})*(?:[.,]\d+)?")
+_NUMBER = re.compile(r"\d+(?:[.,\s]\d{3}(?!\d))*(?:[.,]\d+)?")
 _NAME_DIGITS = re.compile(r"covid-19|sars-cov-2", re.IGNORECASE)
 _WORD = re.compile(r"\w+")
 _NUMBER_WORDS = {
@@ -88,17 +91,29 @@ def quote_matches(quote: str, chunk_text: str) -> bool:
 
 
 def unsupported_numbers(proposition_text: str, evidence_text: str) -> tuple[str, ...]:
-    """Números da proposição sem nenhuma forma equivalente na evidência recuperada."""
+    """Números que a regra da v5 rejeita e que não têm forma equivalente na evidência.
+
+    Só são candidatos os números que a v5 já rejeitaria (dígitos ausentes da evidência), então a
+    regra nunca é mais rígida que a da v5. O multiplicador que segue o número na proposição
+    ("28 mil") entra na leitura, como na evidência.
+    """
 
     available = number_values(evidence_text)
+    folded = _fold(_NAME_DIGITS.sub(" ", proposition_text))
     missing: list[str] = []
-    for raw in _NUMBER.findall(_NAME_DIGITS.sub(" ", proposition_text)):
-        if len(alnum_key(raw)) < 2:
-            continue  # mesma regra da v5: números de um dígito não são checados
-        values = _parse_number(raw)
-        if values and not values & available and raw not in missing:
-            missing.append(raw.strip())
+    for raw in strict_unsupported(proposition_text, evidence_text):
+        if not _readings_in(folded, raw) & available:
+            missing.append(raw)
     return tuple(missing)
+
+
+def _readings_in(folded: str, raw: str) -> set[float]:
+    readings = _parse_number(raw)
+    for match in re.finditer(rf"(?<![\d.,]){re.escape(raw)}(?![\d])", folded):
+        following = _WORD.findall(folded[match.end() : match.end() + 12])
+        multiplier = _MULTIPLIERS.get(following[0], 1) if following else 1
+        readings |= {value * multiplier for value in _parse_number(raw)}
+    return readings
 
 
 def number_values(text: str) -> set[float]:

@@ -83,6 +83,32 @@ def test_unsupported_numbers_accept_equivalents_and_flag_missing() -> None:
     assert unsupported_numbers("A covid-19 tem 5 sintomas.", CHUNK) == ()
 
 
+def test_multiplier_in_the_proposition_counts() -> None:
+    evidence = "A vacina evitou cerca de 28 000 mortes de criancas em 2016."
+    assert unsupported_numbers("A vacina evitou 28 mil mortes em 2016.", evidence) == ()
+    assert unsupported_numbers("A vacina evitou 35 mil mortes em 2016.", evidence) == ("35",)
+
+
+def test_space_grouping_does_not_merge_adjacent_numbers() -> None:
+    assert 5_201.0 not in number_values("menores de 5 2016")
+    assert {5.0, 2016.0} <= number_values("menores de 5 2016")
+
+
+@pytest.mark.parametrize(
+    "proposition",
+    [
+        "A vacina evitou 28 mil mortes em 2010.",
+        "Foram 1.234 doses e 90,7% de cobertura em 2010.",
+        "A cobertura chegou a 98% em 2024.",
+    ],
+)
+def test_never_stricter_than_the_v5_number_rule(proposition: str) -> None:
+    from immunocheck.application.proposition_nli import unsupported_numbers as strict
+
+    for evidence in (CHUNK, "Cobertura de 98% em 2024 e 1234 doses.", "Nada aqui."):
+        assert set(unsupported_numbers(proposition, evidence)) <= set(strict(proposition, evidence))
+
+
 def test_post_rules_keep_tolerant_quotes_and_downgrade_missing_numbers() -> None:
     aliases = {"E1": _evidence()}
     quote = "a vacina contra rotavirus evitou cerca de 28 mil mortes de criancas menores"
