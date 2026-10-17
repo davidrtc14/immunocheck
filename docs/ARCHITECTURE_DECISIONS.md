@@ -51,7 +51,7 @@
 | ADR-047 | Caminho dedicado a MISLEADING (D4/D5) e emenda que leva D1 ao holdout | D4/D5 não adotadas pelo critério pré-registrado; emenda D1 aceita | `v4_d4` elevou o recall de MISLEADING de 0 para 0,67 e o macro-F1 para 0,593 (IC inclui zero), mas derrubou REFUTED (0,83→0,33) e SUPPORTED (0,92→0,58); precisão das conclusões 0,559 < piso 0,568. |
 | ADR-048 | Não promover a candidata v4 (v3 + D1); a v3 permanece padrão | Aceita | No holdout v4 (48 itens, execução única) a candidata obteve macro-F1 0,487 contra 0,577 da v3 (Δ −0,089; IC −0,194 a +0,008) e falhou 4 de 8 gates pré-registrados. |
 | ADR-049 | Linha exploratória v5: decomposição da alegação, NLI por proposição e agregação determinística | Não promovida; opt-in | Diagnóstico dos 42 erros da v3 no conjunto v4 aponta interpretação/decisão, não retrieval (doc_hit@15 0,94); `MISLEADING` passa a ser decidido por regra sobre proposições. Resultado (96 itens): macro-F1 0,653 vs 0,490 da v3 (IC +0,037 a +0,275), mas recall de `SUPPORTED` caiu 0,12 (> 0,10); nenhuma variante passou a regra. Exploratório. |
-| ADR-050 | Camada de compreensão da entrada multimodal medida por benchmark sintético com gabarito automático | Em avaliação | A extração de imagem, link e texto nunca teve a qualidade medida; alegações v4 embutidas em capturas, páginas e mensagens geradas permitem medir CER e concordância do veredito com o texto limpo sem curadoria humana. Modelos reservados e execução única congelada; regra em `evaluation/extraction_v1/PROTOCOL.md`. |
+| ADR-050 | Camada de compreensão da entrada multimodal medida por benchmark sintético com gabarito automático | Avaliada; não promovida (v2 opt-in) | A extração de imagem, link e texto nunca teve a qualidade medida; alegações v4 embutidas em capturas, páginas e mensagens geradas permitem medir CER e concordância do veredito com o texto limpo sem curadoria humana. Modelos reservados e execução única congelada; regra em `evaluation/extraction_v1/PROTOCOL.md`. Concordância 0,630 → 0,731 (IC por família +0,074 a +0,129), mas falhas técnicas de 2,19% acima do limite fixo de 2%: `EXTRACTION_VERSION=v1` continua padrão. |
 
 ## Histórico de alterações
 
@@ -311,6 +311,16 @@
   `ollama.py`) podem receber ligações novas; a reprodução da v5 usa o commit `1e7644c`. O ensaio V0
   mostrou o `qwen3.6` viável como alternativa de OCR por visão (cerca de 3 s por imagem com o modelo
   carregado, mas a RAM fica no limite). Protocolo em `evaluation/extraction_v1/PROTOCOL.md`.
+- **17/10/2026 — ADR-050, resultado:** execução final única nos 48 itens `test` (912 casos por
+  condição). A camada nova (`improved`) elevou a concordância com o veredito do texto limpo de 0,630
+  para 0,731 (Δ +0,101, IC por família +0,074 a +0,129) e, nos modelos reservados, de 0,586 para
+  0,654; a variante com visão (`improved_vision`) chegou a 0,740, com CER das imagens de 0,016 e
+  nenhuma rejeição, mas com 41 a 52 s nos pedidos em que a visão foi acionada. As duas passaram em
+  G1–G5 e reprovaram em G6: 2,19% e 2,40% de falhas técnicas, contra o limite fixo de 2% (a linha de
+  base teve 3,85%). As falhas são `ModelOutputError` do extrator de alegação da v3, fora da camada
+  avaliada, mas a regra não é reinterpretada. `EXTRACTION_VERSION=v1` continua padrão; a v2 fica
+  opt-in. Achado: a mensagem com link concorda só 0,23 porque o extrator de alegação se confunde com
+  o comentário à frente do conteúdo. Detalhes em `evaluation/extraction_v1/RESULTS.md`.
 ## Política de alteração
 
 Uma ADR aceita pode ser alterada quando houver evidência experimental, inviabilidade

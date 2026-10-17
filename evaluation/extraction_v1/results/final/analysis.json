@@ -1,0 +1,225 @@
+{
+  "phase": "final",
+  "summaries": {
+    "baseline": {
+      "cases": 912,
+      "agreement": 0.6304824561403509,
+      "agreement_reserved": 0.5859375,
+      "agreement_by_modality": {
+        "image": 0.7708333333333334,
+        "link": 0.4114583333333333,
+        "message": 0.10416666666666667,
+        "text": 0.796875
+      },
+      "agreement_by_template": {
+        "image/clean": 0.9375,
+        "image/low_res_forward": 0.7708333333333334,
+        "image/meme": 0.5833333333333334,
+        "image/photo_social_dark": 0.625,
+        "image/photo_whatsapp_light": 0.8125,
+        "image/social_light": 0.7708333333333334,
+        "image/story_overlay": 0.7708333333333334,
+        "image/whatsapp_dark": 0.8333333333333334,
+        "image/whatsapp_light": 0.8333333333333334,
+        "link/blog_divs": 0.3333333333333333,
+        "link/long_page": 0.10416666666666667,
+        "link/news_article": 0.625,
+        "link/pdf_report": 0.5833333333333334,
+        "message/comment_with_link": 0.10416666666666667,
+        "message/link_then_question": 0.10416666666666667,
+        "text/caps_shout": 0.8333333333333334,
+        "text/forward_emoji": 0.7291666666666666,
+        "text/inline_url": 0.8125,
+        "text/two_claims": 0.8125
+      },
+      "image_cer_mean": 0.03766689814814815,
+      "image_markers_preserved": 0.9166666666666666,
+      "image_rejections": 11,
+      "technical_failures": 37,
+      "failure_rate": 0.03854166666666667,
+      "latency_p95_s": {
+        "image": 17.8277,
+        "link": 17.0663,
+        "message": 8.6171,
+        "reference": 17.570700000000002,
+        "text": 17.3967
+      },
+      "macro_f1_vs_gold": {
+        "reference_text": 0.5832378405907818,
+        "multimodal_cases": 0.5035858059717399
+      }
+    },
+    "improved": {
+      "cases": 912,
+      "agreement": 0.731359649122807,
+      "agreement_reserved": 0.6536458333333334,
+      "agreement_by_modality": {
+        "image": 0.8055555555555556,
+        "link": 0.6666666666666666,
+        "message": 0.23958333333333334,
+        "text": 0.875
+      },
+      "agreement_by_template": {
+        "image/clean": 0.9375,
+        "image/low_res_forward": 0.875,
+        "image/meme": 0.6041666666666666,
+        "image/photo_social_dark": 0.6666666666666666,
+        "image/photo_whatsapp_light": 0.8333333333333334,
+        "image/social_light": 0.8541666666666666,
+        "image/story_overlay": 0.7708333333333334,
+        "image/whatsapp_dark": 0.8541666666666666,
+        "image/whatsapp_light": 0.8541666666666666,
+        "link/blog_divs": 0.5625,
+        "link/long_page": 0.7708333333333334,
+        "link/news_article": 0.75,
+        "link/pdf_report": 0.5833333333333334,
+        "message/comment_with_link": 0.22916666666666666,
+        "message/link_then_question": 0.25,
+        "text/caps_shout": 0.8125,
+        "text/forward_emoji": 0.9791666666666666,
+        "text/inline_url": 0.875,
+        "text/two_claims": 0.8333333333333334
+      },
+      "image_cer_mean": 0.03507824074074074,
+      "image_markers_preserved": 0.9166666666666666,
+      "image_rejections": 8,
+      "technical_failures": 21,
+      "failure_rate": 0.021875,
+      "latency_p95_s": {
+        "image": 17.9617,
+        "link": 16.650599999999997,
+        "message": 10.688799999999999,
+        "reference": 17.5245,
+        "text": 16.653599999999997
+      },
+      "macro_f1_vs_gold": {
+        "reference_text": 0.5832378405907818,
+        "multimodal_cases": 0.5322389887678922
+      }
+    },
+    "improved_vision": {
+      "cases": 912,
+      "agreement": 0.7401315789473685,
+      "agreement_reserved": 0.671875,
+      "agreement_by_modality": {
+        "image": 0.8217592592592593,
+        "link": 0.6614583333333334,
+        "message": 0.2708333333333333,
+        "text": 0.8697916666666666
+      },
+      "agreement_by_template": {
+        "image/clean": 0.9375,
+        "image/low_res_forward": 0.8541666666666666,
+        "image/meme": 0.6875,
+        "image/photo_social_dark": 0.7083333333333334,
+        "image/photo_whatsapp_light": 0.8541666666666666,
+        "image/social_light": 0.8541666666666666,
+        "image/story_overlay": 0.7916666666666666,
+        "image/whatsapp_dark": 0.8333333333333334,
+        "image/whatsapp_light": 0.875,
+        "link/blog_divs": 0.5833333333333334,
+        "link/long_page": 0.7708333333333334,
+        "link/news_article": 0.6875,
+        "link/pdf_report": 0.6041666666666666,
+        "message/comment_with_link": 0.2708333333333333,
+        "message/link_then_question": 0.2708333333333333,
+        "text/caps_shout": 0.8125,
+        "text/forward_emoji": 0.9791666666666666,
+        "text/inline_url": 0.8541666666666666,
+        "text/two_claims": 0.8333333333333334
+      },
+      "image_cer_mean": 0.01595648148148148,
+      "image_markers_preserved": 0.9351851851851852,
+      "image_rejections": 0,
+      "technical_failures": 23,
+      "failure_rate": 0.023958333333333335,
+      "latency_p95_s": {
+        "image": 18.6085,
+        "link": 16.2729,
+        "message": 14.1874,
+        "reference": 17.7031,
+        "text": 16.5334
+      },
+      "macro_f1_vs_gold": {
+        "reference_text": 0.5832378405907818,
+        "multimodal_cases": 0.5350094132677774
+      }
+    }
+  },
+  "decision": {
+    "improved": {
+      "bootstrap": {
+        "overall": {
+          "delta": 0.1009,
+          "ci95": [
+            0.0735,
+            0.1294
+          ],
+          "families": 12
+        },
+        "reserved": {
+          "delta": 0.0677,
+          "ci95": [
+            0.0234,
+            0.1172
+          ],
+          "families": 12
+        },
+        "clean": {
+          "delta": 0.0,
+          "ci95": [
+            -0.0625,
+            0.0625
+          ],
+          "families": 12
+        }
+      },
+      "gates": {
+        "G1_overall_gain": true,
+        "G2_reserved_gain": true,
+        "G3_clean_non_regression": true,
+        "G4_image_cer_and_markers": true,
+        "G5_latency": true,
+        "G6_failures_and_rejections": false
+      },
+      "passes": false
+    },
+    "improved_vision": {
+      "bootstrap": {
+        "overall": {
+          "delta": 0.1096,
+          "ci95": [
+            0.0866,
+            0.1371
+          ],
+          "families": 12
+        },
+        "reserved": {
+          "delta": 0.0859,
+          "ci95": [
+            0.0417,
+            0.1354
+          ],
+          "families": 12
+        },
+        "clean": {
+          "delta": 0.0,
+          "ci95": [
+            -0.0625,
+            0.0625
+          ],
+          "families": 12
+        }
+      },
+      "gates": {
+        "G1_overall_gain": true,
+        "G2_reserved_gain": true,
+        "G3_clean_non_regression": true,
+        "G4_image_cer_and_markers": true,
+        "G5_latency": true,
+        "G6_failures_and_rejections": false
+      },
+      "passes": false
+    }
+  }
+}

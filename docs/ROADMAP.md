@@ -660,11 +660,13 @@ regra e a v3 permanece padrão. Limitação: a conferência humana das paráfras
 - [x] Benchmark sintético com gabarito automático (capturas, fotos de tela, memes, páginas, PDF,
   mensagens com link e texto encaminhado), com modelos de desenvolvimento e reservados.
 - [x] Linha de base de desenvolvimento da extração atual (CER e concordância do veredito).
-- [ ] Regra de decisão registrada antes das mudanças.
-- [ ] Camada de compreensão da entrada: OCR em várias passadas com filtro de interface, legenda e
+- [x] Regra de decisão registrada antes das mudanças.
+- [x] Camada de compreensão da entrada: OCR em várias passadas com filtro de interface, legenda e
   link na mensagem, conteúdo principal da página com seleção da alegação, limpeza de texto
   encaminhado; alternativa de OCR por visão condicionada à latência.
-- [ ] Execução final única, nos itens `test` e com os modelos reservados, e decisão pela regra.
+- [x] Execução final única, nos itens `test` e com os modelos reservados, e decisão pela regra
+  (17/10/2026): ganho de +0,10 na concordância, mas reprovação no G6 (falhas 2,19% > 2%); v1
+  continua padrão e a v2 fica opt-in. Ver `evaluation/extraction_v1/RESULTS.md`.
 
 Critérios de aceite: suíte completa e Ruff aprovados; relatório com CER, concordância do veredito
 por modalidade e modelo, IC por família, latência P95 e limitações; decisão aplicada conforme
