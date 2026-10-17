@@ -89,6 +89,13 @@ def test_multiplier_in_the_proposition_counts() -> None:
     assert unsupported_numbers("A vacina evitou 35 mil mortes em 2016.", evidence) == ("35",)
 
 
+def test_line_breaks_are_not_thousands_separators() -> None:
+    # Tabela da evidência que derrubava a execução final com ValueError (ref4-0078).
+    table = "50\n100\n150\n200\n250\n300\n350\n400\n450"
+    assert {50.0, 100.0, 450.0} <= number_values(table)
+    assert 28_000.0 in number_values("28\u00a0000 mortes")
+
+
 def test_space_grouping_does_not_merge_adjacent_numbers() -> None:
     assert 5_201.0 not in number_values("menores de 5 2016")
     assert {5.0, 2016.0} <= number_values("menores de 5 2016")

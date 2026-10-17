@@ -35,7 +35,7 @@ from immunocheck.domain.models import Evidence
 
 QUOTE_TOKEN_COVERAGE = 0.9
 
-_NUMBER = re.compile(r"\d+(?:[.,\s]\d{3}(?!\d))*(?:[.,]\d+)?")
+_NUMBER = re.compile(r"\d+(?:[.,\u00a0 ]\d{3}(?!\d))*(?:[.,]\d+)?")
 _NAME_DIGITS = re.compile(r"covid-19|sars-cov-2", re.IGNORECASE)
 _WORD = re.compile(r"\w+")
 _NUMBER_WORDS = {
@@ -234,7 +234,7 @@ def _parse_number(raw: str) -> set[float]:
     é ambígua ("28.000" ou "2,500") e as duas valem; nos demais casos, ele é decimal ("90,7").
     """
 
-    compact = raw.strip().replace(" ", "")
+    compact = "".join(raw.split())
     separators = [char for char in compact if char in ".,"]
     if not separators:
         return {float(compact)}
