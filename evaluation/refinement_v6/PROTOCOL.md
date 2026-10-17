@@ -144,3 +144,22 @@ circular para `v5_fixed`.
 4. **Limitação declarada:** a perda de recall de `SUPPORTED` não pode ser confirmada em nenhum
    conjunto (12 itens no externo). O risco de conservadorismo fica coberto indiretamente pela
    cobertura (X3) e pela precisão das conclusões (X1).
+
+## Calibração da V2 (17/10/2026, só os 48 itens `development` do v4)
+
+- **Defeito encontrado e corrigido antes do congelamento:** a regra tolerante lia "28 mil" na
+  proposição só como 28 e a rebaixava diante de "28 000" na evidência, caso que a regra estrita da
+  v5 aceitava. Correção (`cee0681`): só são candidatos a rebaixamento os números que a v5 já
+  rebaixaria, e o multiplicador da proposição entra na leitura. Com isso a regra tolerante nunca é
+  mais rígida que a da v5, propriedade coberta por teste. O registro anterior à correção ficou em
+  `results/dev/v5_fixed_v4_development_prefix.jsonl`, sem uso na decisão.
+- **Referência na mesma máquina e no mesmo dia:** `v5_multiquery` e `v5_fixed` nos 144 casos
+  (48 itens × 3 formas). A alegação canônica saiu idêntica nos 144. Só 1 veredito mudou
+  (ref4-0081: `INSUFFICIENT_EVIDENCE` → `REFUTED`, o gabarito); recall de `SUPPORTED` igual (0,92 /
+  1,00 / 1,00), nenhuma falha, P95 15,5 s. Macro-F1: 0,738 → 0,745. Sem regressão.
+- **`qwen3.6` como juiz:** 20 casos de calibração, P95 de 27,8 s, nenhuma falha. Cabe nos 45 s, então
+  `v5_fixed_qwen36` entra na execução final. Descritivo, sem efeito na regra: acertou 8 de 20, contra
+  13 de 20 da `v5_fixed` nos mesmos casos.
+- **Esclarecimento da execução final no v4:** o critério 2 (consistência entre formas) exige as três
+  formas, então o passo 2 da execução final usa os 96 itens nas três formas (288 entradas), como na
+  v5; os demais critérios continuam calculados na forma original.
