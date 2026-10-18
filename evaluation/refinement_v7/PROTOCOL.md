@@ -167,6 +167,109 @@ As mudanças de arquitetura candidatas (contexto ampliado para o juiz, etapa de 
 regra de decisão são registradas num adendo a este protocolo, depois de o C7 existir e antes de
 qualquer contato com o teste. As linhas de base são a v3 (padrão) e a `v5_fixed`.
 
+## Adendo 1 — Fase 20: candidatas e regra de decisão (18/10/2026)
+
+Registrado depois do congelamento do C7 (`freeze.json`, 18/10) e antes de qualquer execução do
+veredito sobre o C7 ou sobre o teste externo 2. Até aqui, nenhum sistema foi rodado sobre esses
+conjuntos.
+
+### Ponto de partida
+
+- **Linhas de base:**
+  - **v3**, a padrão do bot (pipeline roteado);
+  - **`v5_fixed`**, a v5 com a verificação tolerante e a correção de números da Fase 18 (`99d4999`).
+    É a melhor alternativa medida até agora.
+- **Problemas observados nos registros da Fase 18:**
+  - `MISLEADING` se perde na agregação;
+  - quando a decomposição resulta em uma única proposição, a agregação nunca produz `MISLEADING`;
+  - o juiz só conhece três relações (`ENTAILED`, `CONTRADICTED`, `NOT_ADDRESSED`), sem um meio-termo
+    para "sustentado em parte, mas exagerado";
+  - a maioria das abstenções vem do juiz dizer `NOT_ADDRESSED` mesmo com evidência recuperada.
+
+### Candidatas
+
+Cada candidata é uma opção injetada, desligada por padrão, implementada em módulos novos. Nenhum
+arquivo congelado da v3, da v5 ou da v6 é editado, para que os resultados anteriores continuem
+reprodutíveis.
+
+| Id | Candidata | Hipótese | Custo esperado |
+|---|---|---|---|
+| C1 | **Relação de enquadramento:** o juiz ganha uma quarta relação, `PARTIAL` (o trecho sustenta o núcleo, mas a proposição exagera o alcance, omite uma ressalva ou salta para causa). Exige trecho literal, como as outras. Na agregação, `PARTIAL` em proposição central ou conclusão, sem contradição central, vira `MISLEADING`, inclusive quando há uma proposição só. | Recupera o recall de `MISLEADING` sem custo de latência. | Nenhum |
+| C2 | **Contexto ampliado para o juiz:** cada evidência recuperada vai com os chunks vizinhos do mesmo documento (anterior e seguinte), dentro de um teto de caracteres. | Reduz `NOT_ADDRESSED` quando a frase decisiva está no chunk ao lado. | Prompt maior, mais latência |
+| C3 | **`qwen3.6` só no juiz:** a decomposição continua com o `qwen3:8b`. | Melhor juiz da Fase 18 (macro-F1 de 0,716 no v4), com menos latência que o `qwen3.6` no pipeline todo. | P95 de ~25 s na Fase 18 |
+| C4 | **Robustez da decomposição:** uma nova tentativa com instrução de reparo quando o extrator devolve `ModelOutputError`; se falhar de novo, cai na v3 em vez de abster. | Reduz falhas técnicas. | Só nos casos de falha |
+| C5 | **Voto por consistência no juiz:** 3 julgamentos com sementes diferentes (temperatura 0,3) e maioria por proposição; empate vira `NOT_ADDRESSED`. | Estabiliza julgamentos na fronteira. | 3× o custo do juiz; só entra se o P95 couber |
+
+A "saída estruturada em todas as chamadas", listada no protocolo, já está em vigor: todas as
+chamadas da v5 usam `format: schema`. Por isso ela não é candidata.
+
+### Desenvolvimento (só o split de desenvolvimento do C7, 193 itens)
+
+1. **Linhas de base:** a v3 e a `v5_fixed` são rodadas uma vez no desenvolvimento e servem de
+   referência para todo o desenvolvimento.
+2. **Seleção progressiva:** começa pela `v5_fixed` e cada candidata é testada na ordem C1, C4, C2,
+   C3, C5. Ela fica se, contra a configuração acumulada:
+   - melhorar o macro-F1 de 4 classes no desenvolvimento em pelo menos 0,02;
+   - não aumentar o erro grave em mais de 0,02;
+   - mantiver o P95 em até 45 s.
+
+   A C4 é exceção: fica se reduzir as falhas técnicas sem piorar o macro-F1 em mais de 0,01.
+3. **Ajustes dentro de cada candidata:** prompts e limiares podem ser iterados livremente no
+   desenvolvimento, mas cada versão testada é registrada (data, mudança, métricas) em
+   `evaluation/refinement_v7/DEVELOPMENT_LOG.md`. A versão escolhida é a última registrada, e não a
+   melhor entre muitas sorteadas ao acaso.
+4. **Prazo:** o desenvolvimento termina até 31/10/2026. Se uma candidata não estiver pronta, ela fica
+   de fora, e isso é registrado.
+5. **Congelamento:** a configuração final recebe o nome **v7**. Os hashes do código, dos prompts e dos
+   modelos vão para `evaluation/refinement_v7/verdict_freeze.json` antes da execução no teste.
+
+### Execução final (única)
+
+- **Teste do C7 (207 itens) e teste externo 2 (304 itens),** com quatro condições: v3, `v5_fixed`, v7
+  e **v7 sem `qwen3.6`** (só se a C3 entrar). Esta última é a variante rápida, que não depende do
+  modelo de 23 GB.
+- **Integridade:** antes de rodar, o script confere os hashes do C7 e do teste externo 2 contra os
+  congelamentos. Cada condição roda uma vez, com checkpoint retomável, e não se repete.
+
+### Regra de promoção
+
+A v7 (ou a variante sem `qwen3.6`) substitui a v3 como padrão do bot se passar em todos os critérios
+abaixo, sempre contra a v3. Os ICs são de bootstrap pareado, 10.000 reamostras, semente 42.
+
+**No teste do C7:**
+
+| Critério | Condição |
+|---|---|
+| P1 | Macro-F1 de 4 classes: Δ ≥ +0,05 e limite inferior do IC 95% (pareado por família) > 0 |
+| P2 | Erro grave (item não `SUPPORTED` respondido como `SUPPORTED`): taxa ≤ taxa da v3 + 0,02 |
+| P3 | Recall de `MISLEADING` ≥ ao da v3 |
+| P4 | P95 ≤ 45 s; falhas técnicas ≤ max(2%, taxa da v3) |
+
+**No teste externo 2,** com as mesmas métricas e os mesmos limites da Fase 18 (pareado por item):
+
+| Critério | Condição |
+|---|---|
+| X1 | Precisão das conclusões: Δ ≥ −0,02 e limite inferior do IC 95% ≥ −0,08 |
+| X2 | Erro grave ≤ taxa da v3 + 0,02 |
+| X3 | Queda de cobertura ≤ 0,10 |
+| X4 | P95 ≤ 45 s; falhas técnicas ≤ max(2%, taxa da v3) |
+
+Os limites dos critérios X são os da Fase 18, mantidos sem alteração mesmo depois de a v5 ter
+reprovado em X3. Mudá-los depois de ver aquele resultado seria ajuste ao dado.
+
+- **Desempate:** se as duas variantes da v7 passarem, fica a de maior macro-F1 no teste do C7. Se a
+  diferença for menor que 0,02, fica a variante sem `qwen3.6`.
+- **`v5_fixed`:** é rodada só como comparação e não pode ser promovida nesta fase. Ela já foi
+  avaliada na Fase 18.
+- **Se nenhuma passar:** a v3 continua padrão, e os resultados entram no TCC como estão.
+
+**Diagnósticas (sem gate):**
+- recall por classe;
+- acerto por subtipo de `MISLEADING` e por origem do `INSUFFICIENT_EVIDENCE` (relato ou fato de fora);
+- recuperação do chunk de origem entre as evidências;
+- `NOT_ADDRESSED` com evidência recuperada;
+- concordância entre as condições.
+
 ## Ameaças à validade (declaradas antes)
 
 - As alegações são sintéticas: o estilo e a distribuição diferem das mensagens reais, e o teste

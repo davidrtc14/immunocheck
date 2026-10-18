@@ -700,3 +700,16 @@ grave, cobertura, IC, estratificação por cobertura do corpus e limitações; d
 
 Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; relatório do conjunto com
 distribuição, portões, taxa de erro de rótulo e limitações; congelamento registrado antes da Fase 20.
+
+## Fase 20 — Veredito v7 (ADR-054)
+
+- [x] Adendo com candidatas e regra de decisão registrado antes de qualquer execução nos conjuntos.
+- [ ] Linhas de base (v3 e `v5_fixed`) no desenvolvimento do C7.
+- [ ] Seleção progressiva das candidatas C1–C5 no desenvolvimento, com registro de cada versão.
+- [ ] Configuração v7 congelada por hash até 31/10.
+- [ ] Execução única no teste do C7 e no teste externo 2, com as quatro condições.
+- [ ] Decisão de promoção pela regra e relatório de resultados.
+
+Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; candidatas desligadas por
+padrão e sem edição de arquivos congelados; `DEVELOPMENT_LOG.md` e `verdict_freeze.json` registrados
+antes do teste; `RESULTS.md` com todos os critérios e limitações.

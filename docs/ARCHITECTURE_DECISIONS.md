@@ -55,6 +55,7 @@
 | ADR-051 | Correção pontual da v5 e confirmação em teste externo de agências de checagem | Avaliada; não promovida (v3 padrão) | 150 alegações externas congeladas sem inferência; avaliação "sustentada × não sustentada" com abstenção como terceira saída (precisão das conclusões, erro grave, cobertura), porque o gabarito é de mundo real e a abstenção fora do corpus é o comportamento exigido. Promoção exige os seis critérios v5 no v4 e não inferioridade no externo; regra em `evaluation/refinement_v6/PROTOCOL.md`. No externo, a v5 corta o erro grave pela metade (5,8% → 2,9%), mas a cobertura cai 0,147, acima do limite de 0,10. |
 | ADR-052 | Nova base de avaliação do veredito: conjunto contrastivo gerado do corpus e teste externo 2 | Aceita (C7 e teste externo 2 congelados) | O v4 (96 itens, 24 `MISLEADING`) e o teste externo 1 já foram revelados e não permitem iterar a arquitetura. Alegações geradas de chunks do corpus têm rótulo por construção, conferido por portões automáticos e por revisão humana de uma amostra; o gerador (`mistral-small3.2`, Apache 2.0) é de outra família para evitar autopreferência do juiz. Métrica principal: macro-F1 de 4 classes; regra em `evaluation/refinement_v7/PROTOCOL.md`. C7 congelado em 18/10: 400 itens (207 de teste), revisão assistida por LLM declarada; relatório em `evaluation/refinement_v7/C7_REPORT.md`. |
 | ADR-053 | Link como protótipo experimental; texto e imagem formam o escopo avaliado | Aceita | Com um mês até a entrega e o veredito como objetivo principal, o pesquisador definiu o escopo estritamente necessário: texto e imagem predominantemente textual. O processamento de link continua no bot, com as mesmas proteções de segurança, mas como protótipo experimental, sem critério de aceite próprio nem nova rodada de avaliação; as avaliações do veredito usam a entrada em texto. |
+| ADR-054 | Veredito v7: seleção progressiva de candidatas no desenvolvimento do C7 e execução única no teste | Em avaliação | Candidatas: relação `PARTIAL` para `MISLEADING`, contexto ampliado para o juiz, `qwen3.6` só no juiz, robustez da decomposição e voto por consistência. Cada uma entra se melhorar o macro-F1 do desenvolvimento em ≥ 0,02 sem piorar o erro grave e com P95 ≤ 45 s. A promoção contra a v3 exige ganho de macro-F1 ≥ 0,05 (IC > 0) no teste do C7 e os gates X1–X4 da Fase 18 no teste externo 2. Regra no Adendo 1 de `evaluation/refinement_v7/PROTOCOL.md`. |
 
 ## Histórico de alterações
 
@@ -369,6 +370,11 @@
   19. Impacto metodológico: nenhum resultado anterior muda; a ADR-050 (extração) já tratava o link
   separadamente. Migração: o manuscrito e o `PROJECT_BRIEF.md` passam a descrever o link como
   experimental.
+- **18/10/2026 — ADR-054:** aberta a Fase 20. O Adendo 1 do protocolo da v7 registra cinco
+  candidatas, a seleção progressiva no desenvolvimento do C7 (193 itens), o prazo de 31/10 para o
+  desenvolvimento e a regra de promoção contra a v3 (critérios P1–P4 no teste do C7 e X1–X4 no teste
+  externo 2, com os limites da Fase 18 sem alteração). Nada foi executado sobre os conjuntos antes do
+  registro.
 
 ## Política de alteração
 
