@@ -18,12 +18,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from run_v6_experiment import build_pipeline as build_v6_pipeline  # type: ignore[import-not-found]
 
+from immunocheck.bootstrap_v7 import CANDIDATES, build_v7_text_pipeline
 from immunocheck.domain.models import ContentKind, ContentSubmission, Verdict
 
 REPOSITORY = Path(__file__).resolve().parents[1]
 C7_ITEMS = REPOSITORY / "evaluation/refinement_v7/items.jsonl"
 RUNS = REPOSITORY / "output/v7_runs"
-CONDITIONS = ("v3", "v5_fixed")
+BASELINES = ("v3", "v5_fixed")
 
 
 def c7_cases(split: str) -> list[dict]:
@@ -45,12 +46,23 @@ def c7_cases(split: str) -> list[dict]:
 
 
 def build_pipeline(condition: str, trace_sink):
-    return build_v6_pipeline(condition, trace_sink)
+    """`v3`, `v5_fixed` ou `v7+C1+...` (candidatas ligadas sobre a `v5_fixed`)."""
+
+    if condition in BASELINES:
+        return build_v6_pipeline(condition, trace_sink)
+    name, *candidates = condition.split("+")
+    if name != "v7":
+        raise SystemExit(f"Condição desconhecida: {condition}")
+    return build_v7_text_pipeline(candidates, trace_sink=trace_sink)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Experimento v7 (ADR-054).")
-    parser.add_argument("--condition", choices=CONDITIONS, required=True)
+    parser.add_argument(
+        "--condition",
+        required=True,
+        help=f"v3, v5_fixed ou v7+<candidatas> (de {', '.join(CANDIDATES)})",
+    )
     parser.add_argument("--phase", choices=("dev",), default="dev")
     parser.add_argument("--limit", type=int, help="só os primeiros N casos")
     parser.add_argument("--tag", default="run1")
@@ -61,7 +73,7 @@ def main() -> None:
         cases = cases[: args.limit]
     output_dir = RUNS / args.phase
     output_dir.mkdir(parents=True, exist_ok=True)
-    checkpoint = output_dir / f"{args.condition}_c7_development_{args.tag}.jsonl"
+    checkpoint = output_dir / f"{args.condition.replace('+', '_')}_c7_development_{args.tag}.jsonl"
     done: set[str] = set()
     if checkpoint.exists():
         done = {
