@@ -579,18 +579,46 @@ label{{margin-right:14px;display:inline-block}} input[type=text]{{width:100%;mar
 button{{position:sticky;bottom:12px;padding:10px 16px;font-size:1em}}
 </style></head><body>
 <h1>Revisão do conjunto C7</h1>
-<p>Para cada alegação, marque se o rótulo proposto está correto segundo o guia de anotação. Se
-estiver incorreto e você souber o rótulo certo, escolha-o. Ao terminar, clique em "Baixar respostas"
-e me diga onde salvou o arquivo.</p>
+<p>Para cada alegação, marque se o rótulo proposto está correto segundo o guia abaixo. Se
+estiver incorreto e você souber o rótulo certo, escolha-o. As respostas ficam salvas neste navegador
+enquanto você revisa. Ao terminar, clique em "Baixar respostas" e me diga onde salvou o arquivo.</p>
+<details open><summary><b>Guia de rótulos</b> (resumo de <code>evaluation/end_to_end/ANNOTATION_GUIDE.md</code>)</summary>
+<p>Julgue <b>só pelo trecho mostrado</b>, não pelo que você sabe de outras fontes.</p>
+<ul>
+<li><b>SUPPORTED</b>: o trecho sustenta diretamente a alegação, no mesmo alcance.</li>
+<li><b>REFUTED</b>: o trecho contradiz diretamente a parte central; não mencionar não basta.</li>
+<li><b>MISLEADING</b>: parte da alegação é sustentada, mas o alcance, o contexto ou a conclusão foi
+distorcido de modo relevante. Se nada relevante for sustentado, prefira REFUTED.</li>
+<li><b>INSUFFICIENT_EVIDENCE</b>: a alegação vem de fora do corpus ou é um relato de caso particular.
+Está correto se <b>nenhum dos três trechos mais próximos do corpus</b> permite sustentar nem
+contradizer a alegação. Se algum deles resolve a questão, marque incorreto e escolha o rótulo que
+esse trecho daria.</li>
+</ul>
+<p>Use “ambíguo” quando dois rótulos forem defensáveis.</p></details>
 {"".join(cards)}
 <button onclick="baixar()">Baixar respostas</button>
 <script>
-function baixar(){{
-  const out=[...document.querySelectorAll('section')].map(s=>({{
+const KEY='revisao_c7';
+function estado(){{
+  return [...document.querySelectorAll('section')].map(s=>({{
     item_id:s.dataset.id,
     verdict:(s.querySelector('input[type=radio]:checked')||{{}}).value||null,
     corrected_label:s.querySelector('select').value||null,
     note:s.querySelector('input[type=text]').value}}));
+}}
+function salvar(){{try{{localStorage.setItem(KEY,JSON.stringify(estado()));}}catch(e){{}}}}
+(function restaurar(){{
+  let saved=[];try{{saved=JSON.parse(localStorage.getItem(KEY)||'[]');}}catch(e){{}}
+  for(const a of saved){{
+    const s=document.querySelector('section[data-id="'+a.item_id+'"]');if(!s)continue;
+    if(a.verdict){{const r=s.querySelector('input[value="'+a.verdict+'"]');if(r)r.checked=true;}}
+    if(a.corrected_label)s.querySelector('select').value=a.corrected_label;
+    s.querySelector('input[type=text]').value=a.note||'';
+  }}
+  document.addEventListener('change',salvar);document.addEventListener('input',salvar);
+}})();
+function baixar(){{
+  const out=estado();
   const faltam=out.filter(a=>!a.verdict).length;
   if(faltam&&!confirm(faltam+' itens sem resposta. Baixar mesmo assim?'))return;
   const a=document.createElement('a');
