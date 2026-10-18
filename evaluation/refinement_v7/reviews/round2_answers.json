@@ -1,0 +1,202 @@
+[
+  {
+    "item_id": "c7-0302",
+    "source_chunk_id": "ahrq_vaccine_safety_evidence_2021#14",
+    "claim": "O risco de reações alérgicas graves, como choque anafilático, após vacinação continua o mesmo para adultos e crianças.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos descrevem anafilaxia, medidas de observação e contraindicações, mas não comparam a probabilidade de reação grave entre adultos e crianças. A igualdade de risco não é sustentada nem contrariada."
+  },
+  {
+    "item_id": "c7-0313",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#40",
+    "claim": "Quase todos os estudos foram feitos com o esquema de três doses da vacina.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Um trecho informa que certos esquemas de três doses foram usados em estudos, mas não quantifica quantos estudos seguiram esse esquema nem sustenta “quase todos”. Os demais trechos também não resolvem essa proporção."
+  },
+  {
+    "item_id": "c7-0314",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#41",
+    "claim": "Os estudos foram feitos em países que usaram vacinas contra HPV de dois tipos em sete casos, quatro tipos em 27 ou ambas em um.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos mencionam vacinas bivalentes, quadrivalentes e nonavalentes, porém não apresentam a contagem alegada de sete estudos com vacina bivalente, 27 com quadrivalente e um com ambas."
+  },
+  {
+    "item_id": "c7-0315",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#44",
+    "claim": "Cinco dos nove estudos compararam pessoas que receberam três, duas ou uma dose da vacina com aquelas não vacinadas.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos mostram comparações entre diferentes números de doses e grupos não vacinados em alguns estudos, mas não confirmam a contagem específica de cinco entre nove estudos descrita na alegação."
+  },
+  {
+    "item_id": "c7-0316",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#45",
+    "claim": "A vacina com duas doses teve eficácia de 84% contra infecção por HPV16/18.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O material diz que a infecção por HPV16/18 foi pouco frequente entre vacinadas e que não houve diferença clara entre grupos de doses, mas não informa eficácia de 84% para o esquema de duas doses."
+  },
+  {
+    "item_id": "c7-0317",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#47",
+    "claim": "Um estudo na Escócia mostrou que três doses da vacina foram eficazes.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos sobre eficácia apresentados referem-se principalmente a varicela ou a estudos de HPV em outros contextos. Nenhum identifica um estudo realizado na Escócia que demonstre eficácia de três doses."
+  },
+  {
+    "item_id": "c7-0318",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#49",
+    "claim": "Um estudo em Mongólia incluiu mulheres que participaram de uma campanha piloto de vacinação contra HPV.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho enumera estudos de HPV no Quênia, Tanzânia, Estados Unidos, Costa Rica e Índia, mas não menciona a Mongólia nem uma campanha piloto mongol. Como a ausência de menção, por si só, não refuta a alegação, a informação permanece sem confirmação."
+  },
+  {
+    "item_id": "c7-0319",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#51",
+    "claim": "Todos os oito estudos que avaliaram a eficácia de três doses da vacina contra não vacinação encontraram resultados significativos.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos descrevem estudos e resultados de vacinas, mas não identificam os oito estudos citados nem afirmam que todos encontraram resultados estatisticamente significativos ao comparar três doses com nenhuma vacinação."
+  },
+  {
+    "item_id": "c7-0320",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#53",
+    "claim": "A dose única da vacina com um intervalo de 6 meses após a última aplicação teve uma razão de risco ajustada de 0,81.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A tabela inclui razões de risco para diferentes esquemas, mas os trechos não associam o valor ajustado de 0,81 à dose única aplicada seis meses após a última dose. Não é possível confirmar a combinação específica alegada."
+  },
+  {
+    "item_id": "c7-0321",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#57",
+    "claim": "Quinze dos dezesseis estudos mostraram que três doses da vacina são eficazes.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos não apresentam um conjunto de dezesseis estudos sobre três doses nem indicam que quinze deles tenham demonstrado eficácia. Os números e a conclusão específicos não são verificáveis com o material mostrado."
+  },
+  {
+    "item_id": "c7-0322",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#6",
+    "claim": "A maioria dos estudos mostrou maior eficácia com três doses da vacina, sendo que 28 de 29 estudos avaliados confirmaram isso.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O material menciona estudos de esquemas com uma e duas doses para varicela e comparações de doses contra HPV, mas não sustenta a contagem de 28 em 29 estudos favorecendo três doses."
+  },
+  {
+    "item_id": "c7-0323",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#61",
+    "claim": "Todos os estudos, exceto um, mostraram que três doses da vacina são eficazes em comparação com não ser vacinado.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos não apresentam a série de estudos mencionada nem permitem verificar que apenas um deles deixou de demonstrar eficácia de três doses frente à ausência de vacinação."
+  },
+  {
+    "item_id": "c7-0324",
+    "source_chunk_id": "cdc_hpv_doses_review_2022#64",
+    "claim": "Meninas que tomaram uma ou duas doses da vacina eram diferentes das que completaram o esquema recomendado.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho informa que alguns participantes receberam menos doses do que o esquema previsto e que os resultados foram comparados, mas não afirma que meninas com uma ou duas doses eram diferentes das que completaram o esquema. A diferença alegada não é demonstrada."
+  },
+  {
+    "item_id": "c7-0362",
+    "source_chunk_id": "ms_hepatite_a#8",
+    "claim": "A vacina é aplicada em duas doses, com pelo menos seis meses entre elas.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos apresentam calendários diferentes: a vacina monovalente contra rotavírus tem duas doses com intervalo mínimo de quatro semanas, e a pentavalente tem três doses. Como a alegação não identifica qual vacina está em causa, o material não permite confirmar um esquema de duas doses separadas por pelo menos seis meses."
+  },
+  {
+    "item_id": "c7-0374",
+    "source_chunk_id": "ms_saude_migracao#2",
+    "claim": "O SUS dá todas as vacinas do PNI de graça para migrantes, refugiados e apátridas.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos afirmam que o PNI oferece vacinas de forma universal e gratuita à população, mas não mencionam explicitamente migrantes, refugiados ou apátridas nem confirmam o alcance da regra para esses grupos. A especificidade da alegação não fica resolvida."
+  },
+  {
+    "item_id": "c7-0377",
+    "source_chunk_id": "ms_triplice_viral#2",
+    "claim": "Quem tem entre 5 e 29 anos deve tomar duas doses da vacina, com pelo menos um mês de diferença.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos descrevem calendários diferentes para vacinas distintas: há esquemas de COVID-19 com intervalo de seis meses em um grupo específico, uma dose para certas pessoas a partir de cinco anos no trecho sobre febre amarela e duas doses de HPV com intervalo de três meses em uma faixa etária específica. Não há base para uma regra geral para todas as pessoas de 5 a 29 anos."
+  },
+  {
+    "item_id": "c7-0379",
+    "source_chunk_id": "opas_faq_vacinacao#12",
+    "claim": "As vacinas que estão no mercado não têm células fetais.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho explica que vacinas podem ser produzidas com sistemas de cultura celular e que os processos variam, mas não esclarece se todas as vacinas comercializadas contêm ou não células fetais. Não confirma nem refuta a afirmação universal."
+  },
+  {
+    "item_id": "c7-0380",
+    "source_chunk_id": "opas_faq_vacinacao#24",
+    "claim": "Crianças com síndrome de Down têm mais chances de ter complicações por doenças preveníveis com vacinas.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos tratam de hesitação vacinal, complicações de doenças preveníveis e segurança de vacinas, mas não apresentam dados específicos sobre crianças com síndrome de Down e o risco de complicações dessas doenças."
+  },
+  {
+    "item_id": "c7-0381",
+    "source_chunk_id": "opas_faq_vacinacao#9",
+    "claim": "Os componentes das vacinas como mercúrio e alumínio são encontrados naturalmente em nosso organismo.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O material menciona ingredientes e adjuvantes de vacinas, inclusive alumínio, mas não afirma que mercúrio e alumínio sejam encontrados naturalmente no organismo. A alegação sobre esses elementos não é respondida pelos trechos."
+  },
+  {
+    "item_id": "c7-0382",
+    "source_chunk_id": "opas_mitos_hpv#2",
+    "claim": "Estudos mostram que adolescentes vacinadas contra o HPV não começam a vida sexual antes das outras.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos sobre HPV discutem eficácia, esquemas de doses e alguns desfechos de saúde, mas não tratam do início da vida sexual de adolescentes vacinadas. Não há evidência no material apresentado para confirmar ou contradizer essa alegação."
+  }
+]

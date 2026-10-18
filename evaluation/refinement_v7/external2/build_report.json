@@ -1,0 +1,47 @@
+{
+  "feed_url": "https://storage.googleapis.com/datacommons-feeds/factcheck/latest/data.json",
+  "feed_sha256": "a0d1887047b19b12a8b8059bf0dfa85b45aa9f70e73c697ee220b8bfa847679e",
+  "feed_date_modified": "2026-10-18T00:40:23.225199953+00:00",
+  "counts": {
+    "excluded:fragmented_quote": 3,
+    "excluded:label_without_mapping": 10,
+    "excluded:media_artifact": 24,
+    "excluded:near_duplicate_internal": 15,
+    "excluded:near_duplicate_of_existing_evaluation": 8,
+    "excluded:political_actor": 80,
+    "excluded:question": 10,
+    "excluded:too_long": 44,
+    "excluded:truncated": 6,
+    "feed_reviews": 99556,
+    "vaccine_candidates": 504
+  },
+  "items": 304,
+  "labels": {
+    "REFUTED": 283,
+    "MISLEADING": 20,
+    "SUPPORTED": 1
+  },
+  "agencies": {
+    "Boatos.org": 185,
+    "Lupa": 64,
+    "Comprova": 30,
+    "SBT News": 11,
+    "www.boatos.org": 11,
+    "Projeto Comprova": 3
+  },
+  "years": {
+    "": 4,
+    "2020": 68,
+    "2021": 94,
+    "2022": 36,
+    "2023": 63,
+    "2024": 39
+  },
+  "corpus_topic_coverage": {
+    "partial": 4,
+    "covered": 158,
+    "generic_vaccination": 136,
+    "not_covered": 6
+  },
+  "redistributable": 0
+}

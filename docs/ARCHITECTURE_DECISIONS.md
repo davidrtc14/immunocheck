@@ -4,7 +4,7 @@
 |---|---|---|---|
 | ADR-001 | Telegram na v1 | Aceita | Gratuito, simples, long polling local e sem exigência de infraestrutura pública. |
 | ADR-002 | WhatsApp fora da v1 | Aceita | Maior complexidade operacional; reavaliar somente após o protótipo funcional. |
-| ADR-003 | Texto, imagem textual e link na v1 | Aceita | São requisitos do problema e viáveis localmente; vídeo tem custo desproporcional. |
+| ADR-003 | Texto, imagem textual e link na v1 | Aceita; link alterado pela ADR-053 | São requisitos do problema e viáveis localmente; vídeo tem custo desproporcional. |
 | ADR-004 | Vídeo como trabalho futuro | Aceita | Transcrição, quadros, direitos e custo computacional formariam uma subpesquisa. |
 | ADR-005 | Sem cache conversacional | Aceita | Simplifica privacidade, avaliação e comportamento do protótipo. |
 | ADR-006 | Execução e demonstração locais | Aceita | Evita dependência de hospedagem gratuita sem garantia. |
@@ -53,6 +53,8 @@
 | ADR-049 | Linha exploratória v5: decomposição da alegação, NLI por proposição e agregação determinística | Não promovida; opt-in | Diagnóstico dos 42 erros da v3 no conjunto v4 aponta interpretação/decisão, não retrieval (doc_hit@15 0,94); `MISLEADING` passa a ser decidido por regra sobre proposições. Resultado (96 itens): macro-F1 0,653 vs 0,490 da v3 (IC +0,037 a +0,275), mas recall de `SUPPORTED` caiu 0,12 (> 0,10); nenhuma variante passou a regra. Exploratório. |
 | ADR-050 | Camada de compreensão da entrada multimodal medida por benchmark sintético com gabarito automático | Avaliada; não promovida (v2 opt-in) | A extração de imagem, link e texto nunca teve a qualidade medida; alegações v4 embutidas em capturas, páginas e mensagens geradas permitem medir CER e concordância do veredito com o texto limpo sem curadoria humana. Modelos reservados e execução única congelada; regra em `evaluation/extraction_v1/PROTOCOL.md`. Concordância 0,630 → 0,731 (IC por família +0,074 a +0,129), mas falhas técnicas de 2,19% acima do limite fixo de 2%: `EXTRACTION_VERSION=v1` continua padrão. |
 | ADR-051 | Correção pontual da v5 e confirmação em teste externo de agências de checagem | Avaliada; não promovida (v3 padrão) | 150 alegações externas congeladas sem inferência; avaliação "sustentada × não sustentada" com abstenção como terceira saída (precisão das conclusões, erro grave, cobertura), porque o gabarito é de mundo real e a abstenção fora do corpus é o comportamento exigido. Promoção exige os seis critérios v5 no v4 e não inferioridade no externo; regra em `evaluation/refinement_v6/PROTOCOL.md`. No externo, a v5 corta o erro grave pela metade (5,8% → 2,9%), mas a cobertura cai 0,147, acima do limite de 0,10. |
+| ADR-052 | Nova base de avaliação do veredito: conjunto contrastivo gerado do corpus e teste externo 2 | Aceita (C7 e teste externo 2 congelados) | O v4 (96 itens, 24 `MISLEADING`) e o teste externo 1 já foram revelados e não permitem iterar a arquitetura. Alegações geradas de chunks do corpus têm rótulo por construção, conferido por portões automáticos e por revisão humana de uma amostra; o gerador (`mistral-small3.2`, Apache 2.0) é de outra família para evitar autopreferência do juiz. Métrica principal: macro-F1 de 4 classes; regra em `evaluation/refinement_v7/PROTOCOL.md`. C7 congelado em 18/10: 400 itens (207 de teste), revisão assistida por LLM declarada; relatório em `evaluation/refinement_v7/C7_REPORT.md`. |
+| ADR-053 | Link como protótipo experimental; texto e imagem formam o escopo avaliado | Aceita | Com um mês até a entrega e o veredito como objetivo principal, o pesquisador definiu o escopo estritamente necessário: texto e imagem predominantemente textual. O processamento de link continua no bot, com as mesmas proteções de segurança, mas como protótipo experimental, sem critério de aceite próprio nem nova rodada de avaliação; as avaliações do veredito usam a entrada em texto. |
 
 ## Histórico de alterações
 
@@ -341,6 +343,33 @@
   gerava `ValueError` em tabelas da evidência; 5 e 7 entradas no v4, nenhuma no externo). As
   execuções não foram repetidas e a decisão não depende do defeito; a correção entrou em seguida,
   com teste. Detalhes em `evaluation/refinement_v6/RESULTS.md`.
+- **17/10/2026 — ADR-052:** aberta a Fase 19 (nova base de avaliação). O diagnóstico dos registros da
+  Fase 18 mostrou que `MISLEADING` se perde na agregação por proposição (6 de 24 acertos na
+  `v5_fixed`) e que, no teste externo, a maioria das abstenções vem do juiz com evidência recuperada
+  (55 de 93). Como o v4 e o teste externo 1 já foram revelados, a Fase 19 constrói um conjunto
+  contrastivo gerado do corpus, com rótulo por construção, portões automáticos e revisão humana de
+  80 itens, e um teste externo 2 com checagens recentes. O teste é congelado antes de qualquer
+  mudança de arquitetura (Fase 20). O pesquisador aprovou a métrica principal (macro-F1 de 4
+  classes), o limite de 45 s e o download do `mistral-small3.2`, usado só na geração. Protocolo em
+  `evaluation/refinement_v7/PROTOCOL.md`.
+- **18/10/2026 — ADR-052:** o C7 foi gerado, revisado e congelado (400 itens, 100 por classe; 207
+  no teste e 193 no desenvolvimento, divididos por documento). O primeiro sorteio rendeu 81/81/80 nas
+  classes do corpus, e o limite subiu de 6 para 8 chunks por documento. A revisão das amostras foi
+  preenchida pelo pesquisador com uma ferramenta de IA, e não item a item: a emenda a declara como
+  **revisão assistida por LLM**. Na rodada 1, só os fatos de fora do corpus erraram (7 de 9), porque
+  eram fatos genéricos já cobertos pelo corpus. A regra corrigida acrescenta um juiz de cobertura
+  (portão 8) e completa a classe com relatos individuais. Na conferência, o portão descartou os 7
+  erros e também os 2 acertos, falha declarada. Na rodada 2, os 20 fatos de fora restantes tiveram 0
+  erros. Limitação principal: `INSUFFICIENT_EVIDENCE` ficou com 80% de relatos de casos particulares.
+  Detalhes em `evaluation/refinement_v7/C7_REPORT.md`.
+- **18/10/2026 — ADR-053 (altera a ADR-003):** a pedido do pesquisador, o escopo avaliado do TCC
+  passa a ser texto e imagem predominantemente textual. O link permanece no bot como protótipo
+  experimental, com as proteções de segurança (bloqueio de IP privado, esquemas inseguros,
+  redirecionamentos e tamanho), mas sem critério de aceite nem avaliação próprios a partir da Fase
+  19. Impacto metodológico: nenhum resultado anterior muda; a ADR-050 (extração) já tratava o link
+  separadamente. Migração: o manuscrito e o `PROJECT_BRIEF.md` passam a descrever o link como
+  experimental.
+
 ## Política de alteração
 
 Uma ADR aceita pode ser alterada quando houver evidência experimental, inviabilidade

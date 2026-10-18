@@ -1,0 +1,49 @@
+{
+  "gates": {
+    "candidatos_apos_portoes": 1143,
+    "corpus:chunk_sem_fato": 254,
+    "corpus:copia_MISLEADING": 2,
+    "corpus:copia_SUPPORTED": 3,
+    "corpus:numero_sem_fonte": 2,
+    "corpus:sem_vacina_MISLEADING": 2,
+    "corpus:sem_vacina_REFUTED": 9,
+    "corpus:sem_vacina_SUPPORTED": 9,
+    "corpus:trecho_inexistente": 16,
+    "duplicatas": 73,
+    "individual:sem_vacina": 4,
+    "outside:chunk_sem_fato": 41,
+    "outside:coberto_contradicts": 5,
+    "outside:coberto_partial": 19,
+    "outside:coberto_supports": 69,
+    "outside:copia": 3,
+    "outside:sem_vacina": 37,
+    "outside:trecho_inexistente": 3
+  },
+  "items": 400,
+  "by_label_split": {
+    "INSUFFICIENT_EVIDENCE/development": 42,
+    "INSUFFICIENT_EVIDENCE/test": 58,
+    "MISLEADING/development": 48,
+    "MISLEADING/test": 52,
+    "REFUTED/development": 54,
+    "REFUTED/test": 46,
+    "SUPPORTED/development": 49,
+    "SUPPORTED/test": 51
+  },
+  "by_origin": {
+    "corpus_chunk": 300,
+    "individual_event": 80,
+    "outside_corpus_fact": 20
+  },
+  "misleading_subtypes": {
+    "false_implication": 27,
+    "causal_leap": 36,
+    "dropped_qualifier": 18,
+    "overgeneralization": 19
+  },
+  "documents": {
+    "development": 43,
+    "test": 43
+  },
+  "prompt_sha256": "0b1d0045392fa9a608612c445461c43dd7edef7aa86cb4fc7589f4bd71badcb8"
+}

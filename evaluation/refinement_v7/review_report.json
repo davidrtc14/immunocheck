@@ -1,0 +1,130 @@
+{
+  "round1": {
+    "by_label": {
+      "INSUFFICIENT_EVIDENCE": {
+        "reviewed": 20,
+        "correct": 13,
+        "incorrect": 7,
+        "ambiguous": 0,
+        "error_rate": 0.35,
+        "error_ci95": [
+          0.181,
+          0.567
+        ],
+        "exceeds_10pct": true
+      },
+      "MISLEADING": {
+        "reviewed": 20,
+        "correct": 20,
+        "incorrect": 0,
+        "ambiguous": 0,
+        "error_rate": 0.0,
+        "error_ci95": [
+          0.0,
+          0.161
+        ],
+        "exceeds_10pct": false
+      },
+      "REFUTED": {
+        "reviewed": 20,
+        "correct": 20,
+        "incorrect": 0,
+        "ambiguous": 0,
+        "error_rate": 0.0,
+        "error_ci95": [
+          0.0,
+          0.161
+        ],
+        "exceeds_10pct": false
+      },
+      "SUPPORTED": {
+        "reviewed": 20,
+        "correct": 20,
+        "incorrect": 0,
+        "ambiguous": 0,
+        "error_rate": 0.0,
+        "error_ci95": [
+          0.0,
+          0.161
+        ],
+        "exceeds_10pct": false
+      }
+    },
+    "by_origin": {
+      "corpus_chunk": {
+        "reviewed": 60,
+        "correct": 60,
+        "incorrect": 0,
+        "ambiguous": 0,
+        "error_rate": 0.0,
+        "error_ci95": [
+          0.0,
+          0.06
+        ],
+        "exceeds_10pct": false
+      },
+      "individual_event": {
+        "reviewed": 11,
+        "correct": 11,
+        "incorrect": 0,
+        "ambiguous": 0,
+        "error_rate": 0.0,
+        "error_ci95": [
+          0.0,
+          0.259
+        ],
+        "exceeds_10pct": false
+      },
+      "outside_corpus_fact": {
+        "reviewed": 9,
+        "correct": 2,
+        "incorrect": 7,
+        "ambiguous": 0,
+        "error_rate": 0.778,
+        "error_ci95": [
+          0.453,
+          0.937
+        ],
+        "exceeds_10pct": true
+      }
+    }
+  },
+  "round2": {
+    "by_label": {
+      "INSUFFICIENT_EVIDENCE": {
+        "reviewed": 20,
+        "correct": 20,
+        "incorrect": 0,
+        "ambiguous": 0,
+        "error_rate": 0.0,
+        "error_ci95": [
+          0.0,
+          0.161
+        ],
+        "exceeds_10pct": false
+      }
+    },
+    "by_origin": {
+      "outside_corpus_fact": {
+        "reviewed": 20,
+        "correct": 20,
+        "incorrect": 0,
+        "ambiguous": 0,
+        "error_rate": 0.0,
+        "error_ci95": [
+          0.0,
+          0.161
+        ],
+        "exceeds_10pct": false
+      }
+    }
+  },
+  "matched_items": 87,
+  "items_after_review": 400,
+  "labels_after_review": {
+    "SUPPORTED": 100,
+    "REFUTED": 100,
+    "MISLEADING": 100,
+    "INSUFFICIENT_EVIDENCE": 100
+  }
+}

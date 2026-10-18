@@ -24,9 +24,10 @@ factual com evidências documentais e expõe fontes para verificação independe
 - Texto: uma mensagem, até 4.096 caracteres.
 - Imagem: PNG, JPEG ou WebP; uma imagem; até 10 MB e 12 megapixels; conteúdo
   predominantemente textual.
-- Link: uma URL HTTPS pública; HTML, texto ou PDF textual; até três
-  redirecionamentos, 10 segundos de timeout, 5 MB de download e 50 mil caracteres
-  úteis extraídos.
+- Link (protótipo experimental, ADR-053): uma URL HTTPS pública; HTML, texto ou PDF
+  textual; até três redirecionamentos, 10 segundos de timeout, 5 MB de download e 50 mil
+  caracteres úteis extraídos. Continua no bot com as mesmas proteções, mas fora do escopo
+  avaliado, que é texto e imagem.
 
 Quando houver várias alegações, a v1 verifica a principal e informa essa limitação.
 OCR ilegível, conteúdo ambíguo, páginas inacessíveis ou alegações fora do domínio
