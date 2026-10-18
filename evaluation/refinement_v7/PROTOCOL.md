@@ -95,6 +95,11 @@ sem licença de redistribuição são versionados só por URL e hash, como no te
 das agências são mapeados para três classes, e a análise segue a da Fase 18 (sustentada × não
 sustentada, com a abstenção à parte). O resultado é descritivo se o conjunto tiver menos de 60 itens.
 
+**Composição observada (17/10/2026, antes de qualquer inferência):** o feed do Data Commons rendeu
+304 itens pelas regras do teste externo 1 (283 `REFUTED`, 20 `MISLEADING`, 1 `SUPPORTED`; detalhes em
+`external2/SOURCES.md`). Como quase todos são alegações não sustentadas, as métricas do externo 2 são
+o erro grave, a precisão das conclusões e a cobertura; o recall de `SUPPORTED` não é calculável.
+
 ## Métricas
 
 - **Principal:** macro-F1 de 4 classes no teste do C7, com IC 95% por bootstrap pareado por família.
