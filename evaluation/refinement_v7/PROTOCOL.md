@@ -117,8 +117,17 @@ sem ver nenhuma resposta do sistema.
   declarada. Nos 50 fatos da primeira geração, só 6 passaram (33 `supports`, 8 `partial`, 3
   `contradicts`).
 
-  Depois disso, uma nova amostra de 20 itens de `INSUFFICIENT_EVIDENCE` é revisada, com o mesmo
-  limite de 10%, antes do congelamento. As correções da primeira revisão nas outras classes continuam
+  *Remontagem e escolha da rodada 2 (antes de sortear):* com o portão 8 e o sorteio ampliado,
+  sobraram 20 fatos de fora do corpus (93 descartados pelo juiz: 69 `supports`, 19 `partial` e 5
+  `contradicts`). Os relatos individuais completaram a classe com 80 itens. A rodada 1 casou com 67
+  dos 80 itens revisados: os 9 fatos de fora revisados caíram no portão 8, e 4 itens saíram na
+  remontagem. Uma amostra aleatória de 20 pegaria só uns 4 fatos de fora, justamente a origem
+  corrigida, enquanto os relatos já tiveram 0 de 11 erros. Por isso a rodada 2 revisa **os 20 fatos de
+  fora inteiros**. A taxa de erro da classe é estimada ponderando as duas origens pelo peso de cada
+  uma no conjunto (0,2 e 0,8), e o limite de 10% vale para a origem corrigida e para a classe.
+
+  O texto original desta emenda previa revisar uma amostra aleatória de 20 itens de
+  `INSUFFICIENT_EVIDENCE`, com o mesmo limite de 10%, antes do congelamento. As correções da primeira revisão nas outras classes continuam
   valendo, e os itens são casados pelo chunk de origem e pela alegação, não pelo id.
 
 **Congelamento:** o split de teste é congelado por hash (itens, corpus, gerador, prompt e portões)

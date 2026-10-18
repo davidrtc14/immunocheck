@@ -565,14 +565,21 @@ def build() -> None:
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 
-def review_sample(label: str | None = None, round_name: str = "round1") -> None:
+def review_sample(
+    label: str | None = None, round_name: str = "round1", origin: str | None = None
+) -> None:
     """Amostra estratificada por rótulo e split, e página local de revisão (fora do Git).
 
-    Com `label`, sorteia só aquela classe e pula os itens já revisados em rodadas anteriores.
+    Com `label`, sorteia só aquela classe e pula os itens já revisados em rodadas anteriores. Com
+    `origin`, revisa todos os itens daquela origem (emenda de 18/10, rodada 2).
     """
 
     items = _read_jsonl(FULL_ITEMS)
     reviewed = {_review_key(row) for row in _all_reviews()}
+    if origin:
+        items = [i for i in items if i["origin_type"] == origin and _review_key(i) not in reviewed]
+        _write_review(items, round_name)
+        return
     rng = random.Random(SEED)
     chosen: list[dict] = []
     for current in [label] if label else LABELS:
@@ -589,6 +596,10 @@ def review_sample(label: str | None = None, round_name: str = "round1") -> None:
             )
             chosen += rng.sample(group, min(REVIEW_PER_LABEL // 2, len(group)))
     rng.shuffle(chosen)
+    _write_review(chosen, round_name)
+
+
+def _write_review(chosen: list[dict], round_name: str) -> None:
     REVIEWS.mkdir(parents=True, exist_ok=True)
     (REVIEWS / f"{round_name}_sample.json").write_text(
         json.dumps([i["item_id"] for i in chosen], indent=2) + "\n", encoding="utf-8", newline="\n"
@@ -877,6 +888,7 @@ def main() -> None:
     sample = sub.add_parser("review-sample")
     sample.add_argument("--label", choices=LABELS)
     sample.add_argument("--round", default="round1")
+    sample.add_argument("--origin", choices=(ORIGIN_CORPUS, ORIGIN_OUTSIDE, ORIGIN_INDIVIDUAL))
     normalize = sub.add_parser("normalize-review")
     normalize.add_argument("answers", type=Path)
     normalize.add_argument("--round", required=True)
@@ -890,7 +902,7 @@ def main() -> None:
     elif args.stage == "coverage":
         coverage()
     elif args.stage == "review-sample":
-        review_sample(args.label, args.round)
+        review_sample(args.label, args.round, args.origin)
     elif args.stage == "normalize-review":
         normalize_review(args.answers, args.round)
     elif args.stage == "apply-review":

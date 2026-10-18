@@ -1,6 +1,6 @@
 {
   "gates": {
-    "candidatos_apos_portoes": 1011,
+    "candidatos_apos_portoes": 1143,
     "corpus:chunk_sem_fato": 254,
     "corpus:copia_MISLEADING": 2,
     "corpus:copia_SUPPORTED": 3,
@@ -9,28 +9,31 @@
     "corpus:sem_vacina_REFUTED": 9,
     "corpus:sem_vacina_SUPPORTED": 9,
     "corpus:trecho_inexistente": 16,
-    "duplicatas": 66,
+    "duplicatas": 73,
     "individual:sem_vacina": 4,
-    "outside:chunk_sem_fato": 16,
-    "outside:copia": 1,
-    "outside:sem_vacina": 15,
-    "outside:trecho_inexistente": 2
+    "outside:chunk_sem_fato": 41,
+    "outside:coberto_contradicts": 5,
+    "outside:coberto_partial": 19,
+    "outside:coberto_supports": 69,
+    "outside:copia": 3,
+    "outside:sem_vacina": 37,
+    "outside:trecho_inexistente": 3
   },
   "items": 400,
   "by_label_split": {
-    "INSUFFICIENT_EVIDENCE/development": 41,
-    "INSUFFICIENT_EVIDENCE/test": 59,
-    "MISLEADING/development": 49,
-    "MISLEADING/test": 51,
-    "REFUTED/development": 44,
-    "REFUTED/test": 56,
-    "SUPPORTED/development": 54,
-    "SUPPORTED/test": 46
+    "INSUFFICIENT_EVIDENCE/development": 42,
+    "INSUFFICIENT_EVIDENCE/test": 58,
+    "MISLEADING/development": 48,
+    "MISLEADING/test": 52,
+    "REFUTED/development": 54,
+    "REFUTED/test": 46,
+    "SUPPORTED/development": 49,
+    "SUPPORTED/test": 51
   },
   "by_origin": {
     "corpus_chunk": 300,
-    "individual_event": 50,
-    "outside_corpus_fact": 50
+    "individual_event": 80,
+    "outside_corpus_fact": 20
   },
   "misleading_subtypes": {
     "false_implication": 27,
@@ -39,8 +42,8 @@
     "overgeneralization": 19
   },
   "documents": {
-    "development": 48,
-    "test": 48
+    "development": 43,
+    "test": 43
   },
-  "prompt_sha256": "2032d30a3b74380109324b551d10663041b1f959c2a6509739e55273c34d0c23"
+  "prompt_sha256": "0b1d0045392fa9a608612c445461c43dd7edef7aa86cb4fc7589f4bd71badcb8"
 }
