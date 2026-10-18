@@ -685,3 +685,15 @@ por modalidade e modelo, IC por família, latência P95 e limitações; decisão
 Critérios de aceite: suíte completa e Ruff aprovados; relatório com precisão das conclusões, erro
 grave, cobertura, IC, estratificação por cobertura do corpus e limitações; decisão aplicada conforme
 `evaluation/refinement_v6/PROTOCOL.md`.
+
+## Fase 19 — Nova base de avaliação do veredito (ADR-052)
+
+- [x] Diagnóstico dos erros da v5 nos registros da Fase 18 e protocolo registrado antes da geração.
+- [ ] Gerador contrastivo com portões automáticos e testes.
+- [ ] Conjunto C7 gerado (alvo de 400 itens) e dividido por documento.
+- [ ] Revisão humana de 80 itens e taxa de erro de rótulo por classe.
+- [ ] Teste externo 2 montado por regra e congelado.
+- [ ] Teste do C7 congelado por hash antes de qualquer execução do veredito.
+
+Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; relatório do conjunto com
+distribuição, portões, taxa de erro de rótulo e limitações; congelamento registrado antes da Fase 20.

@@ -53,6 +53,7 @@
 | ADR-049 | Linha exploratória v5: decomposição da alegação, NLI por proposição e agregação determinística | Não promovida; opt-in | Diagnóstico dos 42 erros da v3 no conjunto v4 aponta interpretação/decisão, não retrieval (doc_hit@15 0,94); `MISLEADING` passa a ser decidido por regra sobre proposições. Resultado (96 itens): macro-F1 0,653 vs 0,490 da v3 (IC +0,037 a +0,275), mas recall de `SUPPORTED` caiu 0,12 (> 0,10); nenhuma variante passou a regra. Exploratório. |
 | ADR-050 | Camada de compreensão da entrada multimodal medida por benchmark sintético com gabarito automático | Avaliada; não promovida (v2 opt-in) | A extração de imagem, link e texto nunca teve a qualidade medida; alegações v4 embutidas em capturas, páginas e mensagens geradas permitem medir CER e concordância do veredito com o texto limpo sem curadoria humana. Modelos reservados e execução única congelada; regra em `evaluation/extraction_v1/PROTOCOL.md`. Concordância 0,630 → 0,731 (IC por família +0,074 a +0,129), mas falhas técnicas de 2,19% acima do limite fixo de 2%: `EXTRACTION_VERSION=v1` continua padrão. |
 | ADR-051 | Correção pontual da v5 e confirmação em teste externo de agências de checagem | Avaliada; não promovida (v3 padrão) | 150 alegações externas congeladas sem inferência; avaliação "sustentada × não sustentada" com abstenção como terceira saída (precisão das conclusões, erro grave, cobertura), porque o gabarito é de mundo real e a abstenção fora do corpus é o comportamento exigido. Promoção exige os seis critérios v5 no v4 e não inferioridade no externo; regra em `evaluation/refinement_v6/PROTOCOL.md`. No externo, a v5 corta o erro grave pela metade (5,8% → 2,9%), mas a cobertura cai 0,147, acima do limite de 0,10. |
+| ADR-052 | Nova base de avaliação do veredito: conjunto contrastivo gerado do corpus e teste externo 2 | Em avaliação | O v4 (96 itens, 24 `MISLEADING`) e o teste externo 1 já foram revelados e não permitem iterar a arquitetura. Alegações geradas de chunks do corpus têm rótulo por construção, conferido por portões automáticos e por revisão humana de uma amostra; o gerador (`mistral-small3.2`, Apache 2.0) é de outra família para evitar autopreferência do juiz. Métrica principal: macro-F1 de 4 classes; regra em `evaluation/refinement_v7/PROTOCOL.md`. |
 
 ## Histórico de alterações
 
@@ -341,6 +342,15 @@
   gerava `ValueError` em tabelas da evidência; 5 e 7 entradas no v4, nenhuma no externo). As
   execuções não foram repetidas e a decisão não depende do defeito; a correção entrou em seguida,
   com teste. Detalhes em `evaluation/refinement_v6/RESULTS.md`.
+- **17/10/2026 — ADR-052:** aberta a Fase 19 (nova base de avaliação). O diagnóstico dos registros da
+  Fase 18 mostrou que `MISLEADING` se perde na agregação por proposição (6 de 24 acertos na
+  `v5_fixed`) e que, no teste externo, a maioria das abstenções vem do juiz com evidência recuperada
+  (55 de 93). Como o v4 e o teste externo 1 já foram revelados, a Fase 19 constrói um conjunto
+  contrastivo gerado do corpus, com rótulo por construção, portões automáticos e revisão humana de
+  80 itens, e um teste externo 2 com checagens recentes. O teste é congelado antes de qualquer
+  mudança de arquitetura (Fase 20). O pesquisador aprovou a métrica principal (macro-F1 de 4
+  classes), o limite de 45 s e o download do `mistral-small3.2`, usado só na geração. Protocolo em
+  `evaluation/refinement_v7/PROTOCOL.md`.
 ## Política de alteração
 
 Uma ADR aceita pode ser alterada quando houver evidência experimental, inviabilidade
