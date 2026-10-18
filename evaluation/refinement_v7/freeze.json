@@ -1,0 +1,13 @@
+{
+  "frozen_at": "2026-10-18",
+  "items_sha256": "0a46f639935726ab419b62ddbe52e2124768c3e2c3df655692f42f8f22c2fa1d",
+  "test_items_sha256": "3c0063f1475fa32b05337d25349363ec5e59c2a615800681bbd5938f02d9b191",
+  "test_items": 207,
+  "development_items": 193,
+  "corpus_manifest_sha256": "74c040bf26a81f9e9f28a2c3a30a6635c254bc502e5152f5aa3d5e9411ae90b9",
+  "prompt_sha256": "0b1d0045392fa9a608612c445461c43dd7edef7aa86cb4fc7589f4bd71badcb8",
+  "generator": [
+    "mistral-small3.2:latest 5a408ab55df5"
+  ],
+  "builder_sha256": "334bc69979d429089ecf162adb24b6171fe11e6c8bbcbc3ee84f2db6204aa8dc"
+}

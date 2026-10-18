@@ -689,11 +689,14 @@ grave, cobertura, IC, estratificação por cobertura do corpus e limitações; d
 ## Fase 19 — Nova base de avaliação do veredito (ADR-052)
 
 - [x] Diagnóstico dos erros da v5 nos registros da Fase 18 e protocolo registrado antes da geração.
-- [ ] Gerador contrastivo com portões automáticos e testes.
-- [ ] Conjunto C7 gerado (alvo de 400 itens) e dividido por documento.
-- [ ] Revisão humana de 80 itens e taxa de erro de rótulo por classe.
-- [ ] Teste externo 2 montado por regra e congelado.
-- [ ] Teste do C7 congelado por hash antes de qualquer execução do veredito.
+- [x] Gerador contrastivo com portões automáticos e testes.
+- [x] Conjunto C7 gerado (alvo de 400 itens) e dividido por documento.
+- [x] Revisão de 80 itens e taxa de erro de rótulo por classe. Desvio declarado: a revisão foi
+  assistida por LLM, não humana; houve uma rodada 2 com os 20 fatos de fora do corpus depois do
+  portão 8.
+- [x] Teste externo 2 montado por regra e congelado.
+- [x] Teste do C7 congelado por hash antes de qualquer execução do veredito.
+- [x] Link reclassificado como protótipo experimental (ADR-053).
 
 Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; relatório do conjunto com
 distribuição, portões, taxa de erro de rótulo e limitações; congelamento registrado antes da Fase 20.
