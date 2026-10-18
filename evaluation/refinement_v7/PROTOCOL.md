@@ -48,6 +48,11 @@ semente 42, prompt versionado, saída em JSON com schema. O gerador nunca é usa
   `sustained_part` e `distortion`, como exige o guia de anotação;
 - trecho literal do chunk que sustenta o fato (`evidence_quote`).
 
+O subtipo pedido para a versão `MISLEADING` segue um rodízio fixo pela ordem do sorteio, para
+que os quatro apareçam em proporções parecidas. O prompt foi ajustado num piloto de 10 chunks.
+Esses chunks podem reaparecer no sorteio do conjunto, o que não enviesa a avaliação: o piloto
+ajustou só o gerador e nenhum sistema avaliado foi executado. Os exemplos do prompt usam uma vacina fictícia, não itens do v4.
+
 Cada chunk fornece no máximo um item de cada rótulo, e um item por chunk entra no conjunto final, em
 rodízio de rótulo, para que o mesmo fato não apareça em três versões.
 
@@ -59,6 +64,8 @@ rodízio de rótulo, para que o mesmo fato não apareça em três versões.
 5. duplicatas no conjunto inteiro (similaridade BGE-M3 ≥ 0,92) ficam só uma vez;
 6. `INSUFFICIENT_EVIDENCE` de fato fora do corpus é descartado se algum chunk do corpus tiver
    similaridade BGE-M3 ≥ 0,85 com a alegação; os três chunks mais próximos vão para o revisor.
+7. toda alegação precisa mencionar uma vacina ou a vacinação (acrescentado no piloto do gerador,
+   antes da geração do conjunto).
 
 **Tamanho e divisão:** alvo de 400 itens (100 por classe), com mínimo de 60 por classe. A família é o
 documento de origem; documentos inteiros vão para desenvolvimento ou teste (50%/50%, estratificado
