@@ -87,6 +87,39 @@ sem ver nenhuma resposta do sistema.
 - Itens revisados como incorretos são corrigidos ou excluídos; ambíguos são excluídos.
 - O pesquisador é um único revisor: isso é verificação de qualidade do rótulo por construção, não
   anotação independente, e é declarado como tal.
+- *Emenda de 18/10 (revisão assistida por LLM):* a revisão das amostras foi preenchida pelo
+  pesquisador com uma ferramenta de IA externa, e não item a item pela página de revisão. As taxas de
+  erro abaixo são, portanto, de uma **revisão assistida por LLM sob responsabilidade do
+  pesquisador**, não de uma revisão humana independente, e isso entra nas ameaças à validade. A
+  ferramenta recebeu só alegações sintéticas e trechos de documentos públicos do corpus, sem nenhum
+  dado de usuário.
+- *Emenda de 18/10 (correção da regra de `INSUFFICIENT_EVIDENCE` fora do corpus):* na primeira
+  revisão, SUPPORTED, REFUTED e MISLEADING tiveram 0 de 20 erros, e os relatos individuais 0 de 11.
+  Já os fatos fora do corpus tiveram 7 de 9 erros: são fatos genéricos de páginas do MS e da OPAS que
+  o corpus já cobre, e o portão 6 (similaridade BGE-M3 ≥ 0,85) não percebeu isso, porque os sete
+  ficaram entre 0,69 e 0,76. A regra passa a ser esta, fixada antes de rodar:
+  1. o portão 6 por similaridade continua valendo;
+  2. novo portão 8, de cobertura julgada por LLM: o gerador (`mistral-small3.2`, temperatura 0,
+     saída estruturada) recebe a alegação e os 5 chunks do corpus mais próximos por BGE-M3, e diz se
+     algum deles sustenta, contradiz ou mostra que a alegação é exagerada ou parcial. Só ficam as
+     alegações em que nenhum trecho resolve a questão. Antes de usar o portão, ele é conferido nos 9
+     itens revisados: deve descartar a maioria dos 7 erros e manter os 2 acertos;
+  3. para compensar as perdas, o sorteio dos documentos fora do corpus passa a usar todos os chunks
+     candidatos, não mais 6 por documento;
+  4. se sobrarem menos de 50 fatos fora do corpus, os relatos individuais completam os 100 itens da
+     classe, com um sorteio extra de chunks que não geraram nenhum outro item. A proporção final
+     entre as duas origens é reportada.
+
+  *Resultado da conferência do portão 8 (registrado depois de rodar):* nos 9 itens revisados, ele
+  descartou os 7 erros (5 `supports`, 2 `partial`) e também os 2 acertos (1 `supports`, 1
+  `partial`). A segunda condição falhou, porque o portão é mais rigoroso que a revisão. Esse excesso
+  custa itens, não validade do rótulo. A regra foi mantida como registrada, sem ajuste, e a falha é
+  declarada. Nos 50 fatos da primeira geração, só 6 passaram (33 `supports`, 8 `partial`, 3
+  `contradicts`).
+
+  Depois disso, uma nova amostra de 20 itens de `INSUFFICIENT_EVIDENCE` é revisada, com o mesmo
+  limite de 10%, antes do congelamento. As correções da primeira revisão nas outras classes continuam
+  valendo, e os itens são casados pelo chunk de origem e pela alegação, não pelo id.
 
 **Congelamento:** o split de teste é congelado por hash (itens, corpus, gerador, prompt e portões)
 antes de qualquer execução do veredito sobre o C7. O desenvolvimento pode ser usado livremente na

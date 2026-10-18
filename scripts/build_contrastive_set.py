@@ -5,7 +5,10 @@ Etapas:
   `output/contrastive_v7/raw_<kind>.jsonl` (fora do Git: contém trechos do corpus).
 - `build`: aplica os portões, remove duplicatas, filtra o `INSUFFICIENT_EVIDENCE` com evidência no
   corpus, monta e divide o conjunto. Versiona só `evaluation/refinement_v7/items.jsonl` e o relatório.
-- `review-sample`, `apply-review` e `freeze`: revisão humana e congelamento, como no protocolo.
+- `coverage`: portão 8, o gerador julga se algum dos 5 chunks mais próximos do corpus resolve cada
+  fato fora do corpus (cache em `output/contrastive_v7/coverage_outside.jsonl`).
+- `review-sample`, `normalize-review`, `apply-review` e `freeze`: revisão e congelamento, como no
+  protocolo (com as emendas de 18/10).
 
 O texto dos documentos é dado não confiável: os prompts mandam ignorar instruções nele.
 """
@@ -28,6 +31,8 @@ import numpy as np
 
 from immunocheck.evaluation.contrastive_set import (
     CORPUS_LABELS,
+    COVERAGE_RELATIONS,
+    COVERAGE_TOP_K,
     LABELS,
     MISLEADING_SUBTYPES,
     ORIGIN_CORPUS,
@@ -37,10 +42,12 @@ from immunocheck.evaluation.contrastive_set import (
     Candidate,
     SourceChunk,
     assemble,
+    coverage_keeps,
     gate_corpus_payload,
     gate_individual_payload,
     gate_outside_payload,
     near_duplicates,
+    normalize_review_verdict,
     sample_chunks,
     split_documents,
 )
@@ -54,19 +61,23 @@ WORK = REPOSITORY / "output/contrastive_v7"
 ROOT = REPOSITORY / "evaluation/refinement_v7"
 GENERATOR = "mistral-small3.2"
 SEED = 42
-PER_DOCUMENT = {"corpus": 8, "outside": 6, "individual": 1}
+# "outside" usa todos os chunks candidatos desde a emenda de 18/10 (o sorteio mantém os 6 primeiros).
+PER_DOCUMENT = {"corpus": 8, "outside": 1_000, "individual": 1, "individual_extra": 1}
 INDIVIDUAL_BASE = 6
 MAX_OUTPUT_TOKENS = 900
-TARGET = {"corpus": 100, "outside": 50, "individual": 50}
+TARGET = {"corpus": 100, "outside": 50, "insufficient": 100}
 REVIEW_PER_LABEL = 20
 DENSE_VECTORS = REPOSITORY / "corpus/processed/dense_bge_m3.npz"
 CORPUS_MANIFEST = REPOSITORY / "corpus/processed/manifest.json"
 ITEMS = ROOT / "items.jsonl"
 FULL_ITEMS = WORK / "items_full.jsonl"
+COVERAGE = WORK / "coverage_outside.jsonl"
+REVIEWS = ROOT / "reviews"
 GATES = {
     "corpus": gate_corpus_payload,
     "outside": gate_outside_payload,
     "individual": gate_individual_payload,
+    "individual_extra": gate_individual_payload,
 }
 
 _DATA_WARNING = (
@@ -170,10 +181,35 @@ INDIVIDUAL_SCHEMA = {
     "properties": {"claim": {"type": "string"}},
     "required": ["claim"],
 }
+COVERAGE_SYSTEM = f"""Você confere um conjunto de teste de um verificador de fatos sobre vacinação.
+{_DATA_WARNING}
+
+A mensagem traz uma alegação e trechos numerados de documentos. Diga se ALGUM trecho, sozinho,
+permite julgar a alegação:
+- supports: algum trecho afirma o mesmo fato, com o mesmo alcance;
+- contradicts: algum trecho afirma o contrário da parte central;
+- partial: algum trecho trata do mesmo fato, mas mostra que a alegação exagera, omite uma ressalva
+  ou exceção, ou só vale em parte;
+- none: nenhum trecho trata desse fato específico. Falar do mesmo tema, da mesma vacina ou da mesma
+  doença não basta.
+Use só os trechos, não o que você sabe.
+- relation: um entre {", ".join(COVERAGE_RELATIONS)}.
+- chunk: o número do trecho que decide (0 se relation=none).
+- reason: uma frase."""
+COVERAGE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "relation": {"type": "string", "enum": list(COVERAGE_RELATIONS)},
+        "chunk": {"type": "integer"},
+        "reason": {"type": "string"},
+    },
+    "required": ["relation", "chunk", "reason"],
+}
 PROMPTS = {
     "corpus": (CORPUS_SYSTEM, CORPUS_SCHEMA),
     "outside": (OUTSIDE_SYSTEM, OUTSIDE_SCHEMA),
     "individual": (INDIVIDUAL_SYSTEM, INDIVIDUAL_SCHEMA),
+    "individual_extra": (INDIVIDUAL_SYSTEM, INDIVIDUAL_SCHEMA),
 }
 
 
@@ -253,7 +289,12 @@ def sources_for(kind: str) -> list[SourceChunk]:
         return individual
     taken = {chunk.chunk_id for chunk in individual}
     corpus = sample_chunks(chunks, per_document=PER_DOCUMENT["corpus"], seed=SEED)
-    return [chunk for chunk in corpus if chunk.chunk_id not in taken]
+    if kind == "corpus":
+        return [chunk for chunk in corpus if chunk.chunk_id not in taken]
+    # Sorteio extra de relatos (emenda de 18/10): só chunks que não geraram nenhum outro item.
+    taken |= {chunk.chunk_id for chunk in corpus}
+    rest = [chunk for chunk in chunks if chunk.chunk_id not in taken]
+    return sample_chunks(rest, per_document=PER_DOCUMENT["individual_extra"], seed=SEED + 2)
 
 
 def generate(kind: str, limit: int | None) -> None:
@@ -303,8 +344,10 @@ def generate(kind: str, limit: int | None) -> None:
 
 
 def prompt_hash() -> str:
+    prompts = {kind: [system, schema] for kind, (system, schema) in PROMPTS.items()}
+    prompts["coverage"] = [COVERAGE_SYSTEM, COVERAGE_SCHEMA]
     text = json.dumps(
-        {kind: [system, schema] for kind, (system, schema) in PROMPTS.items()},
+        prompts,
         ensure_ascii=False,
         sort_keys=True,
     )
@@ -323,8 +366,10 @@ def gated_candidates(report: Counter[str]) -> list[Candidate]:
 
     candidates: list[Candidate] = []
     for kind, gate in GATES.items():
-        sources = {source.chunk_id: source for source in sources_for(kind)}
         path = WORK / f"raw_{kind}.jsonl"
+        if not path.exists():
+            continue
+        sources = {source.chunk_id: source for source in sources_for(kind)}
         for line in path.read_text("utf-8").splitlines():
             record = json.loads(line)
             if record["failure"]:
@@ -336,8 +381,11 @@ def gated_candidates(report: Counter[str]) -> list[Candidate]:
     return sorted(candidates, key=lambda c: (c.source.chunk_id, LABELS.index(c.label)))
 
 
-def build() -> None:
-    report: Counter[str] = Counter()
+def filtered_candidates(
+    report: Counter[str],
+) -> tuple[list[Candidate], dict[int, list[tuple[str, float]]]]:
+    """Portões 1 a 7 e remoção de duplicatas; guarda os chunks mais próximos dos fatos de fora."""
+
     candidates = gated_candidates(report)
     report["candidatos_apos_portoes"] = len(candidates)
     embedder = _embedder()
@@ -356,22 +404,109 @@ def build() -> None:
         if candidate.origin_type == ORIGIN_OUTSIDE:
             vector = vectors[index] / np.linalg.norm(vectors[index])
             scores = normalized @ vector
-            top = np.argsort(-scores)[:3]
+            top = np.argsort(-scores)[:COVERAGE_TOP_K]
             if float(scores[top[0]]) >= OUT_OF_CORPUS_SIMILARITY:
                 report["outside:evidencia_no_corpus"] += 1
                 continue
             nearest[id(candidate)] = [(corpus_ids[i], round(float(scores[i]), 3)) for i in top]
         kept.append(candidate)
+    return kept, nearest
 
+
+def _coverage_key(chunk_id: str, claim: str) -> str:
+    return hashlib.sha256(f"{chunk_id}\n{claim}".encode()).hexdigest()
+
+
+def _load_coverage() -> dict[str, dict]:
+    if not COVERAGE.exists():
+        return {}
+    rows = [json.loads(line) for line in COVERAGE.read_text("utf-8").splitlines() if line]
+    return {row["key"]: row for row in rows}
+
+
+def coverage_user_prompt(claim: str, chunks: list[str]) -> str:
+    numbered = "\n".join(
+        f'<trecho n="{number}">\n{text}\n</trecho>' for number, text in enumerate(chunks, 1)
+    )
+    return f"<alegacao>\n{claim}\n</alegacao>\n{numbered}"
+
+
+def coverage(only: set[str] | None = None) -> None:
+    """Portão 8 para cada fato fora do corpus que passou nos portões anteriores (com checkpoint)."""
+
+    kept, nearest = filtered_candidates(Counter())
+    chunk_text = {}
+    for line in CHUNKS.read_text("utf-8").splitlines():
+        row = json.loads(line)
+        chunk_text[row["chunk_id"]] = row["text"]
+    done = _load_coverage()
+    client = OllamaStructuredClient(model=GENERATOR, timeout_seconds=600, context_tokens=8192)
+    WORK.mkdir(parents=True, exist_ok=True)
+    with COVERAGE.open("a", encoding="utf-8", newline="\n") as handle:
+        for candidate in kept:
+            if candidate.origin_type != ORIGIN_OUTSIDE:
+                continue
+            key = _coverage_key(candidate.source.chunk_id, candidate.claim)
+            if key in done or (only is not None and candidate.claim not in only):
+                continue
+            neighbours = nearest[id(candidate)]
+            started = time.perf_counter()
+            try:
+                payload = client.chat(
+                    system_prompt=COVERAGE_SYSTEM,
+                    user_prompt=coverage_user_prompt(
+                        candidate.claim, [chunk_text[cid] for cid, _ in neighbours]
+                    ),
+                    schema=COVERAGE_SCHEMA,
+                    max_output_tokens=300,
+                )
+                failure = None
+            except Exception as exc:  # noqa: BLE001 - falha do juiz fica registrada
+                payload, failure = {}, type(exc).__name__
+            record = {
+                "key": key,
+                "chunk_id": candidate.source.chunk_id,
+                "claim": candidate.claim,
+                "neighbours": neighbours,
+                "payload": payload,
+                "failure": failure,
+                "latency_s": round(time.perf_counter() - started, 1),
+            }
+            handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+            handle.flush()
+            print(candidate.source.chunk_id, payload.get("relation", failure), flush=True)
+
+
+def build() -> None:
+    report: Counter[str] = Counter()
+    kept, nearest = filtered_candidates(report)
+    judged = _load_coverage()
+    covered: list[Candidate] = []
+    for candidate in kept:
+        if candidate.origin_type != ORIGIN_OUTSIDE:
+            covered.append(candidate)
+            continue
+        row = judged.get(_coverage_key(candidate.source.chunk_id, candidate.claim))
+        if row is None or row["failure"]:
+            raise SystemExit("Há fato fora do corpus sem o portão 8; rode a etapa `coverage`.")
+        if coverage_keeps(row["payload"]):
+            covered.append(candidate)
+        else:
+            report[f"outside:coberto_{row['payload'].get('relation')}"] += 1
+    kept = covered
+
+    outside = assemble(
+        [c for c in kept if c.origin_type == ORIGIN_OUTSIDE], per_label=TARGET["outside"]
+    )
+    # Os relatos individuais completam a classe quando faltam fatos de fora (emenda de 18/10).
+    individual = assemble(
+        [c for c in kept if c.origin_type == ORIGIN_INDIVIDUAL],
+        per_label=TARGET["insufficient"] - len(outside),
+    )
     selected = (
         assemble([c for c in kept if c.origin_type == ORIGIN_CORPUS], per_label=TARGET["corpus"])
-        + assemble(
-            [c for c in kept if c.origin_type == ORIGIN_OUTSIDE], per_label=TARGET["outside"]
-        )
-        + assemble(
-            [c for c in kept if c.origin_type == ORIGIN_INDIVIDUAL],
-            per_label=TARGET["individual"],
-        )
+        + outside
+        + individual
     )
     themes = {c.source.document_id: c.source.theme for c in selected}
     split = split_documents(themes, seed=SEED)
@@ -430,74 +565,150 @@ def build() -> None:
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 
-def review_sample() -> None:
-    """Amostra estratificada por rótulo e split, e página local de revisão (fora do Git)."""
+def review_sample(label: str | None = None, round_name: str = "round1") -> None:
+    """Amostra estratificada por rótulo e split, e página local de revisão (fora do Git).
+
+    Com `label`, sorteia só aquela classe e pula os itens já revisados em rodadas anteriores.
+    """
 
     items = _read_jsonl(FULL_ITEMS)
+    reviewed = {_review_key(row) for row in _all_reviews()}
     rng = random.Random(SEED)
     chosen: list[dict] = []
-    for label in LABELS:
+    for current in [label] if label else LABELS:
         for split_name in ("development", "test"):
             group = sorted(
-                (i for i in items if i["label"] == label and i["split"] == split_name),
+                (
+                    i
+                    for i in items
+                    if i["label"] == current
+                    and i["split"] == split_name
+                    and _review_key(i) not in reviewed
+                ),
                 key=lambda i: i["item_id"],
             )
             chosen += rng.sample(group, min(REVIEW_PER_LABEL // 2, len(group)))
     rng.shuffle(chosen)
-    (ROOT / "review_sample.json").write_text(
-        json.dumps([i["item_id"] for i in chosen], indent=2) + "\n", encoding="utf-8"
+    REVIEWS.mkdir(parents=True, exist_ok=True)
+    (REVIEWS / f"{round_name}_sample.json").write_text(
+        json.dumps([i["item_id"] for i in chosen], indent=2) + "\n", encoding="utf-8", newline="\n"
     )
     chunk_text = {}
     for line in CHUNKS.read_text("utf-8").splitlines():
         row = json.loads(line)
         chunk_text[row["chunk_id"]] = row["text"]
-    (WORK / "review.html").write_text(_review_page(chosen, chunk_text), encoding="utf-8")
-    print(f"{len(chosen)} itens; abra {WORK / 'review.html'}")
+    page = WORK / f"review_{round_name}.html"
+    page.write_text(_review_page(chosen, chunk_text), encoding="utf-8")
+    print(f"{len(chosen)} itens; abra {page}")
 
 
-def apply_review(answers_path: Path) -> None:
-    answers = {a["item_id"]: a for a in json.loads(answers_path.read_text("utf-8"))}
+def _review_key(row: dict) -> tuple[str, str]:
+    return row["source_chunk_id"], row["claim"]
+
+
+def _all_reviews() -> list[dict]:
+    rows: list[dict] = []
+    for path in sorted(REVIEWS.glob("round*_answers.json")):
+        rows += [
+            row | {"round": path.name.split("_")[0]} for row in json.loads(path.read_text("utf-8"))
+        ]
+    return rows
+
+
+def normalize_review(answers_path: Path, round_name: str) -> None:
+    """Converte as respostas baixadas para a forma versionada, casada pelo chunk e pela alegação."""
+
+    items = {item["item_id"]: item for item in _read_jsonl(ITEMS)}
+    rows = []
+    for answer in json.loads(answers_path.read_text("utf-8")):
+        item = items[answer["item_id"]]
+        verdict = normalize_review_verdict(answer.get("verdict"))
+        if verdict is None:
+            raise SystemExit(f"Resposta sem veredito válido: {answer['item_id']}")
+        corrected = answer.get("corrected_label") if verdict == "incorrect" else None
+        rows.append(
+            {
+                "item_id": item["item_id"],
+                "source_chunk_id": item["source_chunk_id"],
+                "claim": item["claim"],
+                "origin_type": item["origin_type"],
+                "proposed_label": item["label"],
+                "verdict": verdict,
+                "corrected_label": corrected if corrected in LABELS else None,
+                "note": answer.get("note") or "",
+            }
+        )
+    REVIEWS.mkdir(parents=True, exist_ok=True)
+    target = REVIEWS / f"{round_name}_answers.json"
+    target.write_text(
+        json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
+    print(f"{len(rows)} respostas em {target}")
+
+
+def apply_review() -> None:
+    """Aplica todas as rodadas aos itens montados e grava a taxa de erro por rodada e classe."""
+
+    reviews = {_review_key(row): row for row in _all_reviews()}
     items = _read_jsonl(ITEMS)
-    stats: dict[str, Counter[str]] = {label: Counter() for label in LABELS}
     kept = []
     for item in items:
-        answer = answers.get(item["item_id"])
-        if answer is None:
+        review = reviews.get(_review_key(item))
+        if review is None:
             kept.append(item)
             continue
-        verdict = answer["verdict"]
-        stats[item["label"]][verdict] += 1
-        item = item | {"review_verdict": verdict, "review_note": answer.get("note", "")}
-        if verdict == "correct":
+        item = item | {
+            "review_round": review["round"],
+            "review_verdict": review["verdict"],
+            "review_note": review["note"],
+        }
+        if review["verdict"] == "correct":
             kept.append(item | {"status": "reviewed"})
-        elif verdict == "incorrect" and answer.get("corrected_label") in LABELS:
+        elif review["verdict"] == "incorrect" and review["corrected_label"]:
             kept.append(
                 item
                 | {
-                    "label": answer["corrected_label"],
+                    "label": review["corrected_label"],
                     "status": "reviewed",
                     "proposed_label": item["label"],
+                    "evidence_chunk_ids": [],
                 }
             )
         # Incorretos sem correção e ambíguos são excluídos.
     _write_jsonl(ITEMS, kept)
-    rates = {}
-    for label, counts in stats.items():
-        n = sum(counts.values())
-        wrong = counts["incorrect"] + counts["ambiguous"]
-        rates[label] = {
-            "reviewed": n,
-            "correct": counts["correct"],
-            "incorrect": counts["incorrect"],
-            "ambiguous": counts["ambiguous"],
-            "error_rate": round(wrong / n, 3) if n else None,
-            "error_ci95": _wilson(wrong, n),
-            "exceeds_10pct": bool(n and wrong / n > 0.10),
-        }
+    report: dict[str, dict] = {}
+    for round_name in sorted({row["round"] for row in reviews.values()}):
+        rows = [row for row in reviews.values() if row["round"] == round_name]
+        report[round_name] = {}
+        for group_name, key in (("by_label", "proposed_label"), ("by_origin", "origin_type")):
+            groups: dict[str, Counter[str]] = {}
+            for row in rows:
+                groups.setdefault(row[key], Counter())[row["verdict"]] += 1
+            report[round_name][group_name] = {
+                name: _error_summary(counts) for name, counts in sorted(groups.items())
+            }
+    matched = sum(1 for item in items if _review_key(item) in reviews)
+    report["matched_items"] = matched
+    report["items_after_review"] = len(kept)
+    report["labels_after_review"] = dict(Counter(item["label"] for item in kept))
     (ROOT / "review_report.json").write_text(
-        json.dumps(rates, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
     )
-    print(json.dumps(rates, ensure_ascii=False, indent=2))
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+
+
+def _error_summary(counts: Counter[str]) -> dict:
+    n = sum(counts.values())
+    wrong = counts["incorrect"] + counts["ambiguous"]
+    return {
+        "reviewed": n,
+        "correct": counts["correct"],
+        "incorrect": counts["incorrect"],
+        "ambiguous": counts["ambiguous"],
+        "error_rate": round(wrong / n, 3) if n else None,
+        "error_ci95": _wilson(wrong, n),
+        "exceeds_10pct": bool(n and wrong / n > 0.10),
+    }
 
 
 def freeze() -> None:
@@ -662,19 +873,28 @@ def main() -> None:
     gen.add_argument("--kind", choices=tuple(PROMPTS), required=True)
     gen.add_argument("--limit", type=int)
     sub.add_parser("build")
-    sub.add_parser("review-sample")
-    review = sub.add_parser("apply-review")
-    review.add_argument("answers", type=Path)
+    sub.add_parser("coverage")
+    sample = sub.add_parser("review-sample")
+    sample.add_argument("--label", choices=LABELS)
+    sample.add_argument("--round", default="round1")
+    normalize = sub.add_parser("normalize-review")
+    normalize.add_argument("answers", type=Path)
+    normalize.add_argument("--round", required=True)
+    sub.add_parser("apply-review")
     sub.add_parser("freeze")
     args = parser.parse_args()
     if args.stage == "generate":
         generate(args.kind, args.limit)
     elif args.stage == "build":
         build()
+    elif args.stage == "coverage":
+        coverage()
     elif args.stage == "review-sample":
-        review_sample()
+        review_sample(args.label, args.round)
+    elif args.stage == "normalize-review":
+        normalize_review(args.answers, args.round)
     elif args.stage == "apply-review":
-        apply_review(args.answers)
+        apply_review()
     else:
         freeze()
 

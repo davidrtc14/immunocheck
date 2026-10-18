@@ -15,12 +15,14 @@ from immunocheck.evaluation.contrastive_set import (
     SourceChunk,
     assemble,
     copy_overlap,
+    coverage_keeps,
     gate_corpus_payload,
     gate_individual_payload,
     gate_outside_payload,
     is_candidate_chunk,
     max_similarity,
     near_duplicates,
+    normalize_review_verdict,
     quote_in_chunk,
     sample_chunks,
     split_documents,
@@ -158,3 +160,19 @@ def test_assemble_takes_one_item_per_chunk_and_balances_labels() -> None:
     selected = assemble(candidates, per_label=3, seed=3)
     assert len({c.source.chunk_id for c in selected}) == len(selected) == 9
     assert Counter(c.label for c in selected) == {SUPPORTED: 3, REFUTED: 3, MISLEADING: 3}
+
+
+def test_coverage_gate_keeps_only_unresolved_claims() -> None:
+    assert coverage_keeps({"relation": "none", "chunk": 0})
+    for relation in ("supports", "contradicts", "partial"):
+        assert not coverage_keeps({"relation": relation, "chunk": 2})
+    assert not coverage_keeps({})
+
+
+def test_review_verdict_accepts_page_and_portuguese_forms() -> None:
+    assert normalize_review_verdict("correct") == "correct"
+    assert normalize_review_verdict("Correto") == "correct"
+    assert normalize_review_verdict("Incorreto") == "incorrect"
+    assert normalize_review_verdict("Ambíguo") == "ambiguous"
+    assert normalize_review_verdict("talvez") is None
+    assert normalize_review_verdict(None) is None

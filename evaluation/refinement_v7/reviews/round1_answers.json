@@ -1,0 +1,802 @@
+[
+  {
+    "item_id": "c7-0240",
+    "source_chunk_id": "jvacx_hpv_one_dose_review_2024:p1:c20:1bf5fe756fe5",
+    "claim": "Alguns casos de efeitos adversos foram notificados após a aplicação da vacina HPV nos estudos KEN-SHE e DoRIS, o que prova que ela causa danos graves.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que alguns casos de efeitos adversos foram notificados após a aplicação da vacina hpv nos estudos ken-she e doris, mas não justifica a conclusão mais forte da alegação. Transforma a notificação de efeitos adversos em uma prova direta de que a vacina causa danos graves."
+  },
+  {
+    "item_id": "c7-0256",
+    "source_chunk_id": "ms_influenza_2026:p23:c1:b32ad0528be5",
+    "claim": "A vacina contra gripe é segura para qualquer pessoa com alergia ao ovo, mesmo sem avaliação médica prévia.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina contra gripe pode ser segura para pessoas com alergia ao ovo, mas não justifica a conclusão mais forte da alegação. Generaliza a segurança da vacina para todos os casos de alergia ao ovo sem considerar avaliação individual."
+  },
+  {
+    "item_id": "c7-0131",
+    "source_chunk_id": "einstein_measles_amazon_spatiotemporal_2024:p1:c24:777a201cc778",
+    "claim": "O Ministério da Saúde do Brasil não faz nenhuma recomendação sobre a vacinação infantil contra o sarampo.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho afirma que a vacina estava disponível e critica a necessidade de promover a vacinação oportuna de crianças; isso contradiz a ideia de que o Ministério não faz recomendação alguma."
+  },
+  {
+    "item_id": "c7-0045",
+    "source_chunk_id": "ms_covid_vacinacao_2024_2ed:p35:c3:1ffca6cd118d",
+    "claim": "A vacinação contra COVID-19 é indicada para profissionais da área de saúde.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A lista de grupos prioritários inclui explicitamente profissionais de saúde e trabalhadores de serviços de saúde, então a indicação apresentada está diretamente apoiada."
+  },
+  {
+    "item_id": "c7-0023",
+    "source_chunk_id": "frontiers_gbs_vaccination_meta_2022:p1:c20:0410cabe2530",
+    "claim": "A pesquisa mostrou que a taxa de síndrome de Guillain-Barré em pessoas vacinadas contra gripe foi de cerca de 2,77 casos por milhão.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O número de 2,77 por milhão aparece no trecho como taxa de base combinada de Guillain-Barré entre pessoas que receberam vacina contra influenza. Vale manter essa nuance de “taxa de base”."
+  },
+  {
+    "item_id": "c7-0349",
+    "source_chunk_id": "ms_febre_amarela#6",
+    "claim": "A vacina da febre amarela não deve ser aplicada em crianças com menos de nove meses.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "incorrect",
+    "corrected_label": "MISLEADING",
+    "note": "O trecho indica vacinação de rotina a partir dos 9 meses, mas abre exceção para crianças de 6 a 8 meses em áreas de risco, após avaliação de risco-benefício. Por isso, a proibição absoluta distorce a orientação."
+  },
+  {
+    "item_id": "c7-0283",
+    "source_chunk_id": "vaccines_autoimmune_disorders_meta_2021:p1:c12:ceda0a73f816",
+    "claim": "Alguns casos de efeitos adversos foram notificados após a vacinação, o que prova que ela causa danos graves.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que casos de efeitos adversos foram notificados após a vacinação, mas não justifica a conclusão mais forte da alegação. Transforma a associação em causa direta."
+  },
+  {
+    "item_id": "c7-0020",
+    "source_chunk_id": "eclinm_rotavirus_global_2025:p1:c27:86c4d5848986",
+    "claim": "A previsão indica que a vacina contra rotavírus tem eficácia de 94,3% e efetividade de 85,7% na Grécia.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os valores citados aparecem diretamente no trecho como previsões para a Grécia, com os intervalos de predição correspondentes."
+  },
+  {
+    "item_id": "c7-0011",
+    "source_chunk_id": "bmc_hepb_children_africa_meta_2024:p1:c22:541fee704c15",
+    "claim": "A análise combinada mostrou que a vacina contra hepatite B não teve eficácia consistente.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A conclusão da meta-análise descreve resultados subótimos e ausência de eficácia consistente para a meta de eliminação global da hepatite B, o que corresponde à alegação."
+  },
+  {
+    "item_id": "c7-0347",
+    "source_chunk_id": "ms_escolas_2025:p17:c1:c82516c4dd2f",
+    "claim": "Meu vizinho levou o filho pra tomar a vacina contra HPV e depois ficou com febre. Acho que foi por causa da vacina.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "É um relato sobre uma criança específica que teve febre depois da vacina HPV. A sequência temporal, sozinha, não permite atribuir a febre à vacina; os trechos não resolvem esse caso."
+  },
+  {
+    "item_id": "c7-0270",
+    "source_chunk_id": "plos_pertussis_waning_meta_2018:p1:c18:2c3e02742c19",
+    "claim": "A dose de reforço da vacina Tdap reduz em 70% o risco de coqueluche, então todas as crianças devem receber essa proteção na mesma medida.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a dose de reforço da vacina tdap reduziu em 70% o risco de coqueluche em crianças que completaram a série completa até os 11 anos, mas não justifica a conclusão mais forte da alegação. Extende a proteção observada em crianças específicas para todas as crianças, sem considerar a faixa etária ou o histórico vacinal."
+  },
+  {
+    "item_id": "c7-0181",
+    "source_chunk_id": "plos_pertussis_waning_meta_2018:p1:c4:d5b30992b1b0",
+    "claim": "A taxa de coqueluche nos EUA caiu consistentemente entre 2010 e 2012, mostrando que a vacina DTaP é totalmente eficaz.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho mostra aumento dos casos notificados de coqueluche, de 9 por 100 mil em 2010 para 15 por 100 mil em 2012, contrariando a alegação."
+  },
+  {
+    "item_id": "c7-0126",
+    "source_chunk_id": "ckj_ckd_vaccine_efficacy_meta_2026:p1:c20:c5b5a14f78c2",
+    "claim": "A vacina contra gripe não protegeu os pacientes com doença renal crônica contra o vírus Influenza A H1N1 nem contra o Influenza B.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os dados apresentados mostram soroconversão após vacinação contra influenza para H1N1 e influenza B em pacientes com doença renal crônica; isso contraria a alegação de ausência de proteção."
+  },
+  {
+    "item_id": "c7-0038",
+    "source_chunk_id": "mdpi_dengue_tak003_meta_2024:p1:c32:8ac4e6d9b92c",
+    "claim": "A vacina TAK-003 precisa de mais estudos para ser usada em campanhas de vacinação em adultos.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os autores dizem que há poucos dados de eficácia em adultos e que são necessários mais estudos para apoiar campanhas futuras, exatamente o ponto levantado."
+  },
+  {
+    "item_id": "c7-0081",
+    "source_chunk_id": "scientificreports_hepb_response_meta_2016:p1:c22:1ff6f2f5838a",
+    "claim": "A pesquisa mostrou que adultos com mais de 40 anos em países não asiáticos podem ter uma resposta menor à vacina contra hepatite B do que adultos mais jovens.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A análise por subgrupos aponta resposta possivelmente menor em adultos com 40 anos ou mais de países não asiáticos, em comparação com adultos mais jovens."
+  },
+  {
+    "item_id": "c7-0278",
+    "source_chunk_id": "scientificreports_hepb_response_meta_2016:p1:c31:4ba1835f25d4",
+    "claim": "A vacina Engerix B é mais eficaz contra hepatite B porque é mais imunogênica, então não há necessidade de usar outras vacinas.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina engerix b tem maior imunogenicidade que a recombivax, mas não justifica a conclusão mais forte da alegação. Conclui que uma vacina é sempre melhor do que outra sem considerar outros fatores como idade ou contexto de uso."
+  },
+  {
+    "item_id": "c7-0075",
+    "source_chunk_id": "rmdopen_aiird_vaccination_review_2019:p1:c29:b3e26ddd20bf",
+    "claim": "A maioria dos estudos sobre a vacina contra gripe em pacientes com doenças autoimunes reumáticas avalia a capacidade de gerar anticorpos protetores.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O texto afirma que a maioria dos estudos avaliou imunogenicidade, especialmente a produção de níveis protetores de anticorpos."
+  },
+  {
+    "item_id": "c7-0341",
+    "source_chunk_id": "ms_dtp#5",
+    "claim": "A febre baixa ou moderada pode aparecer em cerca de metade das pessoas vacinadas.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "incorrect",
+    "corrected_label": "SUPPORTED",
+    "note": "O manual informa frequência de febre baixa a moderada entre 4,1% e 58,8%; esse intervalo inclui valores próximos de metade dos vacinados e sustenta a possibilidade descrita."
+  },
+  {
+    "item_id": "c7-0300",
+    "source_chunk_id": "who_vaccine_safety_qa_2025:p1:c5:889e1ad6e8af",
+    "claim": "Alguns participantes do teste da vacina relataram febre após a primeira fase, o que prova que ela causa febre alta em todos os vacinados.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que alguns participantes do teste da vacina relataram febre após a primeira fase, mas não justifica a conclusão mais forte da alegação. Transforma notificação ou associação em causa, generalizando para todos os vacinados."
+  },
+  {
+    "item_id": "c7-0313",
+    "source_chunk_id": "conitec_dengue_871_2023:p88:c2:b20e4d597205",
+    "claim": "Meu vizinho tomou a vacina contra dengue e depois teve um surto forte, mas melhorou rápido.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O caso do vizinho não traz avaliação clínica nem comparação com o que ocorreria sem vacinação. Com o contexto fornecido, não dá para confirmar a causa do surto."
+  },
+  {
+    "item_id": "c7-0186",
+    "source_chunk_id": "rmv_influenza_enhanced_review_2025:p1:c2:a75357762699",
+    "claim": "A vacina adjuvada com MF59 não reduziu os casos de influenza confirmados em laboratório.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A revisão encontra estimativas de efetividade da vacina adjuvada com MF59 contra influenza confirmada em laboratório, ainda que a certeza seja baixa. Isso contradiz a negação categórica."
+  },
+  {
+    "item_id": "c7-0187",
+    "source_chunk_id": "rmv_influenza_enhanced_review_2025:p1:c30:d8965a059f95",
+    "claim": "Nenhum estudo relatou efeitos adversos graves após a administração da vacina contra influenza em dose alta.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A revisão cita eventos adversos graves em ensaios com vacina contra influenza em dose alta, incluindo neuropatia e encefalomielite. Portanto, “nenhum estudo” é falso."
+  },
+  {
+    "item_id": "c7-0084",
+    "source_chunk_id": "springer_covid_pregnancy_lsr_2024:p5:c1:42604c1791dd",
+    "claim": "Os resultados de segurança da vacina contra COVID-19 em gestantes são apresentados por trimestre.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A revisão informa explicitamente que os desfechos de segurança materna e infantil são organizados por trimestre e tipo de vacina."
+  },
+  {
+    "item_id": "c7-0005",
+    "source_chunk_id": "anvisa_pfizer_5_11_ppam_2021:p30:c2:b7fb758751e9",
+    "claim": "Notificações de miocardite foram mais frequentes após a segunda dose da vacina de mRNA nos Estados Unidos e em Israel.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho compara taxas de notificação e relata valores mais altos após a segunda dose, especialmente entre homens jovens, nos dados dos EUA e de Israel."
+  },
+  {
+    "item_id": "c7-0073",
+    "source_chunk_id": "plos_pneumococcal_lac_meta_2024:p1:c31:0fd3e065532f",
+    "claim": "A vacina pneumocócica conjugada de 20 valências (PCV20) pode aumentar a cobertura contra cepas isoladas na América Latina.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A estimativa teórica citada para a PCV20 é de 62% a 70% de cobertura dos isolados nos países analisados da América Latina, apoiando a possibilidade descrita."
+  },
+  {
+    "item_id": "c7-0243",
+    "source_chunk_id": "mdpi_covid_art_fertility_2024:p1:c2:3be37682c018",
+    "claim": "A vacina contra a COVID-19 não alterou as taxas de gravidez clínica e nascimento, mas isso prova que ela causa abortos espontâneos em quem teve COVID-19 antes.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina contra a covid-19 não alterou as taxas de gravidez clínica e nascimento, mas não justifica a conclusão mais forte da alegação. Transforma a ausência de diferença significativa em uma causa para abortos espontâneos."
+  },
+  {
+    "item_id": "c7-0369",
+    "source_chunk_id": "ms_poliomielite#6",
+    "claim": "O Brasil exige um certificado internacional para comprovar a vacina contra pólio.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os três trechos próximos tratam da vacinação e da situação epidemiológica da pólio, mas não dizem se o Brasil exige certificado internacional. Eles não confirmam nem negam essa exigência."
+  },
+  {
+    "item_id": "c7-0183",
+    "source_chunk_id": "plos_pneumococcal_lac_meta_2024:p1:c36:a4a1f761dd63",
+    "claim": "A vacina PCV13 não teve impacto significativo nos casos de doença invasiva pneumocócica na região.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A conclusão do estudo diz que as vacinas conjugadas reduziram significativamente a doença pneumocócica invasiva na América Latina e no Caribe."
+  },
+  {
+    "item_id": "c7-0177",
+    "source_chunk_id": "ms_seguranca_calendario_2024:p9:c2:a97548e9e43d",
+    "claim": "As vacinas sempre causam mortes quando alguém morre depois de ser imunizado.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O material distingue óbito de evento adverso e explica que uma morte após vacinação não estabelece, por si só, causalidade. Isso refuta a generalização."
+  },
+  {
+    "item_id": "c7-0326",
+    "source_chunk_id": "ms_bcg#2",
+    "claim": "Recém-nascidos que nasceram antes da hora e pesam menos de 2 quilos não devem receber essa vacina.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "incorrect",
+    "corrected_label": "SUPPORTED",
+    "note": "O trecho afirma que a vacinação deve ser adiada em recém-nascidos com menos de 2.000 g até que atinjam esse peso. Isso dá suporte à orientação de não aplicar naquele momento."
+  },
+  {
+    "item_id": "c7-0306",
+    "source_chunk_id": "anvisa_pfizer_6m_4a_ppam_2022:p6:c3:5af82f039f02",
+    "claim": "Meu sobrinho de 3 anos tomou a terceira dose da vacina contra COVID-19 e parece ter tido uma boa resposta imunológica.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A impressão de que a resposta imunológica foi boa vem de um caso familiar e não de um exame ou dado geral apresentado no trecho. O rótulo de evidência insuficiente cabe."
+  },
+  {
+    "item_id": "c7-0340",
+    "source_chunk_id": "ms_dtp#4",
+    "claim": "A vacina DTP pode causar febre, irritabilidade e dor no local da aplicação.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "incorrect",
+    "corrected_label": "SUPPORTED",
+    "note": "O manual descreve dor e outras reações locais após DTP, e o contexto próximo também aborda manifestações sistêmicas. A alegação é compatível com as reações descritas."
+  },
+  {
+    "item_id": "c7-0089",
+    "source_chunk_id": "vaccines_autoimmune_disorders_meta_2021:p1:c1:b0b52ad04895",
+    "claim": "Alguns estudos sugerem que vacinas podem estar associadas ao surgimento de doenças autoimunes.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A frase está qualificada como sugestão de alguns estudos, e o trecho discute possíveis associações com doenças autoimunes; não apresenta isso como uma certeza universal."
+  },
+  {
+    "item_id": "c7-0024",
+    "source_chunk_id": "frontiers_gbs_vaccination_meta_2022:p1:c6:94cdf8adfd23",
+    "claim": "A vacina contra HPV é recomendada pela OMS para meninas entre 9 e 13 anos.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O material aponta a recomendação da OMS para meninas na faixa etária citada; a alegação preserva o grupo e a recomendação mencionados."
+  },
+  {
+    "item_id": "c7-0215",
+    "source_chunk_id": "bmc_pertussis_lmic_burden_meta_2020:p1:c38:e65260f9b96c",
+    "claim": "A cobertura da vacina DPT3 é baixa em todos os países, incluindo os de alta renda, o que mostra que a vacinação não funciona bem em nenhum lugar.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a cobertura da vacina dpt3 é baixa em países de baixa renda, mas não justifica a conclusão mais forte da alegação. Extende a baixa cobertura para todos os países, incluindo os de alta renda, sem evidência no trecho."
+  },
+  {
+    "item_id": "c7-0125",
+    "source_chunk_id": "cid_yellow_fever_duration_meta_2022:p1:c4:8a8583d3e08a",
+    "claim": "A vacina contra febre amarela não é eficaz e nunca foi comprovada como tal.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O contexto descreve a vacina contra febre amarela como altamente imunogênica e eficaz, em oposição à afirmação de que nunca foi comprovada."
+  },
+  {
+    "item_id": "c7-0225",
+    "source_chunk_id": "conitec_dengue_871_2023:p42:c1:e47ed527a46a",
+    "claim": "A vacina causou quase metade dos efeitos adversos leves que precisaram de atendimento médico, então ela é mais perigosa do que se pensava.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que quase metade das pessoas que tomaram a vacina teve efeitos adversos leves que exigiram consulta médica, mas não justifica a conclusão mais forte da alegação. A afirmação insinua que a vacina é perigosa por causa dos efeitos adversos, mas o trecho não avalia o risco global nem compara com outros tratamentos."
+  },
+  {
+    "item_id": "c7-0003",
+    "source_chunk_id": "anvisa_influenza_componentes_2026:p1:c2:61506873530f",
+    "claim": "A vacina contém conservantes em doses tão pequenas que são eliminados rápido pelo organismo.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O texto sustenta a informação sobre quantidades pequenas de conservantes, mas a parte sobre eliminação rápida só deve ser entendida dentro do que o trecho efetivamente descreve."
+  },
+  {
+    "item_id": "c7-0119",
+    "source_chunk_id": "bmjopen_mrna_myocarditis_meta_2023:p1:c4:9c73715091ca",
+    "claim": "As vacinas de mRNA contra o coronavírus não estão associadas a nenhum caso de miocardite ou pericardite.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O contexto registra a preocupação e os casos de miocardite/pericardite após vacinas de mRNA; a afirmação de que não existe nenhum caso associado é absoluta demais e contradita pelo material."
+  },
+  {
+    "item_id": "c7-0254",
+    "source_chunk_id": "ms_escolas_2025:p16:c1:4fa6fd7dee2a",
+    "claim": "Alguns casos de reações graves foram notificados depois da vacinação, o que prova que as vacinas causam esses problemas.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que alguns casos de reações graves foram notificados depois da vacinação, mas não justifica a conclusão mais forte da alegação. Transforma a notificação em causa direta sem evidência"
+  },
+  {
+    "item_id": "c7-0246",
+    "source_chunk_id": "measles_age_effect_meta_2020:p1:c26:e557e4b91244",
+    "claim": "Alguns bebês desenvolveram febre alta após receberem a vacina contra o sarampo antes dos 9 meses, o que prova que essa idade causa mais efeitos colaterais graves.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina contra o sarampo teve menor resposta imune em bebês que receberam a primeira dose antes dos 9 meses, mas não justifica a conclusão mais forte da alegação. Transforma a associação entre idade de vacinação e resposta imune em causa direta de efeitos colaterais graves."
+  },
+  {
+    "item_id": "c7-0164",
+    "source_chunk_id": "ms_hpv:p1:c5:d2c96edbaf75",
+    "claim": "A vacina contra o HPV não é eficaz na prevenção da infecção por esse vírus.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A fonte apresenta evidências de que a vacinação contra HPV previne infecção/doença relacionada ao vírus, portanto a negação total da eficácia está refutada."
+  },
+  {
+    "item_id": "c7-0124",
+    "source_chunk_id": "cid_yellow_fever_duration_meta_2022:p1:c30:cbee05b92e7d",
+    "claim": "A dose de reforço da vacina contra febre amarela não é mais recomendada após os primeiros dez anos.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho de recomendações não apoia a afirmação de que o reforço deixou de ser recomendado após dez anos; a frase contraria o contexto apresentado."
+  },
+  {
+    "item_id": "c7-0387",
+    "source_chunk_id": "paho_meningococcal_impact_review_2017:p1:c52:b2af4ea1dc26",
+    "claim": "Meu primo foi vacinado contra meningite e depois teve um caso leve, mas parece que a vacina ajudou a reduzir os sintomas.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O relato individual não demonstra que a vacina tenha tornado a doença mais leve; não há no contexto informação que permita atribuir esse resultado à vacinação."
+  },
+  {
+    "item_id": "c7-0332",
+    "source_chunk_id": "ms_coqueluche#5",
+    "claim": "A vacina é a melhor forma de evitar a coqueluche.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "incorrect",
+    "corrected_label": "MISLEADING",
+    "note": "O trecho chama a vacina dTpa de estratégia importante para prevenir coqueluche, mas não demonstra que seja, isoladamente, “a melhor forma” em comparação com todas as outras medidas."
+  },
+  {
+    "item_id": "c7-0147",
+    "source_chunk_id": "lancet_repeated_influenza_meta_2022:p1:c4:5dd4d7b3c628",
+    "claim": "A vacinação anual contra gripe protegeu igualmente meninos que já haviam sido vacinados antes e aqueles que estavam tomando a dose pela primeira vez.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O estudo não encontrou proteção igual entre os grupos descritos; os resultados variam conforme o histórico de vacinação, contrariando “igualmente”."
+  },
+  {
+    "item_id": "c7-0002",
+    "source_chunk_id": "anvisa_influenza_componentes_2026:p1:c1:fd931c24d484",
+    "claim": "A Anvisa afirma que a vacina contra gripe usada pelo SUS é segura.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho atribui à Anvisa a avaliação de segurança da vacina contra gripe usada no SUS; a alegação acompanha essa conclusão."
+  },
+  {
+    "item_id": "c7-0010",
+    "source_chunk_id": "anvisa_pfizer_6m_4a_ppam_2022:p4:c2:702afa03f39d",
+    "claim": "A vacina Comirnaty foi aprovada para crianças de 6 meses a menos de 5 anos com base em dados de eficácia e segurança.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A fonte descreve a aprovação da Comirnaty para a faixa de 6 meses a menos de 5 anos com base em dados de eficácia e segurança."
+  },
+  {
+    "item_id": "c7-0097",
+    "source_chunk_id": "who_como_vacinas_funcionam:p1:c7:de6fe1699cac",
+    "claim": "A vacinação contra a poliomielite eliminou o vírus selvagem em todos os continentes exceto no Afeganistão e Paquistão.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho afirma que a África foi certificada livre do poliovírus selvagem e aponta Afeganistão e Paquistão como exceções, correspondendo à alegação."
+  },
+  {
+    "item_id": "c7-0335",
+    "source_chunk_id": "ms_covid_vacinacao_2024_2ed:p19:c1:e783291250aa",
+    "claim": "Meu vizinho tomou a vacina Moderna e passou mal depois, será que foi por causa dela?",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A pessoa passou mal depois de receber Moderna, mas o relato não informa o que ocorreu nem estabelece nexo causal. O material não permite julgar a causa nesse indivíduo."
+  },
+  {
+    "item_id": "c7-0316",
+    "source_chunk_id": "hta_pneumococcal_network_meta_2024:p22:c2:035663e8469b",
+    "claim": "Meu vizinho levou o filho para tomar a vacina PCV13 e depois de um mês ele teve uma resposta forte de anticorpos, parece que a vacina funcionou bem.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Uma resposta forte de anticorpos num caso específico não pode ser verificada pelo relato e não prova, por si só, que a vacina foi a causa. Não há evidência geral para resolver o caso."
+  },
+  {
+    "item_id": "c7-0271",
+    "source_chunk_id": "plos_pneumococcal_lac_meta_2024:p1:c17:35ee17fcb9ee",
+    "claim": "Alguns casos de infecções por sorotipos PCV10 foram notificados depois da introdução da vacina, o que prova que ela causa essas infecções.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a análise mostrou que os sorotipos cobertos pela vacina pcv10 diminuíram desde 2010, mas não justifica a conclusão mais forte da alegação. Transforma a observação de uma tendência decrescente em causa direta."
+  },
+  {
+    "item_id": "c7-0154",
+    "source_chunk_id": "ms_calendario_2026:p17:c1:6f5131a53ef0",
+    "claim": "A vacina rotavírus humano G1 P [8] pode ser aplicada normalmente mesmo em crianças com vômitos ou diarreia.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O contexto trata vômitos e diarreia como situações relevantes para a administração da vacina contra rotavírus, não como uma autorização irrestrita."
+  },
+  {
+    "item_id": "c7-0392",
+    "source_chunk_id": "scientificreports_hepb_response_meta_2016:p1:c10:4208013ae4e5",
+    "claim": "Meu primo fez a vacina contra hepatite B e não teve nenhum problema, parece que ele reagiu bem.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Não ter apresentado problemas após a vacina é uma experiência individual; ela não permite concluir de forma geral sobre a reação à vacina nem exige outro rótulo com os dados disponíveis."
+  },
+  {
+    "item_id": "c7-0348",
+    "source_chunk_id": "ms_febre_amarela#5",
+    "claim": "O Brasil usa apenas uma dose da vacina contra febre amarela desde abril de 2017.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os trechos exibidos falam da expansão da vacinação e da eficácia da vacina contra febre amarela, mas não confirmam a data de abril de 2017 nem que o esquema brasileiro passou a usar apenas uma dose."
+  },
+  {
+    "item_id": "c7-0312",
+    "source_chunk_id": "ckj_ckd_vaccine_efficacy_meta_2026:p1:c7:d4dbd3344cea",
+    "claim": "Meu primo que faz diálise tomou a vacina e depois teve uma melhora nos sintomas.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A melhora dos sintomas depois da vacinação é apenas uma sequência temporal no caso do primo em diálise. O trecho não mostra que a vacina tenha provocado essa melhora."
+  },
+  {
+    "item_id": "c7-0321",
+    "source_chunk_id": "lancet_repeated_influenza_meta_2022:p1:c3:1376e8bbb7ca",
+    "claim": "Meu primo tomou a vacina contra o vírus H1N1 e depois contra o H3N2 no mesmo ano e ficou com menos proteção que se tivesse tomado só uma das duas.",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O relato compara a proteção de uma pessoa após receber vacinas contra H1N1 e H3N2, mas não traz medição ou evidência que sustente essa comparação individual."
+  },
+  {
+    "item_id": "c7-0293",
+    "source_chunk_id": "who_autism_evidence_review_2026:p32:c4:236b14c2b174",
+    "claim": "A vacina com tiomersal é segura para todos, incluindo bebês e adultos, sem qualquer restrição.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina com tiomersal é segura para bebês, mas não justifica a conclusão mais forte da alegação. O texto não menciona que a segurança depende de condições específicas ou grupos populacionais."
+  },
+  {
+    "item_id": "c7-0279",
+    "source_chunk_id": "springer_covid_pregnancy_lsr_2024:p1:c1:e584551e7164",
+    "claim": "A vacina contra COVID-19 é segura para todas as gestantes sem restrições.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina contra covid-19 pode ser segura para gestantes, mas não justifica a conclusão mais forte da alegação. O texto não menciona que a segurança depende de avaliação médica e contexto específico."
+  },
+  {
+    "item_id": "c7-0138",
+    "source_chunk_id": "jkms_varicella_effectiveness_meta_2025:p1:c16:9cb427752555",
+    "claim": "A dose única da vacina contra catapora não protegeu contra a doença.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "Os resultados citados mostram proteção da vacina contra catapora após uma dose; não sustentam a afirmação de que ela não protegeu."
+  },
+  {
+    "item_id": "c7-0253",
+    "source_chunk_id": "ms_crie_2023:p34:c1:a857c21400c4",
+    "claim": "Algumas pessoas desenvolveram pneumonia depois de receberem a vacina pneumocócica conjugada, o que prova que ela causa a doença.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina pneumocócica conjugada ajuda a controlar a doença mesmo em pessoas que não foram vacinadas, mas não justifica a conclusão mais forte da alegação. Transforma a proteção indireta da vacina em causa de pneumonia."
+  },
+  {
+    "item_id": "c7-0065",
+    "source_chunk_id": "ms_vsr_gestantes_2026:p16:c1:f6b682bbb347",
+    "claim": "O governo brasileiro recomenda vacinar gestantes contra a covid-19 em postos fixos e móveis para garantir acesso à imunização.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A orientação citada recomenda a vacinação de gestantes contra COVID-19 e menciona a oferta em postos fixos e móveis, como diz a alegação."
+  },
+  {
+    "item_id": "c7-0397",
+    "source_chunk_id": "vaccines_autoimmune_disorders_meta_2021:p1:c19:783645f6b31e",
+    "claim": "Meu vizinho tomou a vacina contra influenza e depois teve Guillain-Barré, será que foi por causa da vacina?",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A pergunta sobre Guillain-Barré parte de um caso particular e não inclui investigação de causalidade. O contexto não confirma nem descarta que a vacina tenha contribuído."
+  },
+  {
+    "item_id": "c7-0367",
+    "source_chunk_id": "ms_poliomielite#4",
+    "claim": "A vacina é o único jeito de evitar a poliomielite.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "incorrect",
+    "corrected_label": "MISLEADING",
+    "note": "O trecho apresenta a vacinação como principal forma de prevenção, não como a única. A vigilância e outras medidas de controle também são mencionadas, então “único jeito” exagera o alcance da evidência."
+  },
+  {
+    "item_id": "c7-0221",
+    "source_chunk_id": "cid_yellow_fever_duration_meta_2022:p1:c2:bee0ca8b1d39",
+    "claim": "A vacina contra febre amarela garante proteção vitalícia para todos os adultos com apenas uma dose, sem necessidade de reforço.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina contra febre amarela mantém alta proteção em adultos por até 10 anos após uma única dose, mas não justifica a conclusão mais forte da alegação. O texto não menciona que a proteção é vitalícia, apenas que permanece alta por até 10 anos."
+  },
+  {
+    "item_id": "c7-0210",
+    "source_chunk_id": "bmc_hepb_children_africa_meta_2024:p1:c18:f617af71fcd7",
+    "claim": "A vacina contra hepatite B garante proteção vitalícia para todas as idades sem necessidade de reforço.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a proporção de pessoas com níveis protetores de anticorpos contra hepatite b diminui conforme elas envelhecem, mas não justifica a conclusão mais forte da alegação. O texto não menciona que a vacina garante proteção vitalícia, apenas que os níveis de anticorpos diminuem com o tempo."
+  },
+  {
+    "item_id": "c7-0026",
+    "source_chunk_id": "hta_pneumococcal_network_meta_2024:p8:c1:c1a70f92bdc6",
+    "claim": "A análise de eficácia da vacina pneumocócica conjugada-13 mostrou que ela pode reduzir casos de doença invasiva por pneumococo.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A análise da PCV13 relata redução de casos de doença pneumocócica invasiva, de modo que a alegação de possível redução é sustentada."
+  },
+  {
+    "item_id": "c7-0101",
+    "source_chunk_id": "acsomega_animal_cell_lines_vaccines_2024:p1:c37:4b9ffeed060e",
+    "claim": "A vacina EpiVacCorona não foi aprovada para uso emergencial em nenhum país.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho de origem descreve a aprovação da EpiVacCorona em pelo menos um contexto regulatório; por isso, dizer que nenhum país a aprovou não se sustenta."
+  },
+  {
+    "item_id": "c7-0013",
+    "source_chunk_id": "bmj_aluminium_adjuvants_2026:p1:c18:e49774ee3a06",
+    "claim": "Crianças podem desenvolver nódulos com coceira persistente após a vacina DTP.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho descreve nódulos e coceira persistente como possíveis reações após DTP, então a alegação está de acordo com o material."
+  },
+  {
+    "item_id": "c7-0209",
+    "source_chunk_id": "anvisa_vacinas_nao_experimentais_2026:p1:c2:f3bbac57a7d8",
+    "claim": "A Anvisa monitora continuamente a segurança das vacinas, então qualquer reação adversa que ocorra após a aplicação é causada diretamente por elas.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a anvisa monitora continuamente a segurança das vacinas, mas não justifica a conclusão mais forte da alegação. Transforma o monitoramento de eventos adversos em uma afirmação de que eles são causados pelas vacinas."
+  },
+  {
+    "item_id": "c7-0135",
+    "source_chunk_id": "frontiers_gbs_vaccination_meta_2022:p1:c5:e0bd0e2261a0",
+    "claim": "A vacina contra gripe não tem relação com o aumento de casos de síndrome de Guillain-Barré em três semanas.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho discute aumento de risco de Guillain-Barré em estudos relacionados à vacina contra gripe, o que contraria a afirmação de que não há relação em nenhum dos cenários citados."
+  },
+  {
+    "item_id": "c7-0155",
+    "source_chunk_id": "ms_covid_vacinacao_2024_2ed:p10:c1:528f7b9d716d",
+    "claim": "Crianças entre 6 meses e 4 anos sem comorbidades não precisam de doses anuais da vacina atualizada contra covid-19.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A orientação para crianças pequenas não sustenta dispensar a vacinação anual atualizada de forma geral; a afirmação está em desacordo com as recomendações descritas."
+  },
+  {
+    "item_id": "c7-0206",
+    "source_chunk_id": "anvisa_pfizer_5_11_ppam_2021:p52:c3:bfdaae92cc1e",
+    "claim": "A vacina Pfizer contra covid-19 pode ser dada a todas as crianças sem restrições, pois é segura e eficaz para todos os grupos etários.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina pfizer contra covid-19 pode ser dada a todas as crianças, mas não justifica a conclusão mais forte da alegação. O texto menciona que a eficácia foi inferida em crianças de 5 a 11 anos, mas omite que há restrições e dados limitados para outras subpopulações."
+  },
+  {
+    "item_id": "c7-0272",
+    "source_chunk_id": "plos_pneumococcal_lac_meta_2024:p1:c32:d7f399924825",
+    "claim": "Alguns casos de doença invasiva pneumocócica foram notificados depois da introdução da vacina pneumocócica conjugada, o que prova que ela causa a doença.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "MISLEADING",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O trecho sustenta que a vacina pneumocócica conjugada (pcv) reduziu casos de doença invasiva pneumocócica em crianças menores de cinco anos na américa latina, mas não justifica a conclusão mais forte da alegação. Transforma a associação entre a vacinação e a redução da doença em uma causa direta, insinuando que a vacina pode causar a doença."
+  },
+  {
+    "item_id": "c7-0195",
+    "source_chunk_id": "vaccine_misinformation_communication_review_2023:p1:c49:4bb2a224bc20",
+    "claim": "Todas as mensagens que desmentiram mitos sobre vacinas pioraram a crença em informações falsas.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O estudo não conclui que todas as mensagens de correção pioram crenças falsas; essa formulação universal extrapola e contraria os resultados descritos."
+  },
+  {
+    "item_id": "c7-0189",
+    "source_chunk_id": "springer_covid_pregnancy_lsr_2024:p2:c3:02466f98d477",
+    "claim": "Os órgãos reguladores proibiram que gestantes tomassem a vacina contra o coronavírus por causa dos riscos.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O contexto não sustenta a suposta proibição; ele descreve dados/recomendações de vacinação, em vez de uma vedação geral."
+  },
+  {
+    "item_id": "c7-0364",
+    "source_chunk_id": "ms_multivacinacao_2026:p27:c2:4218984c7263",
+    "claim": "Meu vizinho tomou a vacina do PNI e depois teve febre alta, será que foi por causa dela?",
+    "origin_type": "individual_event",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "A febre alta ocorreu após a vacinação segundo o relato, mas isso não basta para atribuir causalidade. Não há no trecho informação clínica específica que resolva o caso."
+  },
+  {
+    "item_id": "c7-0105",
+    "source_chunk_id": "anvisa_pfizer_5_11_ppam_2021:p47:c2:7e54f1cb1ff6",
+    "claim": "Não há evidências de que a vacina contra COVID-19 cause miocardite/pericardite em adolescentes de 12 a 17 anos.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "REFUTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O contexto registra evidências de miocardite/pericardite em adolescentes após vacinação, então a negação completa de evidências é contrariada."
+  },
+  {
+    "item_id": "c7-0328",
+    "source_chunk_id": "ms_calendario_gestante_2026#1",
+    "claim": "Quem não completou o esquema de vacinação contra hepatite B deve tomar três doses.",
+    "origin_type": "outside_corpus_fact",
+    "proposed_label": "INSUFFICIENT_EVIDENCE",
+    "verdict": "incorrect",
+    "corrected_label": "MISLEADING",
+    "note": "O material descreve esquemas diferentes conforme a idade e a situação: três doses em muitos casos, mas quatro doses no esquema infantil brasileiro citado. A frase generaliza a indicação de três doses para todos."
+  },
+  {
+    "item_id": "c7-0078",
+    "source_chunk_id": "rmdopen_aiird_vaccination_review_2019:p1:c52:50f4cfc17bbc",
+    "claim": "A vacina contra hepatite B reduziu muito os casos da doença em países que a aplicam regularmente.",
+    "origin_type": "corpus_chunk",
+    "proposed_label": "SUPPORTED",
+    "verdict": "correct",
+    "corrected_label": null,
+    "note": "O material descreve queda importante nos casos de hepatite B em países com vacinação regular, apoiando o efeito apontado."
+  }
+]

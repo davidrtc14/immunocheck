@@ -48,6 +48,10 @@ DUPLICATE_SIMILARITY = 0.92
 OUT_OF_CORPUS_SIMILARITY = 0.85
 MIN_CHUNK_CHARS = 300
 MAX_CHUNK_CHARS = 2_500
+COVERAGE_TOP_K = 5
+COVERAGE_RELATIONS = ("supports", "contradicts", "partial", "none")
+REVIEW_VERDICTS = ("correct", "incorrect", "ambiguous")
+_REVIEW_ALIASES = {"correto": "correct", "incorreto": "incorrect", "ambiguo": "ambiguous"}
 
 _VACCINE = re.compile(r"vacin|vaccin|imuniz|immuni", re.IGNORECASE)
 _REFERENCE_LINE = re.compile(r"^\s*(?:\[?\d+[\].]|doi:|https?://|et al\.)", re.IGNORECASE)
@@ -222,6 +226,22 @@ def gate_individual_payload(payload: Mapping[str, object], source: SourceChunk) 
             Candidate(label=INSUFFICIENT, claim=claim, source=source, origin_type=ORIGIN_INDIVIDUAL)
         )
     return report
+
+
+def coverage_keeps(payload: Mapping[str, object]) -> bool:
+    """Portão 8: o fato fora do corpus fica só se nenhum chunk próximo resolver a alegação."""
+
+    return payload.get("relation") == "none"
+
+
+def normalize_review_verdict(value: object) -> str | None:
+    """Aceita o valor da página (`correct`) e a forma em português (`Correto`, `Ambíguo`)."""
+
+    if not isinstance(value, str):
+        return None
+    key = "".join(_tokens(value))
+    key = _REVIEW_ALIASES.get(key, key)
+    return key if key in REVIEW_VERDICTS else None
 
 
 def near_duplicates(
