@@ -70,6 +70,12 @@ rodízio de rótulo, para que o mesmo fato não apareça em três versões.
 **Tamanho e divisão:** alvo de 400 itens (100 por classe), com mínimo de 60 por classe. A família é o
 documento de origem; documentos inteiros vão para desenvolvimento ou teste (50%/50%, estratificado
 por tema), e nenhuma família atravessa os dois.
+- *Ampliação por rendimento (18/10, antes da revisão e de qualquer inferência):* com 6 chunks por
+  documento, 191 de 449 chunks do corpus não tinham fato utilizável e a montagem rendeu 81/81/80
+  itens nas três classes do corpus. O limite subiu para 8 chunks por documento (578 chunks). O
+  sorteio por documento mantém os 6 primeiros, então nada do que já tinha sido gerado mudou. O sorteio
+  dos relatos individuais ficou preso ao limite original e os chunks deles saem do corpus, para que
+  nenhum chunk gere dois itens.
 
 **Revisão humana:** amostra estratificada de 80 itens (20 por classe, metade de cada split). O revisor
 vê a alegação, o chunk de origem (ou os três mais próximos, no `INSUFFICIENT_EVIDENCE`), o rótulo

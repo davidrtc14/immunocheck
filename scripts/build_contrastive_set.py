@@ -54,7 +54,8 @@ WORK = REPOSITORY / "output/contrastive_v7"
 ROOT = REPOSITORY / "evaluation/refinement_v7"
 GENERATOR = "mistral-small3.2"
 SEED = 42
-PER_DOCUMENT = {"corpus": 6, "outside": 6, "individual": 1}
+PER_DOCUMENT = {"corpus": 8, "outside": 6, "individual": 1}
+INDIVIDUAL_BASE = 6
 MAX_OUTPUT_TOKENS = 900
 TARGET = {"corpus": 100, "outside": 50, "individual": 50}
 REVIEW_PER_LABEL = 20
@@ -241,13 +242,18 @@ def load_outside_chunks() -> list[SourceChunk]:
 def sources_for(kind: str) -> list[SourceChunk]:
     if kind == "outside":
         return sample_chunks(load_outside_chunks(), per_document=PER_DOCUMENT[kind], seed=SEED)
-    corpus = sample_chunks(load_corpus_chunks(), per_document=PER_DOCUMENT["corpus"], seed=SEED)
-    if kind == "corpus":
-        return corpus
-    # Relatos individuais usam outro sorteio, para não repetir os chunks das outras classes.
-    used = {chunk.chunk_id for chunk in corpus}
-    pool = [chunk for chunk in load_corpus_chunks() if chunk.chunk_id not in used]
-    return sample_chunks(pool, per_document=PER_DOCUMENT["individual"], seed=SEED + 1)
+    chunks = load_corpus_chunks()
+    # Relatos individuais usam outro sorteio, para não repetir os chunks das outras classes. A base
+    # do sorteio fica presa ao limite original de 6 por documento, para que a ampliação do corpus
+    # (6 -> 8, por rendimento abaixo da meta) não mude os relatos já gerados.
+    first = {c.chunk_id for c in sample_chunks(chunks, per_document=INDIVIDUAL_BASE, seed=SEED)}
+    pool = [chunk for chunk in chunks if chunk.chunk_id not in first]
+    individual = sample_chunks(pool, per_document=PER_DOCUMENT["individual"], seed=SEED + 1)
+    if kind == "individual":
+        return individual
+    taken = {chunk.chunk_id for chunk in individual}
+    corpus = sample_chunks(chunks, per_document=PER_DOCUMENT["corpus"], seed=SEED)
+    return [chunk for chunk in corpus if chunk.chunk_id not in taken]
 
 
 def generate(kind: str, limit: int | None) -> None:
