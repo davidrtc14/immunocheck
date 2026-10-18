@@ -37,8 +37,19 @@ ALIASES = {"E1": CHUNK}
 QUOTE = "Pessoas com alergia ao ovo podem receber a vacina influenza"
 
 
-def _raw(relation: str, quote: str | None = QUOTE, ref: str | None = "E1") -> dict[str, Any]:
-    return {"proposition": "P1", "relation": relation, "source_ref": ref, "quote": quote}
+def _raw(
+    relation: str,
+    quote: str | None = QUOTE,
+    ref: str | None = "E1",
+    overreach: str | None = "qualquer pessoa",
+) -> dict[str, Any]:
+    return {
+        "proposition": "P1",
+        "relation": relation,
+        "source_ref": ref,
+        "quote": quote,
+        "overreach": overreach,
+    }
 
 
 def test_partial_with_verified_quote_becomes_misleading() -> None:
@@ -57,9 +68,16 @@ def test_partial_without_verified_quote_is_downgraded() -> None:
     assert aggregate_verdict_v7([judgment]) is Verdict.INSUFFICIENT_EVIDENCE
 
 
+def test_partial_without_literal_overreach_becomes_entailed() -> None:
+    for overreach in (None, "todas as gestantes", "ab"):
+        judgment = framed_post_rules(CORE, _raw("PARTIAL", overreach=overreach), ALIASES)
+        assert not judgment.partial and judgment.relation is Relation.ENTAILED
+        assert aggregate_verdict_v7([judgment]) is Verdict.SUPPORTED
+
+
 def test_partial_skips_the_number_rule_but_entailed_does_not() -> None:
     numeric = Proposition(
-        "A vacina influenza protege 99% das pessoas com alergia ao ovo.",
+        "A vacina influenza protege 99% de qualquer pessoa com alergia ao ovo.",
         PropositionRole.CORE,
         PropositionType.FACT,
     )

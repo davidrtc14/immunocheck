@@ -2,8 +2,10 @@
 
 C1 — relação de enquadramento: o juiz ganha a relação `PARTIAL` (o trecho sustenta o núcleo, mas a
 proposição exagera o alcance, omite uma ressalva ou salta para causa). Ela exige trecho literal
-verificado, como `ENTAILED`, e qualquer `PARTIAL` verificado leva a `MISLEADING`, inclusive quando
-a alegação tem uma proposição só. Sem `PARTIAL`, vale a agregação da v5.
+verificado, como `ENTAILED`, e o juiz precisa copiar da proposição as palavras que vão além do
+trecho (`overreach`); sem isso, o `PARTIAL` vira `ENTAILED`. Qualquer `PARTIAL` verificado leva a
+`MISLEADING`, inclusive quando a alegação tem uma proposição só. Sem `PARTIAL`, vale a agregação da
+v5.
 """
 
 from __future__ import annotations
@@ -20,6 +22,7 @@ from immunocheck.application.decomposed_pipeline import (
     NOT_ADDRESSED_EXPLANATION,
     DecomposedFactCheckPipeline,
 )
+from immunocheck.application.grounding import alnum_key
 from immunocheck.application.proposition_nli import (
     MAX_EVIDENCE,
     RETRY_SUFFIX,
@@ -69,8 +72,9 @@ def framing_schema(proposition_count: int) -> dict[str, Any]:
                         "relation": {"type": "string", "enum": list(FRAMING_RELATIONS)},
                         "source_ref": {"type": ["string", "null"], "maxLength": 4},
                         "quote": {"type": ["string", "null"], "maxLength": 400},
+                        "overreach": {"type": ["string", "null"], "maxLength": 160},
                     },
-                    "required": ["proposition", "relation", "source_ref", "quote"],
+                    "required": ["proposition", "relation", "source_ref", "quote", "overreach"],
                     "additionalProperties": False,
                 },
             }
@@ -88,16 +92,21 @@ Para cada proposição (P1, P2, ...), produza um julgamento.
 
 relation:
 - ENTAILED: o trecho afirma o mesmo fato da proposição, com os mesmos números, alcance e certeza.
-- PARTIAL: o trecho sustenta o núcleo factual da proposição, mas ela vai além do que o trecho diz:
-  generaliza para todos, sempre ou qualquer caso o que vale só em parte; omite uma condição,
-  exceção, prazo ou ressalva essencial; transforma notificação, associação ou sequência temporal em
-  causa; ou usa o fato para tirar uma conclusão que o trecho não autoriza. Use PARTIAL sempre que
-  uma parte relevante da proposição for verdadeira segundo o trecho e outra parte a distorcer.
-- CONTRADICTED: o núcleo da proposição é falso segundo o trecho, que afirma diretamente algo
-  incompatível sobre o MESMO escopo (outro número para a mesma medida, recomendação oposta,
-  resultado oposto, ocorrência que a proposição nega). Se o núcleo for verdadeiro e só o alcance
-  estiver exagerado, use PARTIAL, não CONTRADICTED. Escopo diferente não é contradição: um trecho
-  sobre a PCV10 não trata da PCV20; um estudo na Etiópia não trata do Brasil.
+  Paráfrase, outra ordem das palavras, sinônimos, arredondamento ("cerca de") e detalhes do trecho
+  que a proposição não repete NÃO impedem ENTAILED.
+- PARTIAL (raro): o trecho sustenta o fato de base, mas a proposição acrescenta um exagero que o
+  trecho não autoriza: generaliza para todos, sempre ou qualquer caso o que o trecho limita; apaga
+  uma condição ou ressalva que o trecho impõe; transforma notificação, associação ou sequência
+  temporal em causa; ou tira do fato uma conclusão alarmista ou normativa. Só use PARTIAL se você
+  conseguir copiar em overreach as palavras EXATAS da proposição que vão além do trecho (por
+  exemplo "qualquer pessoa", "o que prova que ela causa", "acabou com"). Se não houver essas
+  palavras, a relação é ENTAILED, CONTRADICTED ou NOT_ADDRESSED.
+- CONTRADICTED: o trecho afirma diretamente algo incompatível com a proposição sobre o MESMO escopo
+  (outro número para a mesma medida, recomendação oposta, resultado oposto, ocorrência que a
+  proposição nega). Uma proposição que nega ou inverte o que o trecho diz ("não funciona", "não
+  mudou nada", "nenhum estudo", "não há risco") é CONTRADICTED, mesmo que use palavras absolutas.
+  Escopo diferente não é contradição: um trecho sobre a PCV10 não trata da PCV20; um estudo na
+  Etiópia não trata do Brasil.
 - NOT_ADDRESSED: o trecho não permite concluir; há apenas semelhança de tema, escopo diferente ou
   ausência de menção. Ausência de menção nunca é contradição.
 - Uma conclusão sobre o que se deve fazer (desnecessário, dispensável, deve ser retirada) é
@@ -105,8 +114,11 @@ relation:
 
 source_ref e quote: para ENTAILED, PARTIAL ou CONTRADICTED, escolha o trecho (E1, E2, ...) e copie
 em quote, SEM NENHUMA ALTERAÇÃO, a frase desse trecho que justifica a relação (pelo menos 20
-caracteres); no PARTIAL, a frase que sustenta o núcleo. Para NOT_ADDRESSED, use null nos dois
-campos. Nunca invente nem parafraseie o quote."""
+caracteres); no PARTIAL, a frase que sustenta o fato de base. Para NOT_ADDRESSED, use null nos dois
+campos. overreach: só no PARTIAL, as palavras exatas da proposição que vão além do trecho; null nas
+outras relações. Nunca invente nem parafraseie o quote."""
+
+MIN_OVERREACH_CHARS = 3
 
 
 @dataclass(frozen=True, slots=True)
@@ -195,8 +207,8 @@ def framed_post_rules(
     label = raw.get("relation")
     if label not in FRAMING_RELATIONS:
         raise ModelOutputError("O NLI retornou relação inválida.")
-    partial = label == PARTIAL
-    model_relation = Relation.ENTAILED if partial else Relation(label)
+    partial = label == PARTIAL and overreach_in_proposition(raw.get("overreach"), proposition.text)
+    model_relation = Relation.ENTAILED if label == PARTIAL else Relation(label)
     if model_relation is Relation.NOT_ADDRESSED:
         return FramedJudgment(proposition, Relation.NOT_ADDRESSED, model_relation)
 
@@ -224,6 +236,19 @@ def framed_post_rules(
         source_id=evidence.chunk_id,
         partial=partial,
     )
+
+
+def overreach_in_proposition(overreach: object, proposition_text: str) -> bool:
+    """O exagero apontado pelo juiz precisa ser um trecho literal da própria proposição.
+
+    Sem isso, o `PARTIAL` vira `ENTAILED` (e passa pela regra de números), porque o juiz não
+    mostrou o que a proposição acrescenta ao trecho.
+    """
+
+    if not isinstance(overreach, str):
+        return False
+    key = alnum_key(overreach)
+    return len(key) >= MIN_OVERREACH_CHARS and key in alnum_key(proposition_text)
 
 
 def is_partial(judgment: PropositionJudgment) -> bool:

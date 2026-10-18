@@ -30,3 +30,21 @@ Legenda de recall: S / R / M / I = `SUPPORTED` / `REFUTED` / `MISLEADING` / `INS
 
 **Conferência:** a `v7` sem candidatas reproduziu a `v5_fixed` em 12 de 12 itens, com mesmos
 vereditos e mesmos julgamentos.
+
+## 18/10 — C1, versão 1 (relação `PARTIAL` livre)
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C1` v1 | 0,584 | 0,39 / 0,35 / 0,79 / 0,86 | 3,5% | 0 | 16,6 s |
+
+Δ contra a `v5_fixed`: −0,072 (IC −0,131 a −0,014). Reprovada.
+
+O recall de `MISLEADING` foi de 0,31 para 0,79, mas o juiz passou a usar `PARTIAL` como meio-termo:
+26 `SUPPORTED` e 28 `REFUTED` viraram `MISLEADING`. Entre os `SUPPORTED`, havia paráfrases exatas,
+como "recomendada pela OMS para meninas entre 9 e 13 anos".
+
+**Mudança para a versão 2:**
+- o juiz precisa copiar em `overreach` as palavras exatas da proposição que vão além do trecho; o
+  código confere que elas estão na proposição e, se não estiverem, o `PARTIAL` vira `ENTAILED`;
+- o prompt diz que paráfrase e arredondamento não impedem `ENTAILED`, que `PARTIAL` é raro, e que
+  negar ou inverter o trecho é `CONTRADICTED`.
