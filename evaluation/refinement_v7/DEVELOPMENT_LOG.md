@@ -93,28 +93,6 @@ inglês, "not", "never", "none", "cannot", "n't"), `ENTAILED` e `PARTIAL` viram 
 saber o que a negação nega, o código não inverte para `CONTRADICTED`; só abstém. O trace passa a
 guardar o trecho citado, para que análises futuras não dependam de reexecutar o modelo.
 
-## 19/10 — C1, versão 4 (trava de negação)
-
-| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
-|---|---:|---|---:|---:|---:|
-| `v7+C1` v4 | 0,644 | 0,67 / 0,59 / 0,48 / 0,86 | 3,5% | 0 | 16,1 s |
-
-Δ contra a `v5_fixed`: −0,011 (IC −0,059 a +0,038); Δ do erro grave: −0,028. Reprovada no macro-F1.
-Contra a v3: −0,059.
-
-A trava disparou em 23 itens: protegeu 10 `REFUTED` (que viraram abstenção, em vez de `SUPPORTED`),
-mas derrubou 10 `SUPPORTED` legítimos. Os falsos alarmes têm um padrão: alegações com negação
-("não aumentou o risco de doenças autoimunes", "países não asiáticos") sustentadas por trechos em
-inglês que negam com "no increased risk" ou "non-Asian", palavras que a v4 deixou fora do léxico
-porque "no" é preposição em português. O trace não guardava o trecho dos julgamentos rebaixados.
-
-**Mudança para a versão 5, a última da C1:** o léxico de negação do inglês ("no", "non", "without",
-"nor", além de "not", "never", "none") só vale para trechos detectados como inglês, por contagem de
-palavras funcionais; "n't" e "cannot" valem sempre. O trace guarda o trecho também nos casos
-rebaixados. **Regra de parada, registrada antes da execução:** se a v5 não passar no critério de
-seleção (+0,02 de macro-F1 e erro grave até +0,02 contra a `v5_fixed`), a C1 é rejeitada e a
-seleção segue sem ela, com a C4.
-
 ## 19/10 — C1, versão 4 (trava de negação) e decisão da C1
 
 | Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
@@ -135,16 +113,24 @@ e a comparação por presença de palavra não distingue esses casos.
 split de desenvolvimento. A configuração acumulada continua sendo a `v5_fixed`, e a seleção segue para
 a C4, na ordem registrada.
 
-## 19/10 — C1, versão 5 (léxico de negação por idioma) e decisão sobre a C1
+## 19/10 — Nota: C1 v5 executada em paralelo, depois da rejeição
+
+Por um erro de coordenação, duas sessões de trabalho rodaram a seleção ao mesmo tempo neste checkout.
+Enquanto a entrada acima rejeitava a C1 na v4 e iniciava a C4, a outra sessão rodou uma quinta
+versão (commit `fe7353d`, tag `c1v5`): o léxico de negação do inglês ("no", "non", "without", "nor")
+passa a valer só para trechos detectados como inglês, porque os falsos alarmes da v4 vinham de trechos
+como "no increased risk" e "non-Asian".
 
 | Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
 |---|---:|---|---:|---:|---:|
-| `v7+C1` v5 | 0,658 | 0,73 / 0,59 / 0,48 / 0,86 | 4,2% | 0 | 27,0 s |
+| `v7+C1` v5 | 0,658 | 0,73 / 0,59 / 0,48 / 0,86 | 4,2% | 0 | 27,0 s* |
 
 Δ contra a `v5_fixed`: +0,002 (IC −0,038 a +0,046); Δ do erro grave: −0,021. Contra a v3: −0,045.
+\* A execução dividiu a GPU com a C4 (tag `c4`) desde 15:27; a latência não é comparável.
 
-**Decisão: a C1 é rejeitada**, pela regra de parada registrada antes desta execução. Resumo das cinco
-versões contra a `v5_fixed` (0,656; erro grave 6,3%):
+**A rejeição da C1 se mantém.** A v5 também não passaria no critério de seleção, e ela não muda a
+decisão nem a ordem da seleção; fica registrada por transparência, já que foi executada. Resumo das
+cinco versões contra a `v5_fixed` (0,656; erro grave 6,3%):
 
 | Versão | Macro-F1 | Δ | Erro grave | Recall de `MISLEADING` |
 |---|---:|---:|---:|---:|
@@ -154,11 +140,5 @@ versões contra a `v5_fixed` (0,656; erro grave 6,3%):
 | v4 | 0,644 | −0,011 | 3,5% | 0,48 |
 | v5 | 0,658 | +0,002 | 4,2% | 0,48 |
 
-**Leitura para o TCC:** a relação de enquadramento sobe de forma consistente o recall de
-`MISLEADING` (de 0,31 para cerca de 0,50), mas o juiz de 8B troca esse ganho por erros em outras
-classes. Cada trava que protege contra o erro grave (versões 4 e 5) devolve o macro-F1 ao nível da
-`v5_fixed`. Nenhuma versão obteve ao mesmo tempo o ganho de macro-F1 e o controle do erro grave
-exigidos. O P95 de 27,0 s da v5 está dentro do limite de 45 s; a alta em relação às versões
-anteriores (16 s) não foi investigada.
-
-A seleção segue com a `v5_fixed` como configuração acumulada: próxima candidata, C4.
+O mesmo compartilhamento de GPU vale para o início da C4 (tag `c4`): a latência dela entre 15:27 e
+o fim da C1 v5 também está inflada.
