@@ -3,6 +3,7 @@
 Fica fora de `bootstrap.py`, que está congelado pela Fase 18. Candidatas disponíveis:
 - `C1`: relação de enquadramento `PARTIAL` e agregação da v7.
 - `C2`: cada evidência vai ao juiz com o fim do chunk anterior e o começo do seguinte.
+- `C3`: `qwen3.6` só no juiz; decomposição e explicação continuam com o modelo base.
 - `C4`: queda para a v3 quando a decomposição falha duas vezes.
 """
 
@@ -17,13 +18,15 @@ from immunocheck.application.v7_fallback import DecompositionFallbackPipeline
 from immunocheck.application.v7_verdict import FramingPropositionJudge, V7FactCheckPipeline
 from immunocheck.bootstrap import (
     DEFAULT_CORPUS_PATH,
+    _build_llm_client,
     build_routed_text_pipeline,
     build_v5_text_pipeline,
 )
 from immunocheck.retrieval.neighbor_context import NeighborContextRetriever
 from immunocheck.retrieval.pilot_corpus import load_evidence_jsonl
 
-CANDIDATES = ("C1", "C2", "C4")
+CANDIDATES = ("C1", "C2", "C3", "C4")
+C3_JUDGE_MODEL = "qwen3.6:latest"
 
 
 def build_v7_text_pipeline(
@@ -39,7 +42,11 @@ def build_v7_text_pipeline(
     base = build_v5_text_pipeline(
         model=model, multi_query=True, reranker=False, think=False, trace_sink=trace_sink
     )
-    client = base.judge.client
+    client = (
+        _build_llm_client(model=C3_JUDGE_MODEL, base_url=None)
+        if "C3" in chosen
+        else base.judge.client
+    )
     tokens = base.judge.max_output_tokens
     judge = (
         FramingPropositionJudge(client, tokens)
