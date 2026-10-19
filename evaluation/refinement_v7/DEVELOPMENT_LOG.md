@@ -180,3 +180,16 @@ C3 mais lenta que o `qwen3.6` no pipeline todo, ao contrário do previsto. Com d
 de 45 s, o critério de P95 não tem como ser cumprido; a execução foi interrompida para não gastar duas
 horas de GPU. O Adendo 2 do protocolo substitui a C3 pela C3b (`qwen3.6` no pipeline inteiro), antes de
 qualquer contato com o teste.
+
+## 19/10 — C3b (`qwen3.6` no pipeline inteiro)
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C3b` | 0,658 | 0,78 / 0,78 / 0,27 / 0,91 | 4,2% | 0 | 25,7 s |
+
+Δ contra a `v5_fixed`: +0,002 (IC −0,063 a +0,070); Δ do erro grave: −0,021. Contra a v3: −0,045.
+**Não entra:** o ganho fica no ruído de execução. O modelo de 23 GB reduz o erro grave e sobe
+`REFUTED`, mas o recall de `MISLEADING` cai para 0,27 (2 de 17 saltos causais). Ao contrário do v4,
+em que o `qwen3.6` foi o melhor juiz (0,716), no C7 a capacidade do juiz não é o gargalo de
+`MISLEADING`: com uma proposição só, a agregação da v5 não produz `MISLEADING`, e a decomposição
+raramente separa o exagero numa proposição própria.

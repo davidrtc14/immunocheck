@@ -6,27 +6,34 @@ Fica fora de `bootstrap.py`, que está congelado pela Fase 18. Candidatas dispon
 - `C3`: `qwen3.6` só no juiz; decomposição e explicação continuam com o modelo base.
 - `C3b`: `qwen3.6` no pipeline inteiro, sem troca de modelo (Adendo 2 do protocolo).
 - `C4`: queda para a v3 quando a decomposição falha duas vezes.
+- `C5`: voto de três juízes (temperatura 0,3, sementes 42, 43 e 44) por proposição.
 """
 
 from __future__ import annotations
 
 import dataclasses
+import os
 from collections.abc import Callable, Iterable
 from typing import Any
 
 from immunocheck.application.tolerant_verification import TolerantPropositionJudge
 from immunocheck.application.v7_fallback import DecompositionFallbackPipeline
 from immunocheck.application.v7_verdict import FramingPropositionJudge, V7FactCheckPipeline
+from immunocheck.application.v7_vote import ConsistencyVoteJudge
 from immunocheck.bootstrap import (
     DEFAULT_CORPUS_PATH,
     _build_llm_client,
     build_routed_text_pipeline,
     build_v5_text_pipeline,
 )
+from immunocheck.infrastructure.context_budget import ContextBudgetClient
+from immunocheck.infrastructure.ollama_seeded import SeededOllamaClient
 from immunocheck.retrieval.neighbor_context import NeighborContextRetriever
 from immunocheck.retrieval.pilot_corpus import load_evidence_jsonl
 
-CANDIDATES = ("C1", "C2", "C3", "C3b", "C4")
+CANDIDATES = ("C1", "C2", "C3", "C3b", "C4", "C5")
+C5_SEEDS = (42, 43, 44)
+C5_TEMPERATURE = 0.3
 C3_JUDGE_MODEL = "qwen3.6:latest"
 
 
@@ -53,11 +60,21 @@ def build_v7_text_pipeline(
         else base.judge.client
     )
     tokens = base.judge.max_output_tokens
-    judge = (
-        FramingPropositionJudge(client, tokens)
-        if "C1" in chosen
-        else TolerantPropositionJudge(client, tokens)
-    )
+    judge_class = FramingPropositionJudge if "C1" in chosen else TolerantPropositionJudge
+    judge = judge_class(client, tokens)
+    if "C5" in chosen:
+        judge_model = C3_JUDGE_MODEL if chosen & {"C3", "C3b"} else _base_model(model)
+        judge = ConsistencyVoteJudge(
+            tuple(
+                judge_class(
+                    ContextBudgetClient(
+                        SeededOllamaClient(model=judge_model, seed=seed, temperature=C5_TEMPERATURE)
+                    ),
+                    tokens,
+                )
+                for seed in C5_SEEDS
+            )
+        )
     fields = {field.name: getattr(base, field.name) for field in dataclasses.fields(base)}
     if "C2" in chosen:
         corpus = load_evidence_jsonl(DEFAULT_CORPUS_PATH)
@@ -68,3 +85,7 @@ def build_v7_text_pipeline(
             pipeline, build_routed_text_pipeline, trace_sink=trace_sink
         )
     return pipeline
+
+
+def _base_model(model: str | None) -> str:
+    return model or os.getenv("OLLAMA_MODEL", "qwen3:8b")
