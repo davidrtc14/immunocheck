@@ -134,3 +134,31 @@ e a comparação por presença de palavra não distingue esses casos.
 `SUPPORTED`, e nenhuma versão passou nos dois critérios. Uma quinta versão ajustaria o juiz ao próprio
 split de desenvolvimento. A configuração acumulada continua sendo a `v5_fixed`, e a seleção segue para
 a C4, na ordem registrada.
+
+## 19/10 — C1, versão 5 (léxico de negação por idioma) e decisão sobre a C1
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C1` v5 | 0,658 | 0,73 / 0,59 / 0,48 / 0,86 | 4,2% | 0 | 27,0 s |
+
+Δ contra a `v5_fixed`: +0,002 (IC −0,038 a +0,046); Δ do erro grave: −0,021. Contra a v3: −0,045.
+
+**Decisão: a C1 é rejeitada**, pela regra de parada registrada antes desta execução. Resumo das cinco
+versões contra a `v5_fixed` (0,656; erro grave 6,3%):
+
+| Versão | Macro-F1 | Δ | Erro grave | Recall de `MISLEADING` |
+|---|---:|---:|---:|---:|
+| v1 | 0,584 | −0,072 | 3,5% | 0,79 |
+| v2 | 0,669 | +0,013 | 11,1% | 0,52 |
+| v3 | 0,684 | +0,028 | 8,3% | 0,50 |
+| v4 | 0,644 | −0,011 | 3,5% | 0,48 |
+| v5 | 0,658 | +0,002 | 4,2% | 0,48 |
+
+**Leitura para o TCC:** a relação de enquadramento sobe de forma consistente o recall de
+`MISLEADING` (de 0,31 para cerca de 0,50), mas o juiz de 8B troca esse ganho por erros em outras
+classes. Cada trava que protege contra o erro grave (versões 4 e 5) devolve o macro-F1 ao nível da
+`v5_fixed`. Nenhuma versão obteve ao mesmo tempo o ganho de macro-F1 e o controle do erro grave
+exigidos. O P95 de 27,0 s da v5 está dentro do limite de 45 s; a alta em relação às versões
+anteriores (16 s) não foi investigada.
+
+A seleção segue com a `v5_fixed` como configuração acumulada: próxima candidata, C4.
