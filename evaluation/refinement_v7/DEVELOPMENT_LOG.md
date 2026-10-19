@@ -114,3 +114,23 @@ palavras funcionais; "n't" e "cannot" valem sempre. O trace guarda o trecho tamb
 rebaixados. **Regra de parada, registrada antes da execução:** se a v5 não passar no critério de
 seleção (+0,02 de macro-F1 e erro grave até +0,02 contra a `v5_fixed`), a C1 é rejeitada e a
 seleção segue sem ela, com a C4.
+
+## 19/10 — C1, versão 4 (trava de negação) e decisão da C1
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C1` v4 | 0,644 | 0,67 / 0,59 / 0,48 / 0,86 | 3,5% | 0 | 16,1 s |
+
+Δ contra a `v5_fixed`: −0,011 (IC −0,059 a +0,038); Δ do erro grave: −0,028. Contra a v3: −0,059
+(IC −0,126 a +0,012). Reprovada no macro-F1.
+
+A trava resolveu o erro grave (o menor de todas as condições até aqui), mas disparou em 23 julgamentos
+e derrubou o recall de `SUPPORTED` de 0,86 para 0,67: trechos com negação sustentam proposições
+afirmativas ("não há associação com autismo" sustenta "a vacina é segura quanto ao autismo") e vice-versa,
+e a comparação por presença de palavra não distingue esses casos.
+
+**Decisão: C1 rejeitada.** Em quatro versões, cada ajuste trocou um tipo de erro por outro: o
+`PARTIAL` sobe o recall de `MISLEADING` (de 0,31 para 0,48–0,52), mas desloca `REFUTED` e
+`SUPPORTED`, e nenhuma versão passou nos dois critérios. Uma quinta versão ajustaria o juiz ao próprio
+split de desenvolvimento. A configuração acumulada continua sendo a `v5_fixed`, e a seleção segue para
+a C4, na ordem registrada.
