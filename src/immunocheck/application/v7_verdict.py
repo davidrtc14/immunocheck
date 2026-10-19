@@ -3,7 +3,8 @@
 C1 — relação de enquadramento: o juiz ganha a relação `PARTIAL` (o trecho sustenta o núcleo, mas a
 proposição exagera o alcance, omite uma ressalva ou salta para causa). Ela exige trecho literal
 verificado, como `ENTAILED`, e o juiz precisa copiar da proposição as palavras que vão além do
-trecho (`overreach`); sem isso, o `PARTIAL` vira `ENTAILED`. Qualquer `PARTIAL` verificado leva a
+trecho (`overreach`); sem isso, o `PARTIAL` vira `NOT_ADDRESSED` (versão 3; na versão 2 virava
+`ENTAILED`, o que transformou negações em `SUPPORTED`). Qualquer `PARTIAL` verificado leva a
 `MISLEADING`, inclusive quando a alegação tem uma proposição só. Sem `PARTIAL`, vale a agregação da
 v5.
 """
@@ -49,9 +50,14 @@ FRAMING_RELATIONS = (Relation.ENTAILED.value, PARTIAL, Relation.CONTRADICTED.val
 
 @dataclass(frozen=True, slots=True)
 class FramedJudgment(PropositionJudgment):
-    """Julgamento da v7: `partial` marca um `PARTIAL` verificado (guardado como `ENTAILED`)."""
+    """Julgamento da v7: `partial` marca um `PARTIAL` verificado (guardado como `ENTAILED`).
+
+    `overreach_rejected` marca um `PARTIAL` do modelo sem exagero literal válido, que vira
+    `NOT_ADDRESSED`.
+    """
 
     partial: bool = False
+    overreach_rejected: bool = False
 
 
 def framing_schema(proposition_count: int) -> dict[str, Any]:
@@ -93,7 +99,8 @@ Para cada proposição (P1, P2, ...), produza um julgamento.
 relation:
 - ENTAILED: o trecho afirma o mesmo fato da proposição, com os mesmos números, alcance e certeza.
   Paráfrase, outra ordem das palavras, sinônimos, arredondamento ("cerca de") e detalhes do trecho
-  que a proposição não repete NÃO impedem ENTAILED.
+  que a proposição não repete NÃO impedem ENTAILED. Mas, se a proposição tem uma negação ("não",
+  "nenhum", "nunca", "sem") que o trecho não tem, ou o contrário, ela NUNCA é ENTAILED.
 - PARTIAL (raro): o trecho sustenta o fato de base, mas a proposição acrescenta um exagero que o
   trecho não autoriza: generaliza para todos, sempre ou qualquer caso o que o trecho limita; apaga
   uma condição ou ressalva que o trecho impõe; transforma notificação, associação ou sequência
@@ -209,6 +216,10 @@ def framed_post_rules(
         raise ModelOutputError("O NLI retornou relação inválida.")
     partial = label == PARTIAL and overreach_in_proposition(raw.get("overreach"), proposition.text)
     model_relation = Relation.ENTAILED if label == PARTIAL else Relation(label)
+    if label == PARTIAL and not partial:
+        return FramedJudgment(
+            proposition, Relation.NOT_ADDRESSED, model_relation, overreach_rejected=True
+        )
     if model_relation is Relation.NOT_ADDRESSED:
         return FramedJudgment(proposition, Relation.NOT_ADDRESSED, model_relation)
 
@@ -241,8 +252,8 @@ def framed_post_rules(
 def overreach_in_proposition(overreach: object, proposition_text: str) -> bool:
     """O exagero apontado pelo juiz precisa ser um trecho literal da própria proposição.
 
-    Sem isso, o `PARTIAL` vira `ENTAILED` (e passa pela regra de números), porque o juiz não
-    mostrou o que a proposição acrescenta ao trecho.
+    Sem isso, o `PARTIAL` vira `NOT_ADDRESSED`, porque o juiz não mostrou o que a proposição
+    acrescenta ao trecho e também não a deu como sustentada.
     """
 
     if not isinstance(overreach, str):
@@ -298,6 +309,7 @@ class V7FactCheckPipeline(DecomposedFactCheckPipeline):
                 "relation": PARTIAL if is_partial(item) else item.relation.value,
                 "model_relation": PARTIAL if is_partial(item) else item.model_relation.value,
                 "downgrade_reason": item.downgrade_reason.value if item.downgrade_reason else None,
+                "overreach_rejected": bool(getattr(item, "overreach_rejected", False)),
                 "source_id": item.source_id,
             }
             for item in judgments

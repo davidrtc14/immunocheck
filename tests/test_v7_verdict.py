@@ -68,11 +68,12 @@ def test_partial_without_verified_quote_is_downgraded() -> None:
     assert aggregate_verdict_v7([judgment]) is Verdict.INSUFFICIENT_EVIDENCE
 
 
-def test_partial_without_literal_overreach_becomes_entailed() -> None:
+def test_partial_without_literal_overreach_abstains() -> None:
     for overreach in (None, "todas as gestantes", "ab"):
         judgment = framed_post_rules(CORE, _raw("PARTIAL", overreach=overreach), ALIASES)
-        assert not judgment.partial and judgment.relation is Relation.ENTAILED
-        assert aggregate_verdict_v7([judgment]) is Verdict.SUPPORTED
+        assert not judgment.partial and judgment.overreach_rejected
+        assert judgment.relation is Relation.NOT_ADDRESSED
+        assert aggregate_verdict_v7([judgment]) is Verdict.INSUFFICIENT_EVIDENCE
 
 
 def test_partial_skips_the_number_rule_but_entailed_does_not() -> None:

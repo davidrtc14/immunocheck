@@ -48,3 +48,25 @@ como "recomendada pela OMS para meninas entre 9 e 13 anos".
   código confere que elas estão na proposição e, se não estiverem, o `PARTIAL` vira `ENTAILED`;
 - o prompt diz que paráfrase e arredondamento não impedem `ENTAILED`, que `PARTIAL` é raro, e que
   negar ou inverter o trecho é `CONTRADICTED`.
+
+## 19/10 — C1, versão 2 (`overreach` literal; sem ele, `ENTAILED`)
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C1` v2 | 0,669 | 0,84 / 0,52 / 0,52 / 0,86 | 11,1% | 0 | 17,4 s |
+
+Δ contra a `v5_fixed`: +0,013 (IC −0,037 a +0,066); Δ do erro grave: +0,049. Reprovada nos dois
+critérios (mínimo de +0,02 no macro-F1; erro grave até +0,02). Contra a v3: −0,034.
+
+O recall de `MISLEADING` subiu de 0,31 para 0,52 (o subtipo `false_implication` foi a 8 de 13), mas
+o de `REFUTED` caiu de 0,74 para 0,52. O dano principal: 10 `REFUTED` saíram `SUPPORTED` (5 na
+`v5_fixed`). Em 6 deles, a alegação é uma negação ("não reduziu a prevalência", "não protegeu contra
+a doença") que a `v5_fixed` julgou `CONTRADICTED` e a v2 julgou `ENTAILED`. A hipótese mais provável
+é a regra de queda da v2: o juiz marcou `PARTIAL` sem exagero literal válido e o código converteu em
+`ENTAILED`. O trace não guardava o rótulo cru, então isso não pôde ser conferido.
+
+**Mudança para a versão 3:**
+- um `PARTIAL` sem `overreach` literal válido vira `NOT_ADDRESSED` (abstenção), não `ENTAILED`; o
+  trace marca `overreach_rejected` para a conta poder ser feita;
+- o prompt diz que uma proposição com negação que o trecho não tem (ou o contrário) nunca é
+  `ENTAILED`.
