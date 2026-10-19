@@ -142,3 +142,21 @@ cinco versões contra a `v5_fixed` (0,656; erro grave 6,3%):
 
 O mesmo compartilhamento de GPU vale para o início da C4 (tag `c4`): a latência dela entre 15:27 e
 o fim da C1 v5 também está inflada.
+
+## 19/10 — C4 (queda para a v3 quando a decomposição falha)
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C4` | 0,664 | 0,80 / 0,74 / 0,31 / 0,88 | 6,3% | 0 | 27,7 s* |
+
+\* Dividiu a GPU com a C1 v5 durante parte da execução; a latência não é comparável.
+
+A decomposição não falhou em nenhum dos 193 itens, então a queda para a v3 nunca foi acionada e a taxa
+de falhas continuou em 0, como na `v5_fixed`. O critério da C4 é reduzir as falhas técnicas; sem falhas
+para reduzir, **a C4 não entra**. A configuração acumulada continua sendo a `v5_fixed`. O mecanismo fica
+no código e pode ser reavaliado se o teste externo 2 mostrar falhas de decomposição.
+
+**Ruído de execução.** Como a C4 não agiu, esta execução equivale a repetir a `v5_fixed`: mesmo assim,
+10 vereditos mudaram e o macro-F1 variou +0,008 (IC −0,018 a +0,034), com o mesmo erro grave. Essa é a
+variação entre execuções do modelo local, e o limite de +0,02 da regra de seleção fica cerca de 2,5
+vezes acima dela.
