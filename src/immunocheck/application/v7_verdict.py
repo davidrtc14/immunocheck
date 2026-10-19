@@ -4,7 +4,8 @@ C1 — relação de enquadramento: o juiz ganha a relação `PARTIAL` (o trecho 
 proposição exagera o alcance, omite uma ressalva ou salta para causa). Ela exige trecho literal
 verificado, como `ENTAILED`, e o juiz precisa copiar da proposição as palavras que vão além do
 trecho (`overreach`); sem isso, o `PARTIAL` vira `NOT_ADDRESSED` (versão 3; na versão 2 virava
-`ENTAILED`, o que transformou negações em `SUPPORTED`). Qualquer `PARTIAL` verificado leva a
+`ENTAILED`, o que transformou negações em `SUPPORTED`). Na versão 4, um `ENTAILED` ou `PARTIAL`
+cuja proposição e cujo trecho citado divergem na negação vira `NOT_ADDRESSED`. Qualquer `PARTIAL` verificado leva a
 `MISLEADING`, inclusive quando a alegação tem uma proposição só. Sem `PARTIAL`, vale a agregação da
 v5.
 """
@@ -12,6 +13,8 @@ v5.
 from __future__ import annotations
 
 import json
+import re
+import unicodedata
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from typing import Any
@@ -53,11 +56,13 @@ class FramedJudgment(PropositionJudgment):
     """Julgamento da v7: `partial` marca um `PARTIAL` verificado (guardado como `ENTAILED`).
 
     `overreach_rejected` marca um `PARTIAL` do modelo sem exagero literal válido, que vira
-    `NOT_ADDRESSED`.
+    `NOT_ADDRESSED`; `polarity_mismatch`, um `ENTAILED` ou `PARTIAL` cuja proposição e cujo trecho
+    divergem na negação, que também vira `NOT_ADDRESSED`.
     """
 
     partial: bool = False
     overreach_rejected: bool = False
+    polarity_mismatch: bool = False
 
 
 def framing_schema(proposition_count: int) -> dict[str, Any]:
@@ -232,6 +237,10 @@ def framed_post_rules(
     evidence = aliases.get(reference) if isinstance(reference, str) else None
     if evidence is None or not isinstance(quote, str) or not quote_matches(quote, evidence.text):
         return downgraded(DowngradeReason.NO_VERIFIED_QUOTE)
+    if model_relation is Relation.ENTAILED and negation_mismatch(proposition.text, quote):
+        return FramedJudgment(
+            proposition, Relation.NOT_ADDRESSED, model_relation, polarity_mismatch=True
+        )
     retrieved_text = " ".join(item.text for item in aliases.values())
     if (
         not partial
@@ -260,6 +269,29 @@ def overreach_in_proposition(overreach: object, proposition_text: str) -> bool:
         return False
     key = alnum_key(overreach)
     return len(key) >= MIN_OVERREACH_CHARS and key in alnum_key(proposition_text)
+
+
+# "no" fica de fora porque, em português, é preposição; "sem" e "nem" geram falsos alarmes demais.
+NEGATION_WORDS = frozenset({"nao", "nenhum", "nenhuma", "nunca", "jamais", "not", "never", "none"})
+ENGLISH_CONTRACTION = re.compile(r"n['’]t\b", re.IGNORECASE)
+
+
+def has_negation(text: str) -> bool:
+    plain = "".join(
+        ch for ch in unicodedata.normalize("NFKD", text.casefold()) if not unicodedata.combining(ch)
+    )
+    words = set(re.findall(r"[a-z]+", plain))
+    return bool(words & NEGATION_WORDS or "cannot" in words or ENGLISH_CONTRACTION.search(text))
+
+
+def negation_mismatch(proposition_text: str, quote: str) -> bool:
+    """Proposição e trecho com polaridade diferente não podem ser `ENTAILED` nem `PARTIAL`.
+
+    O juiz de 8B às vezes ignora a negação ("a dose única não protegeu" contra um trecho que diz
+    que protegeu). Sem saber o que a negação nega, o código não inverte a relação: só abstém.
+    """
+
+    return has_negation(proposition_text) != has_negation(quote)
 
 
 def is_partial(judgment: PropositionJudgment) -> bool:
@@ -310,6 +342,8 @@ class V7FactCheckPipeline(DecomposedFactCheckPipeline):
                 "model_relation": PARTIAL if is_partial(item) else item.model_relation.value,
                 "downgrade_reason": item.downgrade_reason.value if item.downgrade_reason else None,
                 "overreach_rejected": bool(getattr(item, "overreach_rejected", False)),
+                "polarity_mismatch": bool(getattr(item, "polarity_mismatch", False)),
+                "quote": item.quote,
                 "source_id": item.source_id,
             }
             for item in judgments

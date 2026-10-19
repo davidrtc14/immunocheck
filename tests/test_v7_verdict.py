@@ -127,3 +127,33 @@ def test_framing_judge_without_evidence_does_not_call_the_model() -> None:
     client = _FakeClient({})
     (judgment,) = FramingPropositionJudge(client).judge([CORE], [])
     assert judgment.relation is Relation.NOT_ADDRESSED and not client.calls
+
+
+NEGATED = Proposition(
+    "Pessoas com alergia ao ovo não podem receber a vacina influenza.",
+    PropositionRole.CORE,
+    PropositionType.FACT,
+)
+
+
+def test_negation_mismatch_detection() -> None:
+    from immunocheck.application.v7_verdict import has_negation, negation_mismatch
+
+    assert has_negation("A dose única NÃO protegeu.") and has_negation("It doesn't work.")
+    assert has_negation("Nenhum estudo mostrou risco.") and has_negation("This cannot occur.")
+    assert not has_negation("Foi aplicada no braço, sem dor.")
+    assert negation_mismatch(NEGATED.text, QUOTE) and not negation_mismatch(CORE.text, QUOTE)
+
+
+def test_entailed_or_partial_with_divergent_negation_abstains() -> None:
+    for relation in ("ENTAILED", "PARTIAL"):
+        judgment = framed_post_rules(NEGATED, _raw(relation, overreach="não podem"), ALIASES)
+        assert judgment.polarity_mismatch and not judgment.partial
+        assert judgment.relation is Relation.NOT_ADDRESSED
+        assert aggregate_verdict_v7([judgment]) is Verdict.INSUFFICIENT_EVIDENCE
+
+
+def test_contradicted_with_divergent_negation_is_kept() -> None:
+    judgment = framed_post_rules(NEGATED, _raw("CONTRADICTED", overreach=None), ALIASES)
+    assert judgment.relation is Relation.CONTRADICTED and not judgment.polarity_mismatch
+    assert aggregate_verdict_v7([judgment]) is Verdict.REFUTED

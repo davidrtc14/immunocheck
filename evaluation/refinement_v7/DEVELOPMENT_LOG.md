@@ -70,3 +70,25 @@ a doença") que a `v5_fixed` julgou `CONTRADICTED` e a v2 julgou `ENTAILED`. A h
   trace marca `overreach_rejected` para a conta poder ser feita;
 - o prompt diz que uma proposição com negação que o trecho não tem (ou o contrário) nunca é
   `ENTAILED`.
+
+## 19/10 — C1, versão 3 (`PARTIAL` sem exagero literal vira abstenção)
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C1` v3 | 0,684 | 0,86 / 0,57 / 0,50 / 0,86 | 8,3% | 0 | 16,0 s |
+
+Δ contra a `v5_fixed`: +0,028 (IC −0,014 a +0,075); Δ do erro grave: +0,0208 (12 de 144 itens não
+`SUPPORTED`, contra 9 de 144). Passa no macro-F1, mas o erro grave excede o limite de +0,02 por um
+item: reprovada pela regra. Contra a v3: −0,019 (IC −0,093 a +0,059).
+
+**A hipótese da versão 2 estava errada.** Com o novo campo do trace, só 1 `PARTIAL` foi rejeitado por
+falta de exagero literal (18 foram verificados). As negações que viram `SUPPORTED` vêm do próprio juiz,
+que escolhe `ENTAILED` para "a dose única não protegeu contra a doença" ou "não disponibiliza todas as
+vacinas" citando um trecho que afirma o contrário, apesar da instrução nova no prompt. A `v5_fixed`
+julga esses itens `CONTRADICTED`; o prompt de enquadramento da C1 piora a atenção à negação.
+
+**Mudança para a versão 4:** uma trava em código substitui a confiança no prompt. Se a proposição e o
+trecho citado divergem na presença de negação ("não", "nenhum", "nunca", "jamais" e, para trechos em
+inglês, "not", "never", "none", "cannot", "n't"), `ENTAILED` e `PARTIAL` viram `NOT_ADDRESSED`. Sem
+saber o que a negação nega, o código não inverte para `CONTRADICTED`; só abstém. O trace passa a
+guardar o trecho citado, para que análises futuras não dependam de reexecutar o modelo.
