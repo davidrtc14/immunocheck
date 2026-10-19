@@ -270,6 +270,25 @@ reprovado em X3. Mudá-los depois de ver aquele resultado seria ajuste ao dado.
 - `NOT_ADDRESSED` com evidência recuperada;
 - concordância entre as condições.
 
+## Adendo 2 — C3 substituída pela C3b (19/10/2026, antes de qualquer contato com o teste)
+
+**O que mudou na premissa.** A C3 previa o `qwen3.6` só no juiz, com menos latência que o modelo no
+pipeline todo. Medido no desenvolvimento, aconteceu o contrário: o `qwen3.6` (23 GB, 76% em CPU) não
+cabe na GPU de 8 GB junto com o `qwen3:8b`, e o Ollama descarrega um modelo para carregar o outro a cada
+item. Os cinco primeiros itens levaram de 33,9 s a 49,3 s (dois acima de 45 s), o que inviabiliza o
+critério de P95 ≤ 45 s. A execução foi interrompida nesses cinco itens e registrada no
+`DEVELOPMENT_LOG.md`.
+
+**C3b.** O `qwen3.6` passa a ser usado no pipeline inteiro (decomposição, juiz e explicação), sem troca
+de modelo. É a condição `v5_fixed_qwen36` da Fase 18, que teve P95 de 25,3 s a 27,2 s e o melhor
+macro-F1 de veredito do projeto no v4 (0,716). A hipótese da candidata não muda (um juiz mais capaz);
+só a forma de usá-lo.
+
+**O que não muda.** A C3b é testada no mesmo lugar da ordem (depois da C2, antes da C5), com o mesmo
+critério de seleção, inclusive P95 ≤ 45 s. Na execução final, a "v7 sem `qwen3.6`" continua sendo a
+variante rápida, rodada só se a C3b entrar, e o desempate continua favorecendo a variante sem
+`qwen3.6` quando a diferença de macro-F1 for menor que 0,02.
+
 ## Ameaças à validade (declaradas antes)
 
 - As alegações são sintéticas: o estilo e a distribuição diferem das mensagens reais, e o teste

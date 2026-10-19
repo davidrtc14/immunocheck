@@ -4,6 +4,7 @@ Fica fora de `bootstrap.py`, que está congelado pela Fase 18. Candidatas dispon
 - `C1`: relação de enquadramento `PARTIAL` e agregação da v7.
 - `C2`: cada evidência vai ao juiz com o fim do chunk anterior e o começo do seguinte.
 - `C3`: `qwen3.6` só no juiz; decomposição e explicação continuam com o modelo base.
+- `C3b`: `qwen3.6` no pipeline inteiro, sem troca de modelo (Adendo 2 do protocolo).
 - `C4`: queda para a v3 quando a decomposição falha duas vezes.
 """
 
@@ -25,7 +26,7 @@ from immunocheck.bootstrap import (
 from immunocheck.retrieval.neighbor_context import NeighborContextRetriever
 from immunocheck.retrieval.pilot_corpus import load_evidence_jsonl
 
-CANDIDATES = ("C1", "C2", "C3", "C4")
+CANDIDATES = ("C1", "C2", "C3", "C3b", "C4")
 C3_JUDGE_MODEL = "qwen3.6:latest"
 
 
@@ -40,7 +41,11 @@ def build_v7_text_pipeline(
     if unknown:
         raise ValueError(f"Candidatas desconhecidas: {sorted(unknown)}")
     base = build_v5_text_pipeline(
-        model=model, multi_query=True, reranker=False, think=False, trace_sink=trace_sink
+        model=C3_JUDGE_MODEL if "C3b" in chosen else model,
+        multi_query=True,
+        reranker=False,
+        think=False,
+        trace_sink=trace_sink,
     )
     client = (
         _build_llm_client(model=C3_JUDGE_MODEL, base_url=None)

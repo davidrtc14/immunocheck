@@ -160,3 +160,23 @@ no código e pode ser reavaliado se o teste externo 2 mostrar falhas de decompos
 10 vereditos mudaram e o macro-F1 variou +0,008 (IC −0,018 a +0,034), com o mesmo erro grave. Essa é a
 variação entre execuções do modelo local, e o limite de +0,02 da regra de seleção fica cerca de 2,5
 vezes acima dela.
+
+## 19/10 — C2 (chunks vizinhos como contexto do juiz)
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C2` | 0,664 | 0,71 / 0,72 / 0,35 / 0,93 | 4,9% | 0 | 16,1 s |
+
+Δ contra a `v5_fixed`: +0,008 (IC −0,049 a +0,068); Δ do erro grave: −0,014. Contra a repetição da
+`v5_fixed` (execução da C4): +0,000. **Não entra:** o ganho é do tamanho do ruído de execução e fica
+abaixo de +0,02. Com mais texto, o juiz abstém mais (recall de `INSUFFICIENT_EVIDENCE` de 0,88 para
+0,93) e sustenta menos (`SUPPORTED` de 0,76 para 0,71), sem recuperar `MISLEADING`.
+
+## 19/10 — C3 (`qwen3.6` só no juiz): interrompida por latência
+
+Os cinco primeiros itens levaram 33,9 s, 36,1 s, 43,7 s, 45,3 s e 49,3 s. O `qwen3.6` (23 GB, 76% em
+CPU) não cabe na GPU com o `qwen3:8b`, e o Ollama troca de modelo a cada chamada do juiz, o que torna a
+C3 mais lenta que o `qwen3.6` no pipeline todo, ao contrário do previsto. Com dois de cinco itens acima
+de 45 s, o critério de P95 não tem como ser cumprido; a execução foi interrompida para não gastar duas
+horas de GPU. O Adendo 2 do protocolo substitui a C3 pela C3b (`qwen3.6` no pipeline inteiro), antes de
+qualquer contato com o teste.
