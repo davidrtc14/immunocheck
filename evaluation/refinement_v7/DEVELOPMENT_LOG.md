@@ -193,3 +193,32 @@ qualquer contato com o teste.
 em que o `qwen3.6` foi o melhor juiz (0,716), no C7 a capacidade do juiz não é o gargalo de
 `MISLEADING`: com uma proposição só, a agregação da v5 não produz `MISLEADING`, e a decomposição
 raramente separa o exagero numa proposição própria.
+
+## 19/10 — C5 (voto de três juízes) e fim da seleção registrada
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C5` | 0,660 | 0,78 / 0,72 / 0,31 / 0,91 | 5,6% | 0 | 24,1 s |
+
+Δ contra a `v5_fixed`: +0,004 (IC −0,017 a +0,026); só 6 vereditos mudam. **Não entra.**
+
+**Resultado da seleção registrada:** nenhuma das cinco candidatas (C1 a C5, com a C3 trocada pela C3b)
+passou no critério. Pela regra, a v7 seria a própria `v5_fixed`, que fica 0,047 abaixo da v3 no
+desenvolvimento. Todas as variantes da trilha da v5 ficaram entre 0,644 e 0,684, e o recall de
+`MISLEADING` não passou de 0,52 sem que o erro grave subisse.
+
+**Análise exploratória sem novas execuções (combinação de vereditos já obtidos).** A v3 e a
+`v5_fixed` erram em itens diferentes: o oráculo que escolhe a resposta certa entre as duas chegaria a
+0,865. Regras simples sobre os mesmos 193 itens:
+
+| Regra | Macro-F1 | Erro grave | Recall de `MISLEADING` | Δ contra a v3 (IC) |
+|---|---:|---:|---:|---|
+| v3 | 0,703 | 10,4% | 0,58 | — |
+| A: v3; quando a v3 diz `SUPPORTED` e a `v5_fixed` não, vale a `v5_fixed` | 0,728 | 2,1% | 0,60 | +0,025 (−0,025 a +0,076) |
+| B: como A, mas o desacordo vira `INSUFFICIENT_EVIDENCE` | 0,716 | 2,1% | 0,58 | +0,013 (−0,035 a +0,064) |
+| C: `v5_fixed`; `MISLEADING` da v3 vale sobre conclusão da v5 | 0,723 | 5,6% | 0,60 | +0,020 (−0,046 a +0,083) |
+| E: só a concordância conclui | 0,577 | 2,1% | 0,21 | −0,126 |
+
+A regra A é uma cascata: a `v5_fixed` só roda quando a v3 responde `SUPPORTED`, como verificação
+independente antes de afirmar que uma alegação é verdadeira. Ela foi desenhada olhando este split, então
+os números acima são otimistas; só uma execução no teste, com a regra registrada antes, pode confirmá-la.
