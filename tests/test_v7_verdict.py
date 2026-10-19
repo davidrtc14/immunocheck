@@ -143,6 +143,13 @@ def test_negation_mismatch_detection() -> None:
     assert has_negation("Nenhum estudo mostrou risco.") and has_negation("This cannot occur.")
     assert not has_negation("Foi aplicada no braço, sem dor.")
     assert negation_mismatch(NEGATED.text, QUOTE) and not negation_mismatch(CORE.text, QUOTE)
+    # Em inglês, "no" e "non" negam; em português, "no" é preposição.
+    assert has_negation("There was no increased risk of autoimmune disease in the cohort.")
+    assert has_negation("Response was lower in non-Asian adults with the vaccine.")
+    assert not negation_mismatch(
+        "A vacina contra o HPV não aumentou o risco de doenças autoimunes.",
+        "There was no increased risk of autoimmune disease in the vaccinated cohort.",
+    )
 
 
 def test_entailed_or_partial_with_divergent_negation_abstains() -> None:

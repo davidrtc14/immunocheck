@@ -92,3 +92,25 @@ trecho citado divergem na presença de negação ("não", "nenhum", "nunca", "ja
 inglês, "not", "never", "none", "cannot", "n't"), `ENTAILED` e `PARTIAL` viram `NOT_ADDRESSED`. Sem
 saber o que a negação nega, o código não inverte para `CONTRADICTED`; só abstém. O trace passa a
 guardar o trecho citado, para que análises futuras não dependam de reexecutar o modelo.
+
+## 19/10 — C1, versão 4 (trava de negação)
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| `v7+C1` v4 | 0,644 | 0,67 / 0,59 / 0,48 / 0,86 | 3,5% | 0 | 16,1 s |
+
+Δ contra a `v5_fixed`: −0,011 (IC −0,059 a +0,038); Δ do erro grave: −0,028. Reprovada no macro-F1.
+Contra a v3: −0,059.
+
+A trava disparou em 23 itens: protegeu 10 `REFUTED` (que viraram abstenção, em vez de `SUPPORTED`),
+mas derrubou 10 `SUPPORTED` legítimos. Os falsos alarmes têm um padrão: alegações com negação
+("não aumentou o risco de doenças autoimunes", "países não asiáticos") sustentadas por trechos em
+inglês que negam com "no increased risk" ou "non-Asian", palavras que a v4 deixou fora do léxico
+porque "no" é preposição em português. O trace não guardava o trecho dos julgamentos rebaixados.
+
+**Mudança para a versão 5, a última da C1:** o léxico de negação do inglês ("no", "non", "without",
+"nor", além de "not", "never", "none") só vale para trechos detectados como inglês, por contagem de
+palavras funcionais; "n't" e "cannot" valem sempre. O trace guarda o trecho também nos casos
+rebaixados. **Regra de parada, registrada antes da execução:** se a v5 não passar no critério de
+seleção (+0,02 de macro-F1 e erro grave até +0,02 contra a `v5_fixed`), a C1 é rejeitada e a
+seleção segue sem ela, com a C4.

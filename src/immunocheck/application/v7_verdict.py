@@ -5,7 +5,8 @@ proposição exagera o alcance, omite uma ressalva ou salta para causa). Ela exi
 verificado, como `ENTAILED`, e o juiz precisa copiar da proposição as palavras que vão além do
 trecho (`overreach`); sem isso, o `PARTIAL` vira `NOT_ADDRESSED` (versão 3; na versão 2 virava
 `ENTAILED`, o que transformou negações em `SUPPORTED`). Na versão 4, um `ENTAILED` ou `PARTIAL`
-cuja proposição e cujo trecho citado divergem na negação vira `NOT_ADDRESSED`. Qualquer `PARTIAL` verificado leva a
+cuja proposição e cujo trecho citado divergem na negação vira `NOT_ADDRESSED`; na versão 5, o
+léxico de negação do inglês só vale para trechos em inglês. Qualquer `PARTIAL` verificado leva a
 `MISLEADING`, inclusive quando a alegação tem uma proposição só. Sem `PARTIAL`, vale a agregação da
 v5.
 """
@@ -239,7 +240,11 @@ def framed_post_rules(
         return downgraded(DowngradeReason.NO_VERIFIED_QUOTE)
     if model_relation is Relation.ENTAILED and negation_mismatch(proposition.text, quote):
         return FramedJudgment(
-            proposition, Relation.NOT_ADDRESSED, model_relation, polarity_mismatch=True
+            proposition,
+            Relation.NOT_ADDRESSED,
+            model_relation,
+            quote=" ".join(quote.split()),
+            polarity_mismatch=True,
         )
     retrieved_text = " ".join(item.text for item in aliases.values())
     if (
@@ -271,17 +276,35 @@ def overreach_in_proposition(overreach: object, proposition_text: str) -> bool:
     return len(key) >= MIN_OVERREACH_CHARS and key in alnum_key(proposition_text)
 
 
-# "no" fica de fora porque, em português, é preposição; "sem" e "nem" geram falsos alarmes demais.
-NEGATION_WORDS = frozenset({"nao", "nenhum", "nenhuma", "nunca", "jamais", "not", "never", "none"})
+# Português: "no" é preposição e "sem"/"nem" geram falsos alarmes demais, por isso ficam de fora.
+PORTUGUESE_NEGATIONS = frozenset({"nao", "nenhum", "nenhuma", "nunca", "jamais"})
+# Inglês: só vale para trechos em inglês, onde "no", "non" e "without" negam ("no increased risk").
+ENGLISH_NEGATIONS = frozenset({"not", "never", "none", "no", "non", "without", "cannot", "nor"})
+ENGLISH_MARKERS = frozenset({"the", "of", "and", "was", "were", "is", "with", "for", "in", "to"})
+PORTUGUESE_MARKERS = frozenset({"de", "da", "do", "que", "em", "os", "as", "para", "com", "uma"})
 ENGLISH_CONTRACTION = re.compile(r"n['’]t\b", re.IGNORECASE)
 
 
-def has_negation(text: str) -> bool:
+def _words(text: str) -> list[str]:
     plain = "".join(
         ch for ch in unicodedata.normalize("NFKD", text.casefold()) if not unicodedata.combining(ch)
     )
-    words = set(re.findall(r"[a-z]+", plain))
-    return bool(words & NEGATION_WORDS or "cannot" in words or ENGLISH_CONTRACTION.search(text))
+    return re.findall(r"[a-z]+", plain)
+
+
+def is_english(text: str) -> bool:
+    words = _words(text)
+    english = sum(word in ENGLISH_MARKERS for word in words)
+    portuguese = sum(word in PORTUGUESE_MARKERS for word in words)
+    return english > portuguese
+
+
+def has_negation(text: str) -> bool:
+    words = set(_words(text))
+    # "n't" e "cannot" não existem em português e valem em qualquer trecho.
+    if words & PORTUGUESE_NEGATIONS or "cannot" in words or ENGLISH_CONTRACTION.search(text):
+        return True
+    return is_english(text) and bool(words & ENGLISH_NEGATIONS)
 
 
 def negation_mismatch(proposition_text: str, quote: str) -> bool:
