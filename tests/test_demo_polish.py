@@ -135,3 +135,30 @@ def test_warm_up_runs_one_synthetic_text_claim() -> None:
 
     assert elapsed >= 0
     assert seen == [ContentSubmission(kind=ContentKind.TEXT, text=WARMUP_CLAIM)]
+
+
+def test_repeated_sources_are_listed_once_without_changing_the_result() -> None:
+    from immunocheck.domain.models import SourceReference
+
+    def source(chunk_id: str, page: int) -> SourceReference:
+        return SourceReference(
+            chunk_id=chunk_id,
+            source_name="Ministério da Saúde",
+            document_title="HPV",
+            url="https://www.gov.br/saude/hpv",
+            page=page,
+        )
+
+    result = FactCheckResult(
+        verdict=Verdict.SUPPORTED,
+        explanation="Sustenta.",
+        claim="X.",
+        sources=(source("a", 1), source("b", 1), source("c", 2)),
+    )
+
+    output = _text(result)
+
+    assert output.count("HPV — p. 1") == 1
+    assert "  [2] Ministério da Saúde — HPV — p. 2" in output
+    assert "[3]" not in output
+    assert len(result.sources) == 3

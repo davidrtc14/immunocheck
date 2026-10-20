@@ -126,6 +126,7 @@ O ensaio expôs dois erros de julgamento já descritos na análise de erros da v
 corrigidos para não alterar o sistema avaliado: uma alegação de "venenos" nas vacinas (mercúrio,
 alumínio, vírus vivos) recebeu refutada com explicação imprecisa, quando enganosa seria o veredito
 adequado; e uma notícia verdadeira sobre mortes por doenças evitáveis por vacinação, enviada por
-link, foi lida como mortes causadas pela vacina e refutada por falta de evidência. Também apareceram
-fontes repetidas (o mesmo documento e a mesma página listados mais de uma vez). Esses exemplos não
-entram no roteiro da banca.
+link, foi lida como mortes causadas pela vacina e refutada por falta de evidência. Esses exemplos não
+entram no roteiro da banca. Também apareceram fontes repetidas (trechos distintos do mesmo documento
+e da mesma página); desde então, a resposta lista cada documento e página uma única vez, sem alterar
+o veredito nem as fontes guardadas no resultado.

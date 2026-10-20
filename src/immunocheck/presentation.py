@@ -63,16 +63,9 @@ def format_result(result: FactCheckResult, *, elapsed_seconds: float) -> str:
             else "FONTES:"
         )
         lines.append(source_heading)
-        for position, source in enumerate(result.sources, start=1):
-            details = [source.source_name, source.document_title]
-            if source.publication_date:
-                details.append(source.publication_date)
-            if source.section:
-                details.append(source.section)
-            elif source.page:
-                details.append(f"p. {source.page}")
-            lines.append(f"  [{position}] {' — '.join(details)}")
-            lines.append(f"      {source.url}")
+        for position, (description, url) in enumerate(_unique_sources(result), start=1):
+            lines.append(f"  [{position}] {description}")
+            lines.append(f"      {url}")
     else:
         lines.append("FONTES: nenhuma fonte suficiente para sustentar uma conclusão.")
     if result.verdict is Verdict.INSUFFICIENT_EVIDENCE:
@@ -84,3 +77,24 @@ def format_result(result: FactCheckResult, *, elapsed_seconds: float) -> str:
         )
     )
     return "\n".join(lines)
+
+
+def _unique_sources(result: FactCheckResult) -> list[tuple[str, str]]:
+    """Fontes como exibidas, sem repetir trechos distintos do mesmo documento e da mesma página.
+
+    Só a exibição muda: o veredito e as fontes do resultado continuam como a pipeline os produziu.
+    """
+
+    unique: list[tuple[str, str]] = []
+    for source in result.sources:
+        details = [source.source_name, source.document_title]
+        if source.publication_date:
+            details.append(source.publication_date)
+        if source.section:
+            details.append(source.section)
+        elif source.page:
+            details.append(f"p. {source.page}")
+        entry = (" — ".join(details), source.url)
+        if entry not in unique:
+            unique.append(entry)
+    return unique
