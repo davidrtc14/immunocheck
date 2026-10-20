@@ -719,3 +719,20 @@ distribuição, portões, taxa de erro de rótulo e limitações; congelamento r
 Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; candidatas desligadas por
 padrão e sem edição de arquivos congelados; `DEVELOPMENT_LOG.md` e `verdict_freeze.json` registrados
 antes do teste; `RESULTS.md` com todos os critérios e limitações.
+
+## Fase 21 — Corpus v2 (ADR-056)
+
+Prazo de corte em 27/10/2026; pesquisa pronta até 31/10 para a assinatura do orientador (entrega em
+06/11). Protocolo em `evaluation/corpus_v2/PROTOCOL.md`.
+
+- [x] ADR, protocolo, regra de seleção e regra de decisão registrados antes de qualquer download.
+- [ ] Lote 009 baixado, revisado e registrado em `corpus/reviews/batch_009.*`.
+- [ ] Corpus v2 construído e indexado com o BGE-M3, com o corpus v1 preservado para reversão.
+- [ ] Código, conjuntos e corpus v2 congelados por hash.
+- [ ] Execução única da C6 com o corpus v2 no teste do C7 e no teste externo 2.
+- [ ] Decisão pela regra (E1–E3, K1–K2, O1) e `RESULTS.md`.
+- [ ] Se aprovado, corpus v2 como padrão do bot, com passada de fumaça.
+
+Critérios de aceite: nenhuma alteração na pipeline nem nos arquivos congelados da Fase 20; lote 009
+só com licença clara e sem texto de agência de checagem; congelamento conferido antes e depois da
+execução; `RESULTS.md` com todos os critérios, o reuso dos conjuntos e as limitações.
