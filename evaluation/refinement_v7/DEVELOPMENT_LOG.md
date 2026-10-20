@@ -222,3 +222,23 @@ desenvolvimento. Todas as variantes da trilha da v5 ficaram entre 0,644 e 0,684,
 A regra A é uma cascata: a `v5_fixed` só roda quando a v3 responde `SUPPORTED`, como verificação
 independente antes de afirmar que uma alegação é verdadeira. Ela foi desenhada olhando este split, então
 os números acima são otimistas; só uma execução no teste, com a regra registrada antes, pode confirmá-la.
+
+## 19/10 — C6 (cascata v3 → `v5_fixed`, Adendo 3): execução real no desenvolvimento
+
+| Condição | Macro-F1 | Recall S / R / M / I | Erro grave | Falhas | P95 |
+|---|---:|---|---:|---:|---:|
+| v3 | 0,703 | 0,86 / 0,78 / 0,58 / 0,60 | 10,4% | 3,6% | 17,7 s |
+| C6 | 0,727 | 0,67 / 0,80 / 0,60 / 0,83 | 2,1% | 3,6% (7 `ModelOutputError` da v3) | 28,5 s |
+
+Contra a v3, com bootstrap pareado por família (10.000 reamostras, semente 42):
+- macro-F1: Δ +0,024 (IC −0,028 a +0,077);
+- erro grave: Δ −0,083 (IC −0,132 a −0,038).
+
+A `v5_fixed` verificou 56 respostas `SUPPORTED` da v3 e trocou 20. A parte da v3 repetiu 183 dos
+193 vereditos da linha de base (ruído de execução). O resultado reproduz a análise exploratória
+(0,728 e 2,1%). No desenvolvimento, a C6 passaria na via de segurança (S1 a S4), mas não no P1 do
+Adendo 1 (Δ ≥ +0,05). O custo é o recall de `SUPPORTED`, que cai de 0,86 para 0,67: a verificação
+derruba também alegações verdadeiras, a maioria para `INSUFFICIENT_EVIDENCE`.
+
+Conforme o Adendo 3, a regra da C6 não muda depois desta execução. Próximo passo: congelamento por
+hash e execução única no teste do C7 e no teste externo 2, com as condições v3, `v5_fixed` e C6.
