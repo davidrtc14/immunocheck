@@ -28,6 +28,7 @@ Desktop.ini
 corpus/raw/
 corpus/processed/
 corpus/processed_v1/
+corpus/processed_v2/
 data/private/
 data/interim/
 models/
