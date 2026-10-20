@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from run_v6_experiment import build_pipeline as build_v6_pipeline  # type: ignore[import-not-found]
 
-from immunocheck.bootstrap_v7 import CANDIDATES, build_v7_text_pipeline
+from immunocheck.bootstrap_v7 import CANDIDATES, build_cascade_pipeline, build_v7_text_pipeline
 from immunocheck.domain.models import ContentKind, ContentSubmission, Verdict
 
 REPOSITORY = Path(__file__).resolve().parents[1]
@@ -46,10 +46,12 @@ def c7_cases(split: str) -> list[dict]:
 
 
 def build_pipeline(condition: str, trace_sink):
-    """`v3`, `v5_fixed` ou `v7+C1+...` (candidatas ligadas sobre a `v5_fixed`)."""
+    """`v3`, `v5_fixed`, `C6` (cascata, ADR-055) ou `v7+C1+...` (candidatas sobre a `v5_fixed`)."""
 
     if condition in BASELINES:
         return build_v6_pipeline(condition, trace_sink)
+    if condition == "C6":
+        return build_cascade_pipeline(trace_sink=trace_sink)
     name, *candidates = condition.split("+")
     if name != "v7":
         raise SystemExit(f"Condição desconhecida: {condition}")
@@ -61,7 +63,7 @@ def main() -> None:
     parser.add_argument(
         "--condition",
         required=True,
-        help=f"v3, v5_fixed ou v7+<candidatas> (de {', '.join(CANDIDATES)})",
+        help=f"v3, v5_fixed, C6 ou v7+<candidatas> (de {', '.join(CANDIDATES)})",
     )
     parser.add_argument("--phase", choices=("dev",), default="dev")
     parser.add_argument("--limit", type=int, help="só os primeiros N casos")

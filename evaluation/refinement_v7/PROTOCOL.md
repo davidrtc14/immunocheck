@@ -289,6 +289,47 @@ critério de seleção, inclusive P95 ≤ 45 s. Na execução final, a "v7 sem `
 variante rápida, rodada só se a C3b entrar, e o desempate continua favorecendo a variante sem
 `qwen3.6` quando a diferença de macro-F1 for menor que 0,02.
 
+## Adendo 3 — Cascata v3 → `v5_fixed` e regra de promoção por segurança (19/10/2026, antes de qualquer contato com o teste)
+
+**Por que este adendo existe.** A seleção registrada terminou sem nenhuma candidata aprovada (C1 a C5,
+com a C3 trocada pela C3b). Pela regra do Adendo 1, a v7 seria a própria `v5_fixed`, que fica 0,047
+abaixo da v3 no desenvolvimento. Uma análise exploratória, sem novas execuções, combinou os vereditos
+já obtidos da v3 e da `v5_fixed` nos 193 itens de desenvolvimento e encontrou uma regra que reduz o
+erro grave de 10,4% para 2,1% sem perder macro-F1 (0,728 contra 0,703). Essa regra foi desenhada
+olhando o desenvolvimento, por isso é registrada aqui como nova condição, com execução única no teste.
+A decisão de registrá-la, e de acrescentar uma via de promoção por segurança, é do pesquisador.
+
+**Condição C6 — cascata.** A v3 responde primeiro. Se o veredito da v3 for `SUPPORTED`, a `v5_fixed`
+roda sobre a mesma entrada, como verificação independente; se ela não responder `SUPPORTED`, vale o
+veredito da `v5_fixed` (com explicação e fontes dela). Em qualquer outro caso, vale a resposta da v3.
+A `v5_fixed` não é chamada quando a v3 não sustenta a alegação. Nenhuma das duas pipelines é alterada,
+e falhas técnicas da v3 continuam contando como falhas.
+
+**Antes do teste,** a C6 roda uma vez no desenvolvimento do C7 para medir latência e falhas de
+verdade, porque a análise exploratória somou execuções separadas. O resultado vai para o
+`DEVELOPMENT_LOG.md`, e a regra da C6 não muda depois dessa execução.
+
+**Execução final.** Como nenhuma candidata entrou, a v7 do Adendo 1 coincide com a `v5_fixed`. As
+condições da execução única passam a ser v3, `v5_fixed` e C6, no teste do C7 e no teste externo 2.
+
+**Via de promoção por segurança (só para a C6).** A C6 substitui a v3 como padrão se passar na regra
+do Adendo 1 (P1–P4 e X1–X4) **ou** em todos os critérios abaixo, sempre contra a v3, com o mesmo
+bootstrap pareado por família (10.000 reamostras, semente 42):
+
+| Critério | Condição no teste do C7 |
+|---|---|
+| S1 | Não inferioridade do macro-F1: Δ ≥ 0 e limite inferior do IC 95% ≥ −0,05 |
+| S2 | Redução do erro grave: Δ ≤ −0,03 e limite superior do IC 95% < 0 |
+| S3 | Recall de `MISLEADING` ≥ ao da v3 |
+| S4 | P95 ≤ 45 s; falhas técnicas ≤ max(2%, taxa da v3) |
+
+No teste externo 2, a via de segurança exige os mesmos X1–X4 da Fase 18, sem alteração. A margem de
+não inferioridade (−0,05) é a mesma diferença mínima relevante usada em P1; o critério S2 exige que a
+redução do erro grave seja clara, e não apenas pontual.
+
+**O que não muda:** os conjuntos e seus hashes, a execução única, os limites X1–X4 e a proibição de
+promover a `v5_fixed` isolada. Se a C6 não passar por nenhuma das vias, a v3 continua padrão.
+
 ## Ameaças à validade (declaradas antes)
 
 - As alegações são sintéticas: o estilo e a distribuição diferem das mensagens reais, e o teste

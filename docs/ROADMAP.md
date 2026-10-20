@@ -704,10 +704,13 @@ distribuição, portões, taxa de erro de rótulo e limitações; congelamento r
 ## Fase 20 — Veredito v7 (ADR-054)
 
 - [x] Adendo com candidatas e regra de decisão registrado antes de qualquer execução nos conjuntos.
-- [ ] Linhas de base (v3 e `v5_fixed`) no desenvolvimento do C7.
-- [ ] Seleção progressiva das candidatas C1–C5 no desenvolvimento, com registro de cada versão.
-- [ ] Configuração v7 congelada por hash até 31/10.
-- [ ] Execução única no teste do C7 e no teste externo 2, com as quatro condições.
+- [x] Linhas de base (v3 e `v5_fixed`) no desenvolvimento do C7.
+- [x] Seleção progressiva das candidatas C1–C5 no desenvolvimento, com registro de cada versão
+  (nenhuma aprovada; C3 trocada pela C3b no Adendo 2).
+- [x] Adendo 3 (ADR-055): cascata C6 e via de promoção por segurança, registrados antes do teste.
+- [ ] Execução da C6 no desenvolvimento, para latência e falhas reais.
+- [ ] Configuração congelada por hash até 31/10.
+- [ ] Execução única no teste do C7 e no teste externo 2, com as condições v3, `v5_fixed` e C6.
 - [ ] Decisão de promoção pela regra e relatório de resultados.
 
 Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; candidatas desligadas por

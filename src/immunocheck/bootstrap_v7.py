@@ -16,6 +16,7 @@ import os
 from collections.abc import Callable, Iterable
 from typing import Any
 
+from immunocheck.application.cascade import SupportedVerificationCascade
 from immunocheck.application.tolerant_verification import TolerantPropositionJudge
 from immunocheck.application.v7_fallback import DecompositionFallbackPipeline
 from immunocheck.application.v7_verdict import FramingPropositionJudge, V7FactCheckPipeline
@@ -89,3 +90,21 @@ def build_v7_text_pipeline(
 
 def _base_model(model: str | None) -> str:
     return model or os.getenv("OLLAMA_MODEL", "qwen3:8b")
+
+
+def build_cascade_pipeline(
+    *, trace_sink: Callable[[dict[str, Any]], None] | None = None
+) -> SupportedVerificationCascade:
+    """C6 (ADR-055): v3 primeiro; a `v5_fixed`, montada como na Fase 18, confere os `SUPPORTED`."""
+
+    verifier_traces: list[dict[str, Any]] = []
+    v5 = build_v5_text_pipeline(
+        multi_query=True, reranker=False, think=False, trace_sink=verifier_traces.append
+    )
+    tolerant = TolerantPropositionJudge(v5.judge.client, v5.judge.max_output_tokens)
+    return SupportedVerificationCascade(
+        primary=build_routed_text_pipeline(),
+        verifier=dataclasses.replace(v5, judge=tolerant),
+        trace_sink=trace_sink,
+        verifier_traces=verifier_traces,
+    )
