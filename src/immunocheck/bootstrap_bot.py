@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import dataclasses
 import os
+import time
 from pathlib import Path
 
 from immunocheck.application.cascade import SupportedVerificationCascade
@@ -29,8 +30,12 @@ from immunocheck.bootstrap import (
     build_v5_text_pipeline,
     resolve_extraction_version,
 )
+from immunocheck.domain.models import ContentKind, ContentSubmission
 
 PIPELINE_VERSIONS = ("v1", "v3", "v4", "v5", "v7")
+# Alegação sintética, verdadeira e coberta pelo corpus: passa pelas duas etapas da cascata e carrega
+# o modelo de linguagem, o BGE-M3 e o índice antes da primeira mensagem real.
+WARMUP_CLAIM = "A vacina contra o HPV é oferecida pelo SUS para meninas e meninos de 9 a 14 anos."
 DEFAULT_PIPELINE_VERSION = "v7"
 FIXED_DEPTH_VERSIONS = frozenset({"v3", "v4", "v5", "v7"})
 
@@ -106,3 +111,11 @@ def build_bot_multimodal_pipeline(
         verifier=_tolerant(dataclasses.replace(verifier, normalizer=shared)),
     )
     return ClearingRunner(cascade, shared)
+
+
+def warm_up_pipeline(pipeline) -> float:
+    """Roda a alegação sintética uma vez e descarta o resultado; devolve o tempo em segundos."""
+
+    started = time.perf_counter()
+    pipeline.run(ContentSubmission(kind=ContentKind.TEXT, text=WARMUP_CLAIM))
+    return time.perf_counter() - started

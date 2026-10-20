@@ -3,9 +3,11 @@ from __future__ import annotations
 import logging
 import os
 import sys
+import threading
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from concurrent.futures import Future, ThreadPoolExecutor
+from contextlib import contextmanager
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
@@ -13,7 +15,7 @@ from immunocheck.application.content_normalizer import ContentExtractionError
 from immunocheck.application.input_understanding import route_message
 from immunocheck.application.text_components import ModelOutputError
 from immunocheck.bootstrap import resolve_extraction_version
-from immunocheck.bootstrap_bot import build_bot_multimodal_pipeline
+from immunocheck.bootstrap_bot import build_bot_multimodal_pipeline, warm_up_pipeline
 from immunocheck.bot_access import AccessPolicy
 from immunocheck.domain.input_policy import InputLimits, InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult
@@ -29,7 +31,10 @@ from immunocheck.retrieval.pilot_corpus import CorpusLoadError
 
 LOGGER = logging.getLogger("immunocheck.telegram")
 FEEDBACK_TARGET_SECONDS = 2.0
-PROCESSING_MESSAGE = "Recebi o conteúdo. A análise local foi iniciada e pode levar alguns minutos."
+PROCESSING_MESSAGE = (
+    "Recebi o conteúdo. A análise local foi iniciada e costuma levar de 15 a 40 segundos."
+)
+TYPING_REFRESH_SECONDS = 4.0
 UNAVAILABLE_MESSAGE = (
     "Não foi possível concluir a análise agora porque um componente local está indisponível. "
     "Tente novamente em alguns minutos."
@@ -117,6 +122,7 @@ class TelegramUpdateHandler:
         update: dict[str, Any],
         *,
         accept_analysis: bool = True,
+        queue_ahead: int = 0,
     ) -> PendingAnalysis | None:
         message = update.get("message")
         if not isinstance(message, dict):
@@ -168,7 +174,7 @@ class TelegramUpdateHandler:
             return None
 
         started_at = self.clock()
-        self.client.send_message(chat_id, PROCESSING_MESSAGE)
+        self.client.send_message(chat_id, _processing_message(queue_ahead))
         feedback_seconds = self.clock() - started_at
         return PendingAnalysis(
             chat_id=chat_id,
@@ -179,6 +185,11 @@ class TelegramUpdateHandler:
         )
 
     def process(self, pending: PendingAnalysis) -> None:
+        with _typing_indicator(self.client, pending.chat_id):
+            response = self._analyze(pending)
+        _send_text(self.client, pending.chat_id, response)
+
+    def _analyze(self, pending: PendingAnalysis) -> str:
         try:
             submission = pending.submission
             if pending.telegram_file_id is not None:
@@ -220,7 +231,7 @@ class TelegramUpdateHandler:
         except Exception:  # noqa: BLE001
             response = UNEXPECTED_ERROR_MESSAGE
             LOGGER.error("Falha interna inesperada durante a análise.")
-        _send_text(self.client, pending.chat_id, response)
+        return response
 
 
 @dataclass(slots=True)
@@ -269,6 +280,7 @@ class TelegramLongPoller:
                         pending = self.handler.prepare(
                             update,
                             accept_analysis=capacity_available,
+                            queue_ahead=len(pending_futures),
                         )
                     except TelegramAPIError:
                         LOGGER.warning("Não foi possível enviar uma resposta ao Telegram.")
@@ -300,6 +312,12 @@ def main() -> int:
         print(f"Configuração inválida: {exc}", file=sys.stderr)
         return 2
 
+    if os.getenv("BOT_WARMUP", "1").strip() != "0":
+        LOGGER.info("Aquecendo os modelos locais com uma alegação sintética.")
+        try:
+            LOGGER.info("Modelos aquecidos em %.1f s.", warm_up_pipeline(pipeline))
+        except Exception:  # noqa: BLE001 - o aquecimento é opcional e não impede o bot
+            LOGGER.warning("Aquecimento falhou; a primeira análise carregará os modelos.")
     LOGGER.info("Bot iniciado por long polling, sem persistência de interações.")
     poller = TelegramLongPoller(
         client=client,
@@ -312,6 +330,41 @@ def main() -> int:
     except KeyboardInterrupt:
         LOGGER.info("Bot encerrado pelo operador.")
     return 0
+
+
+def _processing_message(queue_ahead: int) -> str:
+    if queue_ahead <= 0:
+        return PROCESSING_MESSAGE
+    plural = "análise" if queue_ahead == 1 else "análises"
+    return f"{PROCESSING_MESSAGE} Há {queue_ahead} {plural} na sua frente."
+
+
+@contextmanager
+def _typing_indicator(client: TelegramClient, chat_id: int) -> Iterator[None]:
+    """Renova "digitando…" enquanto a análise roda; falhas do indicador não afetam a resposta."""
+
+    send = getattr(client, "send_chat_action", None)
+    if send is None:
+        yield
+        return
+    stop = threading.Event()
+
+    def refresh() -> None:
+        while True:
+            try:
+                send(chat_id, "typing")
+            except TelegramAPIError:
+                return
+            if stop.wait(TYPING_REFRESH_SECONDS):
+                return
+
+    thread = threading.Thread(target=refresh, name="immunocheck-typing", daemon=True)
+    thread.start()
+    try:
+        yield
+    finally:
+        stop.set()
+        thread.join(timeout=1.0)
 
 
 def _command_name(text: str) -> str | None:

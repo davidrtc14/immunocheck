@@ -28,7 +28,8 @@ falha sem copiar o conteúdo da mensagem ou identificadores.
 - [ ] `PIPELINE_VERSION=v7` ativo (ou ausente, que é o padrão); `v3` conhecido como plano de reversão.
 - [ ] Tesseract disponível.
 - [ ] Terminal sem impressão do token.
-- [ ] Bot iniciado por `python -m immunocheck.telegram`.
+- [ ] Servidor Ollama iniciado com `OLLAMA_KEEP_ALIVE=-1`, para não descarregar o modelo entre mensagens.
+- [ ] Bot iniciado por `python -m immunocheck.telegram`, com o log "Modelos aquecidos" antes da primeira mensagem.
 - [ ] `/privacidade` explica processamento local, ausência de memória e participação
       do Telegram.
 

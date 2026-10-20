@@ -14,6 +14,33 @@ MEDICAL_DISCLAIMER = (
     "orientação de um profissional de saúde."
 )
 
+# A análise de erros da v7 mostrou que a maior parte das abstenções em alegações reais vem de casos
+# individuais, fatos políticos ou institucionais e conspirações que documentos técnicos não tratam.
+# A orientação é fixa: não depende do motivo interno da abstenção nem altera o veredito.
+INSUFFICIENT_GUIDANCE = (
+    (
+        "O QUE ISSO SIGNIFICA: as fontes do ImmunoCheck não permitem confirmar nem descartar a "
+        "alegação. Isso não quer dizer que ela seja verdadeira nem falsa."
+    ),
+    (
+        "  - Relatos de casos individuais, como alguém que passou mal após uma vacina, não são "
+        "confirmados por documentos oficiais. Suspeitas de evento adverso devem ser comunicadas a "
+        "uma unidade de saúde, que faz a notificação à vigilância."
+    ),
+    (
+        "  - Notícias, declarações de pessoas e fatos políticos estão fora do alcance das fontes "
+        "técnicas; agências de checagem jornalística são o caminho mais adequado."
+    ),
+    "  - Se a alegação for sobre vacinas em geral, tente reformulá-la em uma única frase objetiva.",
+)
+NO_CLAIM_GUIDANCE = (
+    (
+        'COMO ENVIAR: escreva uma única afirmação sobre vacinação humana, por exemplo: "A vacina da '
+        'gripe pode ser aplicada em gestantes." Perguntas, opiniões e textos sem uma afirmação '
+        "verificável não podem ser checados."
+    ),
+)
+
 
 def format_result(result: FactCheckResult, *, elapsed_seconds: float) -> str:
     lines = [
@@ -48,6 +75,8 @@ def format_result(result: FactCheckResult, *, elapsed_seconds: float) -> str:
             lines.append(f"      {source.url}")
     else:
         lines.append("FONTES: nenhuma fonte suficiente para sustentar uma conclusão.")
+    if result.verdict is Verdict.INSUFFICIENT_EVIDENCE:
+        lines.extend(NO_CLAIM_GUIDANCE if result.claim is None else INSUFFICIENT_GUIDANCE)
     lines.extend(
         (
             f"AVISO: {MEDICAL_DISCLAIMER}",
