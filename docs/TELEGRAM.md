@@ -60,7 +60,20 @@ separar latência local de latência externa.
 Long polling e feedback permanecem ativos enquanto uma thread exclusiva executa uma
 análise por vez, evitando concorrência sobre a GPU. A fila é limitada a quatro análises e
 vive somente em memória; quando cheia, novas alegações recebem uma mensagem para tentar
-novamente, sem serem armazenadas.
+novamente, sem serem armazenadas. A confirmação informa o tempo típico da análise (15 a 40 s) e,
+quando há outras análises antes, a posição na fila; durante a análise, o bot renova o indicador
+"digitando…" a cada 4 s, e uma falha desse indicador não afeta a resposta.
+
+Ao iniciar, o bot roda uma alegação sintética fixa (`WARMUP_CLAIM`, sem conteúdo de usuário) para
+carregar o Qwen3-8B, o BGE-M3 e o índice antes da primeira mensagem; `BOT_WARMUP=0` desliga. Em
+20/10/2026, o aquecimento levou 31 s, e uma alegação fria custava cerca de 8 s a mais que a mesma
+alegação aquecida. Para que o Ollama não descarregue o modelo entre mensagens espaçadas, defina
+`OLLAMA_KEEP_ALIVE=-1` no ambiente do servidor Ollama antes de iniciá-lo.
+
+Respostas de evidência insuficiente trazem uma orientação fixa: o que a abstenção significa, que
+relatos de casos individuais devem ser comunicados a uma unidade de saúde e que notícias e fatos
+políticos cabem às agências de checagem. Quando nenhuma alegação é identificada, a resposta explica
+como enviar uma. A orientação não depende do motivo interno da abstenção e não altera o veredito.
 
 Mensagens finais são texto simples, têm previews de links desativados e são divididas quando
 excedem o limite de 4.096 caracteres do Telegram. Falhas conhecidas do corpus, do Ollama ou

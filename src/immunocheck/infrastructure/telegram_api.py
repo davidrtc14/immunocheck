@@ -13,7 +13,9 @@ class TelegramAPIError(RuntimeError):
 
 
 class TelegramClient(Protocol):
-    def get_updates(self, *, offset: int | None, timeout_seconds: int) -> tuple[dict[str, Any], ...]: ...
+    def get_updates(
+        self, *, offset: int | None, timeout_seconds: int
+    ) -> tuple[dict[str, Any], ...]: ...
 
     def send_message(self, chat_id: int, text: str) -> None: ...
 
@@ -74,6 +76,15 @@ class TelegramBotAPI:
                 "text": text,
                 "link_preview_options": json.dumps({"is_disabled": True}),
             },
+            timeout_seconds=self.request_timeout_seconds,
+        )
+
+    def send_chat_action(self, chat_id: int, action: str = "typing") -> None:
+        """Mostra "digitando…" ao usuário; o Telegram mantém o indicador por cerca de 5 s."""
+
+        self._call(
+            "sendChatAction",
+            {"chat_id": str(chat_id), "action": action},
             timeout_seconds=self.request_timeout_seconds,
         )
 
