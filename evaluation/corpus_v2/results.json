@@ -1,0 +1,166 @@
+{
+  "reference": "C6 + corpus v1 (execução única da Fase 20)",
+  "candidate": "C6 + corpus v2",
+  "external2": {
+    "reference": {
+      "n": 304,
+      "conclusive_precision": 0.9906542056074766,
+      "severe_error_rate": 0.0033003300330033004,
+      "coverage": 0.3519736842105263,
+      "failure_rate": 0.003289473684210526,
+      "p95_latency_s": 16.9887,
+      "confusion_4class": {
+        "REFUTED->REFUTED": 89,
+        "REFUTED->INSUFFICIENT_EVIDENCE": 187,
+        "MISLEADING->REFUTED": 8,
+        "MISLEADING->INSUFFICIENT_EVIDENCE": 9,
+        "MISLEADING->MISLEADING": 3,
+        "REFUTED->MISLEADING": 6,
+        "REFUTED->SUPPORTED": 1,
+        "SUPPORTED->INSUFFICIENT_EVIDENCE": 1
+      }
+    },
+    "candidate": {
+      "n": 304,
+      "conclusive_precision": 0.990909090909091,
+      "severe_error_rate": 0.0033003300330033004,
+      "coverage": 0.3618421052631579,
+      "failure_rate": 0.003289473684210526,
+      "p95_latency_s": 16.7102,
+      "confusion_4class": {
+        "REFUTED->REFUTED": 89,
+        "REFUTED->INSUFFICIENT_EVIDENCE": 186,
+        "MISLEADING->REFUTED": 9,
+        "MISLEADING->INSUFFICIENT_EVIDENCE": 7,
+        "MISLEADING->MISLEADING": 4,
+        "REFUTED->MISLEADING": 7,
+        "REFUTED->SUPPORTED": 1,
+        "SUPPORTED->INSUFFICIENT_EVIDENCE": 1
+      }
+    },
+    "bootstrap": {
+      "conclusive_precision": {
+        "delta": 0.0003,
+        "ci95": [
+          -0.0004,
+          0.0016
+        ]
+      },
+      "severe_error_rate": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "coverage": {
+        "delta": 0.0099,
+        "ci95": [
+          -0.0132,
+          0.0329
+        ]
+      }
+    },
+    "coverage_by_topic": {
+      "reference": {
+        "covered": {
+          "n": 158,
+          "concluded": 60
+        },
+        "generic_vaccination": {
+          "n": 136,
+          "concluded": 43
+        },
+        "not_covered": {
+          "n": 6,
+          "concluded": 2
+        },
+        "partial": {
+          "n": 4,
+          "concluded": 2
+        }
+      },
+      "candidate": {
+        "covered": {
+          "n": 158,
+          "concluded": 63
+        },
+        "generic_vaccination": {
+          "n": 136,
+          "concluded": 43
+        },
+        "not_covered": {
+          "n": 6,
+          "concluded": 2
+        },
+        "partial": {
+          "n": 4,
+          "concluded": 2
+        }
+      }
+    },
+    "batch_009_sources": {
+      "sources_cited": 343,
+      "sources_from_batch": 83,
+      "answers_citing_batch": 42
+    }
+  },
+  "c7": {
+    "reference": {
+      "n": 207,
+      "macro_f1": 0.7203,
+      "recall": {
+        "SUPPORTED": 0.627,
+        "REFUTED": 0.826,
+        "MISLEADING": 0.673,
+        "INSUFFICIENT_EVIDENCE": 0.741
+      },
+      "grave_error": 0.0064,
+      "failure_rate": 0.0097,
+      "p95_s": 26.5
+    },
+    "candidate": {
+      "n": 207,
+      "macro_f1": 0.7102,
+      "recall": {
+        "SUPPORTED": 0.627,
+        "REFUTED": 0.826,
+        "MISLEADING": 0.635,
+        "INSUFFICIENT_EVIDENCE": 0.741
+      },
+      "grave_error": 0.0064,
+      "failure_rate": 0.0097,
+      "p95_s": 26.8
+    },
+    "delta_macro_f1": {
+      "delta": -0.010177300530120115,
+      "ci_low": -0.0332315641877019,
+      "ci_high": 0.010230948461794398
+    },
+    "delta_grave_error": {
+      "delta": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0
+    },
+    "transitions": {
+      "INSUFFICIENT_EVIDENCE: INSUFFICIENT_EVIDENCE -> MISLEADING": 1,
+      "INSUFFICIENT_EVIDENCE: INSUFFICIENT_EVIDENCE -> REFUTED": 1,
+      "INSUFFICIENT_EVIDENCE: REFUTED -> INSUFFICIENT_EVIDENCE": 2,
+      "MISLEADING: MISLEADING -> REFUTED": 2
+    },
+    "batch_009_sources": {
+      "sources_cited": 405,
+      "sources_from_batch": 6,
+      "answers_citing_batch": 4
+    }
+  },
+  "gates": {
+    "E1": false,
+    "E2": true,
+    "E3": true,
+    "K1": true,
+    "K2": true,
+    "O1": true
+  },
+  "adopted": false
+}

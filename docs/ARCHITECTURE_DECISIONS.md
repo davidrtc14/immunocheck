@@ -57,6 +57,7 @@
 | ADR-053 | Link como protótipo experimental; texto e imagem formam o escopo avaliado | Aceita | Com um mês até a entrega e o veredito como objetivo principal, o pesquisador definiu o escopo estritamente necessário: texto e imagem predominantemente textual. O processamento de link continua no bot, com as mesmas proteções de segurança, mas como protótipo experimental, sem critério de aceite próprio nem nova rodada de avaliação; as avaliações do veredito usam a entrada em texto. |
 | ADR-054 | Veredito v7: seleção progressiva de candidatas no desenvolvimento do C7 e execução única no teste | Encerrada; substituída pela ADR-055 | Candidatas: relação `PARTIAL` para `MISLEADING`, contexto ampliado para o juiz, `qwen3.6` só no juiz, robustez da decomposição e voto por consistência. Cada uma entra se melhorar o macro-F1 do desenvolvimento em ≥ 0,02 sem piorar o erro grave e com P95 ≤ 45 s. A promoção contra a v3 exige ganho de macro-F1 ≥ 0,05 (IC > 0) no teste do C7 e os gates X1–X4 da Fase 18 no teste externo 2. Regra no Adendo 1 de `evaluation/refinement_v7/PROTOCOL.md`. |
 | ADR-055 | Cascata v3 → `v5_fixed` com verificação de `SUPPORTED` e via de promoção por segurança | Aceita | Nenhuma candidata da ADR-054 passou na seleção. Combinando vereditos já obtidos no desenvolvimento do C7, a cascata (a `v5_fixed` só confere os `SUPPORTED` da v3) reduziu o erro grave de 10,4% para 2,1% com macro-F1 de 0,728 contra 0,703. Por decisão do pesquisador, entra como condição C6 da execução única, com uma via de promoção alternativa: não inferioridade do macro-F1 (IC ≥ −0,05) e redução clara do erro grave (Δ ≤ −0,03, IC < 0), além de X1–X4. Regra no Adendo 3 de `evaluation/refinement_v7/PROTOCOL.md`. Na execução única (20/10), a C6 passou em S1–S4 e X1–X4: macro-F1 0,720 contra 0,677 (IC +0,011 a +0,080), erro grave de 11,5% para 0,6% no C7 e de 2,3% para 0,3% no teste externo 2; não passou no P1 (+0,043 < +0,05). Substitui a v3 como padrão do veredito (`evaluation/refinement_v7/RESULTS.md`). |
+| ADR-056 | Corpus v2: lote 009 para lacunas do plano de cobertura, avaliado com a C6 sem mudar a pipeline | Encerrada sem adoção | A C6 só concluiu em 35,2% das alegações reais do teste externo 2, sobretudo por falta de evidência no corpus. O lote 009 cobre lacunas já previstas no plano de cobertura de setembro (DNA, óbitos, sobrecarga, composição e eficácia das vacinas contra covid-19), só com domínio público ou Creative Commons e sem texto de agência de checagem, escolhido sem consultar os itens dos conjuntos. Execução única da C6 com o corpus v2 no teste do C7 e no teste externo 2, com reuso declarado dos conjuntos; o corpus v2 vira padrão se passar em E1–E3, K1–K2 e O1. Regra em `evaluation/corpus_v2/PROTOCOL.md`. Na execução única (20/10), o corpus v2 reprovou no E1: cobertura +0,010 (IC −0,013 a +0,033) no teste externo 2, com precisão, erro grave e C7 dentro das margens; o corpus v1 continua padrão (`evaluation/corpus_v2/RESULTS.md`). |
 
 ## Histórico de alterações
 
@@ -394,6 +395,16 @@
   continuam selecionáveis para reversão. Passada de fumaça: texto verdadeiro confirmado pela
   verificação (31 s), texto falso refutado (17 s), imagem com um único OCR (20 s) e o fluxo do
   Telegram com cliente simulado.
+- **20/10/2026 — ADR-056 proposta:** Fase 21, corpus v2. O prazo de entrega passou a 06/11, com a
+  pesquisa pronta até 31/10. Antes de qualquer download, ficaram registrados a regra de seleção do
+  lote 009 (lacunas do plano de cobertura de setembro, licença clara, nenhum texto de agência de
+  checagem, cegueira aos itens dos conjuntos), os nove candidatos, a execução única da C6 com o
+  corpus v2 e a regra de decisão (E1–E3 no teste externo 2, K1–K2 no teste do C7, O1).
+- **20/10/2026 — ADR-056 encerrada sem adoção:** lote 009 aprovado pelo autor e corpus v2 congelado
+  (89 documentos, 7.845 trechos; texto e vetores do v1 idênticos). Na execução única, a cobertura no
+  teste externo 2 subiu só de 35,2% para 36,2% (IC do Δ −0,013 a +0,033), abaixo do E1; precisão, erro
+  grave, macro-F1 do C7 (−0,010, IC −0,033 a +0,010) e operação ficaram dentro das margens. O corpus v1
+  continua padrão. As abstenções em alegações reais não decorrem principalmente de lacunas temáticas.
 
 ## Política de alteração
 

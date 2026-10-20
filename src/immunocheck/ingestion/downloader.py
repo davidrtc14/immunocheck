@@ -70,7 +70,7 @@ def download_catalog_entry(
 
     request = Request(
         entry.metadata.url,
-        headers={"User-Agent": "ImmunoCheck-TCC/0.1 (academic corpus collection)"},
+        headers={"User-Agent": "ImmunoCheck-TCC/0.1 (+https://github.com/davidrtc14/immunocheck)"},
     )
     try:
         with urlopen(request, timeout=timeout_seconds) as response:

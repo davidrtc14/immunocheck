@@ -1,0 +1,20 @@
+{
+  "frozen_at": "2026-10-20",
+  "condition": "C6",
+  "datasets": [
+    "c7",
+    "external2"
+  ],
+  "corpus_version": "sha256:77b65faae8b62ff8c13acae9ee8a3077abe7bf9b80157507ccd5ac1e378b7b53",
+  "sha256": {
+    "scripts/run_corpus_v2_experiment.py": "5fd5da7b98b6b3d25586a32833b8b1ff79e3f49b1e082873b99ee566ea902ec4",
+    "scripts/analyze_corpus_v2.py": "e954eeb53872e5663dd4957e43bc5594d79aaacfda59a7ef6877278e3f3eb961",
+    "evaluation/corpus_v2/PROTOCOL.md": "a9ef61ce3ebc23847e8d28f5a630df79e3c6d77bef69412bc9f9782ba25b3515",
+    "corpus/catalog.csv": "c8e8916a4ba235f3f6745d0cfa2f391a973867b9b6de8b4ce827b797fcca39dd",
+    "corpus/reviews/batch_009.csv": "df7835219442c6ee5f1d00e2955a901a24c46f9810ab430307f4b9c67a6dad7c",
+    "corpus/processed/chunks.jsonl": "34e84997a7706b2ef04a72c4e144256ea142471d6643dab3c7944ac6533e8c81",
+    "corpus/processed/manifest.json": "6ffe8e0901c595f1fff8faa5c8c093020a66d9042af0ceedeb0fb74bb5380b25",
+    "corpus/processed/dense_bge_m3.npz": "5b69a2c7b4546f2443a8de8f3717ddd85ea038beb2c18ba04cb69f0fca7c12d8",
+    "corpus/processed/dense_bge_m3.json": "cc8a8d4dae5aeeba5b25b209cced12530b616aeaa0983d05dbed123a14534325"
+  }
+}
