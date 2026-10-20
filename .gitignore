@@ -27,6 +27,7 @@ Desktop.ini
 # Dados, corpus e artefatos locais
 corpus/raw/
 corpus/processed/
+corpus/processed_v1/
 data/private/
 data/interim/
 models/
