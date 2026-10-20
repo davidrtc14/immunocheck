@@ -1,5 +1,10 @@
 # Handoff de continuidade — ImmunoCheck
 
+> **20/10/2026 — padrão atual: v7 (ADR-055).** A cascata C6 (v3 → verificação dos `SUPPORTED` pela
+> `v5_fixed`) foi promovida na execução única da Fase 20 e é o padrão do bot e da CLI
+> (`bootstrap_bot.py`). Resultados em `evaluation/refinement_v7/RESULTS.md`. As seções abaixo são
+> históricas.
+
 Atualizado em 27/09/2026. Este arquivo resume o contexto necessário para outra
 sessão do ChatGPT/Codex continuar o projeto sem depender do histórico desta conversa.
 

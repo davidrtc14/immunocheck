@@ -12,7 +12,8 @@ from typing import Any, Protocol
 from immunocheck.application.content_normalizer import ContentExtractionError
 from immunocheck.application.input_understanding import route_message
 from immunocheck.application.text_components import ModelOutputError
-from immunocheck.bootstrap import build_configured_multimodal_pipeline, resolve_extraction_version
+from immunocheck.bootstrap import resolve_extraction_version
+from immunocheck.bootstrap_bot import build_bot_multimodal_pipeline
 from immunocheck.bot_access import AccessPolicy
 from immunocheck.domain.input_policy import InputLimits, InvalidSubmissionError
 from immunocheck.domain.models import ContentKind, ContentSubmission, FactCheckResult
@@ -33,9 +34,7 @@ UNAVAILABLE_MESSAGE = (
     "Não foi possível concluir a análise agora porque um componente local está indisponível. "
     "Tente novamente em alguns minutos."
 )
-UNEXPECTED_ERROR_MESSAGE = (
-    "Não foi possível concluir a análise devido a uma falha interna. Nenhum conteúdo foi armazenado."
-)
+UNEXPECTED_ERROR_MESSAGE = "Não foi possível concluir a análise devido a uma falha interna. Nenhum conteúdo foi armazenado."
 UNSUPPORTED_INPUT_MESSAGE = (
     "Envie uma alegação em texto, uma imagem textual em PNG/JPEG/WebP ou uma URL HTTPS. "
     "Vídeo, áudio e outros arquivos não são aceitos na v1."
@@ -253,7 +252,9 @@ class TelegramLongPoller:
                     )
                     backoff_seconds = 1.0
                 except TelegramAPIError:
-                    LOGGER.warning("Telegram temporariamente indisponível; nova tentativa agendada.")
+                    LOGGER.warning(
+                        "Telegram temporariamente indisponível; nova tentativa agendada."
+                    )
                     self.sleep(backoff_seconds)
                     backoff_seconds = min(backoff_seconds * 2, self.maximum_backoff_seconds)
                     continue
@@ -292,7 +293,7 @@ def main() -> int:
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     try:
         client = TelegramBotAPI(token=token, request_timeout_seconds=2.0)
-        pipeline = build_configured_multimodal_pipeline()
+        pipeline = build_bot_multimodal_pipeline()
         access = AccessPolicy.from_environment(os.environ)
         router = route_message if resolve_extraction_version() == "v2" else legacy_route_message
     except (ValueError, CorpusLoadError) as exc:
@@ -363,7 +364,11 @@ def _telegram_image_descriptor(
         width = photo.get("width")
         height = photo.get("height")
         file_size = photo.get("file_size")
-        if not isinstance(file_id, str) or not isinstance(width, int) or not isinstance(height, int):
+        if (
+            not isinstance(file_id, str)
+            or not isinstance(width, int)
+            or not isinstance(height, int)
+        ):
             return None
         _validate_telegram_image_metadata(width, height, file_size, limits)
         return (

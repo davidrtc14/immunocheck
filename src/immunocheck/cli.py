@@ -6,9 +6,12 @@ import time
 from pathlib import Path
 
 from immunocheck.application.text_components import ModelOutputError
-from immunocheck.bootstrap import (
-    DEFAULT_CORPUS_PATH,
-    build_configured_text_pipeline,
+from immunocheck.bootstrap import DEFAULT_CORPUS_PATH
+from immunocheck.bootstrap_bot import (
+    DEFAULT_PIPELINE_VERSION,
+    FIXED_DEPTH_VERSIONS,
+    PIPELINE_VERSIONS,
+    build_bot_text_pipeline,
     resolve_pipeline_version,
 )
 from immunocheck.domain.input_policy import InvalidSubmissionError
@@ -16,7 +19,6 @@ from immunocheck.domain.models import ContentKind, ContentSubmission
 from immunocheck.infrastructure.ollama import OllamaError
 from immunocheck.presentation import format_result
 from immunocheck.retrieval.pilot_corpus import CorpusLoadError
-
 
 DEFAULT_V1_TOP_K = 6
 
@@ -30,16 +32,15 @@ def main(argv: list[str] | None = None) -> int:
 
     started_at = time.perf_counter()
     try:
-        fixed_depth = {"v3", "v4", "v5"}
         if (
             args.top_k is not None
-            and resolve_pipeline_version(args.pipeline_version) in fixed_depth
+            and resolve_pipeline_version(args.pipeline_version) in FIXED_DEPTH_VERSIONS
         ):
             print(
-                "Aviso: --top-k é ignorado na v3/v4/v5, que usam profundidade fixa.",
+                "Aviso: --top-k é ignorado na v3/v4/v5/v7, que usam profundidade fixa.",
                 file=sys.stderr,
             )
-        pipeline = build_configured_text_pipeline(
+        pipeline = build_bot_text_pipeline(
             pipeline_version=args.pipeline_version,
             corpus_path=args.corpus,
             model=args.model,
@@ -67,9 +68,9 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--model", default=None, help="modelo local configurado no Ollama")
     parser.add_argument(
         "--pipeline-version",
-        choices=("v1", "v3", "v4", "v5"),
+        choices=PIPELINE_VERSIONS,
         default=None,
-        help="pipeline local (padrão: PIPELINE_VERSION ou v3)",
+        help=f"pipeline local (padrão: PIPELINE_VERSION ou {DEFAULT_PIPELINE_VERSION})",
     )
     parser.add_argument(
         "--ollama-url",

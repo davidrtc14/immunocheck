@@ -387,7 +387,13 @@
   −0,066) no C7, e precisão das conclusões de 0,940 para 0,991 no teste externo 2, com queda de
   cobertura de 0,030. Não passou no P1 da regra original. A `v5_fixed` isolada reprovaria em P1, P3
   e X3. Limitações: recall de `SUPPORTED` de 0,76 para 0,63, P95 de 26,5 s e regra desenhada no
-  desenvolvimento. Falta integrar a C6 como padrão do bot.
+  desenvolvimento.
+- **20/10/2026 — ADR-055 integrada:** a C6 virou `PIPELINE_VERSION=v7`, padrão do bot e da CLI,
+  montada em `bootstrap_bot.py` sem editar os módulos congelados. Com imagem ou link, a v3 e a
+  `v5_fixed` compartilham uma única normalização, descartada ao fim da requisição. A v3 e a v1
+  continuam selecionáveis para reversão. Passada de fumaça: texto verdadeiro confirmado pela
+  verificação (31 s), texto falso refutado (17 s), imagem com um único OCR (20 s) e o fluxo do
+  Telegram com cliente simulado.
 
 ## Política de alteração
 

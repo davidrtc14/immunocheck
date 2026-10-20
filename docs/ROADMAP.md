@@ -713,7 +713,8 @@ distribuição, portões, taxa de erro de rótulo e limitações; congelamento r
 - [x] Execução única no teste do C7 e no teste externo 2, com as condições v3, `v5_fixed` e C6 (20/10).
 - [x] Decisão de promoção pela regra e relatório de resultados: C6 promovida pela via de segurança
   (`evaluation/refinement_v7/RESULTS.md`).
-- [ ] Integração da C6 como padrão do bot (texto e imagem), com testes e passada de fumaça.
+- [x] Integração da C6 como padrão do bot (texto e imagem), com testes e passada de fumaça
+  (`PIPELINE_VERSION=v7`, `bootstrap_bot.py`).
 
 Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; candidatas desligadas por
 padrão e sem edição de arquivos congelados; `DEVELOPMENT_LOG.md` e `verdict_freeze.json` registrados
