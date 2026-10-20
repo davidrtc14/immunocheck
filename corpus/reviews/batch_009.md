@@ -1,7 +1,7 @@
 # Lote documental 009 — corpus v2 (ADR-056)
 
 Preparado em 20/10/2026 pela regra de seleção de `evaluation/corpus_v2/PROTOCOL.md`, registrada antes
-dos downloads. **Aprovação humana pendente.** A decisão vale somente para os bytes identificados pelos
+dos downloads. **Aprovado pelo autor em 20/10/2026 (os nove documentos).** A decisão vale somente para os bytes identificados pelos
 SHA-256 em `batch_009.csv`.
 
 ## Resultado executivo
@@ -12,8 +12,8 @@ SHA-256 em `batch_009.csv`.
 - Os nove foram baixados, tiveram o hash conferido e passaram na extração: 256.378 caracteres e 260
   chunks potenciais, sem alerta técnico, sem caractere de substituição e sem duplicata no lote ou
   contra o corpus validado.
-- **Proposta: aprovar os nove**, respeitando os limites abaixo. O corpus passaria de 80 para 89
-  documentos.
+- **Os nove foram aprovados**, respeitando os limites abaixo. O corpus passa de 80 para 89
+  documentos validados.
 
 ## Documentos
 
