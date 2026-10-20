@@ -112,3 +112,20 @@ confundir falsidade da alegação com dificuldade de extração. O limiar foi re
 teste de regressão foi adicionado e a mesma alegação curta passou a percorrer retrieval,
 geração, fidelidade e formatação com fontes programáticas. O conteúdo usado no ensaio não
 é persistido no repositório nem tratado como dado de pesquisa.
+
+Em 20/10/2026, a v7 foi ensaiada com o bot real e alegações sintéticas digitadas pelo próprio
+desenvolvedor. Funcionaram como esperado: comandos, confirmação imediata, aviso de posição na fila
+(até "Há 3 análises na sua frente"), limite de taxa na sexta mensagem em 60 s, orientação nas
+abstenções e instrução quando não há alegação. Os vereditos esperados foram obtidos para tríplice
+viral e autismo (refutada, 14,9 s), HPV no SUS (sustentada, 19,2 s), relato individual
+(insuficiente, 3,9 s) e saudação (sem alegação, 1,4 s); os demais tempos ficaram entre 8,5 s e
+30,7 s, incluindo a espera na fila. A confirmação saiu em cerca de 0,7 s em 13 de 16 envios e em
+2,74 s nos outros três, um atraso fixo atribuído à rede.
+
+O ensaio expôs dois erros de julgamento já descritos na análise de erros da v7, que não foram
+corrigidos para não alterar o sistema avaliado: uma alegação de "venenos" nas vacinas (mercúrio,
+alumínio, vírus vivos) recebeu refutada com explicação imprecisa, quando enganosa seria o veredito
+adequado; e uma notícia verdadeira sobre mortes por doenças evitáveis por vacinação, enviada por
+link, foi lida como mortes causadas pela vacina e refutada por falta de evidência. Também apareceram
+fontes repetidas (o mesmo documento e a mesma página listados mais de uma vez). Esses exemplos não
+entram no roteiro da banca.
