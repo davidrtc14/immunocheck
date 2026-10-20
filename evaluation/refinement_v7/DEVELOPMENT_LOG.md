@@ -237,8 +237,10 @@ Contra a v3, com bootstrap pareado por família (10.000 reamostras, semente 42):
 A `v5_fixed` verificou 56 respostas `SUPPORTED` da v3 e trocou 20. A parte da v3 repetiu 183 dos
 193 vereditos da linha de base (ruído de execução). O resultado reproduz a análise exploratória
 (0,728 e 2,1%). No desenvolvimento, a C6 passaria na via de segurança (S1 a S4), mas não no P1 do
-Adendo 1 (Δ ≥ +0,05). O custo é o recall de `SUPPORTED`, que cai de 0,86 para 0,67: a verificação
-derruba também alegações verdadeiras, a maioria para `INSUFFICIENT_EVIDENCE`.
+Adendo 1 (Δ ≥ +0,05). Das 20 trocas, 11 corrigem a v3 (9 relatos ou fatos sem evidência que a v3
+sustentava, 1 `REFUTED` e 1 `MISLEADING`) e 9 derrubam alegações verdadeiras: 5 viram
+`INSUFFICIENT_EVIDENCE` e 4 viram `REFUTED`. Por isso o recall de `SUPPORTED` cai de 0,86 para 0,67;
+as 4 refutações indevidas são o erro inverso do erro grave e entram como limitação.
 
 Conforme o Adendo 3, a regra da C6 não muda depois desta execução. Próximo passo: congelamento por
 hash e execução única no teste do C7 e no teste externo 2, com as condições v3, `v5_fixed` e C6.
