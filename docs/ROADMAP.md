@@ -709,7 +709,7 @@ distribuição, portões, taxa de erro de rótulo e limitações; congelamento r
   (nenhuma aprovada; C3 trocada pela C3b no Adendo 2).
 - [x] Adendo 3 (ADR-055): cascata C6 e via de promoção por segurança, registrados antes do teste.
 - [x] Execução da C6 no desenvolvimento, para latência e falhas reais.
-- [ ] Configuração congelada por hash até 31/10.
+- [x] Configuração congelada por hash até 31/10 (`verdict_freeze.json`, 19/10).
 - [ ] Execução única no teste do C7 e no teste externo 2, com as condições v3, `v5_fixed` e C6.
 - [ ] Decisão de promoção pela regra e relatório de resultados.
 
