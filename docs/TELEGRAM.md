@@ -25,9 +25,10 @@ O corpus processado, o Ollama e o modelo configurado em `OLLAMA_MODEL` precisam 
 disponíveis antes da inicialização. O token nunca deve ser colocado em `.env.example`,
 commits, capturas de tela ou relatórios.
 
-`PIPELINE_VERSION=v3` é o padrão local confirmado. Use `PIPELINE_VERSION=v1`
-somente para reproduzir ou reverter temporariamente ao caminho histórico; a seleção
-não muda o corpus nem persiste interações.
+`PIPELINE_VERSION=v7` é o padrão desde a ADR-055: a cascata C6 (v3 seguida da verificação dos
+`SUPPORTED` pela `v5_fixed`), confirmada na execução única da Fase 20. Com imagem, as duas etapas usam
+um único OCR, descartado ao fim da requisição. Use `PIPELINE_VERSION=v3` para reverter ao padrão
+anterior, ou `v1` para o caminho histórico; a seleção não muda o corpus nem persiste interações.
 
 ## Controle de acesso e limite de taxa
 

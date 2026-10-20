@@ -153,7 +153,7 @@ python scripts/release_preflight.py --with-tests --output output/preflight-banca
 # Plano A: Telegram, com token somente no .env ignorado
 python scripts/run_telegram_local.py
 
-# Plano B: CLI usando a v3 padrão
+# Plano B: CLI usando a v7 padrão (cascata, ADR-055)
 python -m immunocheck.cli "A vacina tríplice viral causa autismo."
 ```
 

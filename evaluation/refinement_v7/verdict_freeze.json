@@ -1,0 +1,41 @@
+{
+  "frozen_at": "2026-10-19",
+  "conditions": [
+    "v3",
+    "v5_fixed",
+    "C6"
+  ],
+  "datasets": [
+    "c7",
+    "external2"
+  ],
+  "sha256": {
+    "scripts/run_v7_experiment.py": "302057680c0167d492607a9c982c17e2e1b940951f9c8ff41320c0ade523786f",
+    "scripts/run_v6_experiment.py": "c02176dde04108cb30c9b754aed1395cea32b4d5e8c4dc05132dbbd05c5f6d7d",
+    "scripts/analyze_v7_final.py": "5afaa96e11c5afe72d58dc1d84058d73558cc2198664002b3ebd7865dd7aa825",
+    "scripts/analyze_v6.py": "0a776510c2725869dcc7579ffef466b6700fb91c6259a7a7691ddd48dad98b86",
+    "src/immunocheck/bootstrap.py": "063dec456c80aede1614c486f712377e07a55ae2b2dc7e094302d127f094623a",
+    "src/immunocheck/bootstrap_v7.py": "ae02021ff63e1025ce07af81cc961ee7afa5216b46b9cfae7f34f6ff97ccec8e",
+    "src/immunocheck/application/cascade.py": "bbad555f5977db3aeb14d0d81e9f0baf540b80acbccd89d8d43dd458517dfd43",
+    "src/immunocheck/application/routed_pipeline.py": "766343ce0d6006eaed76dc3e9c25dd4976fc6b6462064ab8712ee899af8bff4b",
+    "src/immunocheck/application/text_components.py": "053378ab07450192e9684f886e7c1a0c153789bb7f632197c4283150281915e4",
+    "src/immunocheck/application/decomposed_pipeline.py": "be50b901be4bfee65c8079ebbd1b8f3bf3648b70e1d50c189f399777e03d9dda",
+    "src/immunocheck/application/tolerant_verification.py": "59d2dd65ac9889b7e563e326429f8f0fc96b3388319f3586365397a5cd1add8f",
+    "src/immunocheck/application/structured_claim.py": "cc870fa116e16539c1135ed96a00a42407111e5e5dd2cb921a81879375d2bfea",
+    "src/immunocheck/application/proposition_nli.py": "222adf0e9ae084481633d5fc3da1ff26e40de605607126e00a464df3616081d1",
+    "src/immunocheck/application/verdict_aggregation.py": "83936caa0e3a99b76e68658a34ab864f87299d8c3c0454ae67d7222a70ba9c5c",
+    "src/immunocheck/retrieval/multi_query.py": "b3957eb66ddb6eee265953b583b55288f2f21de2173acfa606156577a42a5527",
+    "src/immunocheck/retrieval/document_expansion.py": "b00be06050c1b15811265bdbeeea06faf66c6f6e7c23e1b1d691590eacd4a1b3",
+    "src/immunocheck/infrastructure/ollama.py": "621d7b2db0f17f0dec859be6cff92c29ab564f2509c5455b40d00c62c6de8a56",
+    "src/immunocheck/infrastructure/context_budget.py": "10f8da727ce154d356e92427ee866195cd0b2b97e525f8e3b55e53140a92b4d8",
+    "src/immunocheck/evaluation/verdict_v7.py": "01845c7eb0353d1f3fe171c0527b5301fd307c4c5c10d712f4b9997f1cbe786f",
+    "evaluation/refinement_v7/items.jsonl": "0a46f639935726ab419b62ddbe52e2124768c3e2c3df655692f42f8f22c2fa1d",
+    "evaluation/refinement_v7/freeze.json": "9239e9ff103933afe290ba15f4330344d7ff1789ef2d0fbc093583892172819f",
+    "evaluation/refinement_v7/PROTOCOL.md": "d76a8d2b0de5db855d74f271a28f4d5b650dfa166a1ac45d3e242fb0ead7d3ee",
+    "evaluation/refinement_v7/external2/manifest.jsonl": "6dcc2d21fcfe097431d94cef02ef16eabd586955585484ad53ac9ee9ad7cda56",
+    "evaluation/refinement_v7/external2/freeze.json": "9ecccb9f5b7362bcf2e07c70d1582bb41fb0bfa8bc830179a3461de5e20c0543"
+  },
+  "ollama_models": [
+    "qwen3:8b 500a1f067a9f"
+  ]
+}

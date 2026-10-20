@@ -79,8 +79,9 @@ ollama pull qwen3:8b
 python -m immunocheck.cli "A alegação sobre vacinação que será verificada"
 ```
 
-O comando usa a v3. Para reproduzir o caminho histórico, acrescente
-`--pipeline-version v1` ou configure `PIPELINE_VERSION=v1` no `.env` local.
+O comando usa a v7, a cascata promovida na Fase 20 (ADR-055): a v3 responde e, quando ela sustenta
+a alegação, a `v5_fixed` verifica. Para reproduzir versões anteriores, use `--pipeline-version v3`
+(ou `v1`) ou configure `PIPELINE_VERSION` no `.env` local.
 
 O primeiro uso após carregar o computador é mais lento porque o modelo precisa ser
 levado à memória. Nenhuma entrada é persistida pelo protótipo nem enviada a uma LLM

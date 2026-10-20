@@ -1,0 +1,250 @@
+{
+  "v3": {
+    "c7": {
+      "n": 207,
+      "macro_f1": 0.677,
+      "recall": {
+        "SUPPORTED": 0.765,
+        "REFUTED": 0.804,
+        "MISLEADING": 0.654,
+        "INSUFFICIENT_EVIDENCE": 0.517
+      },
+      "grave_error": 0.1154,
+      "failure_rate": 0.0097,
+      "p95_s": 18.3
+    },
+    "external2": {
+      "n": 304,
+      "conclusive_precision": 0.9396551724137931,
+      "severe_error_rate": 0.0231023102310231,
+      "coverage": 0.3815789473684211,
+      "failures": 1,
+      "failure_rate": 0.003289473684210526,
+      "p95_latency_s": 16.2412,
+      "supported_recall_descriptive": 0.0,
+      "macro_f1_3class_covered": 0.19431988041853512,
+      "individual_event_verdicts": {
+        "INSUFFICIENT_EVIDENCE": 36,
+        "REFUTED": 4,
+        "SUPPORTED": 1
+      },
+      "confusion_4class": {
+        "REFUTED->REFUTED": 92,
+        "REFUTED->INSUFFICIENT_EVIDENCE": 179,
+        "REFUTED->SUPPORTED": 7,
+        "MISLEADING->REFUTED": 9,
+        "MISLEADING->INSUFFICIENT_EVIDENCE": 8,
+        "MISLEADING->MISLEADING": 3,
+        "REFUTED->MISLEADING": 5,
+        "SUPPORTED->INSUFFICIENT_EVIDENCE": 1
+      },
+      "strata": {
+        "corpus_topic_coverage=covered": {
+          "n": 158,
+          "coverage": 0.43037974683544306,
+          "conclusive_precision": 0.9558823529411765
+        },
+        "corpus_topic_coverage=generic_vaccination": {
+          "n": 136,
+          "coverage": 0.3235294117647059,
+          "conclusive_precision": 0.9090909090909091
+        },
+        "corpus_topic_coverage=not_covered": {
+          "n": 6,
+          "coverage": 0.3333333333333333,
+          "conclusive_precision": 1.0
+        },
+        "corpus_topic_coverage=partial": {
+          "n": 4,
+          "coverage": 0.5,
+          "conclusive_precision": 1.0
+        },
+        "external_source=None": {
+          "n": 304,
+          "coverage": 0.3815789473684211,
+          "conclusive_precision": 0.9396551724137931
+        }
+      }
+    }
+  },
+  "v5_fixed": {
+    "c7": {
+      "summary": {
+        "n": 207,
+        "macro_f1": 0.6833,
+        "recall": {
+          "SUPPORTED": 0.706,
+          "REFUTED": 0.761,
+          "MISLEADING": 0.404,
+          "INSUFFICIENT_EVIDENCE": 0.879
+        },
+        "grave_error": 0.0321,
+        "failure_rate": 0.0,
+        "p95_s": 15.0
+      },
+      "delta_macro_f1": {
+        "delta": 0.006289962130946791,
+        "ci_low": -0.07092493306044001,
+        "ci_high": 0.081791817126596
+      },
+      "delta_grave_error": {
+        "delta": -0.08333333333333334,
+        "ci_low": -0.14285714285714288,
+        "ci_high": -0.02654867256637168
+      },
+      "P": {
+        "P1": false,
+        "P2": true,
+        "P3": false,
+        "P4": true
+      },
+      "S": {
+        "S1": false,
+        "S2": true,
+        "S3": false,
+        "S4": true
+      }
+    },
+    "external2": {
+      "summary": {
+        "n": 304,
+        "conclusive_precision": 0.9305555555555556,
+        "severe_error_rate": 0.0165016501650165,
+        "coverage": 0.23684210526315788,
+        "failure_rate": 0.0,
+        "p95_latency_s": 13.261299999999999,
+        "confusion_4class": {
+          "REFUTED->INSUFFICIENT_EVIDENCE": 215,
+          "REFUTED->REFUTED": 60,
+          "REFUTED->MISLEADING": 4,
+          "MISLEADING->REFUTED": 3,
+          "MISLEADING->INSUFFICIENT_EVIDENCE": 16,
+          "REFUTED->SUPPORTED": 4,
+          "SUPPORTED->INSUFFICIENT_EVIDENCE": 1,
+          "MISLEADING->SUPPORTED": 1
+        }
+      },
+      "bootstrap": {
+        "conclusive_precision": {
+          "delta": -0.0091,
+          "ci95": [
+            -0.0724,
+            0.0512
+          ]
+        },
+        "severe_error_rate": {
+          "delta": -0.0066,
+          "ci95": [
+            -0.0263,
+            0.0099
+          ]
+        },
+        "coverage": {
+          "delta": -0.1447,
+          "ci95": [
+            -0.2007,
+            -0.0888
+          ]
+        }
+      },
+      "X": {
+        "X1": true,
+        "X2": true,
+        "X3": false,
+        "X4": true
+      }
+    },
+    "promoted": false,
+    "promotion_route": null
+  },
+  "C6": {
+    "c7": {
+      "summary": {
+        "n": 207,
+        "macro_f1": 0.7203,
+        "recall": {
+          "SUPPORTED": 0.627,
+          "REFUTED": 0.826,
+          "MISLEADING": 0.673,
+          "INSUFFICIENT_EVIDENCE": 0.741
+        },
+        "grave_error": 0.0064,
+        "failure_rate": 0.0097,
+        "p95_s": 26.5
+      },
+      "delta_macro_f1": {
+        "delta": 0.043292774153042,
+        "ci_low": 0.01098379558073237,
+        "ci_high": 0.07952028145001999
+      },
+      "delta_grave_error": {
+        "delta": -0.10897435897435898,
+        "ci_low": -0.1568627450980392,
+        "ci_high": -0.06578947368421052
+      },
+      "P": {
+        "P1": false,
+        "P2": true,
+        "P3": true,
+        "P4": true
+      },
+      "S": {
+        "S1": true,
+        "S2": true,
+        "S3": true,
+        "S4": true
+      }
+    },
+    "external2": {
+      "summary": {
+        "n": 304,
+        "conclusive_precision": 0.9906542056074766,
+        "severe_error_rate": 0.0033003300330033004,
+        "coverage": 0.3519736842105263,
+        "failure_rate": 0.003289473684210526,
+        "p95_latency_s": 16.9887,
+        "confusion_4class": {
+          "REFUTED->REFUTED": 89,
+          "REFUTED->INSUFFICIENT_EVIDENCE": 187,
+          "MISLEADING->REFUTED": 8,
+          "MISLEADING->INSUFFICIENT_EVIDENCE": 9,
+          "MISLEADING->MISLEADING": 3,
+          "REFUTED->MISLEADING": 6,
+          "REFUTED->SUPPORTED": 1,
+          "SUPPORTED->INSUFFICIENT_EVIDENCE": 1
+        }
+      },
+      "bootstrap": {
+        "conclusive_precision": {
+          "delta": 0.051,
+          "ci95": [
+            0.0162,
+            0.0945
+          ]
+        },
+        "severe_error_rate": {
+          "delta": -0.0198,
+          "ci95": [
+            -0.0363,
+            -0.0066
+          ]
+        },
+        "coverage": {
+          "delta": -0.0296,
+          "ci95": [
+            -0.0559,
+            -0.0033
+          ]
+        }
+      },
+      "X": {
+        "X1": true,
+        "X2": true,
+        "X3": true,
+        "X4": true
+      }
+    },
+    "promoted": true,
+    "promotion_route": "S1-S4"
+  }
+}

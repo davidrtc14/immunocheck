@@ -55,6 +55,8 @@
 | ADR-051 | Correção pontual da v5 e confirmação em teste externo de agências de checagem | Avaliada; não promovida (v3 padrão) | 150 alegações externas congeladas sem inferência; avaliação "sustentada × não sustentada" com abstenção como terceira saída (precisão das conclusões, erro grave, cobertura), porque o gabarito é de mundo real e a abstenção fora do corpus é o comportamento exigido. Promoção exige os seis critérios v5 no v4 e não inferioridade no externo; regra em `evaluation/refinement_v6/PROTOCOL.md`. No externo, a v5 corta o erro grave pela metade (5,8% → 2,9%), mas a cobertura cai 0,147, acima do limite de 0,10. |
 | ADR-052 | Nova base de avaliação do veredito: conjunto contrastivo gerado do corpus e teste externo 2 | Aceita (C7 e teste externo 2 congelados) | O v4 (96 itens, 24 `MISLEADING`) e o teste externo 1 já foram revelados e não permitem iterar a arquitetura. Alegações geradas de chunks do corpus têm rótulo por construção, conferido por portões automáticos e por revisão humana de uma amostra; o gerador (`mistral-small3.2`, Apache 2.0) é de outra família para evitar autopreferência do juiz. Métrica principal: macro-F1 de 4 classes; regra em `evaluation/refinement_v7/PROTOCOL.md`. C7 congelado em 18/10: 400 itens (207 de teste), revisão assistida por LLM declarada; relatório em `evaluation/refinement_v7/C7_REPORT.md`. |
 | ADR-053 | Link como protótipo experimental; texto e imagem formam o escopo avaliado | Aceita | Com um mês até a entrega e o veredito como objetivo principal, o pesquisador definiu o escopo estritamente necessário: texto e imagem predominantemente textual. O processamento de link continua no bot, com as mesmas proteções de segurança, mas como protótipo experimental, sem critério de aceite próprio nem nova rodada de avaliação; as avaliações do veredito usam a entrada em texto. |
+| ADR-054 | Veredito v7: seleção progressiva de candidatas no desenvolvimento do C7 e execução única no teste | Encerrada; substituída pela ADR-055 | Candidatas: relação `PARTIAL` para `MISLEADING`, contexto ampliado para o juiz, `qwen3.6` só no juiz, robustez da decomposição e voto por consistência. Cada uma entra se melhorar o macro-F1 do desenvolvimento em ≥ 0,02 sem piorar o erro grave e com P95 ≤ 45 s. A promoção contra a v3 exige ganho de macro-F1 ≥ 0,05 (IC > 0) no teste do C7 e os gates X1–X4 da Fase 18 no teste externo 2. Regra no Adendo 1 de `evaluation/refinement_v7/PROTOCOL.md`. |
+| ADR-055 | Cascata v3 → `v5_fixed` com verificação de `SUPPORTED` e via de promoção por segurança | Aceita | Nenhuma candidata da ADR-054 passou na seleção. Combinando vereditos já obtidos no desenvolvimento do C7, a cascata (a `v5_fixed` só confere os `SUPPORTED` da v3) reduziu o erro grave de 10,4% para 2,1% com macro-F1 de 0,728 contra 0,703. Por decisão do pesquisador, entra como condição C6 da execução única, com uma via de promoção alternativa: não inferioridade do macro-F1 (IC ≥ −0,05) e redução clara do erro grave (Δ ≤ −0,03, IC < 0), além de X1–X4. Regra no Adendo 3 de `evaluation/refinement_v7/PROTOCOL.md`. Na execução única (20/10), a C6 passou em S1–S4 e X1–X4: macro-F1 0,720 contra 0,677 (IC +0,011 a +0,080), erro grave de 11,5% para 0,6% no C7 e de 2,3% para 0,3% no teste externo 2; não passou no P1 (+0,043 < +0,05). Substitui a v3 como padrão do veredito (`evaluation/refinement_v7/RESULTS.md`). |
 
 ## Histórico de alterações
 
@@ -369,6 +371,29 @@
   19. Impacto metodológico: nenhum resultado anterior muda; a ADR-050 (extração) já tratava o link
   separadamente. Migração: o manuscrito e o `PROJECT_BRIEF.md` passam a descrever o link como
   experimental.
+- **18/10/2026 — ADR-054:** aberta a Fase 20. O Adendo 1 do protocolo da v7 registra cinco
+  candidatas, a seleção progressiva no desenvolvimento do C7 (193 itens), o prazo de 31/10 para o
+  desenvolvimento e a regra de promoção contra a v3 (critérios P1–P4 no teste do C7 e X1–X4 no teste
+  externo 2, com os limites da Fase 18 sem alteração). Nada foi executado sobre os conjuntos antes do
+  registro.
+- **19/10/2026 — ADR-054 e ADR-055:** a seleção no desenvolvimento terminou sem candidata aprovada
+  (C1 em cinco versões, C2, C3b, C4 e C5; a C3 foi trocada pela C3b no Adendo 2 por latência). A
+  análise exploratória da combinação v3 + `v5_fixed` levou ao Adendo 3: a cascata C6 entra na execução
+  única ao lado da v3 e da `v5_fixed`, com uma via de promoção por segurança decidida pelo pesquisador
+  antes de qualquer contato com o teste.
+- **20/10/2026 — ADR-055 aceita:** execução única das condições v3, `v5_fixed` e C6 no teste do C7
+  (207 itens) e no teste externo 2 (304 itens), com o congelamento conferido antes e depois. A C6
+  passou pela via de segurança: macro-F1 +0,043 (IC +0,011 a +0,080), erro grave −0,109 (IC −0,157 a
+  −0,066) no C7, e precisão das conclusões de 0,940 para 0,991 no teste externo 2, com queda de
+  cobertura de 0,030. Não passou no P1 da regra original. A `v5_fixed` isolada reprovaria em P1, P3
+  e X3. Limitações: recall de `SUPPORTED` de 0,76 para 0,63, P95 de 26,5 s e regra desenhada no
+  desenvolvimento.
+- **20/10/2026 — ADR-055 integrada:** a C6 virou `PIPELINE_VERSION=v7`, padrão do bot e da CLI,
+  montada em `bootstrap_bot.py` sem editar os módulos congelados. Com imagem ou link, a v3 e a
+  `v5_fixed` compartilham uma única normalização, descartada ao fim da requisição. A v3 e a v1
+  continuam selecionáveis para reversão. Passada de fumaça: texto verdadeiro confirmado pela
+  verificação (31 s), texto falso refutado (17 s), imagem com um único OCR (20 s) e o fluxo do
+  Telegram com cliente simulado.
 
 ## Política de alteração
 

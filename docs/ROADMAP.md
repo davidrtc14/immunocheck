@@ -700,3 +700,22 @@ grave, cobertura, IC, estratificação por cobertura do corpus e limitações; d
 
 Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; relatório do conjunto com
 distribuição, portões, taxa de erro de rótulo e limitações; congelamento registrado antes da Fase 20.
+
+## Fase 20 — Veredito v7 (ADR-054)
+
+- [x] Adendo com candidatas e regra de decisão registrado antes de qualquer execução nos conjuntos.
+- [x] Linhas de base (v3 e `v5_fixed`) no desenvolvimento do C7.
+- [x] Seleção progressiva das candidatas C1–C5 no desenvolvimento, com registro de cada versão
+  (nenhuma aprovada; C3 trocada pela C3b no Adendo 2).
+- [x] Adendo 3 (ADR-055): cascata C6 e via de promoção por segurança, registrados antes do teste.
+- [x] Execução da C6 no desenvolvimento, para latência e falhas reais.
+- [x] Configuração congelada por hash até 31/10 (`verdict_freeze.json`, 19/10).
+- [x] Execução única no teste do C7 e no teste externo 2, com as condições v3, `v5_fixed` e C6 (20/10).
+- [x] Decisão de promoção pela regra e relatório de resultados: C6 promovida pela via de segurança
+  (`evaluation/refinement_v7/RESULTS.md`).
+- [x] Integração da C6 como padrão do bot (texto e imagem), com testes e passada de fumaça
+  (`PIPELINE_VERSION=v7`, `bootstrap_bot.py`).
+
+Critérios de aceite: suíte completa e Ruff aprovados nos módulos novos; candidatas desligadas por
+padrão e sem edição de arquivos congelados; `DEVELOPMENT_LOG.md` e `verdict_freeze.json` registrados
+antes do teste; `RESULTS.md` com todos os critérios e limitações.

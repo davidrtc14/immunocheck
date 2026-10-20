@@ -37,9 +37,12 @@ isolado para o caminho online. BM25, RRF e reranker permanecem disponíveis some
 para ablação e diagnóstico; o reranker não converteu seu ganho de ranking em melhora
 fim a fim e duplicou a latência.
 
-Esse é o caminho v3 padrão. A pipeline v1 congelada, com top 6 e auditor de
-fidelidade, permanece selecionável para reprodução e reversão por
-`PIPELINE_VERSION=v1`; ela não é silenciosamente reescrita pela integração.
+Esse é o caminho da v3. Desde a ADR-055, o padrão é a v7: a v3 responde primeiro e, só quando ela
+responde `SUPPORTED`, a `v5_fixed` (decomposição, juiz por proposição e agregação determinística)
+verifica a mesma entrada; se a verificação não sustentar, vale a resposta dela. A montagem fica em
+`bootstrap_bot.py`, sem editar os módulos congelados. A v3 (`PIPELINE_VERSION=v3`) e a v1 congelada,
+com top 6 e auditor de fidelidade (`PIPELINE_VERSION=v1`), permanecem selecionáveis para reprodução
+e reversão; nenhuma é silenciosamente reescrita pela integração.
 
 ## Pipeline de ingestão
 
