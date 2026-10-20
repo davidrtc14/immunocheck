@@ -1,0 +1,172 @@
+{
+  "scope": "descritiva, sobre a execução única da Fase 20; nenhuma condição foi reexecutada",
+  "retrieval_proxy": "BGE-M3 denso, top 15, corpus v1, sobre o texto bruto da alegação",
+  "c7": {
+    "n": 207,
+    "retrieval_proxy": {
+      "chunk_hit_rate": 0.473,
+      "document_hit_rate": 0.715,
+      "errors_with_document_retrieved": 38,
+      "errors_total": 59
+    },
+    "error_types": {
+      "correct": 148,
+      "true_claim_dropped": 19,
+      "overconfident_on_insufficient": 15,
+      "degree_refuted_misleading": 13,
+      "undue_abstention": 11,
+      "grave": 1
+    },
+    "error_types_by_retrieval": {
+      "correct": {
+        "document_hit": 110,
+        "miss": 38
+      },
+      "degree_refuted_misleading": {
+        "document_hit": 8,
+        "miss": 5
+      },
+      "grave": {
+        "document_hit": 1
+      },
+      "overconfident_on_insufficient": {
+        "miss": 13,
+        "document_hit": 2
+      },
+      "true_claim_dropped": {
+        "document_hit": 18,
+        "miss": 1
+      },
+      "undue_abstention": {
+        "document_hit": 9,
+        "miss": 2
+      }
+    },
+    "confusion_c6": {
+      "INSUFFICIENT_EVIDENCE": {
+        "INSUFFICIENT_EVIDENCE": 43,
+        "REFUTED": 14,
+        "MISLEADING": 1
+      },
+      "MISLEADING": {
+        "MISLEADING": 35,
+        "REFUTED": 10,
+        "INSUFFICIENT_EVIDENCE": 6,
+        "SUPPORTED": 1
+      },
+      "REFUTED": {
+        "REFUTED": 38,
+        "MISLEADING": 3,
+        "INSUFFICIENT_EVIDENCE": 5
+      },
+      "SUPPORTED": {
+        "SUPPORTED": 32,
+        "INSUFFICIENT_EVIDENCE": 7,
+        "REFUTED": 10,
+        "MISLEADING": 2
+      }
+    },
+    "misleading_by_subtype": {
+      "causal_leap": {
+        "MISLEADING": 16,
+        "INSUFFICIENT_EVIDENCE": 3
+      },
+      "dropped_qualifier": {
+        "MISLEADING": 4,
+        "INSUFFICIENT_EVIDENCE": 1,
+        "REFUTED": 4,
+        "SUPPORTED": 1
+      },
+      "false_implication": {
+        "REFUTED": 5,
+        "MISLEADING": 7,
+        "INSUFFICIENT_EVIDENCE": 2
+      },
+      "overgeneralization": {
+        "MISLEADING": 8,
+        "REFUTED": 1
+      }
+    },
+    "cascade_switches": {
+      "INSUFFICIENT_EVIDENCE: SUPPORTED -> INSUFFICIENT_EVIDENCE": 13,
+      "MISLEADING: SUPPORTED -> MISLEADING": 1,
+      "REFUTED: SUPPORTED -> INSUFFICIENT_EVIDENCE": 2,
+      "REFUTED: SUPPORTED -> REFUTED": 1,
+      "SUPPORTED: SUPPORTED -> INSUFFICIENT_EVIDENCE": 3,
+      "SUPPORTED: SUPPORTED -> REFUTED": 4
+    },
+    "true_claims_dropped_by_stage": {
+      "cascade": 7,
+      "primary": 12
+    },
+    "technical_failures": 2
+  },
+  "external2": {
+    "n": 304,
+    "abstained": 197,
+    "abstention_reasons": {
+      "primary_abstention": 191,
+      "cascade_verification": 5,
+      "technical_failure": 1
+    },
+    "similarity_terciles": [
+      0.5521,
+      0.5974
+    ],
+    "by_top1_similarity_band": {
+      "low": {
+        "abstained": 85,
+        "concluded": 16
+      },
+      "mid": {
+        "concluded": 36,
+        "abstained": 65
+      },
+      "high": {
+        "concluded": 55,
+        "abstained": 47
+      }
+    },
+    "by_topic": {
+      "covered": {
+        "abstained": 98,
+        "concluded": 60
+      },
+      "generic_vaccination": {
+        "concluded": 43,
+        "abstained": 93
+      },
+      "not_covered": {
+        "abstained": 4,
+        "concluded": 2
+      },
+      "partial": {
+        "concluded": 2,
+        "abstained": 2
+      }
+    },
+    "mean_top1_score": {
+      "abstained": 0.5653,
+      "concluded": 0.6011
+    },
+    "manual_abstention_sample": {
+      "n": 60,
+      "sampling": "aleatória, semente 42, entre as abstenções sem falha técnica",
+      "coder": "assistente de IA (Claude), codificador único, sem revisão humana",
+      "rubric": {
+        "A": "caso ou evento individual, pessoa identificada",
+        "B": "fato político, institucional, comercial ou dado datado de outro país",
+        "C": "conspiração ou afirmação implausível que nenhum documento trata diretamente",
+        "D": "alegação científica geral que o corpus poderia decidir (abstenção conservadora)",
+        "E": "sem proposição verificável (opinião, chamada, aviso)"
+      },
+      "counts": {
+        "A": 17,
+        "B": 22,
+        "C": 10,
+        "D": 6,
+        "E": 5
+      }
+    }
+  }
+}
