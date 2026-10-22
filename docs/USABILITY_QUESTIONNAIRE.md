@@ -22,6 +22,12 @@ sintéticos.
 
 ## Configuração do Google Forms
 
+O script `scripts/create_feedback_form.gs` cria o formulário com o texto abaixo e as configurações
+desta seção. Para usá-lo, crie um projeto em https://script.google.com, cole o arquivo, preencha
+`CONTACT`, execute `createImmunoCheckForm` e autorize o acesso ao Google Forms. Os links de resposta
+e de edição aparecem no registro de execução. O formulário nasce fechado para respostas e só deve ser
+aberto depois da decisão ética.
+
 - Em Configurações → Respostas: **não** coletar e-mails e **não** limitar a uma resposta (essa opção
   exige login com conta Google e identifica o respondente).
 - Todas as perguntas fechadas obrigatórias; as abertas, opcionais.
