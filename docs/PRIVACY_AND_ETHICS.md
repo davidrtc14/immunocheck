@@ -152,7 +152,8 @@ instituição, não o software, decide o enquadramento e a tramitação aplicáv
 - [ ] Avaliar transferência e riscos do Telegram com o responsável institucional.
 - [ ] Decidir com orientador/instância ética se o protocolo exige CEP/CONEP.
 - [ ] Definir procedimento institucional de incidente e exercício de direitos.
-- [ ] Fazer teste de acessibilidade/usabilidade somente após a decisão ética.
+- [ ] Fazer teste de acessibilidade/usabilidade somente após a decisão ética; o
+  questionário proposto está em `docs/USABILITY_QUESTIONNAIRE.md`.
 
 Enquanto essas pendências estiverem abertas, o uso autorizado é demonstração local
 com dados sintéticos, não serviço público de saúde nem estudo com participantes.
