@@ -2,12 +2,26 @@ from __future__ import annotations
 
 from immunocheck.domain.models import FactCheckResult, Verdict
 
+# Rótulos exibidos ao usuário. Os vereditos internos (e os do artigo) continuam sendo sustentada,
+# refutada, enganosa e evidência insuficiente; só a apresentação usa termos do dia a dia.
 VERDICT_LABELS = {
-    Verdict.SUPPORTED: "SUSTENTADA",
-    Verdict.REFUTED: "REFUTADA",
-    Verdict.MISLEADING: "ENGANOSA",
-    Verdict.INSUFFICIENT_EVIDENCE: "EVIDÊNCIA INSUFICIENTE",
+    Verdict.SUPPORTED: "✅ VERDADEIRO",
+    Verdict.REFUTED: "❌ FALSO",
+    Verdict.MISLEADING: "⚠️ ENGANOSO",
+    Verdict.INSUFFICIENT_EVIDENCE: "🔍 NÃO DÁ PARA CONFIRMAR",
 }
+NO_CLAIM_LABEL = "❔ NENHUMA ALEGAÇÃO IDENTIFICADA"
+
+# Frase curta sob o rótulo quando o resultado não traz um fato correto. Nada aqui é gerado pela LLM.
+VERDICT_SUMMARIES = {
+    Verdict.SUPPORTED: "Isso é verdade, de acordo com as fontes oficiais e científicas consultadas.",
+    Verdict.REFUTED: "Isso não é verdade, de acordo com as fontes oficiais e científicas consultadas.",
+    Verdict.MISLEADING: "Isso distorce o que dizem as fontes oficiais e científicas consultadas.",
+    Verdict.INSUFFICIENT_EVIDENCE: (
+        "As fontes consultadas não permitem dizer se isso é verdadeiro ou falso."
+    ),
+}
+NO_CLAIM_SUMMARY = "Não encontrei uma afirmação sobre vacinas para verificar."
 
 MEDICAL_DISCLAIMER = (
     "Esta análise compara uma alegação com fontes documentais e não substitui "
@@ -43,40 +57,53 @@ NO_CLAIM_GUIDANCE = (
 
 
 def format_result(result: FactCheckResult, *, elapsed_seconds: float) -> str:
-    lines = [
-        f"VEREDITO: {VERDICT_LABELS[result.verdict]}",
-        f"ALEGAÇÃO ANALISADA: {result.claim or 'não identificada'}",
-    ]
+    """Resposta ao usuário: veredito e frase simples no topo; explicação formal e fontes abaixo."""
+
+    no_claim = result.verdict is Verdict.INSUFFICIENT_EVIDENCE and result.claim is None
+    lines = [NO_CLAIM_LABEL if no_claim else VERDICT_LABELS[result.verdict], _summary(result), ""]
+    lines.append(f"📖 EXPLICAÇÃO: {result.explanation}")
+    if result.omitted_or_distorted:
+        lines.append(f"🔎 O QUE FOI DISTORCIDO: {result.omitted_or_distorted}")
+    lines.append(f"📝 ALEGAÇÃO ANALISADA: {result.claim or 'não identificada'}")
     if result.multiple_claims_detected:
         lines.append(
-            "ESCOPO: O conteúdo contém múltiplas alegações; esta versão analisou somente a principal."
+            "📌 ESCOPO: O conteúdo contém múltiplas alegações; esta versão analisou somente a "
+            "principal."
         )
-    lines.append(f"EXPLICAÇÃO: {result.explanation}")
-    if result.correct_fact:
-        lines.append(f"FATO CORRETO: {result.correct_fact}")
-    if result.omitted_or_distorted:
-        lines.append(f"OMISSÃO OU DISTORÇÃO: {result.omitted_or_distorted}")
-    if result.sources:
-        source_heading = (
-            "FONTES CONSULTADAS (não conclusivas):"
+    lines.append("")
+    sources = _unique_sources(result)
+    if sources:
+        lines.append(
+            "📚 FONTES CONSULTADAS (não conclusivas):"
             if result.verdict is Verdict.INSUFFICIENT_EVIDENCE
-            else "FONTES:"
+            else "📚 FONTES:"
         )
-        lines.append(source_heading)
-        for position, (description, url) in enumerate(_unique_sources(result), start=1):
+        for position, (description, url) in enumerate(sources, start=1):
             lines.append(f"  [{position}] {description}")
             lines.append(f"      {url}")
     else:
-        lines.append("FONTES: nenhuma fonte suficiente para sustentar uma conclusão.")
+        lines.append("📚 FONTES: nenhuma fonte suficiente para sustentar uma conclusão.")
     if result.verdict is Verdict.INSUFFICIENT_EVIDENCE:
-        lines.extend(NO_CLAIM_GUIDANCE if result.claim is None else INSUFFICIENT_GUIDANCE)
+        lines.append("")
+        lines.extend(NO_CLAIM_GUIDANCE if no_claim else INSUFFICIENT_GUIDANCE)
     lines.extend(
         (
-            f"AVISO: {MEDICAL_DISCLAIMER}",
-            f"TEMPO TOTAL: {elapsed_seconds:.2f} s",
+            "",
+            f"ℹ️ AVISO: {MEDICAL_DISCLAIMER}",
+            f"⏱️ TEMPO TOTAL: {elapsed_seconds:.2f} s",
         )
     )
     return "\n".join(lines)
+
+
+def _summary(result: FactCheckResult) -> str:
+    """O fato correto já produzido pela pipeline, quando houver; senão, uma frase fixa."""
+
+    if result.verdict is Verdict.INSUFFICIENT_EVIDENCE:
+        return NO_CLAIM_SUMMARY if result.claim is None else VERDICT_SUMMARIES[result.verdict]
+    if result.correct_fact and result.verdict in {Verdict.REFUTED, Verdict.MISLEADING}:
+        return result.correct_fact
+    return VERDICT_SUMMARIES[result.verdict]
 
 
 def _unique_sources(result: FactCheckResult) -> list[tuple[str, str]]:

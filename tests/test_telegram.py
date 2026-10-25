@@ -92,7 +92,7 @@ def test_sends_processing_feedback_before_running_pipeline() -> None:
 
     assert client.events[:2] == ["send", "pipeline"]
     assert client.messages[0] == (123, PROCESSING_MESSAGE)
-    assert "VEREDITO: EVIDÊNCIA INSUFICIENTE" in client.messages[1][1]
+    assert "🔍 NÃO DÁ PARA CONFIRMAR" in client.messages[1][1]
     assert outcome.accepted_for_analysis is True
     assert outcome.feedback_seconds == 1.5
     assert pipeline.submissions[0].text == "Vacinas alteram o DNA?"

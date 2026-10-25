@@ -31,12 +31,11 @@ FINAL_TEST = REPOSITORY / "evaluation/results/test/final_test.json"
 DEFAULT_OUTPUT = REPOSITORY / "evaluation/results/demo/automated_rehearsal.json"
 DEMO_URL = "https://demo.invalid/boletim-vacinacao"
 REQUIRED_RESPONSE_SECTIONS = (
-    "VEREDITO:",
-    "ALEGAÇÃO ANALISADA:",
-    "EXPLICAÇÃO:",
-    "FONTES:",
-    "AVISO:",
-    "TEMPO TOTAL:",
+    "📖 EXPLICAÇÃO:",
+    "📝 ALEGAÇÃO ANALISADA:",
+    "📚 FONTES",
+    "ℹ️ AVISO:",
+    "⏱️ TEMPO TOTAL:",
 )
 
 

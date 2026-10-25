@@ -23,7 +23,7 @@ def test_formats_programmatic_citations_and_fixed_disclaimer() -> None:
 
     output = format_result(result, elapsed_seconds=1.25)
 
-    assert "VEREDITO: SUSTENTADA" in output
+    assert "✅ VERDADEIRO" in output
     assert "Calendário Nacional" in output
     assert "p. 10" in output
     assert "https://www.gov.br/saude/calendario.pdf" in output
@@ -47,17 +47,17 @@ def test_formats_scope_notice_and_non_conclusive_sources() -> None:
 
     output = format_result(result, elapsed_seconds=2.0)
 
-    assert "ESCOPO: O conteúdo contém múltiplas alegações" in output
-    assert "FONTES CONSULTADAS (não conclusivas):" in output
+    assert "📌 ESCOPO: O conteúdo contém múltiplas alegações" in output
+    assert "📚 FONTES CONSULTADAS (não conclusivas):" in output
 
 
 @pytest.mark.parametrize(
     ("verdict", "label"),
     (
-        (Verdict.SUPPORTED, "SUSTENTADA"),
-        (Verdict.REFUTED, "REFUTADA"),
-        (Verdict.MISLEADING, "ENGANOSA"),
-        (Verdict.INSUFFICIENT_EVIDENCE, "EVIDÊNCIA INSUFICIENTE"),
+        (Verdict.SUPPORTED, "✅ VERDADEIRO"),
+        (Verdict.REFUTED, "❌ FALSO"),
+        (Verdict.MISLEADING, "⚠️ ENGANOSO"),
+        (Verdict.INSUFFICIENT_EVIDENCE, "🔍 NÃO DÁ PARA CONFIRMAR"),
     ),
 )
 def test_formats_every_verdict_class(verdict: Verdict, label: str) -> None:
@@ -69,7 +69,7 @@ def test_formats_every_verdict_class(verdict: Verdict, label: str) -> None:
 
     output = format_result(result, elapsed_seconds=1.0)
 
-    assert f"VEREDITO: {label}" in output
+    assert output.startswith(label)
     assert "AVISO:" in output
     assert "TEMPO TOTAL:" in output
 

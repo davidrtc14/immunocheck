@@ -75,6 +75,12 @@ relatos de casos individuais devem ser comunicados a uma unidade de saúde e que
 políticos cabem às agências de checagem. Quando nenhuma alegação é identificada, a resposta explica
 como enviar uma. A orientação não depende do motivo interno da abstenção e não altera o veredito.
 
+A resposta abre com o veredito em linguagem do dia a dia, com emoji (✅ VERDADEIRO, ❌ FALSO,
+⚠️ ENGANOSO, 🔍 NÃO DÁ PARA CONFIRMAR), e uma frase curta: o fato correto já produzido pela pipeline,
+nas alegações falsas ou enganosas que o trazem, ou uma frase fixa por veredito. Abaixo vêm a
+explicação técnica, a alegação analisada e as fontes. Não há chamada extra ao modelo; os vereditos
+internos e os do artigo continuam sendo sustentada, refutada, enganosa e evidência insuficiente.
+
 Mensagens finais são texto simples, têm previews de links desativados e são divididas quando
 excedem o limite de 4.096 caracteres do Telegram. Falhas conhecidas do corpus, do Ollama ou
 da saída do modelo produzem resposta genérica; detalhes e conteúdo do usuário não entram nos

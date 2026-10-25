@@ -24,7 +24,7 @@ def test_insufficient_answer_explains_what_it_means_without_changing_verdict() -
         FactCheckResult.insufficient("As fontes não permitem concluir.", claim="Alegação.")
     )
 
-    assert output.startswith("VEREDITO: EVIDÊNCIA INSUFICIENTE")
+    assert output.startswith("🔍 NÃO DÁ PARA CONFIRMAR")
     assert all(line in output for line in INSUFFICIENT_GUIDANCE)
     assert NO_CLAIM_GUIDANCE[0] not in output
 
@@ -96,7 +96,7 @@ def test_analysis_shows_typing_and_still_answers_when_the_indicator_fails() -> N
         handler.handle(_update("A vacina X causa Y."))
 
         assert client.actions[0] == (7, "typing")
-        assert client.messages[-1].startswith("VEREDITO: EVIDÊNCIA INSUFICIENTE")
+        assert client.messages[-1].startswith("🔍 NÃO DÁ PARA CONFIRMAR")
 
 
 def test_typing_indicator_stops_its_thread_and_skips_clients_without_actions() -> None:
@@ -162,3 +162,35 @@ def test_repeated_sources_are_listed_once_without_changing_the_result() -> None:
     assert "  [2] Ministério da Saúde — HPV — p. 2" in output
     assert "[3]" not in output
     assert len(result.sources) == 3
+
+
+def test_headline_uses_the_pipeline_correct_fact_once_and_falls_back_to_fixed_text() -> None:
+    from immunocheck.presentation import NO_CLAIM_LABEL, VERDICT_SUMMARIES
+
+    refuted = _text(
+        FactCheckResult(
+            verdict=Verdict.REFUTED,
+            explanation="Contradiz.",
+            claim="X causa Y.",
+            correct_fact="X não causa Y.",
+        )
+    )
+    assert refuted.splitlines()[:2] == ["❌ FALSO", "X não causa Y."]
+    assert refuted.count("X não causa Y.") == 1
+
+    supported = _text(FactCheckResult(verdict=Verdict.SUPPORTED, explanation="Ok.", claim="X."))
+    assert supported.splitlines()[1] == VERDICT_SUMMARIES[Verdict.SUPPORTED]
+
+    misleading = _text(
+        FactCheckResult(
+            verdict=Verdict.MISLEADING,
+            explanation="Distorce.",
+            claim="X.",
+            omitted_or_distorted="Omite o qualificador.",
+        )
+    )
+    assert misleading.splitlines()[1] == VERDICT_SUMMARIES[Verdict.MISLEADING]
+    assert "🔎 O QUE FOI DISTORCIDO: Omite o qualificador." in misleading
+
+    no_claim = _text(FactCheckResult.insufficient("Sem alegação."))
+    assert no_claim.startswith(NO_CLAIM_LABEL)
