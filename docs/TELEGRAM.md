@@ -80,6 +80,10 @@ A resposta abre com o veredito em linguagem do dia a dia, com emoji (✅ VERDADE
 nas alegações falsas ou enganosas que o trazem, ou uma frase fixa por veredito. Abaixo vêm a
 explicação técnica, a alegação analisada e as fontes. Não há chamada extra ao modelo; os vereditos
 internos e os do artigo continuam sendo sustentada, refutada, enganosa e evidência insuficiente.
+Os blocos ficam separados por uma linha em branco. Quando o extrator não encontra uma alegação no
+escopo (cumprimento, opinião ou assunto que não é vacinação humana), o bot envia uma resposta padrão
+curta com o exemplo de como enviar, em vez do formato de veredito; abstenções por falha técnica
+continuam no formato normal.
 
 Mensagens finais são texto simples, têm previews de links desativados e são divididas quando
 excedem o limite de 4.096 caracteres do Telegram. Falhas conhecidas do corpus, do Ollama ou

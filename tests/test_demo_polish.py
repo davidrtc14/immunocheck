@@ -194,3 +194,32 @@ def test_headline_uses_the_pipeline_correct_fact_once_and_falls_back_to_fixed_te
 
     no_claim = _text(FactCheckResult.insufficient("Sem alegação."))
     assert no_claim.startswith(NO_CLAIM_LABEL)
+
+
+def test_blocks_are_separated_by_blank_lines() -> None:
+    output = _text(
+        FactCheckResult(
+            verdict=Verdict.REFUTED,
+            explanation="Contradiz.",
+            claim="X causa Y.",
+            correct_fact="X não causa Y.",
+        )
+    )
+
+    assert (
+        "X não causa Y.\n\n📖 EXPLICAÇÃO: Contradiz.\n\n📝 ALEGAÇÃO ANALISADA: X causa Y." in output
+    )
+
+
+def test_off_topic_gets_a_short_standard_reply_but_technical_failures_do_not() -> None:
+    from immunocheck.application.decomposed_pipeline import TECHNICAL_ABSTENTION
+    from immunocheck.presentation import NO_CLAIM_LABEL
+
+    off_topic = _text(FactCheckResult.insufficient("Não foi possível identificar uma alegação."))
+    assert off_topic.startswith(NO_CLAIM_LABEL)
+    assert "📖 EXPLICAÇÃO" not in off_topic
+    assert "TEMPO TOTAL" not in off_topic
+
+    technical = _text(FactCheckResult.insufficient(TECHNICAL_ABSTENTION))
+    assert technical.startswith("🔍 NÃO DÁ PARA CONFIRMAR")
+    assert NO_CLAIM_LABEL not in technical
