@@ -13,6 +13,14 @@ ALLOWED_LOCAL_KEYS = frozenset(
         "PIPELINE_VERSION",
         "RETRIEVAL_MODE",
         "LOG_LEVEL",
+        # Modo demonstração (ADR-057).
+        "LLM_BACKEND",
+        "LLM_API_KEY",
+        "LLM_API_MODEL",
+        "LLM_API_BASE_URL",
+        "LLM_API_RESPONSE_FORMAT",
+        "LLM_API_EXTRA_JSON",
+        "TELEGRAM_ALLOWED_CHAT_IDS",
     }
 )
 

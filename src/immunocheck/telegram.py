@@ -11,6 +11,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
+from immunocheck import demo_mode
 from immunocheck.application.content_normalizer import ContentExtractionError
 from immunocheck.application.input_understanding import route_message
 from immunocheck.application.text_components import ModelOutputError
@@ -69,6 +70,15 @@ PRIVACY_MESSAGE = """Privacidade:
 - conteúdo e identificadores não entram nos logs;
 - o Telegram processa e pode conservar mensagens conforme suas próprias políticas;
 - não envie dados médicos pessoais desnecessários."""
+# Modo demonstração (ADR-057): o texto vai a uma API externa de LLM, e as mensagens dizem isso.
+DEMO_PROCESSING_MESSAGE = PROCESSING_MESSAGE.replace("A análise local foi", "A análise foi")
+DEMO_START_MESSAGE = f"{START_MESSAGE}\n\n{demo_mode.DEMO_NOTICE}"
+DEMO_HELP_MESSAGE = HELP_MESSAGE.replace("Aguarde a análise local.", "Aguarde a análise.")
+DEMO_PRIVACY_MESSAGE = PRIVACY_MESSAGE.replace(
+    "- o ImmunoCheck processa a mensagem localmente e não a grava;",
+    "- nesta versão de demonstração, o texto analisado é enviado a um serviço externo de "
+    "inteligência artificial; o ImmunoCheck não o grava;",
+)
 
 
 class FactCheckRunner(Protocol):
@@ -101,6 +111,10 @@ class TelegramUpdateHandler:
     message_router: Callable[[str], ContentSubmission] = field(
         default_factory=lambda: legacy_route_message
     )
+    start_message: str = START_MESSAGE
+    help_message: str = HELP_MESSAGE
+    privacy_message: str = PRIVACY_MESSAGE
+    processing_message: str = PROCESSING_MESSAGE
 
     def __post_init__(self) -> None:
         # Fonte única dos limites: a pipeline que valida a entrada, salvo configuração explícita.
@@ -147,13 +161,13 @@ class TelegramUpdateHandler:
                 return None
             command = _command_name(normalized_text)
             if command == "/start":
-                self.client.send_message(chat_id, START_MESSAGE)
+                self.client.send_message(chat_id, self.start_message)
                 return None
             if command in {"/help", "/ajuda"}:
-                self.client.send_message(chat_id, HELP_MESSAGE)
+                self.client.send_message(chat_id, self.help_message)
                 return None
             if command == "/privacidade":
-                self.client.send_message(chat_id, PRIVACY_MESSAGE)
+                self.client.send_message(chat_id, self.privacy_message)
                 return None
             if command is not None:
                 self.client.send_message(chat_id, "Comando não reconhecido. Use /ajuda.")
@@ -174,7 +188,7 @@ class TelegramUpdateHandler:
             return None
 
         started_at = self.clock()
-        self.client.send_message(chat_id, _processing_message(queue_ahead))
+        self.client.send_message(chat_id, _processing_message(queue_ahead, self.processing_message))
         feedback_seconds = self.clock() - started_at
         return PendingAnalysis(
             chat_id=chat_id,
@@ -305,12 +319,32 @@ def main() -> int:
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     try:
         client = TelegramBotAPI(token=token, request_timeout_seconds=2.0)
-        pipeline = build_bot_multimodal_pipeline()
         access = AccessPolicy.from_environment(os.environ)
+        demo = demo_mode.is_demo_mode()
+        if demo and access.allowed_chat_ids is None and os.getenv("DEMO_ALLOW_PUBLIC") != "1":
+            raise ValueError(
+                "o modo demonstração envia mensagens a uma API externa e exige "
+                "TELEGRAM_ALLOWED_CHAT_IDS com os testadores avisados."
+            )
+        if demo:
+            demo_mode.install_api_backend()
+        pipeline = build_bot_multimodal_pipeline()
         router = route_message if resolve_extraction_version() == "v2" else legacy_route_message
     except (ValueError, CorpusLoadError) as exc:
         print(f"Configuração inválida: {exc}", file=sys.stderr)
         return 2
+    messages = (
+        {
+            "start_message": DEMO_START_MESSAGE,
+            "help_message": DEMO_HELP_MESSAGE,
+            "privacy_message": DEMO_PRIVACY_MESSAGE,
+            "processing_message": DEMO_PROCESSING_MESSAGE,
+        }
+        if demo
+        else {}
+    )
+    if demo:
+        LOGGER.info("Modo demonstração: modelo de linguagem por API externa (ADR-057).")
 
     if os.getenv("BOT_WARMUP", "1").strip() != "0":
         LOGGER.info("Aquecendo os modelos locais com uma alegação sintética.")
@@ -322,7 +356,7 @@ def main() -> int:
     poller = TelegramLongPoller(
         client=client,
         handler=TelegramUpdateHandler(
-            client=client, pipeline=pipeline, access=access, message_router=router
+            client=client, pipeline=pipeline, access=access, message_router=router, **messages
         ),
     )
     try:
@@ -332,11 +366,11 @@ def main() -> int:
     return 0
 
 
-def _processing_message(queue_ahead: int) -> str:
+def _processing_message(queue_ahead: int, base: str = PROCESSING_MESSAGE) -> str:
     if queue_ahead <= 0:
-        return PROCESSING_MESSAGE
+        return base
     plural = "análise" if queue_ahead == 1 else "análises"
-    return f"{PROCESSING_MESSAGE} Há {queue_ahead} {plural} na sua frente."
+    return f"{base} Há {queue_ahead} {plural} na sua frente."
 
 
 @contextmanager
