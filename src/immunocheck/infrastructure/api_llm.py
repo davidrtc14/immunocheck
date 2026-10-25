@@ -22,6 +22,8 @@ from immunocheck.infrastructure.ollama import OllamaError
 
 RESPONSE_FORMATS = ("json_object", "json_schema")
 RETRYABLE_STATUS = frozenset({429, 500, 502, 503, 504})
+# Provedores atrás do Cloudflare recusam o agente padrão do urllib (erro 1010).
+USER_AGENT = "ImmunoCheck-TCC/0.1 (+https://github.com/davidrtc14/immunocheck)"
 _THINK_BLOCK = re.compile(r"<think>.*?</think>", flags=re.DOTALL)
 _FENCE = re.compile(r"^```(?:json)?\s*(.*?)\s*```$", flags=re.DOTALL)
 
@@ -121,6 +123,7 @@ class OpenAICompatibleClient:
                 headers={
                     "Content-Type": "application/json",
                     "Authorization": f"Bearer {self.api_key.strip()}",
+                    "User-Agent": USER_AGENT,
                 },
                 method="POST",
             )
@@ -131,6 +134,8 @@ class OpenAICompatibleClient:
                 if exc.code in RETRYABLE_STATUS and attempt < self.max_retries:
                     self._sleep(_retry_delay(exc, attempt))
                     continue
+                if _rejected_json(exc) and attempt < self.max_retries:
+                    continue  # a Groq recusa saídas fora do schema; uma nova geração costuma passar
                 raise LLMAPIError(f"A API de LLM recusou a solicitação (HTTP {exc.code}).") from exc
             except (URLError, TimeoutError, OSError) as exc:
                 if attempt < self.max_retries:
@@ -141,6 +146,15 @@ class OpenAICompatibleClient:
                 raise LLMAPIError("A resposta da API de LLM excedeu o limite permitido.")
             return raw
         raise LLMAPIError("A API de LLM não respondeu à solicitação.")
+
+
+def _rejected_json(error: HTTPError) -> bool:
+    if error.code != 400:
+        return False
+    try:
+        return b"json_validate_failed" in error.read(4_096)
+    except (OSError, ValueError):
+        return False
 
 
 def _retry_delay(error: HTTPError | None, attempt: int) -> float:

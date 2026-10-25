@@ -42,11 +42,11 @@ def _completion(content: str, finish_reason: str = "stop") -> dict:
     return {"choices": [{"finish_reason": finish_reason, "message": {"content": content}}]}
 
 
-def _http_error(code: int, retry_after: str | None = None) -> HTTPError:
+def _http_error(code: int, retry_after: str | None = None, body: bytes = b"") -> HTTPError:
     headers = Message()
     if retry_after is not None:
         headers["Retry-After"] = retry_after
-    return HTTPError("https://api.example.com", code, "erro", headers, None)
+    return HTTPError("https://api.example.com", code, "erro", headers, io.BytesIO(body))
 
 
 def _client(opener, **kwargs) -> OpenAICompatibleClient:
@@ -78,6 +78,7 @@ def test_sends_openai_compatible_request_and_parses_json() -> None:
     body = json.loads(request.data)
     assert request.full_url == "https://api.example.com/openai/v1/chat/completions"
     assert request.get_header("Authorization") == "Bearer chave-de-teste"
+    assert request.get_header("User-agent").startswith("ImmunoCheck-TCC/")
     assert body["model"] == "modelo-teste"
     assert body["response_format"] == {"type": "json_object"}
     assert body["max_tokens"] == 50
@@ -191,3 +192,11 @@ def test_demo_bot_refuses_to_start_without_an_allowlist(monkeypatch, capsys) -> 
 
     assert telegram.main() == 2
     assert "TELEGRAM_ALLOWED_CHAT_IDS" in capsys.readouterr().err
+
+
+def test_retries_when_the_provider_rejects_the_generated_json() -> None:
+    rejected = _http_error(400, body=b'{"error": {"code": "json_validate_failed"}}')
+    opener = FakeOpener([rejected, _completion('{"ok": true}')])
+
+    assert _chat(_client(opener)) == {"ok": True}
+    assert len(opener.requests) == 2

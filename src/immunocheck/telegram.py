@@ -71,7 +71,10 @@ PRIVACY_MESSAGE = """Privacidade:
 - o Telegram processa e pode conservar mensagens conforme suas próprias políticas;
 - não envie dados médicos pessoais desnecessários."""
 # Modo demonstração (ADR-057): o texto vai a uma API externa de LLM, e as mensagens dizem isso.
-DEMO_PROCESSING_MESSAGE = PROCESSING_MESSAGE.replace("A análise local foi", "A análise foi")
+DEMO_PROCESSING_MESSAGE = (
+    "Recebi o conteúdo. A análise foi iniciada e, nesta versão de demonstração, pode levar de 1 a 3 "
+    "minutos por causa do limite do serviço externo."
+)
 DEMO_START_MESSAGE = f"{START_MESSAGE}\n\n{demo_mode.DEMO_NOTICE}"
 DEMO_HELP_MESSAGE = HELP_MESSAGE.replace("Aguarde a análise local.", "Aguarde a análise.")
 DEMO_PRIVACY_MESSAGE = PRIVACY_MESSAGE.replace(

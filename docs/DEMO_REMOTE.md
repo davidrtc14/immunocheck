@@ -17,12 +17,14 @@ avisados), avisa no `/start` e em `/privacidade`, e deve ser usado só com alega
 
    | Provedor | `LLM_API_BASE_URL` | `LLM_API_MODEL` (exemplo) | Observação |
    |---|---|---|---|
-   | Groq | `https://api.groq.com/openai/v1` | `qwen/qwen3-32b` | Mesma família do modelo local; use `LLM_API_EXTRA_JSON={"reasoning_effort": "none"}`. Se o modelo não aceitar `json_schema`, troque para `json_object`. |
+   | Groq | `https://api.groq.com/openai/v1` | `qwen/qwen3.8-27b` | Mesma família do modelo local, responde em português e aceita `json_schema`; use `LLM_API_EXTRA_JSON={"reasoning_effort": "none"}`. Os modelos `openai/gpt-oss` responderam em inglês e falharam na validação do JSON. |
    | Google Gemini | `https://generativelanguage.googleapis.com/v1beta/openai` | `gemini-2.5-flash` | Aceita `json_schema`; o plano gratuito tem limite por minuto. |
 
-   Os limites dos planos gratuitos mudam; confira na página do provedor. Cada alegação faz de 4 a 10
-   chamadas ao modelo, e um limite baixo de tokens por minuto deixa as respostas lentas (o cliente
-   espera e tenta de novo quando recebe HTTP 429).
+   Os limites dos planos gratuitos mudam; confira na página do provedor. Em 25/10/2026, o plano
+   gratuito da Groq limitava cada modelo a 8.000 tokens por minuto. Como cada alegação faz de 4 a 10
+   chamadas com milhares de tokens, a resposta leva de 1 a 3 minutos (o cliente espera e tenta de novo
+   quando recebe HTTP 429), e o bot avisa isso ao confirmar o recebimento. O plano pago por uso da
+   Groq remove essa espera.
 3. **Testadores:** cada testador descobre o próprio ID mandando uma mensagem ao @userinfobot. Os IDs
    vão em `TELEGRAM_ALLOWED_CHAT_IDS`, separados por vírgula.
 
@@ -61,7 +63,7 @@ TELEGRAM_ALLOWED_CHAT_IDS=<id1>,<id2>
 LLM_BACKEND=api
 LLM_API_KEY=<chave do provedor>
 LLM_API_BASE_URL=https://api.groq.com/openai/v1
-LLM_API_MODEL=qwen/qwen3-32b
+LLM_API_MODEL=qwen/qwen3.8-27b
 LLM_API_RESPONSE_FORMAT=json_schema
 LLM_API_EXTRA_JSON={"reasoning_effort": "none"}
 PIPELINE_VERSION=v7
@@ -92,10 +94,13 @@ qualquer lugar, com o computador do autor desligado:
 cd ~/immunocheck && git pull && .venv/bin/pip install -e . && sudo systemctl restart immunocheck-demo
 ```
 
-Em 25/10/2026, a v7 rodou de ponta a ponta pelo adaptador de API (com o endpoint compatível com OpenAI
-do Ollama local no lugar do provedor externo, modo `json_schema`): tríplice viral e autismo refutada em
-12 s, HPV no SUS sustentada em 23 s e relato individual sem conclusão em 2,5 s. Com `json_object`, o
-roteador devolveu uma rota fora do schema, por isso `json_schema` é o padrão.
+Em 25/10/2026, a v7 rodou de ponta a ponta pelo adaptador de API, primeiro com o endpoint compatível
+com OpenAI do Ollama local e depois com a Groq (`qwen/qwen3.8-27b`, `json_schema`). Os vereditos foram
+os mesmos do bot local: tríplice viral e autismo refutada (57 s na Groq), HPV no SUS sustentada (172 s,
+porque passa pelas duas etapas da v7) e relato individual sem conclusão (8 s). Com `json_object`, o
+roteador devolveu uma rota fora do schema, por isso `json_schema` é o padrão. A Groq fica atrás do
+Cloudflare, que recusa o agente padrão do Python (erro 1010); o cliente se identifica como
+`ImmunoCheck-TCC`.
 
 ## Limitações
 
