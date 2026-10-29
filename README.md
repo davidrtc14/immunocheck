@@ -100,8 +100,14 @@ o long polling:
 ```powershell
 Copy-Item .env.example .env  # somente se o .env local ainda não existir
 # Preencha TELEGRAM_BOT_TOKEN no .env local, sem aspas ou com aspas simples/duplas.
-python scripts/run_telegram_local.py
+.venv\Scripts\python.exe scripts\run_telegram_local.py
 ```
+
+O bot está pronto quando o terminal mostra `Bot iniciado por long polling`, depois de cerca de
+30 s de aquecimento dos modelos; para desligar, use Ctrl+C. Mantenha **uma única instância**
+rodando: dois processos com o mesmo token disputam as mensagens e geram avisos de "Telegram
+temporariamente indisponível". Para que o Ollama não descarregue o modelo entre mensagens
+espaçadas, grave `OLLAMA_KEEP_ALIVE=-1` uma vez (`setx OLLAMA_KEEP_ALIVE -1`) e reinicie o Ollama.
 
 Consulte `docs/TELEGRAM.md` antes do teste operacional. O conteúdo é processado
 localmente pelo ImmunoCheck, mas a mensagem também é tratada pelo Telegram para ser
