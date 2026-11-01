@@ -1,6 +1,8 @@
-# Questionário de avaliação por testadores (rascunho para aprovação)
+# Questionário de avaliação por testadores
 
-**Estado: não aplicar.** Pela seção "Pesquisa com participantes" de `docs/PRIVACY_AND_ETHICS.md`,
+**Estado: aplicado de 22/10 a 30/10/2026, com 8 respostas; agregados em
+`evaluation/usability/RESULTS.md`. O enquadramento ético descrito a seguir ainda precisa ser
+confirmado com o orientador.** Texto original do protocolo: pela seção "Pesquisa com participantes" de `docs/PRIVACY_AND_ETHICS.md`,
 qualquer teste com pessoas depende de apresentação do protocolo ao orientador e de consulta à
 instância ética da UNIPÊ. Este documento existe para essa consulta. Um questionário anônimo de
 opinião pode se enquadrar no parágrafo único do art. 1º da Resolução CNS nº 510/2016 (pesquisa de
