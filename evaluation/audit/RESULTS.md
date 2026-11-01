@@ -25,6 +25,22 @@ O avaliador A foi mais rigoroso: marcou "Não" em 8 itens em cada pergunta, cont
 Quase todas as discordâncias são entre categorias vizinhas (Sim × Parcial ou Parcial × Não); só 1
 item teve Sim × Não na explicação, e 3 nas fontes.
 
+### Análise complementar (posterior ao protocolo)
+
+O kappa é deprimido quando uma categoria domina as respostas (paradoxo do kappa; Feinstein e
+Cicchetti, 1990), o que acontece aqui: a maioria dos itens foi julgada aceitável pelos dois. Por
+isso, depois de ver os resultados, foram calculados o AC1 de Gwet (2008), menos sensível a esse
+efeito, e a concordância agrupando Sim e Parcial como "aceitável". Essas medidas não substituem o
+kappa registrado no protocolo.
+
+| Pergunta | AC1 (3 categorias) | Aceitável × Não: concordância | Kappa | AC1 |
+|---|---|---|---|---|
+| Explicação correta | 0,477 | 88,9% | 0,497 | 0,859 |
+| Fontes sustentam | 0,397 | 80,0% | 0,094 | 0,745 |
+
+Nas fontes, 80% de concordância convivem com kappa de 0,09, o caso típico do paradoxo. A maior parte
+da discordância está na fronteira entre "Parcial" e "Não", e não na direção do julgamento.
+
 ## O que os avaliadores encontraram
 
 - **Explicação aceitável (Sim ou Parcial):** 37 de 45 para o avaliador A e 42 de 45 para o B.

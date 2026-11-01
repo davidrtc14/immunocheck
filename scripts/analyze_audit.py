@@ -38,7 +38,10 @@ def _rows(evaluator: str) -> list[dict[str, str]]:
         values = list(load_workbook(path, read_only=True)["Avaliação"].iter_rows(values_only=True))
         header = [str(name) for name in values[0]]
         return [
-            {name: "" if cell is None else str(cell) for name, cell in zip(header, row, strict=True)}
+            {
+                name: "" if cell is None else str(cell)
+                for name, cell in zip(header, row, strict=True)
+            }
             for row in values[1:]
             if row[0]
         ]
@@ -54,14 +57,42 @@ def read(evaluator: str) -> dict[str, dict[str, str]]:
     }
 
 
-def cohen_kappa(first: list[str], second: list[str]) -> float | None:
+def cohen_kappa(
+    first: list[str], second: list[str], categories: tuple[str, ...] = CATEGORIES
+) -> float | None:
     n = len(first)
     observed = sum(a == b for a, b in zip(first, second, strict=True)) / n
     count_a, count_b = Counter(first), Counter(second)
-    expected = sum(count_a[c] * count_b[c] for c in CATEGORIES) / (n * n)
+    expected = sum(count_a[c] * count_b[c] for c in categories) / (n * n)
     if expected == 1:
         return None  # sem variação: o kappa não é definido
     return (observed - expected) / (1 - expected)
+
+
+def gwet_ac1(first: list[str], second: list[str], categories: tuple[str, ...]) -> float:
+    """AC1 de Gwet (2008), menos sensível que o kappa a categorias dominantes (análise complementar)."""
+    n = len(first)
+    observed = sum(a == b for a, b in zip(first, second, strict=True)) / n
+    counts = Counter(first) + Counter(second)
+    expected = sum(counts[c] / (2 * n) * (1 - counts[c] / (2 * n)) for c in categories) / (
+        len(categories) - 1
+    )
+    return (observed - expected) / (1 - expected)
+
+
+def complementary(first: list[str], second: list[str]) -> dict[str, object]:
+    """Análise registrada depois do protocolo, por causa do paradoxo do kappa."""
+    acceptable = ("aceitavel", "nao")
+    a = ["aceitavel" if x != "nao" else "nao" for x in first]
+    b = ["aceitavel" if x != "nao" else "nao" for x in second]
+    return {
+        "gwet_ac1": round(gwet_ac1(first, second, CATEGORIES), 3),
+        "acceptable_vs_wrong": {
+            "observed_agreement": round(sum(x == y for x, y in zip(a, b, strict=True)) / len(a), 3),
+            "cohen_kappa": round(cohen_kappa(a, b, acceptable) or 0.0, 3),
+            "gwet_ac1": round(gwet_ac1(a, b, acceptable), 3),
+        },
+    }
 
 
 def main() -> None:
@@ -85,6 +116,7 @@ def main() -> None:
             ),
             "cohen_kappa": None if kappa is None else round(kappa, 3),
             "disagreements": [i for i, x, y in zip(ids, a, b, strict=True) if x != y],
+            "complementary_post_protocol": complementary(a, b),
         }
     text = json.dumps(report, ensure_ascii=False, indent=2)
     print(text)

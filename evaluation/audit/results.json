@@ -31,7 +31,15 @@
       "A41",
       "A43",
       "A45"
-    ]
+    ],
+    "complementary_post_protocol": {
+      "gwet_ac1": 0.477,
+      "acceptable_vs_wrong": {
+        "observed_agreement": 0.889,
+        "cohen_kappa": 0.497,
+        "gwet_ac1": 0.859
+      }
+    }
   },
   "fontes_sustentam": {
     "A": {
@@ -66,6 +74,14 @@
       "A38",
       "A43",
       "A45"
-    ]
+    ],
+    "complementary_post_protocol": {
+      "gwet_ac1": 0.397,
+      "acceptable_vs_wrong": {
+        "observed_agreement": 0.8,
+        "cohen_kappa": 0.094,
+        "gwet_ac1": 0.745
+      }
+    }
   }
 }
