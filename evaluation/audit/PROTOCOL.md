@@ -41,5 +41,7 @@ consenso, registrado à parte, sem alterar as avaliações independentes usadas 
 
 - `scripts/build_audit_sample.py`: sorteio, geração das respostas e planilha (`output/audit/`, fora
   do Git, porque contém trechos do corpus e alegações das agências).
-- `output/audit/avaliador_A.csv` e `avaliador_B.csv`: preenchidas por cada avaliador.
+- `scripts/export_audit_xlsx.py`: as mesmas planilhas em Excel (`avaliador_A.xlsx` e
+  `avaliador_B.xlsx`), com listas suspensas Sim/Parcial/Não; são as versões preenchidas por cada
+  avaliador.
 - `evaluation/audit/results.json`: só agregados, versionado.

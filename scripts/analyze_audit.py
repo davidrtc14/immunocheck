@@ -1,6 +1,6 @@
 """Analisa a auditoria humana da v7: proporções por avaliador, concordância e kappa de Cohen.
 
-Lê `output/audit/avaliador_A.csv` e `avaliador_B.csv`, preenchidas de forma independente
+Lê `output/audit/avaliador_A.xlsx` e `avaliador_B.xlsx` (ou as versões .csv), preenchidas de forma independente
 (evaluation/audit/PROTOCOL.md), e grava só agregados em `evaluation/audit/results.json`.
 """
 
@@ -30,10 +30,24 @@ def normalize(value: str) -> str:
     return text
 
 
+def _rows(evaluator: str) -> list[dict[str, str]]:
+    path = OUTPUT / f"avaliador_{evaluator}.xlsx"
+    if path.exists():
+        from openpyxl import load_workbook
+
+        values = list(load_workbook(path, read_only=True)["Avaliação"].iter_rows(values_only=True))
+        header = [str(name) for name in values[0]]
+        return [
+            {name: "" if cell is None else str(cell) for name, cell in zip(header, row, strict=True)}
+            for row in values[1:]
+            if row[0]
+        ]
+    with (OUTPUT / f"avaliador_{evaluator}.csv").open(encoding="utf-8-sig", newline="") as handle:
+        return list(csv.DictReader(handle, delimiter=";"))
+
+
 def read(evaluator: str) -> dict[str, dict[str, str]]:
-    path = OUTPUT / f"avaliador_{evaluator}.csv"
-    with path.open(encoding="utf-8-sig", newline="") as handle:
-        rows = list(csv.DictReader(handle, delimiter=";"))
+    rows = _rows(evaluator)
     return {
         row["ID"]: {key: normalize(row[column]) for key, column in QUESTIONS.items()}
         for row in rows

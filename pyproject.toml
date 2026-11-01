@@ -28,6 +28,7 @@ immunocheck-telegram = "immunocheck.telegram:main"
 
 [project.optional-dependencies]
 dev = [
+  "openpyxl>=3.1,<4",
   "pytest>=8",
   "ruff>=0.9",
 ]
