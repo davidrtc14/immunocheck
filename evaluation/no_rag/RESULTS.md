@@ -41,7 +41,7 @@ Execução única em 01/11/2026, conforme `PROTOCOL.md`: teste do C7 (207 itens)
   "enganosa" de "refutada", abster-se quando o corpus não decide e evitar erros graves. Ali o
   ganho é grande e o intervalo de confiança exclui zero.
 - No teste externo 2, quase todo de mitos conhecidos, o conhecimento do próprio modelo basta para
-  refutar e cobre muito mais alegações. A v7 se abstém em 65% dos casos porque o corpus de 44
+  refutar e cobre muito mais alegações. A v7 se abstém em 65% dos casos porque o corpus de 80
   documentos não cobre a maioria delas; isso é uma limitação de cobertura do corpus, não do método.
 - Só a v7 exibe fontes rastreáveis. A condição sem RAG dá vereditos sem nenhuma evidência
   verificável pelo usuário, o que é incompatível com o objetivo do trabalho mesmo quando acerta.
