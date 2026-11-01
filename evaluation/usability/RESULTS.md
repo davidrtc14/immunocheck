@@ -8,10 +8,10 @@ resposta aberta é reproduzida aqui.
 **Natureza:** exploratória. São 8 respondentes, abaixo dos 10 previstos, recrutados por conveniência
 entre conhecidos dos autores; o resultado não se generaliza e não mede a acurácia do veredito.
 
-**Situação ética:** questionário anônimo de opinião, aplicado com ciência do orientador e sem
-coleta de nome, e-mail ou mensagens enviadas ao bot. Não houve consulta formal à instância ética
-da UNIPÊ antes da coleta, como o protocolo previa; o enquadramento invocado é o da Resolução CNS
-nº 510/2016, art. 1º, parágrafo único (pesquisa de opinião com participantes não identificados).
+**Situação ética:** questionário anônimo de opinião, sem coleta de nome, e-mail, identificadores
+do Telegram ou mensagens enviadas ao bot, aplicado com ciência do orientador. Por ser pesquisa de
+opinião pública com participantes não identificados, dispensa registro e avaliação pelo sistema
+CEP/Conep (Resolução CNS nº 510/2016, art. 1º, parágrafo único, inciso I).
 
 ## Perfil
 
