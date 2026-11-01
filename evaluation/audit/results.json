@@ -1,0 +1,71 @@
+{
+  "n": 45,
+  "explicacao_correta": {
+    "A": {
+      "sim": 26,
+      "parcial": 11,
+      "nao": 8
+    },
+    "B": {
+      "sim": 27,
+      "parcial": 15,
+      "nao": 3
+    },
+    "observed_agreement": 0.622,
+    "cohen_kappa": 0.325,
+    "disagreements": [
+      "A02",
+      "A06",
+      "A11",
+      "A14",
+      "A21",
+      "A22",
+      "A28",
+      "A30",
+      "A31",
+      "A33",
+      "A34",
+      "A35",
+      "A36",
+      "A38",
+      "A41",
+      "A43",
+      "A45"
+    ]
+  },
+  "fontes_sustentam": {
+    "A": {
+      "sim": 17,
+      "parcial": 20,
+      "nao": 8
+    },
+    "B": {
+      "sim": 22,
+      "parcial": 20,
+      "nao": 3
+    },
+    "observed_agreement": 0.578,
+    "cohen_kappa": 0.303,
+    "disagreements": [
+      "A01",
+      "A04",
+      "A05",
+      "A06",
+      "A11",
+      "A12",
+      "A14",
+      "A19",
+      "A20",
+      "A21",
+      "A22",
+      "A26",
+      "A28",
+      "A29",
+      "A35",
+      "A37",
+      "A38",
+      "A43",
+      "A45"
+    ]
+  }
+}
