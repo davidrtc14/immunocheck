@@ -1,0 +1,332 @@
+{
+  "c7": {
+    "v3": {
+      "n": 207,
+      "macro_f1": 0.677,
+      "recall": {
+        "SUPPORTED": 0.765,
+        "REFUTED": 0.804,
+        "MISLEADING": 0.654,
+        "INSUFFICIENT_EVIDENCE": 0.517
+      },
+      "grave_error": 0.1154,
+      "failure_rate": 0.0097,
+      "p95_s": 18.3,
+      "conclusions": {
+        "n_conclusive": 164,
+        "exact_accuracy": 0.6707,
+        "by_expected_label": {
+          "SUPPORTED": {
+            "n_conclusive": 47,
+            "exact_accuracy": 0.8298
+          },
+          "REFUTED": {
+            "n_conclusive": 43,
+            "exact_accuracy": 0.8605
+          },
+          "MISLEADING": {
+            "n_conclusive": 46,
+            "exact_accuracy": 0.7391
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "n_conclusive": 28,
+            "exact_accuracy": 0.0
+          }
+        },
+        "confusion": {
+          "SUPPORTED->SUPPORTED": 39,
+          "REFUTED->REFUTED": 37,
+          "MISLEADING->MISLEADING": 34,
+          "INSUFFICIENT_EVIDENCE->INSUFFICIENT_EVIDENCE": 30,
+          "INSUFFICIENT_EVIDENCE->SUPPORTED": 13,
+          "INSUFFICIENT_EVIDENCE->REFUTED": 13,
+          "MISLEADING->REFUTED": 10,
+          "SUPPORTED->REFUTED": 6,
+          "MISLEADING->INSUFFICIENT_EVIDENCE": 6,
+          "SUPPORTED->INSUFFICIENT_EVIDENCE": 4,
+          "REFUTED->MISLEADING": 3,
+          "REFUTED->SUPPORTED": 3,
+          "REFUTED->INSUFFICIENT_EVIDENCE": 3,
+          "SUPPORTED->MISLEADING": 2,
+          "MISLEADING->SUPPORTED": 2,
+          "INSUFFICIENT_EVIDENCE->MISLEADING": 2
+        }
+      }
+    },
+    "C6": {
+      "n": 207,
+      "macro_f1": 0.7203,
+      "recall": {
+        "SUPPORTED": 0.627,
+        "REFUTED": 0.826,
+        "MISLEADING": 0.673,
+        "INSUFFICIENT_EVIDENCE": 0.741
+      },
+      "grave_error": 0.0064,
+      "failure_rate": 0.0097,
+      "p95_s": 26.5,
+      "conclusions": {
+        "n_conclusive": 146,
+        "exact_accuracy": 0.7192,
+        "by_expected_label": {
+          "SUPPORTED": {
+            "n_conclusive": 44,
+            "exact_accuracy": 0.7273
+          },
+          "REFUTED": {
+            "n_conclusive": 41,
+            "exact_accuracy": 0.9268
+          },
+          "MISLEADING": {
+            "n_conclusive": 46,
+            "exact_accuracy": 0.7609
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "n_conclusive": 15,
+            "exact_accuracy": 0.0
+          }
+        },
+        "confusion": {
+          "INSUFFICIENT_EVIDENCE->INSUFFICIENT_EVIDENCE": 43,
+          "REFUTED->REFUTED": 38,
+          "MISLEADING->MISLEADING": 35,
+          "SUPPORTED->SUPPORTED": 32,
+          "INSUFFICIENT_EVIDENCE->REFUTED": 14,
+          "SUPPORTED->REFUTED": 10,
+          "MISLEADING->REFUTED": 10,
+          "SUPPORTED->INSUFFICIENT_EVIDENCE": 7,
+          "MISLEADING->INSUFFICIENT_EVIDENCE": 6,
+          "REFUTED->INSUFFICIENT_EVIDENCE": 5,
+          "REFUTED->MISLEADING": 3,
+          "SUPPORTED->MISLEADING": 2,
+          "MISLEADING->SUPPORTED": 1,
+          "INSUFFICIENT_EVIDENCE->MISLEADING": 1
+        }
+      }
+    },
+    "no_rag": {
+      "n": 207,
+      "macro_f1": 0.4773,
+      "recall": {
+        "SUPPORTED": 0.667,
+        "REFUTED": 0.957,
+        "MISLEADING": 0.192,
+        "INSUFFICIENT_EVIDENCE": 0.259
+      },
+      "grave_error": 0.0705,
+      "failure_rate": 0.0,
+      "p95_s": 3.6,
+      "conclusions": {
+        "n_conclusive": 192,
+        "exact_accuracy": 0.4583,
+        "by_expected_label": {
+          "SUPPORTED": {
+            "n_conclusive": 51,
+            "exact_accuracy": 0.6667
+          },
+          "REFUTED": {
+            "n_conclusive": 46,
+            "exact_accuracy": 0.9565
+          },
+          "MISLEADING": {
+            "n_conclusive": 52,
+            "exact_accuracy": 0.1923
+          },
+          "INSUFFICIENT_EVIDENCE": {
+            "n_conclusive": 43,
+            "exact_accuracy": 0.0
+          }
+        },
+        "confusion": {
+          "REFUTED->REFUTED": 44,
+          "MISLEADING->REFUTED": 41,
+          "SUPPORTED->SUPPORTED": 34,
+          "INSUFFICIENT_EVIDENCE->REFUTED": 28,
+          "SUPPORTED->REFUTED": 17,
+          "INSUFFICIENT_EVIDENCE->INSUFFICIENT_EVIDENCE": 15,
+          "MISLEADING->MISLEADING": 10,
+          "INSUFFICIENT_EVIDENCE->SUPPORTED": 8,
+          "INSUFFICIENT_EVIDENCE->MISLEADING": 7,
+          "REFUTED->SUPPORTED": 2,
+          "MISLEADING->SUPPORTED": 1
+        }
+      }
+    },
+    "trivial_INSUFFICIENT_EVIDENCE": {
+      "n": 207,
+      "macro_f1": 0.1094,
+      "recall": {
+        "SUPPORTED": 0.0,
+        "REFUTED": 0.0,
+        "MISLEADING": 0.0,
+        "INSUFFICIENT_EVIDENCE": 1.0
+      },
+      "grave_error": 0.0,
+      "failure_rate": 0.0,
+      "p95_s": 0.0
+    },
+    "C6_minus_no_rag": {
+      "macro_f1": {
+        "delta": 0.24305062407037598,
+        "ci_low": 0.175865145224534,
+        "ci_high": 0.31065005273641616
+      },
+      "grave_error": {
+        "delta": -0.0641025641025641,
+        "ci_low": -0.1111111111111111,
+        "ci_high": -0.023474178403755867
+      }
+    }
+  },
+  "external2": {
+    "v3": {
+      "n": 304,
+      "conclusive_precision": 0.9396551724137931,
+      "severe_error_rate": 0.0231023102310231,
+      "coverage": 0.3815789473684211,
+      "failure_rate": 0.003289473684210526,
+      "conclusions": {
+        "n_conclusive": 116,
+        "exact_accuracy": 0.819,
+        "by_expected_label": {
+          "REFUTED": {
+            "n_conclusive": 104,
+            "exact_accuracy": 0.8846
+          },
+          "MISLEADING": {
+            "n_conclusive": 12,
+            "exact_accuracy": 0.25
+          }
+        },
+        "confusion": {
+          "REFUTED->INSUFFICIENT_EVIDENCE": 179,
+          "REFUTED->REFUTED": 92,
+          "MISLEADING->REFUTED": 9,
+          "MISLEADING->INSUFFICIENT_EVIDENCE": 8,
+          "REFUTED->SUPPORTED": 7,
+          "REFUTED->MISLEADING": 5,
+          "MISLEADING->MISLEADING": 3,
+          "SUPPORTED->INSUFFICIENT_EVIDENCE": 1
+        }
+      }
+    },
+    "C6": {
+      "n": 304,
+      "conclusive_precision": 0.9906542056074766,
+      "severe_error_rate": 0.0033003300330033004,
+      "coverage": 0.3519736842105263,
+      "failure_rate": 0.003289473684210526,
+      "conclusions": {
+        "n_conclusive": 107,
+        "exact_accuracy": 0.8598,
+        "by_expected_label": {
+          "REFUTED": {
+            "n_conclusive": 96,
+            "exact_accuracy": 0.9271
+          },
+          "MISLEADING": {
+            "n_conclusive": 11,
+            "exact_accuracy": 0.2727
+          }
+        },
+        "confusion": {
+          "REFUTED->INSUFFICIENT_EVIDENCE": 187,
+          "REFUTED->REFUTED": 89,
+          "MISLEADING->INSUFFICIENT_EVIDENCE": 9,
+          "MISLEADING->REFUTED": 8,
+          "REFUTED->MISLEADING": 6,
+          "MISLEADING->MISLEADING": 3,
+          "REFUTED->SUPPORTED": 1,
+          "SUPPORTED->INSUFFICIENT_EVIDENCE": 1
+        }
+      }
+    },
+    "no_rag": {
+      "n": 304,
+      "conclusive_precision": 0.9833333333333333,
+      "severe_error_rate": 0.013201320132013201,
+      "coverage": 0.9868421052631579,
+      "failure_rate": 0.0,
+      "conclusions": {
+        "n_conclusive": 300,
+        "exact_accuracy": 0.9067,
+        "by_expected_label": {
+          "SUPPORTED": {
+            "n_conclusive": 1,
+            "exact_accuracy": 0.0
+          },
+          "REFUTED": {
+            "n_conclusive": 279,
+            "exact_accuracy": 0.9749
+          },
+          "MISLEADING": {
+            "n_conclusive": 20,
+            "exact_accuracy": 0.0
+          }
+        },
+        "confusion": {
+          "REFUTED->REFUTED": 272,
+          "MISLEADING->REFUTED": 19,
+          "REFUTED->MISLEADING": 4,
+          "REFUTED->INSUFFICIENT_EVIDENCE": 4,
+          "REFUTED->SUPPORTED": 3,
+          "MISLEADING->SUPPORTED": 1,
+          "SUPPORTED->REFUTED": 1
+        }
+      }
+    },
+    "trivial_REFUTED": {
+      "n": 304,
+      "conclusive_precision": 0.9967105263157895,
+      "severe_error_rate": 0.0,
+      "coverage": 1.0,
+      "failure_rate": 0.0,
+      "conclusions": {
+        "n_conclusive": 304,
+        "exact_accuracy": 0.9309,
+        "by_expected_label": {
+          "SUPPORTED": {
+            "n_conclusive": 1,
+            "exact_accuracy": 0.0
+          },
+          "REFUTED": {
+            "n_conclusive": 283,
+            "exact_accuracy": 1.0
+          },
+          "MISLEADING": {
+            "n_conclusive": 20,
+            "exact_accuracy": 0.0
+          }
+        },
+        "confusion": {
+          "REFUTED->REFUTED": 283,
+          "MISLEADING->REFUTED": 20,
+          "SUPPORTED->REFUTED": 1
+        }
+      }
+    },
+    "C6_minus_no_rag": {
+      "conclusive_precision": {
+        "delta": 0.0073,
+        "ci95": [
+          -0.0183,
+          0.0298
+        ]
+      },
+      "severe_error_rate": {
+        "delta": -0.0099,
+        "ci95": [
+          -0.0263,
+          0.0033
+        ]
+      },
+      "coverage": {
+        "delta": -0.6349,
+        "ci95": [
+          -0.6908,
+          -0.5757
+        ]
+      }
+    }
+  }
+}
