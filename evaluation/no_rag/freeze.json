@@ -1,0 +1,20 @@
+{
+  "frozen_at": "2026-11-01",
+  "condition": "no_rag",
+  "datasets": [
+    "c7",
+    "external2"
+  ],
+  "sha256": {
+    "scripts/run_no_rag_baseline.py": "43bd87f2345b00ebfb248ba234729d11c657507aa678cb802291ee20f1ec7340",
+    "scripts/analyze_no_rag.py": "8b309f39d3e8c28e3fa92cdb2ed446a56408e0ebe18689cbb2a9ca9a75ee59a0",
+    "src/immunocheck/application/closed_book.py": "5433014037f7c25d43108f0d867d2bf063c91f2bfdf47cb751f97120df7fd1f1",
+    "src/immunocheck/bootstrap.py": "063dec456c80aede1614c486f712377e07a55ae2b2dc7e094302d127f094623a",
+    "src/immunocheck/infrastructure/ollama.py": "621d7b2db0f17f0dec859be6cff92c29ab564f2509c5455b40d00c62c6de8a56",
+    "src/immunocheck/infrastructure/context_budget.py": "10f8da727ce154d356e92427ee866195cd0b2b97e525f8e3b55e53140a92b4d8",
+    "evaluation/no_rag/PROTOCOL.md": "ea3a132e49da529d3ffd9e0a25cc3a5ed32ad8a643de26c4a6d09089db565c6a"
+  },
+  "ollama_models": [
+    "qwen3:8b 500a1f067a9f"
+  ]
+}
